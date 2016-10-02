@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <router-link to="/about">About</router-link>
-    <h1>{{ msg }}</h1>
-    <router-view></router-view>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><router-link to="/about">About</router-link></li>
+        </ul>
+      </div>    
+    </nav>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -17,7 +24,5 @@ export default {
 </script>
 
 <style>
-body {
-  font-family: Helvetica, sans-serif;
-}
 </style>
+g
