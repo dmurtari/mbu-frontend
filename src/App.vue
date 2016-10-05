@@ -7,10 +7,10 @@
         </div>
         <ul class="nav navbar-nav">
           <li><router-link to="/about">About</router-link></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><router-link to="/about">About</router-link></li>
         </ul>        
+        <ul class="nav navbar-nav navbar-right">
+          <li><router-link to="/signup">Sign up</router-link></li>
+        </ul>
       </div>
     </nav>
     <div class="container">
@@ -23,6 +23,7 @@
         </p>
       </div>
     </footer>
+  </div>
 </template>
 
 <script>

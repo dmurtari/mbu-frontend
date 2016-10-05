@@ -9,27 +9,27 @@ export default {
     authenticated: false
   },
   login(context, creds, redirect) {
-    context.$http.post(LOGIN_URL, creds, (data) => {
+    context.$http.post(LOGIN_URL, creds).then((data) => {
       localStorage.setItem('token', data.token);
       this.user.authenticated = true;
 
       if(redirect) {
         router.go(redirect);
       }
-    }).error((err) => {
-      context.error = err;
+    }, (err) => {
+      context.error = err.message;
     });
   },
   signup(context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds, (data) => {
+    context.$http.post(SIGNUP_URL, creds).then((data) => {
       localStorage.setItem('token', data.token);
       this.user.authenticated = true;
 
       if(redirect) {
         router.go(redirect);
       }
-    }).error((err) => {
-      context.error = err;
+    }, (err) => {
+      context.error = err.body.message;
     });
   },
   logout() {
