@@ -5,9 +5,12 @@
         <div class="navbar-header">
           <router-link to="/" class="navbar-brand">MBU Online</router-link>
         </div>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
           <li><router-link to="/about">About</router-link></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><router-link to="/about">About</router-link></li>
+        </ul>        
       </div>
     </nav>
     <div class="container">

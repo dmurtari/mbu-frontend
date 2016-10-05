@@ -1,9 +1,11 @@
 import Vue from 'vue';
+import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 
 import App from './App.vue';
-import About from './About.vue';
+import About from './components/About.vue';
 
+Vue.use(VueResource);
 Vue.use(VueRouter);
 
 const routes = [
@@ -13,7 +15,7 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes: routes,
   base: __dirname
 });
@@ -24,4 +26,3 @@ new Vue(
     App
   )
 ).$mount('#app');
-
