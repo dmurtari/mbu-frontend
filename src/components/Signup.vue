@@ -38,33 +38,33 @@
 </template>
 
 <script>
-import auth from '../auth';
+ import auth from '../auth';
 
-export default {
-  data() {
-    return {
-      credentials: {
-        email: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        role: ''
-      },
-      error: ''
-    }
-  },
-  methods: {
-    submit() {
-      var credentials = {
-        email: this.credentials.email,
-        password: this.credentials.password,
-        firstname: this.credentials.firstname,
-        lastname: this.credentials.lastname,
-        role: this.credentials.role
-      }
+ export default {
+   data() {
+     return {
+       credentials: {
+         email: '',
+         password: '',
+         firstname: '',
+         lastname: '',
+         role: ''
+       },
+       error: ''
+     }
+   },
+   methods: {
+     submit() {
+       var credentials = {
+         email: this.credentials.email,
+         password: this.credentials.password,
+         firstname: this.credentials.firstname,
+         lastname: this.credentials.lastname,
+         role: this.credentials.role
+       }
 
-      auth.signup(this, credentials)
-    }
-  }
-}
+       auth.signup(this, credentials)
+     }
+   }
+ }
 </script>

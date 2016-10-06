@@ -17,7 +17,7 @@ export default {
         router.go(redirect);
       }
     }, (err) => {
-      context.error = err.message;
+      context.error = err.body.message;
     });
   },
   signup(context, creds, redirect) {
