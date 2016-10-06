@@ -56,11 +56,11 @@ export default {
   methods: {
     submit() {
       var credentials = {
-        email: this.email,
-        password: this.password,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        role: this.role
+        email: this.credentials.email,
+        password: this.credentials.password,
+        firstname: this.credentials.firstname,
+        lastname: this.credentials.lastname,
+        role: this.credentials.role
       }
 
       auth.signup(this, credentials)
