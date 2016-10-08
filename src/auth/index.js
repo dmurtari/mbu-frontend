@@ -10,7 +10,8 @@ export default {
   },
   login(context, creds, redirect) {
     context.$http.post(LOGIN_URL, creds).then((data) => {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.body.token);
+      localStorage.setItem('profile', JSON.stringify(data.body.profile));
       this.user.authenticated = true;
 
       if(redirect) {
@@ -22,7 +23,8 @@ export default {
   },
   signup(context, creds, redirect) {
     context.$http.post(SIGNUP_URL, creds).then((data) => {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.body.token);
+      localStorage.setItem('profile', JSON.stringify(data.body.profile));
       this.user.authenticated = true;
 
       if(redirect) {

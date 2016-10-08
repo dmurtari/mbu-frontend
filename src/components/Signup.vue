@@ -52,8 +52,9 @@
          role: ''
        },
        roles: [
-         { text: 'Coordinator', value: 'coordinator' },
-         { text: 'Teacher', value: 'teacher' }
+         { text: 'Unaffailiated', value: 'anonymous' },
+         { text: 'Scoutmaster/Coordinator', value: 'coordinator' },
+         { text: 'Teacher/Volunteer', value: 'teacher' }
        ],
        error: ''
      }
