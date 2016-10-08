@@ -18,20 +18,21 @@
     <div class="form-group">
       <input type="text"
              class="form-control"
-             placeholder="Firstname"
+             placeholder="First Name"
              v-model="credentials.firstname">
     </div>
     <div class="form-group">
       <input type="text"
              class="form-control"
-             placeholder="Lastname"
+             placeholder="Last Name"
              v-model="credentials.lastname">
     </div>
     <div class="form-group">
-      <input type="text"
-             class="form-control"
-             placeholder="Role"
-             v-model="credentials.role">
+      <select class="form-control" v-model="credentials.role">
+        <option v-for="option in roles" v-bind:value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
     </div>
     <button class="btn btn-primary" @click="submit()">Create my Account</button>
   </div>
@@ -50,6 +51,10 @@
          lastname: '',
          role: ''
        },
+       roles: [
+         { text: 'Coordinator', value: 'coordinator' },
+         { text: 'Teacher', value: 'teacher' }
+       ],
        error: ''
      }
    },

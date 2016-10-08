@@ -40,9 +40,3 @@ new Vue(
     App
   )
 ).$mount('#app');
-
-
-
-
-
-
