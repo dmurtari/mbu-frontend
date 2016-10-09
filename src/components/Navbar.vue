@@ -8,7 +8,11 @@
         <li><router-link to="/about">About</router-link></li>
       </ul>        
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li v-if="user.authenticated">
+          <a href="#" @click="logout">Logout</a>
+        </li>
+        <li v-if="!user.authenticated"
+            class="dropdown">
           <a href="#"
              class="dropdown-toggle"
              data-toggle="dropdown"
@@ -26,12 +30,21 @@
 </template>
 
 <script>
+import auth from '../auth';
+
 export default {
+  data() {
+    return {
+      user: auth.user
+    }
+  },
   methods: {
     preventClose(event) {
       event.stopPropagation();
+    },
+    logout() {
+      auth.logout();
     }
   }
 }
-
 </script>

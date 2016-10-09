@@ -10,6 +10,8 @@ import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
 import Signin from './components/Signin.vue';
 
+import auth from './auth';
+
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
@@ -18,6 +20,8 @@ Vue.component('login-form', Login);
 Vue.component('signin', Signin);
 Vue.component('navbar', Navbar);
 Vue.component('mbu-footer', Footer);
+
+auth.checkAuth();
 
 const routes = [
   {

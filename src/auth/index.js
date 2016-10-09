@@ -36,6 +36,7 @@ export default {
   },
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('profile');
     this.user.authenticated = false;
   },
   checkAuth() {
