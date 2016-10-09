@@ -22,6 +22,7 @@ Vue.component('navbar', Navbar);
 Vue.component('mbu-footer', Footer);
 
 auth.checkAuth();
+Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
 
 const routes = [
   {
