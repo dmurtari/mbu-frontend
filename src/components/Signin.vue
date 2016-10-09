@@ -35,11 +35,11 @@ export default {
 }
 
 .login-form, .signup-form {
+  padding-top: .5em;
   padding-bottom: .5em;
 }
 
 .form-wrapper {
-  padding-top: 1em;
   padding-bottom: 1em;
 }
 </style>
