@@ -6,6 +6,7 @@
       </div>
       <ul class="nav navbar-nav">
         <li><router-link to="/about">About</router-link></li>
+        <li><router-link to="/events">Events</router-link></li>
       </ul>        
       <ul class="nav navbar-nav navbar-right">
         <li v-if="user.authenticated">

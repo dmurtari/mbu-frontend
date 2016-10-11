@@ -7,8 +7,10 @@ import About from './components/About.vue';
 
 import auth from './auth';
 import routes from './router';
+
 import authentication from './components/authentication';
 import navigation from './components/navigation';
+import events from './components/events';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -16,6 +18,7 @@ Vue.use(VueRouter);
 // Register components
 authentication(Vue);
 navigation(Vue);
+events(Vue);
 
 auth.checkAuth();
 Vue.http.headers.common['Authorization'] = auth.getAuthHeader();
