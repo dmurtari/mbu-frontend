@@ -49,8 +49,6 @@ export default {
     }
   },
   getAuthHeader() {
-    return {
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    };
+    return 'Bearer ' + localStorage.getItem('token')
   }
 };

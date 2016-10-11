@@ -18,7 +18,7 @@ authentication(Vue);
 navigation(Vue);
 
 auth.checkAuth();
-Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+Vue.http.headers.common['Authorization'] = auth.getAuthHeader();
 
 export const router = new VueRouter({
   routes: routes,
