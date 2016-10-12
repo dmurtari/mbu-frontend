@@ -8,6 +8,7 @@ export default {
   user: {
     authenticated: false
   },
+  getProfile: localStorage.getItem('profile'),
   login(context, creds, redirect) {
     context.$http.post(LOGIN_URL, creds).then((data) => {
       localStorage.setItem('token', data.body.token);
