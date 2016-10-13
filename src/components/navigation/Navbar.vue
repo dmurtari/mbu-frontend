@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import auth from '../../auth';
+import auth from '../../services/auth';
 
 export default {
   data() {

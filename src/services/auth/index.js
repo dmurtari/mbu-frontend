@@ -1,4 +1,4 @@
-import {router} from '../main';
+import { router } from '../../main';
 
 const API_URL = 'http://localhost:3000/api/';
 const LOGIN_URL = API_URL + 'authenticate';
