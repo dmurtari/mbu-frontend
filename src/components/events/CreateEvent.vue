@@ -23,10 +23,13 @@
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventPriceInput">Registration Cost</label>
-        <input type="number"
-              class="form-control"
-              id="eventPriceInput"
-              v-model="event.price">
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <input type="number"
+                class="form-control"
+                id="eventPriceInput"
+                v-model="event.price">
+        </div>
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventDateInput">Date</label>
@@ -73,6 +76,11 @@ export default {
       ],
       error: ''
     }
+  },
+  mounted: function() {
+    $('#eventDateInput').datepicker();
+    $('#eventOpenInput').datepicker();
+    $('#eventCloseInput').datepicker();
   }
 }
 </script>
