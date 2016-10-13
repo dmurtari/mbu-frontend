@@ -1,8 +1,5 @@
 import { router } from '../../main';
-
-const API_URL = 'http://localhost:3000/api/';
-const LOGIN_URL = API_URL + 'authenticate';
-const SIGNUP_URL = API_URL + 'signup';
+import URLS from '../urls';
 
 export default {
   user: {
@@ -10,7 +7,7 @@ export default {
   },
   getProfile: localStorage.getItem('profile'),
   login(context, creds, redirect) {
-    context.$http.post(LOGIN_URL, creds).then((data) => {
+    context.$http.post(URLS.LOGIN_URL, creds).then((data) => {
       localStorage.setItem('token', data.body.token);
       localStorage.setItem('profile', JSON.stringify(data.body.profile));
       this.user.authenticated = true;
@@ -23,7 +20,7 @@ export default {
     });
   },
   signup(context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds).then((data) => {
+    context.$http.post(URLS.SIGNUP_URL, creds).then((data) => {
       localStorage.setItem('token', data.body.token);
       localStorage.setItem('profile', JSON.stringify(data.body.profile));
       this.user.authenticated = true;
