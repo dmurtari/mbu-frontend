@@ -6,6 +6,7 @@ import App from './App.vue';
 import About from './components/About.vue';
 
 import auth from './services/auth';
+import store from './store/store';
 import routes from './router';
 
 import authentication from './components/authentication';
@@ -30,7 +31,7 @@ export const router = new VueRouter({
 
 new Vue(
   Vue.util.extend(
-    { router },
+    { router, store },
     App
   )
 ).$mount('#app');
