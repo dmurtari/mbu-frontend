@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import About from './components/About.vue';
 
-import auth from './auth';
+import auth from './services/auth';
 import routes from './router';
 
 import authentication from './components/authentication';

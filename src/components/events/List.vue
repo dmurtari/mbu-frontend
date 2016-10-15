@@ -2,11 +2,13 @@
   <div class="container">
     <div>
       <h3>All Events
-         <button class="btn btn-default"
-                 @click="toggleAdd">+</button>
+        <button class="btn btn-default"
+                @click="toggleAdd">
+          <span class="glyphicon glyphicon-plus" aria-label="Close"></span>
+        </button>
       </h3>
     </div>
-    <create-event v-if="displayAddEvent">Hello</create-event>
+    <create-event @cancel="toggleAdd" v-show="displayAddEvent"></create-event>
   </div>
 </template>
 

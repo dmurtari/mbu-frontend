@@ -20,7 +20,7 @@
              role="button"
              aria-haspopup="true"
              aria-expanded="false">Login/Signup <span class="caret"></span></a>
-          <ul @click="preventClose"
+          <ul v-on:click.stop
               class="dropdown-menu">
             <li><signin></signin></li>
           </ul>
@@ -40,9 +40,6 @@ export default {
     }
   },
   methods: {
-    preventClose(event) {
-      event.stopPropagation();
-    },
     logout() {
       auth.logout();
     }
