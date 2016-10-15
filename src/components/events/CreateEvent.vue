@@ -74,6 +74,7 @@
 
 <script>
 import requests from '../../services/events/requests';
+import { addEvent } from '../../store/actions';
 import _ from 'lodash';
 
 export default {
@@ -108,10 +109,7 @@ export default {
   },
   methods: {
     createEvent() {
-      requests.createEvent(this, this.event)
-        .then(() => {
-
-        });
+      addEvent(this.event);
     },
     clearAndCancel() {
       _.forEach(this.event, (value, key) => {
@@ -127,6 +125,11 @@ export default {
     $('#eventDateInput').datepicker();
     $('#eventOpenInput').datepicker();
     $('#eventCloseInput').datepicker();
+  },
+  vuex: {
+    actions: {
+      addEvent
+    }
   }
 }
 </script>

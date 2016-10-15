@@ -32,6 +32,7 @@
 
 <script>
 import auth from '../../services/auth';
+import Signin from '../authentication/Signin.vue';
 
 export default {
   data() {
@@ -43,6 +44,9 @@ export default {
     logout() {
       auth.logout();
     }
+  },
+  components: {
+    'signin': Signin
   }
 }
 </script>

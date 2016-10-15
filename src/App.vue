@@ -9,11 +9,13 @@
 </template>
 
 <script>
+import Footer from './components/navigation/Footer.vue';
+import Navbar from './components/navigation/Navbar.vue';
+
 export default {
-  data () {
-    return {
-      msg: 'Hello Vue!'
-    }
+  components: {
+    'mbu-footer': Footer,
+    'navbar': Navbar
   }
 }
 </script>

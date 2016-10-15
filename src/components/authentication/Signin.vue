@@ -14,6 +14,9 @@
 </template>
 
 <script>
+import Login from './Login.vue';
+import Signup from './Signup.vue';
+
 export default {
   data() {
     return {
@@ -24,6 +27,10 @@ export default {
     toggleCreate() {
       this.createAccount = !this.createAccount;
     }
+  },
+  components: {
+    'login-form': Login,
+    'signup-form': Signup
   }
 }
 </script>

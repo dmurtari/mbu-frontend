@@ -14,6 +14,7 @@
 
 <script>
 import auth from '../../services/auth';
+import CreateEvent from './CreateEvent.vue';
 
 export default {
   data() {
@@ -30,10 +31,9 @@ export default {
     toggleAdd() {
       this.displayAddEvent = !this.displayAddEvent
     }
+  },
+  components: {
+    'create-event': CreateEvent
   }
 }
 </script>
-
-<style scoped lang="sass">
-
-</style>

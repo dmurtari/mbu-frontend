@@ -1,3 +1,3 @@
-export const addEvent = ({ dispatch }, event) => {
-  dispatch('ADD_EVENT', event);
+export const addEvent = ({ commit }, event) => {
+  commit('ADD_EVENT', event);
 }
