@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     createEvent() {
-      addEvent(this.event);
+      this.$store.dispatch('addEvent', this.event);
     },
     clearAndCancel() {
       _.forEach(this.event, (value, key) => {
@@ -125,11 +125,6 @@ export default {
     $('#eventDateInput').datepicker();
     $('#eventOpenInput').datepicker();
     $('#eventCloseInput').datepicker();
-  },
-  vuex: {
-    actions: {
-      addEvent
-    }
   }
 }
 </script>
