@@ -13,11 +13,11 @@
     <form>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventYearInput">Year</label>
-        <select class="form-control" v-model="event.year">
-          <option v-for="year in years" v-bind:value="year">
-            {{year}}
-          </option>
-        </select>
+        <input type="number"
+               class="form-control"
+               id="eventYearInput"
+               placeholder="yyyy"
+               v-model="event.year">
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventSemesterInput">Semester</label>
@@ -61,7 +61,7 @@
                placeholder="mm/dd/yyyy"
                v-model="event.registration_close">
       </div>
-      <div class="row text-center">
+      <div class="text-center submit-group">
         <button class="btn btn-primary" 
                 @click="createEvent()">Create Event</button>
         <button class="btn btn-default" 
@@ -95,18 +95,6 @@ export default {
       error: ''
     }
   },
-  computed: {
-    years() {
-      let start = new Date().getFullYear();
-      var years = [];
-
-      for (var year = start + 5; year > start - 5; year--) {
-        years.push(year);
-      }
-
-      return years;
-    }
-  },
   methods: {
     createEvent() {
       this.$store.dispatch('addEvent', this.event);
@@ -115,13 +103,17 @@ export default {
       _.forEach(this.event, (value, key) => {
         this.event[key] = '';
       });
-      this.$emit('cancel');
+      this.cancel();
     },
     cancel() {
       this.$emit('cancel');
     }
   },
   mounted: function() {
+    $('#eventYearInput').datepicker({
+      viewMode: 'years',
+      minViewMode: 'years'
+    })
     $('#eventDateInput').datepicker();
     $('#eventOpenInput').datepicker();
     $('#eventCloseInput').datepicker();
