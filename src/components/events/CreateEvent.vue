@@ -13,11 +13,9 @@
     <form>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventYearInput">Year</label>
-        <input type="number"
-               class="form-control"
-               id="eventYearInput"
-               placeholder="yyyy"
-               v-model="event.year">
+        <masked-input mask="9999" 
+                      placeholder="yyyy"
+                      v-model="event.year"></masked-input>
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventSemesterInput">Semester</label>
@@ -39,27 +37,21 @@
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventDateInput">Date</label>
-        <input type="date"
-               class="form-control"
-               id="eventDateInput"
-               placeholder="mm/dd/yyyy"
-               v-model="event.date">
+        <masked-input mask="99/99/9999"
+                      placeholder="mm/dd/yyyy"
+                      v-model="event.date">
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventOpenInput">Registration Opens</label>
-        <input type="date"
-               class="form-control"
-               id="eventOpenInput"
-               placeholder="mm/dd/yyyy"
-               v-model="event.registration_open">
+        <masked-input mask="99/99/9999"
+                      placeholder="mm/dd/yyyy"
+                      v-model="event.registration_open">
       </div>
       <div class="form-group col-sm-4 col-xs-6">
         <label for="eventCloseInput">Registration Closes</label>
-        <input type="date"
-               class="form-control"
-               id="eventCloseInput"
-               placeholder="mm/dd/yyyy"
-               v-model="event.registration_close">
+        <masked-input mask="99/99/9999"
+                      placeholder="mm/dd/yyyy"
+                      v-model="event.registration_close">
       </div>
       <div class="text-center submit-group">
         <button class="btn btn-primary" 
@@ -73,9 +65,10 @@
 </template>
 
 <script>
-import requests from '../../services/events/requests';
 import { addEvent } from '../../store/actions';
+
 import _ from 'lodash';
+import moment from 'moment';
 
 export default {
   data() {
@@ -97,7 +90,17 @@ export default {
   },
   methods: {
     createEvent() {
-      this.$store.dispatch('addEvent', this.event);
+      let dateFormat = 'MM/DD/YYYY'
+      var event = {
+        year: Number(this.event.year),
+        semester: this.event.semester,
+        date: moment(this.event.date, dateFormat),
+        registration_open: moment(this.event.registration_open, dateFormat),
+        registration_close: moment(this.event.registration_close, dateFormat),
+        price: Number(this.event.price)
+      }
+
+      this.$store.dispatch('addEvent', event);
     },
     clearAndCancel() {
       _.forEach(this.event, (value, key) => {
@@ -108,15 +111,6 @@ export default {
     cancel() {
       this.$emit('cancel');
     }
-  },
-  mounted: function() {
-    $('#eventYearInput').datepicker({
-      viewMode: 'years',
-      minViewMode: 'years'
-    })
-    $('#eventDateInput').datepicker();
-    $('#eventOpenInput').datepicker();
-    $('#eventCloseInput').datepicker();
   }
 }
 </script>
