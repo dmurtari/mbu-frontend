@@ -1,5 +1,5 @@
 import { router } from '../../main';
-import URLS from '../urls';
+import URLS from '../../urls';
 
 export default {
   user: {
