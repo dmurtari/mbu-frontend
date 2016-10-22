@@ -91,7 +91,7 @@ export default {
     }
   },
   computed: mapState({
-    error: state => state.eventError
+    error: state => state.event.eventError
   }),
   methods: {
     createEvent() {

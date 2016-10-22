@@ -6,7 +6,7 @@ import App from './App.vue';
 import About from './components/About.vue';
 
 import auth from './services/auth';
-import store from './store/store';
+import store from './store';
 import routes from './router';
 import components from './components';
 

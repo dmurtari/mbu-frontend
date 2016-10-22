@@ -1,9 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-import * as actions from './actions';
-
-Vue.use(Vuex);
+import * as types from '../mutation-types';
 
 const state = {
   events: [],
@@ -12,20 +7,19 @@ const state = {
 };
 
 const mutations = {
-  ADD_EVENT (state, event) {
+  [types.ADD_EVENT] (state, event) {
     state.events.push(event);
     state.eventError = false;
   },
-  ADD_EVENT_FAIL (state) {
+  [types.ADD_EVENT_FAIL] (state) {
     state.eventError = true;
   },
-  CLEAR_EVENT_ERROR (state) {
+  [types.CLEAR_ADD_EVENT_ERROR] (state) {
     state.eventError = false;
   }
 };
 
-export default new Vuex.Store({
-  actions,
+export default {
   state,
   mutations
-});
+}
