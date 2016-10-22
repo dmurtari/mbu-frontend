@@ -66,6 +66,7 @@
 
 <script>
 import { addEvent } from '../../store/actions';
+import { mapState } from 'vuex';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -88,6 +89,9 @@ export default {
       error: ''
     }
   },
+  computed: mapState({
+    status: state => state.eventState
+  }),
   methods: {
     createEvent() {
       let dateFormat = 'MM/DD/YYYY'
