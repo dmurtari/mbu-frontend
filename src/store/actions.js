@@ -8,5 +8,6 @@ export const addEvent = ({ commit }, event) => {
     commit('ADD_EVENT', event);
   }, (err) => {
     console.log('Failed to create event', err.body.message)
+    commit('ADD_EVENT_FAIL')
   });
 }
