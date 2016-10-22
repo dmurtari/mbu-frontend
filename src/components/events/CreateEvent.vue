@@ -8,7 +8,10 @@
   </div>
   <div class="panel-body">
     <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
+      <p>
+        Failed to create the event. Please check that all fields are valid and
+        try again
+      </p>
     </div>
     <form>
       <div class="form-group col-sm-4 col-xs-6">
@@ -65,7 +68,6 @@
 </template>
 
 <script>
-import { addEvent } from '../../store/actions';
 import { mapState } from 'vuex';
 
 import _ from 'lodash';
@@ -85,12 +87,11 @@ export default {
       semesters: [
         { text: 'Spring', value: 'Spring' },
         { text: 'Fall', value: 'Fall' }
-      ],
-      error: ''
+      ]
     }
   },
   computed: mapState({
-    status: state => state.eventState
+    error: state => state.eventError
   }),
   methods: {
     createEvent() {
@@ -110,6 +111,7 @@ export default {
       _.forEach(this.event, (value, key) => {
         this.event[key] = '';
       });
+      this.$store.dispatch('clearError');
       this.cancel();
     },
     cancel() {

@@ -7,17 +7,20 @@ Vue.use(Vuex);
 
 const state = {
   events: [],
-  eventState: '',
+  eventError: '',
   currentEvent: {}
 };
 
 const mutations = {
   ADD_EVENT (state, event) {
     state.events.push(event);
-    state.eventState = 'create_success';
+    state.eventError = false;
   },
   ADD_EVENT_FAIL (state) {
-    state.eventState = 'create_fail';
+    state.eventError = true;
+  },
+  CLEAR_EVENT_ERROR (state) {
+    state.eventError = false;
   }
 };
 
