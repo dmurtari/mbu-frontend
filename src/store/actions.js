@@ -4,15 +4,17 @@ import * as types from './mutation-types';
 import URLS from '../urls';
 
 export const addEvent = ({ commit }, event) => {
-  return Vue.http.post(URLS.EVENTS_URL, event)
-    .then((data) => {
-      console.log('Created a new event', event);
-      commit(types.ADD_EVENT, event);
-    })
-    .catch((err) => {
-      console.log('Failed to create event', err.body.message);
-      commit(types.ADD_EVENT_FAIL);
-    });
+  return new Promise((resolve, reject) => {
+    Vue.http.post(URLS.EVENTS_URL, event)
+      .then((data) => {
+        commit(types.ADD_EVENT, event);
+        resolve(event);
+      })
+      .catch((err) => {
+        console.log('Failed to create event', err.body.message);
+        reject(err.body.message);
+      });
+  });
 }
 
 export const clearError = ({commit}) => {

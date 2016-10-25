@@ -9,8 +9,7 @@
   <div class="panel-body">
     <div class="alert alert-danger" v-if="error">
       <p>
-        Failed to create the event. Please check that all fields are valid and
-        try again
+        {{ error }}
       </p>
     </div>
     <form>
@@ -87,12 +86,10 @@ export default {
       semesters: [
         { text: 'Spring', value: 'Spring' },
         { text: 'Fall', value: 'Fall' }
-      ]
+      ],
+      error: ''
     }
   },
-  computed: mapState({
-    error: state => state.event.eventError
-  }),
   methods: {
     createEvent() {
       const dateFormat = 'MM/DD/YYYY'
@@ -107,14 +104,17 @@ export default {
 
       this.$store.dispatch('addEvent', event)
         .then((data) => {
-          if (data) this.clearAndClose()
+          this.clearAndClose();
+        })
+        .catch((err) => {
+          this.error = err;
         })
     },
     clearAndClose() {
       _.forEach(this.event, (value, key) => {
         this.event[key] = '';
       });
-      this.$store.dispatch('clearError');
+      this.error = '';
       this.close();
     },
     close() {
