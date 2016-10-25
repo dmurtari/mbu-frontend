@@ -8,7 +8,7 @@
         </button>
       </h3>
     </div>
-    <create-event @cancel="toggleAdd" v-show="displayAddEvent"></create-event>
+    <create-event @close="toggleAdd" v-show="displayAddEvent"></create-event>
   </div>
 </template>
 

@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <h4>Create an Event</h4>
     <span class="glyphicon glyphicon-remove close-button"
-          @click="cancel"
+          @click="close"
           aria-label="Close"></span>
   </div>
   <div class="panel-body">
@@ -60,7 +60,7 @@
         <button class="btn btn-primary" 
                 @click="createEvent()">Create Event</button>
         <button class="btn btn-default" 
-                @click="clearAndCancel()">Cancel</button>
+                @click="clearAndClose()">Cancel</button>
       </div>
     </form>
   </div>
@@ -105,17 +105,20 @@ export default {
         price: Number(this.event.price)
       }
 
-      this.$store.dispatch('addEvent', event);
+      this.$store.dispatch('addEvent', event)
+        .then((data) => {
+          if (data) this.clearAndClose()
+        })
     },
-    clearAndCancel() {
+    clearAndClose() {
       _.forEach(this.event, (value, key) => {
         this.event[key] = '';
       });
       this.$store.dispatch('clearError');
-      this.cancel();
+      this.close();
     },
-    cancel() {
-      this.$emit('cancel');
+    close() {
+      this.$emit('close');
     }
   }
 }
