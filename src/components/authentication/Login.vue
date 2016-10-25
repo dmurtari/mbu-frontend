@@ -36,7 +36,7 @@
    },
    methods: {
      submit() {
-       var credentials = {
+       let credentials = {
          email: this.credentials.email,
          password: this.credentials.password,
        }

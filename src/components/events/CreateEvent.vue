@@ -95,8 +95,8 @@ export default {
   }),
   methods: {
     createEvent() {
-      let dateFormat = 'MM/DD/YYYY'
-      var event = {
+      const dateFormat = 'MM/DD/YYYY'
+      let event = {
         year: Number(this.event.year),
         semester: this.event.semester,
         date: moment(this.event.date, dateFormat),
