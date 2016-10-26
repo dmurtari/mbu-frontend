@@ -8,7 +8,9 @@ const state = {
 const mutations = {
   [types.ADD_EVENT] (state, event) {
     state.events.push(event);
-    state.eventError = false;
+  },
+  [types.GET_EVENTS] (state, events) {
+    state.events = events;
   }
 };
 

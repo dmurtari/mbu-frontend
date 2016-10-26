@@ -17,6 +17,16 @@ export const addEvent = ({ commit }, event) => {
   });
 }
 
+export const getEvents = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    Vue.http.get(URLS.EVENTS_URL)
+      .then((data) => {
+        commit(types.GET_EVENTS, data.body);
+        resolve(event);
+      })
+  })
+}
+
 export const clearError = ({commit}) => {
   commit(types.CLEAR_ADD_EVENT_ERROR);
 }

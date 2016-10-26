@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="panel panel-default">
+    <div class="panel-headering">{{ event.semester }} {{ event.year }}</div>
   </div>
 </template>
 

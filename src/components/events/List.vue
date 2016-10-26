@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h3>All Events
+      <h3>All Events ({{ totalEvents }} total)
         <button class="btn btn-default"
                 @click="toggleAdd">
           <span class="glyphicon glyphicon-plus" aria-label="Close"></span>
@@ -33,7 +33,7 @@ export default {
       events: 'allEvents'
     }),
     totalEvents() {
-      this.events.length;
+      return this.events.length;
     }
   },
   methods: {
@@ -47,6 +47,9 @@ export default {
   components: {
     'create-event': CreateEvent,
     'event': Event
+  },
+  mounted() {
+    this.$store.dispatch('getEvents');
   }
 }
 </script>
