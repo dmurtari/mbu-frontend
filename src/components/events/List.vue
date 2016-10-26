@@ -28,9 +28,14 @@ export default {
       displayAddEvent: false
     }
   },
-  computed: mapGetters({
-    events: 'allEvents'
-  }),
+  computed: {
+    ...mapGetters({
+      events: 'allEvents'
+    }),
+    totalEvents() {
+      this.events.length;
+    }
+  },
   methods: {
     isAuthorized() {
       return this.profile.role === 'admin'
