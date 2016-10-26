@@ -9,12 +9,16 @@
       </h3>
     </div>
     <create-event @close="toggleAdd" v-show="displayAddEvent"></create-event>
+    <event v-for="event in events" v-bind:event="event"></event>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import auth from '../../services/auth';
 import CreateEvent from './CreateEvent.vue';
+import Event from './Event.vue';
 
 export default {
   data() {
@@ -24,6 +28,9 @@ export default {
       displayAddEvent: false
     }
   },
+  computed: mapGetters({
+    events: 'allEvents'
+  }),
   methods: {
     isAuthorized() {
       return this.profile.role === 'admin'
@@ -33,7 +40,8 @@ export default {
     }
   },
   components: {
-    'create-event': CreateEvent
+    'create-event': CreateEvent,
+    'event': Event
   }
 }
 </script>
