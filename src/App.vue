@@ -16,6 +16,10 @@ export default {
   components: {
     'mbu-footer': Footer,
     'navbar': Navbar
+  },
+  mounted() {
+    // Enable all tooltips
+    $('[data-toggle="tooltip"]').tooltip()
   }
 }
 </script>
