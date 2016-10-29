@@ -103,6 +103,9 @@ export default {
       }
 
       this.$store.dispatch('addEvent', event)
+        .then(() => {
+          this.$store.dispatch('getEvents');
+        })
         .then((data) => {
           this.clearAndClose();
         })
