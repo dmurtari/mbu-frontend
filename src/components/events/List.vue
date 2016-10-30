@@ -11,9 +11,8 @@
         </button>
       </h3>
     </div>
-    <create-event @close="toggleAdd" v-show="displayAddEvent"></create-event>
-    <event v-for="event in sortedEvents" 
-           v-bind:event="event"></event>
+    <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
+    <event v-for="event in events" v-bind:event="event"></event>
   </div>
 </template>
 
@@ -22,8 +21,8 @@ import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 import auth from '../../services/auth';
-import CreateEvent from './CreateEvent.vue';
-import Event from './Event.vue';
+import Event from './Event.vue'
+import EventCreate from './Create.vue';
 
 export default {
   data() {
@@ -53,12 +52,11 @@ export default {
     }
   },
   components: {
-    'create-event': CreateEvent,
-    'event': Event
+    'event': Event,
+    'event-create': EventCreate
   },
   mounted() {
     this.$store.dispatch('getEvents');
-    $('[data-toggle="tooltip"]').tooltip();
   }
 }
 </script>

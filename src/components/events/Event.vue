@@ -1,24 +1,20 @@
 <template>
   <div class="panel panel-default">
     <div class="panel-heading">
+      <button class="btn btn-default pull-right"
+                @click="toggleEdit"
+                data-toggle="tooltip" 
+                data-placement="left" 
+                title="Edit this event">
+        <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
+      </button>
       <h4>{{ event.semester }} {{ event.year }}</h4>
     </div>
     <div class="panel-body">
-      <div class="row">
-        <div class="col-md-3">
-          <strong>Date:</strong> {{ event_date }}
-        </div>
-        <div class="col-md-3">
-          <strong>Registration Open:</strong> {{ event_open }}
-        </div>
-        <div class="col-md-3">
-          <strong>Registration Close:</strong> {{ event_close }}
-        </div>
-        <div class="col-md-3">
-          <strong>Registration Fee:</strong> ${{ event.price }}
-        </div>
-      </div>
-      <div>
+      <event-detail v-if="!displayEditEvent" 
+                    v-bind:event="event"></event-detail>
+      <event-edit v-if="displayEditEvent"
+                  v-bind:event="event"></event-edit>
     </div>
   </div>
 </template>
@@ -26,9 +22,17 @@
 <script>
 import moment from 'moment'
 
+import EventEdit from './Edit.vue';
+import EventDetail from './Detail.vue';
+
 const dateFormat = 'dddd, MMMM Do YYYY'
 
 export default {
+  data() {
+    return {
+      displayEditEvent: false
+    }
+  },
   props: {
     event: {
       type: Object,
@@ -45,6 +49,18 @@ export default {
     event_close() {
       return moment(this.event.registration_close).format(dateFormat)
     }
+  },
+  methods: {
+    toggleEdit() {
+      this.displayEditEvent = !this.displayEditEvent;
+    }
+  },
+  components: {
+    'event-edit': EventEdit,
+    'event-detail': EventDetail    
+  },
+  mounted() {
+    $('[data-toggle="tooltip"]').tooltip();    
   }
 }
 </script>
