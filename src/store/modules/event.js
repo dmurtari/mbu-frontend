@@ -38,7 +38,6 @@ const actions = {
     });
   },
   getEvents({ commit }) {
-    console.log('Getting', URLS.EVENTS_URL)
     return new Promise((resolve, reject) => {
       Vue.http.get(URLS.EVENTS_URL)
         .then((data) => {
