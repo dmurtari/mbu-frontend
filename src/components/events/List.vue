@@ -12,7 +12,8 @@
       </h3>
     </div>
     <create-event @close="toggleAdd" v-show="displayAddEvent"></create-event>
-    <event v-for="event in sortedEvents" v-bind:event="event"></event>
+    <event v-for="event in sortedEvents" 
+           v-bind:event="event"></event>
   </div>
 </template>
 
@@ -57,6 +58,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getEvents');
+    $('[data-toggle="tooltip"]').tooltip();
   }
 }
 </script>
