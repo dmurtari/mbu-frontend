@@ -1,1 +1,0 @@
-export const allEvents = (state) => state.event.events;
