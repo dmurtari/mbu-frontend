@@ -3,10 +3,10 @@
   <input ref="input"
          class="form-control"
          type="String"
-         v-bind:placeholder="placeholder"
-         v-bind:data-mask="mask"
-         v-bind:value="value"
-         v-on:keyup="updateValue($event.target.value)">
+         :placeholder="placeholder"
+         :data-mask="mask"
+         :value="value"
+         @keyup="updateValue($event.target.value)">
 </div>
 </template>
 

@@ -2,19 +2,19 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <button class="btn btn-default pull-right"
-                @click="toggleEdit"
-                data-toggle="tooltip" 
-                data-placement="left" 
-                title="Edit this event">
+              @click="toggleEdit"
+              data-toggle="tooltip" 
+              data-placement="left" 
+              title="Toggle editing this event">
         <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
       </button>
       <h4>{{ event.semester }} {{ event.year }}</h4>
     </div>
     <div class="panel-body">
       <event-detail v-if="!displayEditEvent" 
-                    v-bind:event="event"></event-detail>
+                    :event="event"></event-detail>
       <event-edit v-if="displayEditEvent"
-                  v-bind:event="event"></event-edit>
+                  :event="event"></event-edit>
     </div>
   </div>
 </template>

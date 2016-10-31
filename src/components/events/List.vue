@@ -12,7 +12,7 @@
       </h3>
     </div>
     <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
-    <event v-for="event in events" v-bind:event="event"></event>
+    <event v-for="event in events" :event="event"></event>
   </div>
 </template>
 

@@ -6,31 +6,31 @@
     <form>
       <div class="form-group">
         <input type="email"
-              class="form-control"
-              placeholder="Email"
-              v-model="credentials.email">
+               class="form-control"
+               placeholder="Email"
+               v-model="credentials.email">
       </div>
       <div class="form-group">
         <input type="password"
-              class="form-control"
-              placeholder="Password"
-              v-model="credentials.password">
+               class="form-control"
+               placeholder="Password"
+               v-model="credentials.password">
       </div>
       <div class="form-group">
         <input type="text"
-              class="form-control"
-              placeholder="First Name"
-              v-model="credentials.firstname">
+               class="form-control"
+               placeholder="First Name"
+               v-model="credentials.firstname">
       </div>
       <div class="form-group">
         <input type="text"
-              class="form-control"
-              placeholder="Last Name"
-              v-model="credentials.lastname">
+               class="form-control"
+               placeholder="Last Name"
+               v-model="credentials.lastname">
       </div>
       <div class="form-group">
         <select class="form-control" v-model="credentials.role">
-          <option v-for="option in roles" v-bind:value="option.value">
+          <option v-for="option in roles" :value="option.value">
             {{ option.text }}
           </option>
         </select>
