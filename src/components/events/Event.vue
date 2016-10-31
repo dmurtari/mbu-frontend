@@ -39,17 +39,6 @@ export default {
       required: true
     }
   },
-  computed: {
-    event_date() {
-      return moment(this.event.date).format(dateFormat)
-    },
-    event_open() {
-      return moment(this.event.registration_open).format(dateFormat)
-    },
-    event_close() {
-      return moment(this.event.registration_close).format(dateFormat)
-    }
-  },
   methods: {
     toggleEdit() {
       this.displayEditEvent = !this.displayEditEvent;
