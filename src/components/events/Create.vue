@@ -28,7 +28,7 @@
         </select>
       </div>
       <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventPriceInput">Registration Cost</label>
+        <label for="eventPriceInput">Registration Fee</label>
         <div class="input-group">
           <div class="input-group-addon">$</div>
           <input type="number"
