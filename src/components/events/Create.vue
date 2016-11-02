@@ -33,7 +33,6 @@
           <div class="input-group-addon">$</div>
           <input type="number"
                  class="form-control"
-                 id="eventPriceInput"
                  v-model="event.price">
         </div>
       </div>

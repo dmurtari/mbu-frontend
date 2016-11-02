@@ -1,5 +1,5 @@
 import MaskedInput from './components/shared/MaskedInput.vue';
 
-export default function(vue) {
-  vue.component('masked-input', MaskedInput);
+export default function(Vue) {
+  Vue.component('masked-input', MaskedInput);
 }

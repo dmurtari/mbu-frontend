@@ -1,42 +1,27 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <strong>Date:</strong> {{ event_date }}
+      <strong>Date:</strong> {{ event.date | longDate }}
     </div>
     <div class="col-md-3">
       <strong>Registration Fee:</strong> ${{ event.price }}
     </div>
     <div class="col-md-3">
-      <strong>Registration Open:</strong> {{ event_open }}
+      <strong>Registration Open:</strong> {{ event.registration_open | longDate}}
     </div>
     <div class="col-md-3">
-      <strong>Registration Close:</strong> {{ event_close }}
+      <strong>Registration Close:</strong> {{ event.registration_close | longDate}}
     </div>
   </div>
 </template>
 
 <script>
-import moment from 'moment'
-
-const dateFormat = 'dddd, MMMM Do YYYY'
-
 export default {
   props: {
     event: {
       type: Object,
       required: true
     }
-  },
-  computed: {
-    event_date() {
-      return moment(this.event.date).format(dateFormat)
-    },
-    event_open() {
-      return moment(this.event.registration_open).format(dateFormat)
-    },
-    event_close() {
-      return moment(this.event.registration_close).format(dateFormat)
-    }
   }
-}
+}  
 </script>
