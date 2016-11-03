@@ -31,9 +31,9 @@
         <label for="eventPriceInput">Registration Fee</label>
         <div class="input-group">
           <div class="input-group-addon">$</div>
-          <input type="number"
-                 class="form-control"
-                 v-model="event.price">
+          <masked-input mask="99.99"
+                        placeholder="00.00"
+                        v-model="event.price">
         </div>
       </div>
       <div class="form-group col-sm-4 col-xs-6">
