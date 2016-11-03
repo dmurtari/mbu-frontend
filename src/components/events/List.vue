@@ -48,7 +48,7 @@ export default {
       return this.profile.role === 'admin'
     },
     toggleAdd() {
-      this.displayAddEvent = !this.displayAddEvent
+      this.displayAddEvent = !this.displayAddEvent;
     }
   },
   components: {

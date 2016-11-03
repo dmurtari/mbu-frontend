@@ -32,6 +32,8 @@
       <div class="text-center submit-group">
         <button class="btn btn-primary" 
                 @click="updateEvent()">Update Event</button>
+        <button class="btn btn-default" 
+                @click="close()">Cancel</button>
       </div>
     </form>
   </div>
@@ -68,9 +70,21 @@ export default {
         registration_open: this.eventUpdate.registration_open,
         registration_close: this.eventUpdate.registration_close,
         price: this.eventUpdate.price
-      } 
+      }
 
       this.$store.dispatch('updateEvent', event)
+        .then(() => {
+          this.$store.dispatch('getEvents');
+        })
+        .then(() => {
+          this.close();
+        })
+        .catch((err) => {
+          this.error = err;
+        })
+    },
+    close() {
+      this.$emit('close');
     }
   },
   mounted() {

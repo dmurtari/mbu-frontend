@@ -14,6 +14,7 @@
       <event-detail v-if="!displayEditEvent" 
                     :event="event"></event-detail>
       <event-edit v-if="displayEditEvent"
+                  @close="toggleEdit"
                   :event="event"></event-edit>
     </div>
   </div>
