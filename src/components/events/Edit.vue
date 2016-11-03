@@ -62,7 +62,15 @@ export default {
   },
   methods: {
     updateEvent() {
-      return;
+      let event = {
+        id: this.event.id,
+        date: this.eventUpdate.date,
+        registration_open: this.eventUpdate.registration_open,
+        registration_close: this.eventUpdate.registration_close,
+        price: this.eventUpdate.price
+      } 
+
+      this.$store.dispatch('updateEvent', event)
     }
   },
   mounted() {

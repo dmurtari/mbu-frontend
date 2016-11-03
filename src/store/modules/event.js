@@ -14,6 +14,10 @@ const mutations = {
   },
   [types.GET_EVENTS] (state, events) {
     state.events = events;
+  },
+  [types.UPDATE_EVENT] (state, event) {
+    let index = _.indexOf(state.events, { id: event.id });
+    state.events.splice(index, 1, event);
   }
 };
 
@@ -28,7 +32,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post(URLS.EVENTS_URL, event)
         .then((data) => {
-          commit(types.ADD_EVENT, event);
+          console.log('Created event', data.body.event)
+          commit(types.ADD_EVENT, data.body.event);
           resolve(event);
         })
         .catch((err) => {
@@ -41,9 +46,23 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.get(URLS.EVENTS_URL)
         .then((data) => {
-          console.log('Received', data.body)
+          console.log('Received events', data.body)
           commit(types.GET_EVENTS, data.body);
           resolve(event);
+        })
+    })
+  },
+  updateEvent({ commit }, eventUpdate) {
+    return new Promise((resolve, reject) => {
+      Vue.http.put(URLS.EVENTS_URL + eventUpdate.id, eventUpdate)
+        .then((data) => {
+          console.log('Updated event to', data.body.event);
+          commit(types.UPDATE_EVENT, data.body.event);
+          resolve(event);
+        })
+        .catch((err) => {
+          console.log('Failed to update event', err.body.message);
+          reject(err.body.message);
         })
     })
   }

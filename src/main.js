@@ -25,8 +25,6 @@ export const router = new VueRouter({
   base: __dirname
 });
 
-console.log('using filters', filters)
-
 new Vue({
   router,
   store,
