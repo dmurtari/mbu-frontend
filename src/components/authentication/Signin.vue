@@ -2,13 +2,13 @@
   <div class="container dropdown-form">
     <div v-if="!createAccount" class="form-wrapper">
       <h5>Login to your account</h5>
-      <login-form class="login-form"></login-form>
-      <a href="#" @click="toggleCreate">Don't have an account?</a>
+      <login-form class="login-form"
+                  @toggle-create="toggleCreate()"></login-form>
     </div>
     <div v-if="createAccount" class="form-wrapper">
       <h5>Create your account</h5>
-      <signup-form class="signup-form"></signup-form>
-      <a href="#" @click="toggleCreate">Already have an account?</a>
+      <signup-form class="signup-form"
+                   @toggle-create="toggleCreate()"></signup-form>
     </div>
   </div>
 </template>

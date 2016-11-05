@@ -16,7 +16,10 @@
                placeholder="Password"
                v-model="credentials.password">
       </div>
-      <button class="btn btn-primary" @click="submit()">Login</button>
+      <div class="btn-group">
+        <button class="btn btn-primary" @click="submit()">Login</button>
+        <button class="btn btn-default" @click="toggle()">Create an Account</button>
+      </div>
     </form>
   </div>
 </template>
@@ -42,6 +45,9 @@
        }
 
        auth.login(this, credentials)
+     },
+     toggle() {
+       this.$emit('toggle-create');
      }
    }
  }

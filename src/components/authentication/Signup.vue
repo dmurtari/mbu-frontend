@@ -35,7 +35,10 @@
           </option>
         </select>
       </div>
-      <button class="btn btn-primary" @click="submit()">Create my Account</button>
+      <div class="form-group">
+        <button class="btn btn-primary" @click="submit()">Signup</button>
+        <a class="pull-right vertical-center" href="#" @click="toggle()">Already have an account?</a>
+      </div>
     </form>
   </div>
 </template>
@@ -72,6 +75,9 @@
        }
 
        auth.signup(this, credentials)
+     },
+     toggle() {
+       this.$emit('toggle-create');
      }
    }
  }
