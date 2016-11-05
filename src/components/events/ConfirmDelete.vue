@@ -25,6 +25,9 @@ export default {
     matchText: {
       type: String,
       required: true
+    },
+    eventId: {
+      required: true
     }
   },
   data() {
@@ -35,11 +38,15 @@ export default {
   methods: {
     confirmDelete() {
       if (this.enteredText === this.matchText) {
-        console.log('Deleting');
+        this.$store.dispatch('deleteEvent', this.eventId)
+          .then(() => {
+            this.$store.dispatch('getEvents');
+            this.$emit('close');
+          });
       }
     },
     cancel() {
-      this.$emit('cancel');
+      this.$emit('close');
     }
   }
 }

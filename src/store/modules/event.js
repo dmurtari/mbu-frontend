@@ -12,6 +12,11 @@ const mutations = {
   [types.ADD_EVENT] (state, event) {
     state.events.push(event);
   },
+  [types.DELETE_EVENT] (eventId) {
+    _.remove(state.events, (event) => {
+      return event.id === eventId;
+    });
+  },
   [types.GET_EVENTS] (state, events) {
     state.events = events;
   },
@@ -41,6 +46,20 @@ const actions = {
           reject(err.body.message);
         });
     });
+  },
+  deleteEvent({ commit }, eventId) {
+    return new Promise((resolve, reject) => {
+      Vue.http.delete(URLS.EVENTS_URL + eventId)
+        .then(() => {
+          console.log('Deleted event', eventId);
+          commit(types.DELETE_EVENT, eventId);
+          resolve();
+        })
+        .catch(() => {
+          console.log('Failed to delete event', eventId);
+          reject();
+        }); 
+    })
   },
   getEvents({ commit }) {
     return new Promise((resolve, reject) => {

@@ -44,7 +44,8 @@
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
                       :match-text="this.semesterAndYear"
-                      @cancel="hideDeleteConfirm()"></confirm-delete>
+                      :event-id="this.event.id"
+                      @close="hideDeleteConfirm()"></confirm-delete>
     </form>
   </div>
 </template>
@@ -99,7 +100,7 @@ export default {
         })
         .catch((err) => {
           this.error = err;
-        })
+        });
     },
     showDeleteConfirm() {
       this.showDeleteConfirmation = true;
