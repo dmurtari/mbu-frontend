@@ -29,10 +29,11 @@
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_close">
       </div>
-      <div class="container">
+      <div class="container"
+           v-if="!showDeleteConfirmation">
         <div class="pull-left">
           <button class="btn btn-danger"
-                  @click="deleteEvent()">Delete Event</button>
+                  @click="showDeleteConfirm()">Delete Event</button>
         </div>
         <div class="pull-right">
           <button class="btn btn-default" 
@@ -40,13 +41,18 @@
           <button class="btn btn-primary" 
                   @click="updateEvent()">Update Event</button>
         </div>
-      </div>
+      </div>   
+      <confirm-delete v-if="showDeleteConfirmation"
+                      :match-text="this.semesterAndYear"
+                      @cancel="hideDeleteConfirm()"></confirm-delete>
     </form>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
+
+import ConfirmDelete from './ConfirmDelete.vue';
 
 const dateFormat = 'MM/DD/YYYY'
 
@@ -59,13 +65,19 @@ export default {
         registration_close: '',
         price: ''
       },
-      error: ''
+      error: '',
+      showDeleteConfirmation: false
     }
   },
   props: {
     event: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    semesterAndYear() {
+      return this.event.semester + ' ' + this.event.year;
     }
   },
   methods: {
@@ -89,12 +101,18 @@ export default {
           this.error = err;
         })
     },
-    deleteEvent() {
-      return;
+    showDeleteConfirm() {
+      this.showDeleteConfirmation = true;
+    },
+    hideDeleteConfirm() {
+      this.showDeleteConfirmation = false;
     },
     close() {
       this.$emit('close');
     }
+  },
+  components: {
+    'confirm-delete': ConfirmDelete
   },
   mounted() {
     this.eventUpdate.date = moment(this.event.date).format(dateFormat);
