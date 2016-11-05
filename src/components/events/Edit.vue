@@ -6,12 +6,12 @@
       </p>
     </div>
     <form>
-      <div class="form-group col-sm-4 col-xs-6">
+      <div class="form-group col-sm-6 col-xs-6">
         <label for="eventDateInput">Date</label>
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.date">
       </div>
-      <div class="form-group col-sm-4 col-xs-6">
+      <div class="form-group col-sm-6 col-xs-6">
         <label for="eventPriceInput">Registration Fee</label>
         <div class="input-group">
           <div class="input-group-addon">$</div>
@@ -19,21 +19,21 @@
                         v-model="eventUpdate.price">
         </div>
       </div>
-      <div class="form-group col-sm-4 col-xs-6">
+      <div class="form-group col-sm-6 col-xs-6">
         <label for="eventOpenInput">Registration Opens</label>
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_open">
       </div>
-      <div class="form-group col-sm-4 col-xs-6">
+      <div class="form-group col-sm-6 col-xs-6">
         <label for="eventCloseInput">Registration Closes</label>
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_close">
       </div>
       <div class="text-center submit-group">
-        <button class="btn btn-primary" 
-                @click="updateEvent()">Update Event</button>
         <button class="btn btn-default" 
                 @click="close()">Cancel</button>
+        <button class="btn btn-primary" 
+                @click="updateEvent()">Update Event</button>
       </div>
     </form>
   </div>

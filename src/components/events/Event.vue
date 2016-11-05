@@ -1,13 +1,22 @@
 <template>
   <div class="panel panel-default">
     <div class="panel-heading">
-      <button class="btn btn-default pull-right"
-              @click="toggleEdit"
-              data-toggle="tooltip" 
-              data-placement="left" 
-              title="Toggle editing this event">
-        <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
-      </button>
+      <div class="btn-group pull-right">
+        <button class="btn btn-default"
+                @click="toggleEdit"
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Edit">
+          <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
+        </button>
+        <button class="btn btn-danger"
+                @click="deleteEvent"
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Delete">
+          <span class="glyphicon glyphicon-trash" aria-label="Delete"></span>
+        </button>
+      </div>
       <h4>{{ event.semester }} {{ event.year }}</h4>
     </div>
     <div class="panel-body">
@@ -26,8 +35,6 @@ import moment from 'moment'
 import EventEdit from './Edit.vue';
 import EventDetail from './Detail.vue';
 
-const dateFormat = 'dddd, MMMM Do YYYY'
-
 export default {
   data() {
     return {
@@ -43,6 +50,9 @@ export default {
   methods: {
     toggleEdit() {
       this.displayEditEvent = !this.displayEditEvent;
+    },
+    deleteEvent() {
+      return;
     }
   },
   components: {

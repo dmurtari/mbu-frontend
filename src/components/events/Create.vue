@@ -55,10 +55,10 @@
                       v-model="event.registration_close">
       </div>
       <div class="text-center submit-group">
-        <button class="btn btn-primary" 
-                @click="createEvent()">Create Event</button>
         <button class="btn btn-default" 
                 @click="clearAndClose()">Cancel</button>
+        <button class="btn btn-primary" 
+                @click="createEvent()">Create Event</button>
       </div>
     </form>
   </div>
