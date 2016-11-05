@@ -9,13 +9,6 @@
                 title="Edit">
           <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
         </button>
-        <button class="btn btn-danger"
-                @click="deleteEvent"
-                data-toggle="tooltip" 
-                data-placement="top" 
-                title="Delete">
-          <span class="glyphicon glyphicon-trash" aria-label="Delete"></span>
-        </button>
       </div>
       <h4>{{ event.semester }} {{ event.year }}</h4>
     </div>
@@ -50,9 +43,6 @@ export default {
   methods: {
     toggleEdit() {
       this.displayEditEvent = !this.displayEditEvent;
-    },
-    deleteEvent() {
-      return;
     }
   },
   components: {

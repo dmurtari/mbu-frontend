@@ -29,11 +29,17 @@
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_close">
       </div>
-      <div class="text-center submit-group">
-        <button class="btn btn-default" 
-                @click="close()">Cancel</button>
-        <button class="btn btn-primary" 
-                @click="updateEvent()">Update Event</button>
+      <div class="container">
+        <div class="pull-left">
+          <button class="btn btn-danger"
+                  @click="deleteEvent()">Delete Event</button>
+        </div>
+        <div class="pull-right btn-group">
+          <button class="btn btn-default" 
+                  @click="close()">Cancel</button>
+          <button class="btn btn-primary" 
+                  @click="updateEvent()">Update Event</button>
+        </div>
       </div>
     </form>
   </div>
@@ -82,6 +88,9 @@ export default {
         .catch((err) => {
           this.error = err;
         })
+    },
+    deleteEvent() {
+      return;
     },
     close() {
       this.$emit('close');
