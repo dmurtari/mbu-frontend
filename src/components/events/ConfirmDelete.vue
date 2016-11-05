@@ -9,7 +9,8 @@
            class="form-control"
            v-model="enteredText">
     <span class="help-block">
-      Enter the semester and year to confirm deletion.
+      Enter the semester and year to confirm deletion. This will also remove all
+      data associated with this event, including registrations and records.
     </span>
   </div>
   <button class="btn btn-default"
