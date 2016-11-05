@@ -34,7 +34,7 @@
           <button class="btn btn-danger"
                   @click="deleteEvent()">Delete Event</button>
         </div>
-        <div class="pull-right btn-group">
+        <div class="pull-right">
           <button class="btn btn-default" 
                   @click="close()">Cancel</button>
           <button class="btn btn-primary" 
