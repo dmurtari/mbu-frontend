@@ -30,7 +30,7 @@ const getters = {
   allEvents(state) {
     return state.events;
   }
-}
+};
 
 const actions = {
   addEvent({ commit }, event) {
@@ -85,11 +85,11 @@ const actions = {
         })
     })
   }
-}
+};
 
 export default {
   state,
   getters,
   actions,
   mutations
-}
+};

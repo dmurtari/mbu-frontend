@@ -44,41 +44,42 @@
 </template>
 
 <script>
- import auth from '../../services/auth';
-
- export default {
-   data() {
-     return {
-       credentials: {
-         email: '',
-         password: '',
-         firstname: '',
-         lastname: '',
-         role: ''
-       },
-       roles: [
-         { text: 'Unaffailiated', value: 'anonymous' },
-         { text: 'Scoutmaster/Coordinator', value: 'coordinator' },
-         { text: 'Teacher/Volunteer', value: 'teacher' }
-       ],
-       error: ''
-     }
-   },
-   methods: {
-     submit() {
-       let credentials = {
-         email: this.credentials.email,
-         password: this.credentials.password,
-         firstname: this.credentials.firstname,
-         lastname: this.credentials.lastname,
-         role: this.credentials.role
-       }
-
-       auth.signup(this, credentials)
-     },
-     toggle() {
-       this.$emit('toggle-create');
-     }
-   }
- }
+export default {
+  data() {
+    return {
+      credentials: {
+        email: '',
+        password: '',
+        firstname: '',
+        lastname: '',
+        role: ''
+      },
+      roles: [
+        { text: 'Unaffailiated', value: 'anonymous' },
+        { text: 'Scoutmaster/Coordinator', value: 'coordinator' },
+        { text: 'Teacher/Volunteer', value: 'teacher' }
+      ],
+      error: ''
+    }
+  },
+  methods: {
+    submit() {
+      let credentials = {
+        email: this.credentials.email,
+        password: this.credentials.password,
+        firstname: this.credentials.firstname,
+        lastname: this.credentials.lastname,
+        role: this.credentials.role
+      }
+    
+      this.$store.dispatch('signup', credentials)
+        .catch((err) => {
+          this.error = err;
+        });
+    },
+    toggle() {
+      this.$emit('toggle-create');
+    }
+  }
+}
 </script>

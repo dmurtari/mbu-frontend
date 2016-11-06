@@ -1,3 +1,9 @@
+// Authentication
+export const LOGIN = 'auth/LOGIN';
+export const SIGNUP = 'auth/SIGNUP';
+export const LOGOUT = 'auth/LOGOUT';
+
+// Events
 export const ADD_EVENT = 'events/ADD_EVENT';
 export const DELETE_EVENT = 'events/DELETE_EVENT';
 export const GET_EVENTS = 'events/GET_EVENTS';

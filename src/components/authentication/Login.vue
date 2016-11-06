@@ -25,30 +25,31 @@
 </template>
 
 <script>
- import auth from '../../services/auth';
-
- export default {
-   data() {
-     return {
-       credentials: {
-         email: '',
-         password: ''
-       },
-       error: ''
-     }
-   },
-   methods: {
-     submit() {
-       let credentials = {
-         email: this.credentials.email,
-         password: this.credentials.password,
-       }
-
-       auth.login(this, credentials)
-     },
-     toggle() {
-       this.$emit('toggle-create');
-     }
-   }
- }
+export default {
+  data() {
+    return {
+      credentials: {
+        email: '',
+        password: ''
+      },
+      error: ''
+    }
+  },
+  methods: {
+    submit() {
+      let credentials = {
+        email: this.credentials.email,
+        password: this.credentials.password,
+      }
+      
+      this.$store.dispatch('login', credentials)
+        .catch((err) => {
+          this.error = err;
+        });
+    },
+    toggle() {
+      this.$emit('toggle-create');
+    }
+  }
+}
 </script>

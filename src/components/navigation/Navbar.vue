@@ -9,10 +9,10 @@
         <li><router-link to="/events">Events</router-link></li>
       </ul>        
       <ul class="nav navbar-nav navbar-right">
-        <li v-if="user.authenticated">
+        <li v-if="isAuthenticated">
           <a href="#" @click="logout">Logout</a>
         </li>
-        <li v-if="!user.authenticated"
+        <li v-if="!isAuthenticated"
             class="dropdown">
           <a href="#"
              class="dropdown-toggle"
@@ -31,18 +31,19 @@
 </template>
 
 <script>
-import auth from '../../services/auth';
+import { mapGetters } from 'vuex';
+
 import Signin from '../authentication/Signin.vue';
 
 export default {
-  data() {
-    return {
-      user: auth.user
-    }
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'isAuthenticated'
+    })
   },
   methods: {
     logout() {
-      auth.logout();
+      this.$store.dispatch('logout');
     }
   },
   components: {
