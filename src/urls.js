@@ -4,5 +4,6 @@ export default {
   API_URL: API_URL,
   EVENTS_URL: API_URL + 'events/',
   LOGIN_URL: API_URL + 'authenticate/',
+  PROFILE_URL: API_URL + 'profile/',
   SIGNUP_URL: API_URL + 'signup/'
 };

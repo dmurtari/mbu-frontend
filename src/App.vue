@@ -16,6 +16,12 @@ export default {
   components: {
     'mbu-footer': Footer,
     'navbar': Navbar
+  },
+  mounted() {
+    this.$store.dispatch('getProfile')
+      .catch((err) => {
+        console.log('Could not get profile');
+      });
   }
 }
 </script>

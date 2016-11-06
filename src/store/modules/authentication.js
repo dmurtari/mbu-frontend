@@ -25,14 +25,37 @@ const mutations = {
     Vue.http.headers.common['Authorization'] = token;
   },
   [types.LOGOUT] (state) {
-    localStorage.removeItem('token');
     state.profile = {};
     state.isAuthenticated = false;
+    localStorage.removeItem('token');
     Vue.http.headers.common['Authorization'] = '';
+  },
+  [types.PROFILE] (state, profile) {
+    state.profile = profile;
+    state.isAuthenticated = true;
   }
 }
 
 const actions = {
+  getProfile({ commit }, credentials) {
+    return new Promise((resolve, reject) => {
+      let token = localStorage.getItem('token');
+
+      Vue.http.get(URLS.PROFILE_URL, {
+        headers: { 'Authorization': token}
+      })
+        .then((data) => {
+          console.log('Successfully authenticated from JWT');
+          commit(types.PROFILE, data.body.profile);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to authenticate JWT');
+          localStorage.removeItem('token')
+          reject();
+        });
+    });
+  },
   login({ commit }, credentials) {
     return new Promise((resolve, reject) => {
       Vue.http.post(URLS.LOGIN_URL, credentials)

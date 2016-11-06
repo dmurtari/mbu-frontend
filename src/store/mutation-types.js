@@ -2,6 +2,7 @@
 export const LOGIN = 'auth/LOGIN';
 export const SIGNUP = 'auth/SIGNUP';
 export const LOGOUT = 'auth/LOGOUT';
+export const PROFILE = 'auth/SAVE_PROFILE';
 
 // Events
 export const ADD_EVENT = 'events/ADD_EVENT';
