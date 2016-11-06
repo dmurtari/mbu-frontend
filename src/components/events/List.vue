@@ -20,15 +20,12 @@
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
-import auth from '../../services/auth';
 import Event from './Event.vue'
 import EventCreate from './Create.vue';
 
 export default {
   data() {
     return {
-      user: auth.user,
-      profile: auth.getProfile,
       displayAddEvent: false
     }
   },
