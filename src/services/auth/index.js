@@ -47,6 +47,6 @@ export default {
     }
   },
   getAuthHeader() {
-    return localStorage.getItem('token')
+    return localStorage.getItem('token') || '';
   }
 };
