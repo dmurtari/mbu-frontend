@@ -38,7 +38,7 @@
       <div class="form-group">
         <button class="btn btn-primary" @click="submit()">Signup</button>
       </div>
-      <a @click="toggle()">Already have an account?</a>
+      <a href="#" @click="toggle()">Already have an account?</a>
     </form>
   </div>
 </template>

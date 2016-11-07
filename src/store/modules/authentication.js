@@ -65,6 +65,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
+          console.log('Failed to login user');
           reject(err.body.message);
         });    
     });
@@ -78,8 +79,23 @@ const actions = {
           resolve();
         })
         .catch((err) => {
+          console.log('Failed to create user');
           reject(err.body.message);
         });
+    });
+  },
+  sendResetEmail({ commit }, email) {
+    let data = { email: email }
+    return new Promise((resolve, reject) => {
+      Vue.http.post(URLS.FORGOT_URL, data)
+        .then((data) => {
+          console.log('Send reset email to', email);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to send reset email');
+          reject();
+        })
     });
   },
   logout({ commit }) {
