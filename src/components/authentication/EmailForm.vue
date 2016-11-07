@@ -45,10 +45,12 @@ export default {
       this.$store.dispatch('sendResetEmail', this.email)
         .then(() => {
           this.clicked = false;
+          this.error = false;
           this.sent = true;
         })
         .catch(() => {
           this.clicked= false;
+          this.sent = false;
           this.error = true;
         });
     }
