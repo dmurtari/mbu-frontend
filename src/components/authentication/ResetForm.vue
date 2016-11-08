@@ -1,5 +1,12 @@
 <template>
 <form class="form-horizontal">
+  <div class="alert alert-danger" v-if="error">
+    {{ error }}
+  </div>
+  <div class="alert alert-success" v-if="reset">
+    Successfully reset your password! Please login to your account using your
+    new password.
+  </div>
   <span class="help-block">
     Enter the new password you would like to use to login to your account.
   </span>
@@ -24,9 +31,50 @@
     </div>
   </div>
   <button class="btn btn-primary pull-right"
-          :class="{ 'disabled': clicked }"
           @click="resetPassword()">
           Set Password
   </button>
 </form>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      password: '',
+      passwordConfirmation: '',
+      error: '',
+      reset: false
+    }
+  },
+  props: {
+    resetToken: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    resetPassword() {
+      if (this.password != this.passwordConfirmation) {
+        this.error = 'Passwords don\'t match';
+        return;
+      }
+      let data = {
+        password: this.password,
+        token: this.resetToken
+      };
+      console.log('sending', data)
+      this.$store.dispatch('resetPassword', data)
+        .then(() => {
+          this.password = '';
+          this.passwordConfirmation = '';
+          this.reset = true;
+        })
+        .catch((err) => {
+          this.reset = false;
+          this.error = 'Failed to reset password. Please try again.';
+        });
+    }
+  }
+}
+</script>

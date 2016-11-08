@@ -88,7 +88,8 @@ const actions = {
     let data = {
       email: email,
       url: URLS.RESET_URL
-    }
+    };
+
     return new Promise((resolve, reject) => {
       Vue.http.post(URLS.FORGOT_URL, data)
         .then((data) => {
@@ -98,9 +99,22 @@ const actions = {
         .catch((err) => {
           console.log('Failed to send reset email');
           reject();
-        })
+        });
     });
   },
+  resetPassword({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      Vue.http.post(URLS.RESET_API_URL, data)
+        .then(() => {
+          console.log('Reset password');
+          resolve()
+        })
+        .catch((err) => {
+          console.log('Failed to reset password');
+          reject(err.body.message);
+        });
+    });
+  }, 
   logout({ commit }) {
     console.log('Logging out');
     commit(types.LOGOUT);
