@@ -85,7 +85,10 @@ const actions = {
     });
   },
   sendResetEmail({ commit }, email) {
-    let data = { email: email }
+    let data = {
+      email: email,
+      url: URLS.RESET_URL
+    }
     return new Promise((resolve, reject) => {
       Vue.http.post(URLS.FORGOT_URL, data)
         .then((data) => {

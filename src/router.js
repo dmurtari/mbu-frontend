@@ -12,5 +12,8 @@ export default [
   }, {
     path: '/reset',
     component: Reset
+  }, {
+    path: '/reset/:resetToken',
+    component: Reset
   }
 ];
