@@ -47,10 +47,9 @@ export default {
       reset: false
     }
   },
-  props: {
-    resetToken: {
-      type: String,
-      required: true
+  computed: {
+    resetToken() {
+      return this.$route.params.resetToken;
     }
   },
   methods: {
