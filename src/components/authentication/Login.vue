@@ -45,6 +45,9 @@ export default {
       }
       
       this.$store.dispatch('login', credentials)
+        .then(() => {
+          this.$emit('loginSuccess');
+        })
         .catch((err) => {
           this.error = err;
         });
