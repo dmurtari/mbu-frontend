@@ -3,6 +3,7 @@
     <div class="panel-heading">
       <div class="btn-group pull-right">
         <button class="btn btn-default"
+                v-if="isAdmin"
                 @click="toggleEdit"
                 data-toggle="tooltip" 
                 data-placement="top" 
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import moment from 'moment'
 
 import EventEdit from './Edit.vue';
@@ -33,6 +35,11 @@ export default {
     return {
       displayEditEvent: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isAdmin'
+    ])
   },
   props: {
     event: {

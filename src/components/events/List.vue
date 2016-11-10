@@ -3,6 +3,7 @@
     <div>
       <h3>All Events ({{ totalEvents }} total)
         <button class="btn btn-default"
+                v-if="isAdmin"
                 @click="toggleAdd"
                 data-toggle="tooltip" 
                 data-placement="right" 
@@ -30,14 +31,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      events: 'allEvents'
-    }),
+    ...mapGetters([
+      'allEvents',
+      'isAdmin'
+    ]),
     totalEvents() {
-      return this.events.length;
+      return this.allEvents.length;
     },
     sortedEvents() {
-      return _.orderBy(this.events, 'date', 'desc');
+      return _.orderBy(this.allEvents, 'date', 'desc');
     }
   },
   methods: {
