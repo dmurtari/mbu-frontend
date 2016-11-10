@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div>
   <div class="alert alert-danger" v-if="error">
       <p>
         {{ error }}
@@ -29,7 +29,7 @@
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_close">
       </div>
-      <div class="container"
+      <div class="container-fluid"
            v-if="!showDeleteConfirmation">
         <div class="pull-left">
           <button class="btn btn-danger"

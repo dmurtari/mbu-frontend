@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container-fluid">
   <div class="form-group has-error">
     <label class="control-label" for="eventDeleteConfirm">
       Confirm Deletion (this cannot be undone!)
