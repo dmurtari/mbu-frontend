@@ -15,6 +15,21 @@ const getters = {
   isAuthenticated(state) {
     return state.isAuthenticated;
   },
+  isTeacher(state) {
+    return state.profile.role === 'teacher';
+  },
+  isCoordinator(state) {
+    return state.profile.role === 'coordinator';
+  },
+  isAdmin(state) {
+    return state.profile.role === 'admin';
+  },
+  isTeacherOrAdmin(state) {
+    return state.profile.role === 'teacher' || state.profile.role === 'admin';
+  },
+  isCoordinatorOrAdmin(state) {
+    return state.profile.role === 'coordinator' || state.profile.role === 'admin';
+  }
 }
 
 const mutations = {
