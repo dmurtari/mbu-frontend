@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from 'axios';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -35,21 +35,21 @@ const getters = {
 const actions = {
   addEvent({ commit }, event) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(URLS.EVENTS_URL, event)
-        .then((data) => {
-          console.log('Created event', data.body.event)
-          commit(types.ADD_EVENT, data.body.event);
+      axios.post(URLS.EVENTS_URL, event)
+        .then((response) => {
+          console.log('Created event', response.data.event)
+          commit(types.ADD_EVENT, response.data.event);
           resolve(event);
         })
         .catch((err) => {
-          console.log('Failed to create event', err.body.message);
-          reject(err.body.message);
+          console.log('Failed to create event', err.data.message);
+          reject(err.data.message);
         });
     });
   },
   deleteEvent({ commit }, eventId) {
     return new Promise((resolve, reject) => {
-      Vue.http.delete(URLS.EVENTS_URL + eventId)
+      axios.delete(URLS.EVENTS_URL + eventId)
         .then(() => {
           console.log('Deleted event', eventId);
           commit(types.DELETE_EVENT, eventId);
@@ -63,25 +63,25 @@ const actions = {
   },
   getEvents({ commit }) {
     return new Promise((resolve, reject) => {
-      Vue.http.get(URLS.EVENTS_URL)
-        .then((data) => {
-          console.log('Received events', data.body)
-          commit(types.GET_EVENTS, data.body);
+      axios.get(URLS.EVENTS_URL)
+        .then((response) => {
+          console.log('Received events', response.data)
+          commit(types.GET_EVENTS, response.data);
           resolve(event);
         })
     })
   },
   updateEvent({ commit }, eventUpdate) {
     return new Promise((resolve, reject) => {
-      Vue.http.put(URLS.EVENTS_URL + eventUpdate.id, eventUpdate)
-        .then((data) => {
-          console.log('Updated event to', data.body.event);
-          commit(types.UPDATE_EVENT, data.body.event);
+      axios.put(URLS.EVENTS_URL + eventUpdate.id, eventUpdate)
+        .then((response) => {
+          console.log('Updated event to', response.data.event);
+          commit(types.UPDATE_EVENT, response.data.event);
           resolve(event);
         })
         .catch((err) => {
-          console.log('Failed to update event', err.body.message);
-          reject(err.body.message);
+          console.log('Failed to update event', err.data.message);
+          reject(err.data.message);
         })
     })
   }

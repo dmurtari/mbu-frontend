@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from 'axios';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -37,13 +37,13 @@ const mutations = {
     state.profile = response.profile;
     state.isAuthenticated = true;
     localStorage.setItem('token', response.token);
-    Vue.http.headers.common['Authorization'] = response.token;
+    axios.defaults.headers.common['Authorization'] = response.token;
   },
   [types.LOGOUT] (state) {
     state.profile = {};
     state.isAuthenticated = false;
     localStorage.removeItem('token');
-    Vue.http.headers.common['Authorization'] = '';
+    axios.defaults.headers.common['Authorization'] = '';
   },
   [types.PROFILE] (state, profile) {
     state.profile = profile;
@@ -56,12 +56,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem('token');
 
-      Vue.http.get(URLS.PROFILE_URL, {
+      axios.get(URLS.PROFILE_URL, {
         headers: { 'Authorization': token}
       })
-        .then((data) => {
+        .then((response) => {
           console.log('Successfully authenticated from JWT');
-          commit(types.PROFILE, data.body.profile);
+          commit(types.PROFILE, response.data.profile);
           resolve();
         })
         .catch((err) => {
@@ -73,29 +73,29 @@ const actions = {
   },
   login({ commit }, credentials) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(URLS.LOGIN_URL, credentials)
-        .then((data) => {  
+      axios.post(URLS.LOGIN_URL, credentials)
+        .then((response) => {  
           console.log('Successfully logged in user');
-          commit(types.LOGIN, data.body);
+          commit(types.LOGIN, response.data);
           resolve();
         })
         .catch((err) => {
           console.log('Failed to login user');
-          reject(err.body.message);
+          reject(err.data.message);
         });    
     });
   },
   signup({ commit }, credentials) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(URLS.SIGNUP_URL, credentials)
-        .then((data) => {
+      axios.post(URLS.SIGNUP_URL, credentials)
+        .then((response) => {
           console.log('Successfully created user');
-          commit(types.LOGIN, data.body.token, data.body.profile);
+          commit(types.LOGIN, response.data.token, response.data.profile);
           resolve();
         })
         .catch((err) => {
           console.log('Failed to create user');
-          reject(err.body.message);
+          reject(err.data.message);
         });
     });
   },
@@ -106,8 +106,8 @@ const actions = {
     };
 
     return new Promise((resolve, reject) => {
-      Vue.http.post(URLS.FORGOT_URL, data)
-        .then((data) => {
+      axios.post(URLS.FORGOT_URL, data)
+        .then((response) => {
           console.log('Send reset email to', email);
           resolve();
         })
@@ -119,14 +119,14 @@ const actions = {
   },
   resetPassword({ commit }, data) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(URLS.RESET_API_URL, data)
+      axios.post(URLS.RESET_API_URL, data)
         .then(() => {
           console.log('Reset password');
           resolve()
         })
         .catch((err) => {
           console.log('Failed to reset password');
-          reject(err.body.message);
+          reject(err.data.message);
         });
     });
   }, 
