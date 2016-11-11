@@ -65,11 +65,12 @@ export default {
         this.error = 'Passwords don\'t match';
         return;
       }
+
       let data = {
         password: this.password,
         token: this.resetToken
       };
-      console.log('sending', data)
+
       this.$store.dispatch('resetPassword', data)
         .then(() => {
           this.password = '';

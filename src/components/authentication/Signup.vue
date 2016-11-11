@@ -17,6 +17,12 @@
                v-model="credentials.password">
       </div>
       <div class="form-group">
+        <input type="password"
+               class="form-control"
+               placeholder="Password Confirmation"
+               v-model="credentials.passwordConfirmation">
+      </div>
+      <div class="form-group">
         <input type="text"
                class="form-control"
                placeholder="First Name"
@@ -50,6 +56,7 @@ export default {
       credentials: {
         email: '',
         password: '',
+        passwordConfirmation: '',
         firstname: '',
         lastname: '',
         role: ''
@@ -64,6 +71,11 @@ export default {
   },
   methods: {
     submit() {
+      if (this.credentials.password != this.credentials.passwordConfirmation) {
+        this.error = 'Passwords don\'t match';
+        return;
+      }
+
       let credentials = {
         email: this.credentials.email,
         password: this.credentials.password,
@@ -73,8 +85,11 @@ export default {
       }
     
       this.$store.dispatch('signup', credentials)
+        .then(() => {
+          this.error = '';
+        })
         .catch((err) => {
-          this.error = err;
+          this.error = 'Error creating your account. All fields are required';
         });
     },
     toggle() {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
+      <p>Invalid email/password combination</p>
     </div>
     <form>
       <div class="form-group">
@@ -34,7 +34,7 @@ export default {
         email: '',
         password: ''
       },
-      error: ''
+      error: false
     }
   },
   methods: {
@@ -49,7 +49,7 @@ export default {
           this.$emit('loginSuccess');
         })
         .catch((err) => {
-          this.error = err;
+          this.error = true;
         });
     },
     toggle() {
