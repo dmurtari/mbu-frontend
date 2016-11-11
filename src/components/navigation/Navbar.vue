@@ -9,8 +9,20 @@
         <li><router-link to="/events">Events</router-link></li>
       </ul>        
       <ul class="nav navbar-nav navbar-right">
-        <li v-if="isAuthenticated">
-          <a href="#" @click="logout">Logout</a>
+        <li v-if="isAuthenticated"
+            class="dropdown">
+          <a href="#"
+             class="dropdown-toggle"
+             data-toggle="dropdown"
+             role="button"
+             aria-haspopup="true"
+             aria-expanded="false">
+            {{ profile.firstname }} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><router-link to="/profile">My Profile</router-link></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" @click="logout">Logout</a></li>
+          </ul>
         </li>
         <li v-if="!isAuthenticated"
             class="dropdown">
@@ -37,9 +49,10 @@ import Signin from '../authentication/Signin.vue';
 
 export default {
   computed: {
-    ...mapGetters({
-      isAuthenticated: 'isAuthenticated'
-    })
+    ...mapGetters([
+      'profile',
+      'isAuthenticated'
+    ])
   },
   methods: {
     logout() {

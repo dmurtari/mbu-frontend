@@ -4,6 +4,7 @@ import EventList from './components/events/List.vue';
 import Reset from './components/authentication/Reset.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
+import Profile from './components/users/Profile.vue';
 
 export default [
   {
@@ -35,5 +36,8 @@ export default [
 
       next();
     }
+  }, {
+    path: '/profile/:id?',
+    component: Profile
   }
 ];
