@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -90,7 +91,7 @@ const actions = {
       axios.post(URLS.SIGNUP_URL, credentials)
         .then((response) => {
           console.log('Successfully created user');
-          commit(types.LOGIN, response.data.token, response.data.profile);
+          commit(types.LOGIN, response.data);
           resolve();
         })
         .catch((err) => {
