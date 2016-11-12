@@ -81,7 +81,7 @@ const actions = {
         })
         .catch((err) => {
           console.log('Failed to login user');
-          reject(err.data.message);
+          reject(err.response.data.message);
         });    
     });
   },
@@ -95,7 +95,7 @@ const actions = {
         })
         .catch((err) => {
           console.log('Failed to create user');
-          reject(err.data.message);
+          reject(err.response.data.message);
         });
     });
   },
@@ -126,7 +126,7 @@ const actions = {
         })
         .catch((err) => {
           console.log('Failed to reset password');
-          reject(err.data.message);
+          reject(err.response.data.message);
         });
     });
   }, 

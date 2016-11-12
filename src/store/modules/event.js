@@ -42,8 +42,8 @@ const actions = {
           resolve(event);
         })
         .catch((err) => {
-          console.log('Failed to create event', err.data.message);
-          reject(err.data.message);
+          console.log('Failed to create event', err.response.data.message);
+          reject(err.response.data.message);
         });
     });
   },
@@ -80,8 +80,8 @@ const actions = {
           resolve(event);
         })
         .catch((err) => {
-          console.log('Failed to update event', err.data.message);
-          reject(err.data.message);
+          console.log('Failed to update event', err.response.data.message);
+          reject(err.response.data.message);
         })
     })
   }
