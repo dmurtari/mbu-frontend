@@ -41,6 +41,34 @@
           </option>
         </select>
       </div>
+      <div v-if="credentials.role === 'coordinator'">
+        <div class="form-group">
+          <input type="number"
+                 class="form-control"
+                 placeholder="Troop"
+                 v-model="credentials.coordinator.troop">
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 class="form-control"
+                 placeholder="District"
+                 v-model="credentials.coordinator.district">
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Council"
+                 v-model="credentials.coordinator.council">
+        </div>
+      </div>
+      <div v-if="credentials.role === 'teacher'">
+        <div class="form-group">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Chapter"
+                 v-model="credentials.teacher.chapter">
+        </div>
+      </div>
       <div class="form-group">
         <button class="btn btn-primary" @click="submit()">Signup</button>
       </div>
@@ -59,7 +87,15 @@ export default {
         passwordConfirmation: '',
         firstname: '',
         lastname: '',
-        role: ''
+        role: '',
+        teacher: {
+          chapter: ''
+        },
+        coordinator: {
+          troop: '',
+          district: '',
+          council: ''
+        }
       },
       roles: [
         { text: 'Unaffailiated', value: 'anonymous' },
@@ -83,7 +119,16 @@ export default {
         lastname: this.credentials.lastname,
         role: this.credentials.role
       }
-    
+
+      switch (credentials.role){
+        case 'coordinator':
+          credentials.details = this.credentials.coordinator;
+          break;
+        case 'teacher':
+          credentials.details = this.credentials.teacher;
+          break;
+      }
+
       this.$store.dispatch('signup', credentials)
         .then(() => {
           this.error = '';
