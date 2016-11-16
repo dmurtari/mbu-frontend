@@ -21,7 +21,7 @@
           <ul class="dropdown-menu">
             <li><router-link to="/profile">My Profile</router-link></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#" @click="logout">Logout</a></li>
+            <li><a href="#" @click="logout()">Logout</a></li>
           </ul>
         </li>
         <li v-if="!isAuthenticated"
@@ -60,6 +60,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout');
+      this.closeDropdown();
     },
     closeDropdown() {
       $('#login-dropdown').dropdown('toggle');
