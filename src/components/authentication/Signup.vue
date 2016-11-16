@@ -1,5 +1,11 @@
 <template>
   <div class="container col-md-6 col-md-offset-3">
+    <h3>Create Your Account</h3>
+    <p>
+      Create an account to register scouts for MBU here! You will be able to use
+      this account to register scouts for MBU, and view results from current and
+      previous MBUs.
+    </p>
     <div class="alert alert-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
@@ -26,7 +32,7 @@
           <input type="password"
                 class="form-control"
                 id="signup-password-confirm"
-                placeholder="Password Confirmation"
+                placeholder="Confirm your password"
                 v-model="credentials.passwordConfirmation">
         </div>
       </div>
@@ -86,10 +92,11 @@
       </div>
       <div v-if="credentials.role === 'teacher'">
         <div class="form-group">
+          <label for="signup-chapter">Chapter/Organization</label>
           <input type="text"
                  class="form-control"
                  id="signup-chapter"
-                 placeholder="Chapter"
+                 placeholder="Your group"
                  v-model="credentials.teacher.chapter">
         </div>
       </div>
@@ -122,7 +129,7 @@ export default {
         }
       },
       roles: [
-        { text: 'Unaffailiated', value: 'anonymous' },
+        { text: 'Other', value: 'anonymous' },
         { text: 'Scoutmaster/Coordinator', value: 'coordinator' },
         { text: 'Teacher/Volunteer', value: 'teacher' }
       ],
@@ -155,6 +162,7 @@ export default {
 
       this.$store.dispatch('signup', credentials)
         .then(() => {
+          this.$router.push('/');
           this.error = '';
         })
         .catch((err) => {

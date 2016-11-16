@@ -27,7 +27,7 @@
                 @click="signup()">Create an Account</button>
       </div>
       <br>
-      <router-link to="/reset">Forgot your password?</router-link>
+      <a @click="reset()">Forgot your password?</a>
     </form>
   </div>
 </template>
@@ -61,7 +61,19 @@ export default {
     signup() {
       this.$emit('close');
       this.$router.push('/signup');
+    },
+    reset() {
+      this.$emit('close');
+      this.$router.push('/reset');
     }
   }
 }
 </script>
+
+<style scoped lang="sass">
+
+a {
+  cursor: pointer;
+}
+
+</style>

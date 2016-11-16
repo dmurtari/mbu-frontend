@@ -62,7 +62,6 @@ export default {
       this.$store.dispatch('logout');
     },
     closeDropdown() {
-      console.log($('#login-dropdown'));
       $('#login-dropdown').dropdown('toggle');
     }
   },
