@@ -1,5 +1,5 @@
 <template>
-  <div class="container col-md-6 col-md-offset-3">
+  <div class="container col-md-8 col-md-offset-2">
     <h3>Create Your Account</h3>
     <p>
       Create an account to register scouts for MBU here! You will be able to use
