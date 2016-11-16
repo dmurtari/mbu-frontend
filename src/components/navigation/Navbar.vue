@@ -28,13 +28,16 @@
             class="dropdown">
           <a href="#"
              class="dropdown-toggle"
+             id="login-dropdown"
              data-toggle="dropdown"
              role="button"
              aria-haspopup="true"
              aria-expanded="false">Login/Signup <span class="caret"></span></a>
-          <ul v-on:click.stop
+          <ul @click.stop
               class="dropdown-menu">
-            <li><signin></signin></li>
+            <div class="container dropdown-form">
+              <li><login @close="closeDropdown()"></login></li>
+            </div>
           </ul>
         </li>          
       </ul>
@@ -45,7 +48,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Signin from '../authentication/Signin.vue';
+import Login from '../authentication/Login.vue';
 
 export default {
   computed: {
@@ -57,10 +60,24 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout');
+    },
+    closeDropdown() {
+      console.log($('#login-dropdown'));
+      $('#login-dropdown').dropdown('toggle');
     }
   },
   components: {
-    'signin': Signin
+    'login': Login
   }
 }
 </script>
+
+<style scoped lang="sass">
+
+.container .dropdown-form {
+  max-width: 400px;
+  padding-bottom: .5em;
+  padding-top: .5em;
+}
+
+</style>

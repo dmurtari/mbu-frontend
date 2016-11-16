@@ -2,6 +2,7 @@ import About from './components/About.vue';
 import Main from './components/Main.vue';
 import EventList from './components/events/List.vue';
 import Reset from './components/authentication/Reset.vue';
+import Signup from './components/authentication/Signup.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
 import Profile from './components/users/Profile.vue';
@@ -17,6 +18,9 @@ export default [
   }, {
     path: '/events',
     component: EventList
+  }, {
+    path: '/signup',
+    component: Signup
   }, {
     path: '/reset',
     component: Reset,

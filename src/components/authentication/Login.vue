@@ -5,20 +5,26 @@
     </div>
     <form>
       <div class="form-group">
+        <label for="login-email">Email</label>
         <input type="email"
                class="form-control"
-               placeholder="Email"
+               id="login-email"
+               placeholder="Enter your email"
                v-model="credentials.email">
       </div>
       <div class="form-group">
+        <label for="loginPassword">Password</label>
         <input type="password"
                class="form-control"
+               id="loginPassword"
                placeholder="Password"
                v-model="credentials.password">
       </div>
       <div class="btn-group form-group">
-        <button class="btn btn-primary" @click="submit()">Login</button>
-        <button class="btn btn-default" @click="toggle()">Create an Account</button>
+        <button class="btn btn-primary" 
+                @click="submit()">Login</button>
+        <button class="btn btn-default" 
+                @click="signup()">Create an Account</button>
       </div>
       <br>
       <router-link to="/reset">Forgot your password?</router-link>
@@ -52,8 +58,9 @@ export default {
           this.error = true;
         });
     },
-    toggle() {
-      this.$emit('toggle-create');
+    signup() {
+      this.$emit('close');
+      this.$router.push('/signup');
     }
   }
 }

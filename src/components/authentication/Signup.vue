@@ -1,62 +1,85 @@
 <template>
-  <div>
+  <div class="container col-md-6 col-md-offset-3">
     <div class="alert alert-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
     <form>
       <div class="form-group">
+        <label for="signup-email">Email</label>
         <input type="email"
                class="form-control"
-               placeholder="Email"
+               id="signup-email"
+               placeholder="Your email address"
                v-model="credentials.email">
       </div>
-      <div class="form-group">
-        <input type="password"
-               class="form-control"
-               placeholder="Password"
-               v-model="credentials.password">
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="signup-password">Password</label>
+          <input type="password"
+                class="form-control"
+                id="signup-password"
+                placeholder="Password"
+                v-model="credentials.password">
+        </div>
+        <div class="form-group col-sm-6">
+          <label for="signup-password-confirm">Password Confirmation</label>
+          <input type="password"
+                class="form-control"
+                id="signup-password-confirm"
+                placeholder="Password Confirmation"
+                v-model="credentials.passwordConfirmation">
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-6">
+          <label for="signup-first-name">First Name</label>
+          <input type="text"
+                class="form-control"
+                id="signup-first-name"
+                placeholder="First Name"
+                v-model="credentials.firstname">
+        </div>
+        <div class="form-group col-sm-6">
+          <label for="signup-last-name">Last Name</label>
+          <input type="text"
+                class="form-control"
+                id="signup-last-name"
+                placeholder="Last Name"
+                v-model="credentials.lastname">
+        </div>
       </div>
       <div class="form-group">
-        <input type="password"
-               class="form-control"
-               placeholder="Password Confirmation"
-               v-model="credentials.passwordConfirmation">
-      </div>
-      <div class="form-group">
-        <input type="text"
-               class="form-control"
-               placeholder="First Name"
-               v-model="credentials.firstname">
-      </div>
-      <div class="form-group">
-        <input type="text"
-               class="form-control"
-               placeholder="Last Name"
-               v-model="credentials.lastname">
-      </div>
-      <div class="form-group">
-        <select class="form-control" v-model="credentials.role">
+        <label for="signup-role">I am a...</label>
+        <select class="form-control" 
+                id="signup-role"
+                v-model="credentials.role">
           <option v-for="option in roles" :value="option.value">
             {{ option.text }}
           </option>
         </select>
       </div>
-      <div v-if="credentials.role === 'coordinator'">
-        <div class="form-group">
+      <div class="row" v-if="credentials.role === 'coordinator'">
+        <div class="form-group col-sm-4">
+          <label for="signup-troop">Troop</label>
           <input type="number"
                  class="form-control"
+                 id="signup-troop"
                  placeholder="Troop"
                  v-model="credentials.coordinator.troop">
         </div>
-        <div class="form-group">
+        <div class="form-group col-sm-4">
+          <label for="signup-district">District</label>
           <input type="text"
                  class="form-control"
+                 id="signup-district"
                  placeholder="District"
                  v-model="credentials.coordinator.district">
         </div>
-        <div class="form-group">
+        <div class="form-group col-sm-4">
+          <label for="signup-council">Council</label>
           <input type="text"
                  class="form-control"
+                 id="signup-council"
                  placeholder="Council"
                  v-model="credentials.coordinator.council">
         </div>
@@ -65,6 +88,7 @@
         <div class="form-group">
           <input type="text"
                  class="form-control"
+                 id="signup-chapter"
                  placeholder="Chapter"
                  v-model="credentials.teacher.chapter">
         </div>
