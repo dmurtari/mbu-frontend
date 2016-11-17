@@ -1,6 +1,8 @@
 <template>
-<div>
-  <h3>Your Profile</h3>
+<div class="container-fluid">
+  <div class="page-header">
+    <h3>Your Profile</h3>
+  </div>
   <general-profile :profile="profile"></general-profile>
   <coordinator-detail v-if="profile.role === 'coordinator' "
                       :details="profile.details"></coordinator-detail>
