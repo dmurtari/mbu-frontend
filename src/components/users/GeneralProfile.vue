@@ -5,10 +5,9 @@
 </template>
 
 <script>
-
 export default {
   props: {
-    details: {
+    profile: {
       type: Object,
       required: true
     }
