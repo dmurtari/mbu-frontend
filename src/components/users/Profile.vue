@@ -3,9 +3,19 @@
   <div class="page-header">
     <h3>Your Profile</h3>
   </div>
-  <general-profile :profile="profile"></general-profile>
-  <coordinator-detail v-if="profile.role === 'coordinator' "
-                      :details="profile.details"></coordinator-detail>
+  <aside class="col-sm-4">
+    <div class="list-group">
+      <router-link to="#general-profile" class="list-group-item">My Profile</router-link>
+      <router-link to="#coordinator-details" class="list-group-item">Details</router-link>
+    </div>
+  </aside>
+  <section class="col-sm-7 col-sm-offset-1">
+    <general-profile id="general-profile"
+                     class="general-profile" :profile="profile"></general-profile>
+    <coordinator-detail v-if="profile.role === 'coordinator' "
+                        id="coordinator-details"
+                        :details="profile.details"></coordinator-detail>
+  </section>
 </div>
 </template>
 
@@ -27,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="sass">
+.general-profile {
+  padding-bottom: 1em;  
+}
+</style>

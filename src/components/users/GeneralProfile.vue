@@ -1,11 +1,10 @@
 <template>
 <div>
+  <h4>Account Information</h4>
   <dl class="dl-horizontal">
-    <dd><h4>{{ fullname }}</h4></dd>
-    <dt>Email:</dt>
-    <dd>{{ profile.email }}</dd>
-    <dt>Your role:</dt>
-    <dd>{{ role }}</dd>
+    <dt>Name:</dt><dd>{{ fullname }}</dd>
+    <dt>Email:</dt><dd>{{ profile.email }}</dd>
+    <dt>Your Role:</dt><dd>{{ role }}</dd>
   </dl>
 </div>
 </template>
