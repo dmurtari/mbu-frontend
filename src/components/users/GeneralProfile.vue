@@ -5,6 +5,9 @@
     <dt>Name:</dt><dd>{{ fullname }}</dd>
     <dt>Email:</dt><dd>{{ profile.email }}</dd>
     <dt>Your Role:</dt><dd>{{ role }}</dd>
+    <div v-for="(value, key) in profile.details">
+      <dt>{{ key }}:</dt><dd>{{ value }}</dd>
+    </div>
   </dl>
 </div>
 </template>

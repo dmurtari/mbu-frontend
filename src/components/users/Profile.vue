@@ -17,8 +17,7 @@
       <general-profile id="general-profile"
                       class="general-profile" :profile="profile"></general-profile>
       <coordinator-detail v-if="profile.role === 'coordinator' "
-                          id="coordinator-details"
-                          :details="profile.details"></coordinator-detail>
+                          id="coordinator-details"></coordinator-detail>
     <div>
   </section>
 </div>
