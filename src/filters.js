@@ -1,4 +1,5 @@
-import moment from 'moment'
+import moment from 'moment';
+import _ from 'lodash';
 
 export default function(Vue) {
   Vue.filter('longDate', (value) => {
@@ -6,5 +7,8 @@ export default function(Vue) {
   });
   Vue.filter('shortDate', (value) => {
     return moment(value).format('MM/DD/YYYY');
+  });
+  Vue.filter('capitalize', (value) => {
+    return _.capitalize(value);
   });
 }
