@@ -4,14 +4,21 @@
     <h3>Your Profile</h3>
   </div>
   <aside class="col-sm-4">
+    <h5>Skip to a section:</h5>
     <div class="list-group">
       <router-link to="#general-profile" class="list-group-item">My Profile</router-link>
       <router-link to="#coordinator-details" class="list-group-item">Details</router-link>
     </div>
-    <div class="sidebar-buttons">
+    <div class="sidebar-buttons list-group btn-block">
+      <h5>Make changes to your account:</h5>
       <button type="button" 
-              class="btn btn-info btn-block edit-button"
-              @click="toggleEdit()">Edit Profile</button>
+              class="list-group-item"
+              @click="toggleEdit()">
+        {{ editing ? 'Cancel Edits' : 'Edit Profile'}}
+      </button>
+      <button type="button" 
+              class="list-group-item"
+              @click="toggleEdit()">Change Password</button>
     </div>
   </aside>
   <section class="col-sm-7 col-sm-offset-1">
@@ -68,5 +75,9 @@ export default {
 .sidebar-buttons {
   margin-top: 1em;
   margin-bottom: 3em;
+}
+
+button:focus, input[type="button"]:focus, .list-group-item {
+  outline: none;
 }
 </style>
