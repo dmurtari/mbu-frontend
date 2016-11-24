@@ -17,40 +17,42 @@
               v-model="profileUpdate.lastname">
       </div>
     </div>
-    <div class="row" v-if="profileUpdate.role === 'coordinator'">
-      <div class="form-group col-sm-4">
-        <label for="edit-troop">Troop</label>
-        <input type="number"
-                class="form-control"
-                id="edit-troop"
-                placeholder="Troop"
-                v-model="profileUpdate.coordinator.troop">
+    <div class="row">
+      <div v-if="profile.role === 'coordinator'">
+        <div class="form-group col-sm-4">
+          <label for="edit-troop">Troop</label>
+          <input type="number"
+                  class="form-control"
+                  id="edit-troop"
+                  placeholder="Troop"
+                  v-model="profileUpdate.coordinator.troop">
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="edit-district">District</label>
+          <input type="text"
+                  class="form-control"
+                  id="edit-district"
+                  placeholder="District"
+                  v-model="profileUpdate.coordinator.district">
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="edit-council">Council</label>
+          <input type="text"
+                  class="form-control"
+                  id="edit-council"
+                  placeholder="Council"
+                  v-model="profileUpdate.coordinator.council">
+        </div>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="edit-district">District</label>
-        <input type="text"
-                class="form-control"
-                id="edit-district"
-                placeholder="District"
-                v-model="profileUpdate.coordinator.district">
-      </div>
-      <div class="form-group col-sm-4">
-        <label for="edit-council">Council</label>
-        <input type="text"
-                class="form-control"
-                id="edit-council"
-                placeholder="Council"
-                v-model="profileUpdate.coordinator.council">
-      </div>
-    </div>
-    <div v-if="profileUpdate.role === 'teacher'">
-      <div class="form-group">
-        <label for="edit-chapter">Chapter/Organization</label>
-        <input type="text"
-                class="form-control"
-                id="edit-chapter"
-                placeholder="Your group"
-                v-model="profileUpdate.teacher.chapter">
+      <div v-if="profile.role === 'teacher'">
+        <div class="form-group">
+          <label for="edit-chapter">Chapter/Organization</label>
+          <input type="text"
+                  class="form-control"
+                  id="edit-chapter"
+                  placeholder="Your group"
+                  v-model="profileUpdate.teacher.chapter">
+        </div>
       </div>
     </div>
     <div class="form-group pull-right">
