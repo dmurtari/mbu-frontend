@@ -8,9 +8,11 @@
       <router-link to="#general-profile" class="list-group-item">My Profile</router-link>
       <router-link to="#coordinator-details" class="list-group-item">Details</router-link>
     </div>
-    <button type="button" 
-            class="btn btn-info btn-block edit-button"
-            @click="toggleEdit()">Edit Profile</button>
+    <div class="sidebar-buttons">
+      <button type="button" 
+              class="btn btn-info btn-block edit-button"
+              @click="toggleEdit()">Edit Profile</button>
+    </div>
   </aside>
   <section class="col-sm-7 col-sm-offset-1">
     <div v-if="!editing">
@@ -60,10 +62,11 @@ export default {
 
 <style scoped lang="sass">
 .general-profile {
-  padding-bottom: 1em;  
+  padding-bottom: 1em;
 }
 
-.edit-button {
+.sidebar-buttons {
   margin-top: 1em;
+  margin-bottom: 3em;
 }
 </style>
