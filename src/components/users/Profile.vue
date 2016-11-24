@@ -15,10 +15,14 @@
   <section class="col-sm-7 col-sm-offset-1">
     <div v-if="!editing">
       <general-profile id="general-profile"
-                      class="general-profile" :profile="profile"></general-profile>
+                       class="general-profile" :profile="profile"></general-profile>
       <coordinator-detail v-if="profile.role === 'coordinator' "
                           id="coordinator-details"></coordinator-detail>
-    <div>
+    </div>
+    <div v-if="editing">
+      <edit-profile :profile="profile"
+                    @toggle="toggleEdit()"></edit-profile>
+    </div>
   </section>
 </div>
 </template>
@@ -26,8 +30,9 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import GeneralProfile from './GeneralProfile.vue';
-import CoordinatorDetail from './CoordinatorDetail.vue';
+import General from './General.vue';
+import Coordinator from './Coordinator.vue';
+import Edit from './Edit.vue';
 
 export default {
   data () {
@@ -46,8 +51,9 @@ export default {
     }
   },
   components: {
-    'coordinator-detail': CoordinatorDetail,
-    'general-profile': GeneralProfile
+    'coordinator-detail': Coordinator,
+    'general-profile': General,
+    'edit-profile': Edit
   }
 }
 </script>
