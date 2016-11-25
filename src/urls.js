@@ -6,6 +6,7 @@ export default {
   FORGOT_URL: API_URL + 'forgot/',
   LOGIN_URL: API_URL + 'authenticate/',
   PROFILE_URL: API_URL + 'profile/',
+  USERS_URL: API_URL + 'users/',
   RESET_URL: 'http://localhost:8080/reset/',
   RESET_API_URL: API_URL + 'reset/',
   SIGNUP_URL: API_URL + 'signup/'

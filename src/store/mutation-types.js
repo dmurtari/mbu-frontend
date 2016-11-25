@@ -4,6 +4,7 @@ export const SIGNUP = 'auth/SIGNUP';
 export const LOGOUT = 'auth/LOGOUT';
 export const PROFILE = 'auth/SAVE_PROFILE';
 export const SEND_RESET = 'auth/SEND_RESET_EMAIL';
+export const EDIT_PROFILE = 'auth/EDIT_PROFILE';
 
 // Events
 export const ADD_EVENT = 'events/ADD_EVENT';
