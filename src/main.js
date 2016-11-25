@@ -17,6 +17,7 @@ components(Vue);
 filters(Vue);
 
 export const router = new VueRouter({
+  mode: 'history',
   routes: routes,
   base: __dirname
 });
