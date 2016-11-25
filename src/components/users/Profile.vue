@@ -3,11 +3,15 @@
   <div class="page-header">
     <h3>Your Profile</h3>
   </div>
-  <aside class="col-sm-4">
+  <aside class="col-sm-4" data-spy="affix" data-offset-top="60">
     <h5>Jump to a section:</h5>
     <div class="list-group">
-      <a href="#general-profile" class="list-group-item">My Profile</a>
-      <a href="#coordinator-details" class="list-group-item">Details</a>
+      <a href="#general-profile" 
+         @click="showDisplay()" 
+         class="list-group-item">My Profile</a>
+      <a href="#coordinator-details" 
+         @click="showDisplay()" 
+         class="list-group-item">Details</a>
     </div>
     <div class="sidebar-buttons list-group btn-block">
       <h5>Make changes to your account:</h5>
@@ -81,6 +85,9 @@ export default {
           this.state = 'display';
           break;
       }
+    },
+    showDisplay() {
+      this.state = 'display';
     }
   },
   components: {
