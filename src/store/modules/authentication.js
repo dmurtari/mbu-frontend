@@ -49,6 +49,7 @@ const mutations = {
   [types.PROFILE] (state, profile) {
     state.profile = profile;
     state.isAuthenticated = true;
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
   }
 }
 
@@ -130,7 +131,21 @@ const actions = {
           reject(err.response.data.message);
         });
     });
-  }, 
+  },
+  updateProfile({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.USERS_URL + data.id, data)
+        .then((response) => {
+          console.log('Updated profile');
+          commit(types.LOGIN, response.data);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to update profile');
+          reject(err.response.data.message);
+        })
+    });
+  },
   logout({ commit }) {
     console.log('Logging out');
     commit(types.LOGOUT);

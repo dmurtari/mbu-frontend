@@ -85,7 +85,8 @@ export default {
           district: '',
           council: ''
         }
-      }
+      },
+      error: ''
     }
   },
   computed: {
@@ -95,7 +96,29 @@ export default {
   },
   methods: {
     update() {
-      console.log('Updating')
+      let profile = {
+        id: this.profile.id,
+        firstname: this.profileUpdate.firstname,
+        lastname: this.profileUpdate.lastname
+      }
+
+      switch (this.profile.role){
+        case 'coordinator':
+          profile.details = this.profileUpdate.coordinator;
+          break;
+        case 'teacher':
+          profile.details = this.profileUpdate.teacher;
+          break;
+      }
+
+      this.$store.dispatch('updateProfile', profile)
+        .then(() => {
+          this.error = '';
+          this.$emit('toggle');
+        })
+        .catch((err) => {
+          this.error = 'Failed to save changes. Please try again.';
+        });
     }
   },
   mounted() {
