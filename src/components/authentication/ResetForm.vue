@@ -28,11 +28,11 @@
       </div>
     </div>
     <button class="btn btn-primary pull-right"
-            @click="resetPassword()">
+            @click.prevent="resetPassword()">
             Set Password
     </button>
   </form>
-  <div v-if="true">
+  <div v-if="reset">
     <div class="alert alert-success">
       Successfully reset your password! Please login to your account using your
       new password.

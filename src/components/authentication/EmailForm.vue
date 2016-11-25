@@ -21,7 +21,7 @@
     </span>
     <button class="btn btn-primary pull-right"
             :class="{ 'disabled': clicked }"
-            @click="sendResetEmail()">
+            @click.prevent="sendResetEmail()">
             {{ clicked ? 'Sending Email...' : 'Send Email' }}
     </button>
   </div>

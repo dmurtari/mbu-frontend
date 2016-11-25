@@ -22,9 +22,9 @@
       </div>
       <div class="btn-group form-group">
         <button class="btn btn-primary" 
-                @click="submit()">Login</button>
+                @click.prevent="submit()">Login</button>
         <button class="btn btn-default" 
-                @click="signup()">Create an Account</button>
+                @click.prevent="signup()">Create an Account</button>
       </div>
       <br>
       <a @click="reset()">Forgot your password?</a>

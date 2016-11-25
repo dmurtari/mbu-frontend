@@ -4,33 +4,38 @@
     <h3>Your Profile</h3>
   </div>
   <aside class="col-sm-4">
-    <h5>Skip to a section:</h5>
+    <h5>Jump to a section:</h5>
     <div class="list-group">
-      <router-link to="#general-profile" class="list-group-item">My Profile</router-link>
-      <router-link to="#coordinator-details" class="list-group-item">Details</router-link>
+      <a href="#general-profile" class="list-group-item">My Profile</a>
+      <a href="#coordinator-details" class="list-group-item">Details</a>
     </div>
     <div class="sidebar-buttons list-group btn-block">
       <h5>Make changes to your account:</h5>
       <button type="button" 
               class="list-group-item"
               @click="toggleEdit()">
-        {{ editing ? 'Cancel Edits' : 'Edit Profile'}}
+        {{ state === 'editProfile' ? 'Cancel Edits' : 'Edit Profile' }}
       </button>
       <button type="button" 
               class="list-group-item"
-              @click="toggleEdit()">Change Password</button>
+              @click="toggleEditPassword()">
+        {{ state === 'editPassword' ? 'Cancel Password Change' : 'Change Password' }}
+      </button>
     </div>
   </aside>
   <section class="col-sm-7 col-sm-offset-1">
-    <div v-if="!editing">
+    <div v-if="state === 'display'">
       <general-profile id="general-profile"
                        class="general-profile" :profile="profile"></general-profile>
       <coordinator-detail v-if="profile.role === 'coordinator' "
                           id="coordinator-details"></coordinator-detail>
     </div>
-    <div v-if="editing">
+    <div v-if="state === 'editProfile'">
       <edit-profile :profile="profile"
                     @toggle="toggleEdit()"></edit-profile>
+    </div>
+    <div v-if="state === 'editPassword'">
+
     </div>
   </section>
 </div>
@@ -46,7 +51,7 @@ import Edit from './Edit.vue';
 export default {
   data () {
     return {
-      editing: false
+      state: 'display'
     }
   },
   computed: {
@@ -56,7 +61,26 @@ export default {
   },
   methods: {
     toggleEdit() {
-      this.editing = !this.editing;
+      switch (this.state) {
+        case 'display':
+        case 'editPassword':
+          this.state = 'editProfile';
+          break;
+        case 'editProfile':
+          this.state = 'display';
+          break;
+      }
+    },
+    toggleEditPassword() {
+      switch (this.state) {
+        case 'display':
+        case 'editProfile':
+          this.state = 'editPassword';
+          break;
+        case 'editPassword':
+          this.state = 'display';
+          break;
+      }
     }
   },
   components: {

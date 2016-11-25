@@ -1,5 +1,6 @@
 import About from './components/About.vue';
 import Main from './components/Main.vue';
+import NotFound from './components/NotFound.vue';
 import EventList from './components/events/List.vue';
 import Reset from './components/authentication/Reset.vue';
 import Signup from './components/authentication/Signup.vue';
@@ -9,7 +10,7 @@ import Profile from './components/users/Profile.vue';
 
 export default [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: Main
   }, {
@@ -43,5 +44,8 @@ export default [
   }, {
     path: '/profile/:id?',
     component: Profile
+  }, {
+    path: '*',
+    component: NotFound
   }
 ];
