@@ -1,6 +1,9 @@
 <template>
 <div>
   <form>
+    <div class="alert alert-danger" v-if="error">
+      {{ error }}
+    </div>
     <div class="row">
       <div class="form-group col-sm-6 col-xs-6">
         <label for="edit-firstname">First Name</label>
@@ -124,6 +127,7 @@ export default {
           this.$emit('toggle');
         })
         .catch((err) => {
+          this.saving = false;
           this.error = 'Failed to save changes. Please try again.';
         });
     }
