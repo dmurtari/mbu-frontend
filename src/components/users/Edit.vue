@@ -56,7 +56,11 @@
       </div>
     </div>
     <div class="form-group pull-right">
-      <button class="btn btn-primary" @click="update()">Save Changes</button>
+      <button class="btn btn-primary" 
+              :class="{ 'disabled': saving }"
+              @click="update()">
+        {{ saving ? 'Saving Changes...' : 'Save Changes' }}
+      </button>
     </div>
   </form>
 </div>
@@ -86,7 +90,8 @@ export default {
           council: ''
         }
       },
-      error: ''
+      error: '',
+      saving: false
     }
   },
   computed: {
@@ -111,8 +116,10 @@ export default {
           break;
       }
 
+      this.saving = true;
       this.$store.dispatch('updateProfile', profile)
         .then(() => {
+          this.saving = false;
           this.error = '';
           this.$emit('toggle');
         })
