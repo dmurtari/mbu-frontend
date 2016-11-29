@@ -39,7 +39,8 @@
                     @toggle="toggleEdit()"></edit-profile>
     </div>
     <div v-if="state === 'editPassword'">
-
+      <edit-password :id="profile.ed"
+                     @toggle="toggleEdit()"></edit-password>
     </div>
   </section>
 </div>
@@ -51,6 +52,7 @@ import { mapGetters } from 'vuex';
 import General from './General.vue';
 import Coordinator from './Coordinator.vue';
 import Edit from './Edit.vue';
+import EditPassword from './EditPassword.vue';
 
 export default {
   data () {
@@ -93,7 +95,8 @@ export default {
   components: {
     'coordinator-detail': Coordinator,
     'general-profile': General,
-    'edit-profile': Edit
+    'edit-profile': Edit,
+    'edit-password': EditPassword
   }
 }
 </script>
