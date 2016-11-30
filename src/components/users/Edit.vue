@@ -61,7 +61,7 @@
     <div class="form-group pull-right">
       <button class="btn btn-primary" 
               :class="{ 'disabled': saving }"
-              @click="update()">
+              @click.prevent="update()">
         {{ saving ? 'Saving Changes...' : 'Save Changes' }}
       </button>
     </div>
@@ -71,6 +71,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 export default {
   props: {
@@ -135,7 +136,7 @@ export default {
   mounted() {
     this.profileUpdate.firstname = this.profile.firstname;
     this.profileUpdate.lastname = this.profile.lastname;
-    this.profileUpdate[this.profile.role] = this.profile.details;
+    this.profileUpdate[this.profile.role] = _.clone(this.profile.details);
   }
 }
 </script>
