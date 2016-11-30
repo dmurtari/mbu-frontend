@@ -4,9 +4,9 @@
   <dl class="dl-horizontal">
     <dt>Name:</dt><dd>{{ fullname }}</dd>
     <dt>Email:</dt><dd>{{ profile.email }}</dd>
-    <dt>Your Role:</dt><dd>{{ profile.role | capitalize }}</dd>
+    <dt>Your Role:</dt><dd>{{ profile.role | titleCase }}</dd>
     <div v-for="(value, key) in profile.details">
-      <dt>{{ key | capitalize}}:</dt><dd>{{ value | capitalize}}</dd>
+      <dt>{{ key | titleCase}}:</dt><dd>{{ value | titleCase}}</dd>
     </div>
   </dl>
 </div>

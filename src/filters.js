@@ -11,4 +11,7 @@ export default function(Vue) {
   Vue.filter('capitalize', (value) => {
     return _.capitalize(value);
   });
+  Vue.filter('titleCase', (value) => {
+    return _.startCase(_.toLower(value));
+  });
 }
