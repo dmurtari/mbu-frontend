@@ -39,8 +39,8 @@
                     @toggle="toggleEdit()"></edit-profile>
     </div>
     <div v-if="state === 'editPassword'">
-      <edit-password :id="profile.ed"
-                     @toggle="toggleEdit()"></edit-password>
+      <edit-password :id="profile.id"
+                     @toggle="toggleEditPassword()"></edit-password>
     </div>
   </section>
 </div>
