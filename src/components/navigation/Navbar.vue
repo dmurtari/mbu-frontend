@@ -17,7 +17,7 @@
              aria-haspopup="true"
              aria-expanded="false">Admin Tasks <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><router-link to="/">Users</router-link></li>
+            <li><router-link to="/users">Users</router-link></li>
           </ul>
         </li>
       </ul>        

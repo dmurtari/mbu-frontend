@@ -7,6 +7,7 @@ import Signup from './components/authentication/Signup.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
 import Profile from './components/users/Profile.vue';
+import UsersList from './components/users/List.vue';
 
 export default [
   {
@@ -37,6 +38,9 @@ export default [
   }, {
     path: '/profile/:id?',
     component: Profile
+  }, {
+    path: '/users',
+    component: UsersList
   }, {
     path: '*',
     component: NotFound
