@@ -54,6 +54,20 @@ const mutations = {
 }
 
 const actions = {
+  deleteAccount({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.USERS_URL + id)
+        .then((response) => {
+          console.log('Account deleted');
+          commit(types.LOGOUT);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to delete account');
+          reject();
+        })
+    });
+  },
   getProfile({ commit }, credentials) {
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem('token');
