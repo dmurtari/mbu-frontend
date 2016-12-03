@@ -7,6 +7,19 @@
       <ul class="nav navbar-nav">
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/events">Events</router-link></li>
+        <li v-if="isAdmin"
+            class="dropdown">
+          <a href="#"
+             class="dropdown-toggle"
+             id="login-dropdown"
+             data-toggle="dropdown"
+             role="button"
+             aria-haspopup="true"
+             aria-expanded="false">Admin Tasks <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><router-link to="/">Users</router-link></li>
+          </ul>
+        </li>
       </ul>        
       <ul class="nav navbar-nav navbar-right">
         <li v-if="isAuthenticated"
@@ -54,6 +67,7 @@ export default {
   computed: {
     ...mapGetters([
       'profile',
+      'isAdmin',
       'isAuthenticated'
     ])
   },
@@ -74,11 +88,9 @@ export default {
 </script>
 
 <style scoped lang="sass">
-
 .container .dropdown-form {
   max-width: 400px;
   padding-bottom: .5em;
   padding-top: .5em;
 }
-
 </style>
