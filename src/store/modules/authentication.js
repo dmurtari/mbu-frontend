@@ -31,7 +31,7 @@ const getters = {
   isCoordinatorOrAdmin(state) {
     return state.profile.role === 'coordinator' || state.profile.role === 'admin';
   }
-}
+};
 
 const mutations = {
   [types.LOGIN] (state, response) {
@@ -51,7 +51,7 @@ const mutations = {
     state.isAuthenticated = true;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
   }
-}
+};
 
 const actions = {
   deleteAccount({ commit }, id) {
@@ -171,4 +171,4 @@ export default {
   getters,
   actions,
   mutations
-}
+};
