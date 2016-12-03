@@ -33,14 +33,7 @@ export default [
         path: ':resetToken',
         component: ResetForm
       }
-    ],
-    beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('token')) {
-        next(false);
-      }
-
-      next();
-    }
+    ]
   }, {
     path: '/profile/:id?',
     component: Profile
