@@ -14,16 +14,24 @@ const getters = {
 };
 
 const mutations = {
-  [types.GET_USERS] (state) {
-    return true;
+  [types.GET_USERS] (state, users) {
+    state.users = users;
   }
 };
 
 const actions = {
   getUsers({ commit }) {
     return new Promise((resolve, reject) => {
-      commit(types.GET_USERS);
-      resolve();
+      axios.get(URLS.USERS_URL)
+        .then((response) => {
+          console.log('Received users', response.data);
+          commit(types.GET_USERS, response.data)
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Error retreiving users', err.data);
+          reject();
+        })
     })
   }
 };
