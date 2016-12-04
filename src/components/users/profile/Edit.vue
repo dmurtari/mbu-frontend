@@ -48,7 +48,7 @@
         </div>
       </div>
       <div v-if="profile.role === 'teacher'">
-        <div class="form-group">
+        <div class="form-group col-sm-12">
           <label for="edit-chapter">Chapter/Organization</label>
           <input type="text"
                   class="form-control"

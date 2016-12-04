@@ -6,7 +6,7 @@ import Reset from './components/authentication/Reset.vue';
 import Signup from './components/authentication/Signup.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
-import Profile from './components/users/Profile.vue';
+import Profile from './components/users/profile/Profile.vue';
 import UsersList from './components/users/List.vue';
 
 export default [
