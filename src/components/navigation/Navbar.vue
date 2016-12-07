@@ -15,9 +15,9 @@
              data-toggle="dropdown"
              role="button"
              aria-haspopup="true"
-             aria-expanded="false">Admin Tasks <span class="caret"></span></a>
+             aria-expanded="false">Administration <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><router-link to="/users">Users</router-link></li>
+            <li><router-link to="/users">View/Edit Users</router-link></li>
           </ul>
         </li>
       </ul>        
