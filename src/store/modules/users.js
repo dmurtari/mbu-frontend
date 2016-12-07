@@ -25,7 +25,7 @@ const actions = {
       axios.get(URLS.USERS_URL)
         .then((response) => {
           console.log('Received users', response.data);
-          commit(types.GET_USERS, response.data)
+          commit(types.GET_USERS, response.data);
           resolve();
         })
         .catch((err) => {
