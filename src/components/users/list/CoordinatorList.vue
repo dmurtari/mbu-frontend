@@ -11,13 +11,7 @@
   </thead>
   <tbody>
     <coordinator-row v-for="coordinator in coordinators"
-                     :coordinator="coordinator">
-      <td>{{ coordinator.fullname }}</td>
-      <td>{{ coordinator.email }}</td>
-      <td>{{ coordinator.details.troop }}</td>
-      <td>{{ coordinator.details.district }}</td>
-      <td>{{ coordinator.details.council }}</td>
-    </coordinator-row>
+                     :coordinator="coordinator"></coordinator-row>
   </tbody>
 </table>
 </template>
