@@ -37,8 +37,10 @@ const mutations = {
   [types.LOGIN] (state, response) {
     state.profile = response.profile;
     state.isAuthenticated = true;
-    localStorage.setItem('token', response.token);
-    axios.defaults.headers.common['Authorization'] = response.token;
+    if (response.token) {
+      localStorage.setItem('token', response.token);
+      axios.defaults.headers.common['Authorization'] = response.token;
+    }
   },
   [types.LOGOUT] (state) {
     state.profile = {};
@@ -146,12 +148,18 @@ const actions = {
         });
     });
   },
-  updateProfile({ commit }, data) {
+  updateProfile({ commit, state }, data) {
     return new Promise((resolve, reject) => {
       axios.put(URLS.USERS_URL + data.id, data)
         .then((response) => {
           console.log('Updated profile');
-          commit(types.LOGIN, response.data);
+
+          // Only login if user is updating their own profile
+          if (state.profile.id == data.id) {
+            console.log('Logging in');
+            commit(types.LOGIN, response.data);
+          }
+
           resolve();
         })
         .catch((err) => {
