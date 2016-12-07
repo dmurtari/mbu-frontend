@@ -33,13 +33,14 @@
            v-if="!showDeleteConfirmation">
         <div class="pull-left">
           <button class="btn btn-danger"
-                  @click="showDeleteConfirm()">Delete Event</button>
+                  @click.prevent="showDeleteConfirm()">Delete Event</button>
         </div>
         <div class="pull-right">
           <button class="btn btn-default" 
-                  @click="close()">Cancel</button>
-          <button class="btn btn-primary" 
-                  @click="updateEvent()">Update Event</button>
+                  @click.prevent="close()">Cancel</button>
+          <button class="btn btn-primary"
+                  type="submit" 
+                  @click.prevent="updateEvent()">Update Event</button>
         </div>
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
