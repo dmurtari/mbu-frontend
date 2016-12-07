@@ -36,8 +36,8 @@
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
-import ListGeneral from './ListGeneral.vue';
-import ListCoordinator from './ListCoordinator.vue';
+import GeneralList from './GeneralList.vue';
+import CoordinatorList from './CoordinatorList.vue';
 
 export default {
   data() {
@@ -76,8 +76,8 @@ export default {
     this.$store.dispatch('getUsers');
   },
   components: {
-    'general-table': ListGeneral,
-    'coordinators-table': ListCoordinator
+    'general-table': GeneralList,
+    'coordinators-table': CoordinatorList
   }
 }
 </script>

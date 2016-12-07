@@ -29,7 +29,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Error retreiving users', err.data);
+          console.log('Error retrieving users', err.data);
           reject();
         })
     })
