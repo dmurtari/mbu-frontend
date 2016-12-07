@@ -54,12 +54,12 @@
                       placeholder="mm/dd/yyyy"
                       v-model="event.registration_close">
       </div>
-      <div class="container">
+      <div class="container-fluid">
         <div class="pull-right">
-          <button class="btn btn-default" 
-                  @click="clearAndClose()">Cancel</button>
           <button class="btn btn-primary" 
-                  @click="createEvent()">Create Event</button>
+                  @click.prevent="createEvent()">Create Event</button>
+          <button class="btn btn-default" 
+                  @click.prevent="clearAndClose()">Cancel</button>
         </div>
       </div>
     </form>

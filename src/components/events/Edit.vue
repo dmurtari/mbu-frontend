@@ -31,16 +31,16 @@
       </div>
       <div class="container-fluid"
            v-if="!showDeleteConfirmation">
-        <div class="pull-left">
-          <button class="btn btn-danger"
-                  @click.prevent="showDeleteConfirm()">Delete Event</button>
-        </div>
         <div class="pull-right">
-          <button class="btn btn-default" 
-                  @click.prevent="close()">Cancel</button>
           <button class="btn btn-primary"
                   type="submit" 
                   @click.prevent="updateEvent()">Update Event</button>
+          <button class="btn btn-default" 
+                  @click.prevent="close()">Cancel</button>
+        </div>
+        <div class="pull-left">
+          <button class="btn btn-danger"
+                  @click.prevent="showDeleteConfirm()">Delete Event</button>
         </div>
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
