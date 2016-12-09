@@ -6,6 +6,7 @@
       </div>
       <ul class="nav navbar-nav">
         <li><router-link to="/about">About</router-link></li>
+        <li><router-link to="/badges">Badges</router-link></li>
         <li><router-link to="/events">Events</router-link></li>
         <li v-if="isAdmin"
             class="dropdown">

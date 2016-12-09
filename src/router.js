@@ -2,6 +2,7 @@ import About from './components/About.vue';
 import Main from './components/Main.vue';
 import NotFound from './components/NotFound.vue';
 import EventList from './components/events/List.vue';
+import BadgeList from './components/badges/List.vue';
 import Reset from './components/authentication/Reset.vue';
 import Signup from './components/authentication/Signup.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
@@ -20,6 +21,9 @@ export default [
   }, {
     path: '/events',
     component: EventList
+  }, {
+    path: '/badges',
+    component: BadgeList
   }, {
     path: '/signup',
     component: Signup
