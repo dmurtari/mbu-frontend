@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -29,6 +30,9 @@ const mutations = {
 const getters = {
   allEvents(state) {
     return state.events;
+  },
+  orderedEvents(state) {
+    return _.orderBy(state.events, 'date', 'desc');
   }
 };
 

@@ -7,19 +7,23 @@
                 @click="toggleAdd"
                 data-toggle="tooltip" 
                 data-placement="right" 
-                title="Add an event">
-          <span class="glyphicon glyphicon-plus" aria-label="Close"></span>
+                title="Toggle event creation panel">
+          <span v-if="!displayAddEvent" 
+                class="glyphicon glyphicon-plus"></span>
+          <span v-if="displayAddEvent" 
+                class="glyphicon glyphicon-minus"></span>
         </button>
       </h3>
     </div>
     <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
-    <event v-for="event in sortedEvents" :event="event"></event>
+    <div class="event-list">
+      <event v-for="event in orderedEvents" :event="event"></event>
+    </div
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import _ from 'lodash';
 
 import Event from './Event.vue'
 import EventCreate from './Create.vue';
@@ -32,14 +36,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'allEvents',
+      'orderedEvents',
       'isAdmin'
     ]),
     totalEvents() {
-      return this.allEvents.length;
-    },
-    sortedEvents() {
-      return _.orderBy(this.allEvents, 'date', 'desc');
+      return this.orderedEvents.length;
     }
   },
   methods: {
@@ -59,3 +60,9 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.event-list {
+  margin-top: 2em;
+}
+</style>
