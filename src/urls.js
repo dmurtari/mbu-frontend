@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:3000/api/';
 
 export default {
   API_URL: API_URL,
+  BADGES_URL: API_URL + 'badges/',
   EVENTS_URL: API_URL + 'events/',
   FORGOT_URL: API_URL + 'forgot/',
   LOGIN_URL: API_URL + 'authenticate/',

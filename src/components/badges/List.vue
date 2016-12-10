@@ -3,18 +3,28 @@
   <h3>All Badges
     <button class="btn btn-default"
             v-if="isAdmin"
-            @click="toggleAdd"
+            @click="toggleAdd()"
             data-toggle="tooltip" 
             data-placement="right" 
-            title="Add a badge">
-      <span class="glyphicon glyphicon-plus" aria-label="Close"></span>
+            title="Toggle badge creation panel">
+      <span v-if="!displayAddBadge" 
+            class="glyphicon glyphicon-plus"></span>
+      <span v-if="displayAddBadge" 
+            class="glyphicon glyphicon-minus"></span>
     </button>
   </h3>
+  <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
+  <div class="badge-list">
+    <badge v-for="badge in badges" :badge="badge"></badge>
+  </div
 </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+
+import Badge from './Badge.vue';
+import BadgeCreate from './Create.vue';
 
 export default {
   data() {
@@ -24,13 +34,28 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isAdmin'
+      'isAdmin',
+      'badges'
     ])
   },
   methods: {
     toggleAdd() {
       this.displayAddBadge = !this.displayAddBadge;
     }
+  },
+  components: {
+    'badge': Badge,
+    'badge-create': BadgeCreate
+  },
+  mounted() {
+    this.$store.dispatch('getBadges');
+    $('[data-toggle="tooltip"]').tooltip();
   }
 }
 </script>
+
+<style lang="sass">
+.badge-list {
+  margin-top: 2em;
+}
+</style>
