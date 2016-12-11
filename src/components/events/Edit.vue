@@ -45,16 +45,24 @@
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
                       :match-text="this.semesterAndYear"
-                      :event-id="this.event.id"
-                      @close="hideDeleteConfirm()"></confirm-delete>
+                      :placeholder="'Summer 2008'"
+                      @deleteSuccess="deleteEvent()"
+                      @close="hideDeleteConfirm()">
+        <span slot="header">
+          Confirm Deletion (this cannot be undone!)
+        </span>
+        <span slot="help-text">
+          Enter the semester and year to confirm deletion. This will also 
+          remove all data associated with this event, including registrations 
+          and records.
+        </span>
+      </confirm-delete>
     </form>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-
-import ConfirmDelete from './ConfirmDelete.vue';
 
 const dateFormat = 'MM/DD/YYYY'
 
@@ -103,6 +111,16 @@ export default {
           this.error = err;
         });
     },
+    deleteEvent() {
+      this.$store.dispatch('deleteEvent', this.event.id)
+        .then(() => {
+          this.$store.dispatch('getEvents');
+          this.$emit('close');
+        })
+        .catch(() => {
+          this.error = 'There was a problem deleting this event.';
+        });
+    },
     showDeleteConfirm() {
       this.showDeleteConfirmation = true;
     },
@@ -112,9 +130,6 @@ export default {
     close() {
       this.$emit('close');
     }
-  },
-  components: {
-    'confirm-delete': ConfirmDelete
   },
   mounted() {
     this.eventUpdate.date = moment(this.event.date).format(dateFormat);

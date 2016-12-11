@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" @click="submit()">Signup</button>
+        <button class="btn btn-primary" @click.prevent="submit()">Signup</button>
       </div>
     </form>
   </div>

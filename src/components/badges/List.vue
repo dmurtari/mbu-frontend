@@ -16,7 +16,7 @@
   <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
   <div class="badge-list">
     <badge v-for="badge in badges" :badge="badge"></badge>
-  </div
+  </div>
 </div>
 </template>
 
