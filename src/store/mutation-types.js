@@ -1,13 +1,14 @@
 // Authentication
 export const LOGIN = 'auth/LOGIN';
-export const SIGNUP = 'auth/SIGNUP';
 export const LOGOUT = 'auth/LOGOUT';
 export const PROFILE = 'auth/SAVE_PROFILE';
 export const SEND_RESET = 'auth/SEND_RESET_EMAIL';
+export const SIGNUP = 'auth/SIGNUP';
 export const UPDATE_PROFILE = 'auth/UPDATE_PROFILE';
 
 // Badges
 export const ADD_BADGE = 'badges/ADD_BADGE';
+export const DELETE_BADGE = 'badges/DELETE_BADGE';
 export const GET_BADGES = 'badges/GET_BADGES';
 export const UPDATE_BADGE = 'badges/UPDATE_BADGE';
 

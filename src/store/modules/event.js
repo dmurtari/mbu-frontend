@@ -13,7 +13,7 @@ const mutations = {
   [types.ADD_EVENT] (state, event) {
     state.events.push(event);
   },
-  [types.DELETE_EVENT] (eventId) {
+  [types.DELETE_EVENT] (state, eventId) {
     _.remove(state.events, (event) => {
       return event.id === eventId;
     });

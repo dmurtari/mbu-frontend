@@ -1,5 +1,5 @@
 <template>
-<div class="container-fluid">
+<div>
   <div class="form-group has-error">
     <label class="control-label" for="delete-confirm">
       <slot name="header"></slot>

@@ -18,6 +18,11 @@ const mutations = {
   [types.ADD_BADGE] (state, badge) {
     state.badges.push(badge);
   },
+  [types.DELETE_BADGE] (state, badgeId) {
+    _.remove(state.badges, (badge) => {
+      return badge.id === badgeId;
+    });
+  },
   [types.GET_BADGES] (state, badges) {
     state.badges = badges;
   },
@@ -42,6 +47,20 @@ const actions = {
         });
     });
   },
+  deleteBadge({ commit }, badgeId) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.BADGES_URL + badgeId)
+        .then(() => {
+          console.log('Delete badge', badgeId);
+          commit(types.DELETE_BADGE, badgeId);
+          resolve();
+        })
+        .catch(() => {
+          console.log('Failed to delete badge', badgeId);
+          reject();
+        })
+    });
+  },
   getBadges({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get(URLS.BADGES_URL)
@@ -49,8 +68,8 @@ const actions = {
           console.log('Received badges', response.data)
           commit(types.GET_BADGES, response.data);
           resolve();
-        })
-    })
+        });
+    });
   },
   updateBadge({ commit }, badgeUpdate) {
     return new Promise((resolve, reject) => {
@@ -63,8 +82,8 @@ const actions = {
         .catch((err) => {
           console.log('Failed to update badge', err.response.data.message);
           reject(err.response.data.message);
-        })
-    })
+        });
+    });
   }
 };
 

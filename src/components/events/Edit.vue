@@ -44,6 +44,7 @@
         </div>
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
+                      class="container-fluid"
                       :match-text="this.semesterAndYear"
                       :placeholder="'Summer 2008'"
                       @deleteSuccess="deleteEvent()"

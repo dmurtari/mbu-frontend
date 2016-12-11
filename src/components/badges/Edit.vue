@@ -28,12 +28,32 @@
                 v-model="badgeUpdate.description"></textarea>
     </div>
   </div>
-  <div class="pull-right">
-    <button class="btn btn-primary" 
-            @click.prevent="updateBadge()">Save Changes</button>
-    <button class="btn btn-default" 
-            @click.prevent="close()">Cancel</button>
+  <div v-if="!showDeleteConfirmation">
+    <div class="pull-right">
+      <button class="btn btn-primary" 
+              @click.prevent="updateBadge()">Save Changes</button>
+      <button class="btn btn-default" 
+              @click.prevent="close()">Cancel</button>
+    </div>
+    <div class="pull-left">
+      <button class="btn btn-danger"
+              @click.prevent="showDeleteConfirm()">Delete Badge</button>
+    </div>
   </div>
+  <confirm-delete v-if="showDeleteConfirmation"
+                  :match-text="this.badge.name"
+                  :placeholder="'Badge Name'"
+                  @deleteSuccess="deleteBadge()"
+                  @close="hideDeleteConfirm()">
+    <span slot="header">
+      Confirm Deletion (this cannot be undone!)
+    </span>
+    <span slot="help-text">
+      Enter the full name of this badge with correct capitalization to confirm
+      that you wish to delete this badge. <b>This action cannot be undone, and 
+      will delete all associated completion records and badge requests!</b>
+    </span>
+  </confirm-delete>
 </form>
 </template>
 
@@ -48,6 +68,7 @@ export default {
   data() {
     return {
       error: '',
+      showDeleteConfirmation: false,
       badgeUpdate: {
         name: '',
         description: '',
@@ -75,6 +96,22 @@ export default {
         .catch((err) => {
           this.error = 'Error updating badge, please try again. Name is required.';
         });
+    },
+    deleteBadge() {
+      this.$store.dispatch('deleteBadge', this.badge.id)
+        .then(() => {
+          this.$store.dispatch('getBadges');
+          this.$emit('close');
+        })
+        .catch(() => {
+          this.error = 'There was a problem deleting this badge.';
+        })
+    },
+    showDeleteConfirm() {
+      this.showDeleteConfirmation = true;
+    },
+    hideDeleteConfirm() {
+      this.showDeleteConfirmation = false;
     },
     close() {
       this.$emit('close');
