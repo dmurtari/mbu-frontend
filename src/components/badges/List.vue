@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <h3>All Badges
+  <h3>All Badges ({{ totalBadges }} Total)
     <button class="btn btn-default"
             v-if="isAdmin"
             @click="toggleAdd()"
@@ -36,7 +36,10 @@ export default {
     ...mapGetters([
       'isAdmin',
       'badges'
-    ])
+    ]),
+    totalBadges() {
+      return this.badges.length;
+    }
   },
   methods: {
     toggleAdd() {

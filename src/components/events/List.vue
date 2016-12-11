@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div>
-      <h3>All Events ({{ totalEvents }} total)
+      <h3>All Events ({{ totalEvents }} Total)
         <button class="btn btn-default"
                 v-if="isAdmin"
                 @click="toggleAdd"

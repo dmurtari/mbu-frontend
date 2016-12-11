@@ -50,12 +50,12 @@
                       @deleteSuccess="deleteEvent()"
                       @close="hideDeleteConfirm()">
         <span slot="header">
-          Confirm Deletion (this cannot be undone!)
+          Do you really want to delete this event? This cannot be undone!
         </span>
         <span slot="help-text">
-          Enter the semester and year to confirm deletion. This will also 
-          remove all data associated with this event, including registrations 
-          and records.
+          Enter the semester and year to confirm deletion. <b>This action cannot
+          be undone, and will also remove all data associated with this event, 
+          including registrations and completion records.</b>
         </span>
       </confirm-delete>
     </form>
