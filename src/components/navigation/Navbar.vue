@@ -19,6 +19,7 @@
              aria-expanded="false">Administration <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><router-link to="/users">View/Edit Users</router-link></li>
+            <li><router-link to="/offerings">Manage Badge Offerings</router-link></li>
           </ul>
         </li>
       </ul>        
