@@ -37,6 +37,7 @@ export default {
   computed: {
     ...mapGetters([
       'orderedEvents',
+      'currentEvent',
       'isAdmin'
     ]),
     totalEvents() {
@@ -57,6 +58,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getEvents');
+    this.$store.dispatch('getCurrentEvent');
   }
 }
 </script>

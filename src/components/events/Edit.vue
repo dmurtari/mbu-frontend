@@ -41,6 +41,8 @@
         <div class="pull-left">
           <button class="btn btn-danger"
                   @click.prevent="showDeleteConfirm()">Delete Event</button>
+          <button class="btn btn-info"
+                  @click.prevent="setAsCurrent()">Set as the Current Event</button>
         </div>
       </div>   
       <confirm-delete v-if="showDeleteConfirmation"
@@ -120,6 +122,16 @@ export default {
         })
         .catch(() => {
           this.error = 'There was a problem deleting this event.';
+        });
+    },
+    setAsCurrent() {
+      this.$store.dispatch('saveCurrentEvent', this.event.id)
+        .then(() => {
+          this.$store.dispatch('getEvents');
+          this.$emit('close');
+        })
+        .catch(() => {
+          this.error = 'Failed to set this event as current.';
         });
     },
     showDeleteConfirm() {

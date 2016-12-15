@@ -21,6 +21,9 @@ const mutations = {
   [types.GET_EVENTS] (state, events) {
     state.events = events;
   },
+  [types.SET_CURRENT] (state, event) {
+    state.currentEvent = event;
+  },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });
     state.events.splice(index, 1, event);
@@ -30,6 +33,14 @@ const mutations = {
 const getters = {
   allEvents(state) {
     return state.events;
+  },
+  currentEvent(state) {
+    return state.currentEvent;
+  },
+  currentEventIndex(state) {
+    return _.findIndex(state.events, (event) => {
+      event.id === state.currentEvent.id;
+    });
   },
   orderedEvents(state) {
     return _.orderBy(state.events, 'date', 'desc');
@@ -63,16 +74,48 @@ const actions = {
           console.log('Failed to delete event', eventId);
           reject();
         }); 
-    })
+    });
   },
   getEvents({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get(URLS.EVENTS_URL)
         .then((response) => {
-          console.log('Received events', response.data)
+          console.log('Received events', response.data);
           commit(types.GET_EVENTS, response.data);
           resolve(event);
         })
+        .catch(() => {
+          console.log('Failed to get events');
+          reject();
+        });
+    });
+  },
+  getCurrentEvent({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get(URLS.CURRENT_EVENT_URL)
+        .then((response) => {
+          console.log('Received current event', response.data);
+          commit(types.SET_CURRENT, response.data);
+          resolve(event);
+        })
+        .catch(() => {
+          console.log('Failed to get current event');
+          reject();
+        })
+    });
+  },
+  saveCurrentEvent({ commit }, eventId) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.CURRENT_EVENT_URL, { id: eventId })
+        .then((response) => {
+          console.log('Updated current event to', eventId);
+          commit(types.SET_CURRENT, response.data.event);
+          resolve(response.data.event);
+        })
+        .catch((err) => {
+          console.log('Failed to save current event', err.response.data.message);
+          reject(err.response.data.message);
+        });
     })
   },
   updateEvent({ commit }, eventUpdate) {
@@ -86,8 +129,8 @@ const actions = {
         .catch((err) => {
           console.log('Failed to update event', err.response.data.message);
           reject(err.response.data.message);
-        })
-    })
+        });
+    });
   }
 };
 
