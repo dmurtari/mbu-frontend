@@ -29,16 +29,17 @@
         <masked-input mask="99/99/9999"
                       v-model="eventUpdate.registration_close">
       </div>
-      <div class="container-fluid"
-           v-if="!showDeleteConfirmation">
-        <div class="pull-right">
-          <button class="btn btn-primary"
-                  type="submit" 
-                  @click.prevent="updateEvent()">Update Event</button>
-          <button class="btn btn-default" 
-                  @click.prevent="close()">Cancel</button>
+      <div v-if="!showDeleteConfirmation">
+        <div class="col-sm-6 col-sm-push-6">
+          <div class="pull-right">
+            <button class="btn btn-primary"
+                    type="submit" 
+                    @click.prevent="updateEvent()">Update Event</button>
+            <button class="btn btn-default" 
+                    @click.prevent="close()">Cancel</button>
+          </div>
         </div>
-        <div class="pull-left">
+        <div class="col-sm-6 col-sm-pull-6">
           <button class="btn btn-danger"
                   @click.prevent="showDeleteConfirm()">Delete Event</button>
           <button class="btn btn-info"
