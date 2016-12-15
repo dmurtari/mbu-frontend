@@ -109,8 +109,8 @@ const actions = {
       axios.post(URLS.CURRENT_EVENT_URL, { id: eventId })
         .then((response) => {
           console.log('Updated current event to', eventId);
-          commit(types.SET_CURRENT, response.data.event);
-          resolve(response.data.event);
+          commit(types.SET_CURRENT, response.data.currentEvent);
+          resolve(response.data.currentEvent);
         })
         .catch((err) => {
           console.log('Failed to save current event', err.response.data.message);

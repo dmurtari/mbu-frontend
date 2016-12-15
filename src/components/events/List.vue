@@ -17,8 +17,10 @@
     </div>
     <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
     <div class="event-list">
-      <event v-for="event in orderedEvents" :event="event"></event>
-    </div
+      <event v-for="event in orderedEvents" 
+             :event="event"
+             :currentEvent="event.id === currentEvent.id"></event>
+    </div>
   </div>
 </template>
 

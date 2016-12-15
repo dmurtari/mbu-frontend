@@ -1,5 +1,6 @@
 <template>
-  <div class="panel panel-default">
+  <div class="panel panel-default"
+       :class="{ 'panel-info': currentEvent }">
     <div class="panel-heading">
       <div class="btn-group pull-right">
         <button class="btn btn-default"
@@ -11,7 +12,10 @@
           <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
         </button>
       </div>
-      <h4>{{ event.semester }} {{ event.year }}</h4>
+      <h4>
+        {{ event.semester }} {{ event.year }}
+        <span v-if="currentEvent">(Current Event)</span>
+      </h4>
     </div>
     <div class="panel-body">
       <event-detail v-if="!displayEditEvent" 
@@ -45,6 +49,9 @@ export default {
     event: {
       type: Object,
       required: true
+    },
+    currentEvent: {
+      type: Boolean
     }
   },
   methods: {
