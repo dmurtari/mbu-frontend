@@ -54,7 +54,14 @@
                       placeholder="mm/dd/yyyy"
                       v-model="event.registration_close">
       </div>
-      <div class="container-fluid pull-right">
+      <div class="form-group col-sm-12">
+        <div class="pull-right checkbox">
+          <label>
+            <input v-model="current" type="checkbox"> Mark this as the current event
+          </label>
+        </div>
+      </div>
+      <div class="pull-right">
         <button class="btn btn-primary" 
                 @click.prevent="createEvent()">Create Event</button>
         <button class="btn btn-default" 
@@ -86,7 +93,8 @@ export default {
         { text: 'Spring', value: 'Spring' },
         { text: 'Fall', value: 'Fall' }
       ],
-      error: ''
+      error: '',
+      current: false
     }
   },
   methods: {
@@ -102,6 +110,13 @@ export default {
       }
 
       this.$store.dispatch('addEvent', event)
+        .then((event) => {
+          if (this.current) {
+            this.$store.dispatch('saveCurrentEvent', event.id);
+          }
+
+          return;
+        })
         .then(() => {
           this.$store.dispatch('getEvents');
         })

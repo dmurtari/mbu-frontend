@@ -54,7 +54,7 @@ const actions = {
         .then((response) => {
           console.log('Created event', response.data.event)
           commit(types.ADD_EVENT, response.data.event);
-          resolve(event);
+          resolve(response.data.event);
         })
         .catch((err) => {
           console.log('Failed to create event', err.response.data.message);
@@ -82,7 +82,7 @@ const actions = {
         .then((response) => {
           console.log('Received events', response.data);
           commit(types.GET_EVENTS, response.data);
-          resolve(event);
+          resolve();
         })
         .catch(() => {
           console.log('Failed to get events');
