@@ -106,7 +106,7 @@ export default {
 
       this.$store.dispatch('updateEvent', event)
         .then(() => {
-          this.$store.dispatch('getEvents');
+          return this.$store.dispatch('getEvents');
         })
         .then(() => {
           this.close();

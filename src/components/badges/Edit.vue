@@ -88,7 +88,7 @@ export default {
 
       this.$store.dispatch('updateBadge', badge)
         .then(()=> {
-          this.$store.dispatch('getBadges')
+          return this.$store.dispatch('getBadges')
         })
         .then(() => {
           this.close();

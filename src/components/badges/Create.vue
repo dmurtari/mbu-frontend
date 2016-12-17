@@ -74,7 +74,7 @@ export default {
 
       this.$store.dispatch('addBadge', badge)
         .then(()=> {
-          this.$store.dispatch('getBadges')
+          return this.$store.dispatch('getBadges')
         })
         .then(() => {
           this.clearAndClose();

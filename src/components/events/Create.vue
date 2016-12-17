@@ -112,13 +112,13 @@ export default {
       this.$store.dispatch('addEvent', event)
         .then((event) => {
           if (this.current) {
-            this.$store.dispatch('saveCurrentEvent', event.id);
+            return this.$store.dispatch('saveCurrentEvent', event.id);
           }
 
           return;
         })
         .then(() => {
-          this.$store.dispatch('getEvents');
+          return this.$store.dispatch('getEvents');
         })
         .then((data) => {
           this.clearAndClose();
