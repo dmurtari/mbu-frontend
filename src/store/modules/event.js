@@ -96,7 +96,7 @@ const actions = {
         .then((response) => {
           console.log('Received current event', response.data);
           commit(types.SET_CURRENT, response.data);
-          resolve(event);
+          resolve(response.data);
         })
         .catch(() => {
           console.log('Failed to get current event');
