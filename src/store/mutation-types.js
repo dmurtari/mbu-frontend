@@ -7,17 +7,23 @@ export const SIGNUP = 'auth/SIGNUP';
 export const UPDATE_PROFILE = 'auth/UPDATE_PROFILE';
 
 // Badges
-export const ADD_BADGE = 'badges/ADD_BADGE';
-export const DELETE_BADGE = 'badges/DELETE_BADGE';
-export const GET_BADGES = 'badges/GET_BADGES';
-export const UPDATE_BADGE = 'badges/UPDATE_BADGE';
+export const ADD_BADGE = 'badges/ADD';
+export const DELETE_BADGE = 'badges/DELETE';
+export const GET_BADGES = 'badges/GET';
+export const UPDATE_BADGE = 'badges/UPDATE';
 
 // Events
-export const ADD_EVENT = 'events/ADD_EVENT';
-export const DELETE_EVENT = 'events/DELETE_EVENT';
-export const GET_EVENTS = 'events/GET_EVENTS';
-export const SET_CURRENT = 'events/SET_CURRENT_EVENT';
-export const UPDATE_EVENT = 'events/UPDATE_EVENT';
+export const ADD_EVENT = 'events/ADD';
+export const DELETE_EVENT = 'events/DELETE';
+export const GET_EVENTS = 'events/GET';
+export const SET_CURRENT = 'events/SET_CURRENT';
+export const UPDATE_EVENT = 'events/UPDATE';
+
+// Offerings
+export const ADD_OFFERING = 'offerings/ADD';
+export const DELETE_OFFERING = 'offerings/DELETE';
+export const GET_OFFERINGS = 'offerings/GET';
+export const UPDATE_OFFERING = 'offgerints/UPDATE'
 
 // Users
 export const GET_USERS = 'users/GET_USERS';
