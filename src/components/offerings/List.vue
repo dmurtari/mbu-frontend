@@ -38,6 +38,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'badges',
       'orderedEvents',
       'currentEvent'
     ]),
@@ -90,7 +91,11 @@ export default {
         this.selectedEvent = {};
         this.error = 'Couldn\'t load events. Please try again.';
       }
-    })
+    });
+
+    this.$store.dispatch('getBadges').catch(() => {
+      this.error = 'Couldn\'t load badges. Please try again';
+    });
   }
 }
 </script>
