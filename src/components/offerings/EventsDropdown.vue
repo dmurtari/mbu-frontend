@@ -56,7 +56,7 @@ export default {
       })
       .then(() => {
         this.loading = false;
-        this.$emit('select', this.currentEvent);
+        this.selectedEvent(this.currentEvent.id);
       })
       .catch(() => {
         if (this.orderedEvents.length > 0) {
