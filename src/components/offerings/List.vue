@@ -9,7 +9,7 @@
   </p>
   <table class="table table-striped">
     <tbody>
-    <badge-row v-for="badge in badges"
+    <badge-row v-for="badge in badgeIdsAndNames"
                :badge="badge"></badge-row>
     </tbody> 
   </table>
@@ -25,17 +25,22 @@ import EventsDropdown from './EventsDropdown.vue';
 export default {
   data() {
     return {
-      selectedEvent: {}
+      selectedEvent: {},
+      offerings: []
     };
   },
   computed: {
     ...mapGetters([
-      'badges'
+      'badgeIdsAndNames'
     ])
   },
   methods: {
     selectEvent(selectedEvent) {
       this.selectedEvent = selectedEvent;
+      
+      let existingOfferings = _.map(this.selectedEvent.offerings, 'details');
+      console.log('existing are', existingOfferings)
+
     }
   },
   mounted() {

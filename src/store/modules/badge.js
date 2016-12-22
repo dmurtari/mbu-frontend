@@ -10,7 +10,15 @@ const state = {
 
 const getters = {
   badges(state) {
-    return _.orderBy(state.badges, 'name', 'asc');
+    return _.orderBy(state.badges, 'name');
+  },
+  badgeIdsAndNames(state) {
+    return _.sortBy(_.map(state.badges, (badge) => {
+      return {
+        id: badge.id,
+        name: badge.name
+      }
+    }), 'name');
   }
 };
 
