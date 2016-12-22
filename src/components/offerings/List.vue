@@ -2,100 +2,50 @@
 <div>
   <h3>
     Manage Offerings For:
-    <inline-dropdown v-if="!loading"
-                     :displayKey="'event'"
-                     :objects="readableEvents"
-                     :initial="currentEventText"
-                     @select="selectEvent($event)"></inline-dropdown>
+    <events-dropdown @select="selectEvent($event)"></events-dropdown>
   </h3>
-  <div class="alert alert-danger" v-if="error">
-    <p>
-      {{ error }}
-    </p>
-  </div>
-  <div class="alert alert-warning" v-if="warn">
-    <p>
-      {{ warn }}
-    </p>
-  </div>
   <p>
     Use this page to create, edit, and remove offerings for different events.
   </p>
+  <table class="table table-striped">
+    <tbody>
+    <badge-row v-for="badge in badges"
+               :badge="badge"></badge-row>
+    </tbody> 
+  </table>
 </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
+import BadgeRow from './BadgeRow.vue';
+import EventsDropdown from './EventsDropdown.vue';
+
 export default {
   data() {
     return {
-      loading: true,
-      selectedEvent: {},
-      error: '',
-      warn: ''
+      selectedEvent: {}
     };
   },
   computed: {
     ...mapGetters([
-      'badges',
-      'orderedEvents',
-      'currentEvent'
-    ]),
-    readableEvents() {
-      return _.map(this.orderedEvents, (event) => {
-        return { 
-          id: event.id,
-          event: event.semester + ' ' + event.year 
-        };
-      });
-    },
-    currentEventText() {
-      if (!this.currentEvent.id) {
-        return undefined;
-      }
-
-      return {
-        id: this.currentEvent.id,
-        event: this.currentEvent.semester + ' ' + this.currentEvent.year
-      };
-    }
+      'badges'
+    ])
   },
   methods: {
-    selectEvent(selectedId) {
-      this.selectedEvent = _.find(this.orderedEvents, (event) => {
-        return event.id === selectedId;
-      });
-
-      this.error = '';
-      this.warn = '';
+    selectEvent(selectedEvent) {
+      this.selectedEvent = selectedEvent;
     }
   },
   mounted() {
-    this.$store.dispatch('getEvents').then(() => {
-      return this.selectedEvent = this.orderedEvents[0];
-    })
-    .then(() => {
-      return this.$store.dispatch('getCurrentEvent');
-    })
-    .then(() => {
-      this.loading = false;
-      this.selectedEvent = this.currentEvent;
-    })
-    .catch(() => {
-      if (this.orderedEvents.length > 0) {
-        this.loading = false;
-        this.warn = 'Couldn\'t find the current event. Is one set?';
-        this.selectedEvent = this.orderedEvents[0];
-      } else {
-        this.selectedEvent = {};
-        this.error = 'Couldn\'t load events. Please try again.';
-      }
-    });
-
     this.$store.dispatch('getBadges').catch(() => {
       this.error = 'Couldn\'t load badges. Please try again';
     });
+  },
+  components: {
+    'badge-row': BadgeRow,
+    'events-dropdown': EventsDropdown
   }
 }
 </script>
