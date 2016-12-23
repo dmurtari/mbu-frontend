@@ -7,12 +7,10 @@
   <p>
     Use this page to create, edit, and remove offerings for different events.
   </p>
-  <table class="table table-striped">
-    <tbody>
+  <div class="offering-list container">
     <badge-row v-for="badge in offerings"
-               :badge="badge"></badge-row>
-    </tbody> 
-  </table>
+              :badge="badge"></badge-row>
+  </div>
 </div>
 </template>
 
@@ -62,3 +60,9 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.offering-list {
+  padding-top: 2em;
+}
+</style>
