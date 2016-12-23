@@ -9,7 +9,7 @@
   </p>
   <table class="table table-striped">
     <tbody>
-    <badge-row v-for="badge in badgeIdsAndNames"
+    <badge-row v-for="badge in offerings"
                :badge="badge"></badge-row>
     </tbody> 
   </table>
@@ -39,8 +39,16 @@ export default {
       this.selectedEvent = selectedEvent;
       
       let existingOfferings = _.map(this.selectedEvent.offerings, 'details');
-      console.log('existing are', existingOfferings)
-
+      this.offerings = _.map(this.badgeIdsAndNames, (badge) => {
+        let offering = _.find(existingOfferings, { 'badge_id': badge.id }) || {};
+        return {
+          badge_id: badge.id,
+          name: badge.name,
+          periods: offering.periods,
+          duration: offering.duration,
+          price: offering.price
+        };
+      });
     }
   },
   mounted() {
