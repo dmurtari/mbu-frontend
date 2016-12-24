@@ -8,8 +8,8 @@
         <input type="text"
                class="form-control"
                id="offering-periods"
-               v-model="offering.periods"
-               placeholder="Periods Offered">
+               v-model.lazy="editablePeriods"
+               placeholder="Periods">
       </div>
       <div class="form-group col-sm-4">
         <label for="offering-duration" class="sr-only">Duration</label>
@@ -19,13 +19,13 @@
                         type="Number"
                         placeholder="Duration"
                         v-model="offering.duration"></masked-input>
-          <div class="input-group-addon">{{ durationLabel }}</div>
+          <span class="input-group-addon">{{ durationLabel }}</span>
         </div>
       </div>
       <div class="form-group col-sm-3">
         <label for="offering-price" class="sr-only">Price</label>
         <div class="input-group">
-          <div class="input-group-addon">$</div>
+          <span class="input-group-addon">$</span>
           <masked-input mask="99.99"
                         id="offering-price"
                         type="Number"
@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       offering: {
-        periods: '',
+        periods: [],
         duration: 1,
         price: 0
       }
@@ -60,7 +60,7 @@ export default {
   },
   watch: {
     badge() {
-      this.offering.periods = _.join(this.badge.periods, ', ');
+      this.offering.periods = this.badge.periods;
       this.offering.duration = this.badge.duration;
       this.offering.price = this.badge.price;
     }
@@ -69,9 +69,24 @@ export default {
     durationLabel() {
       return Number(this.offering.duration) == 1 ? 'period ' : 'periods';
     },
+    editablePeriods: {
+      get() {
+        return _.join(_.sortBy(this.offering.periods), ', ');
+      },
+      set(newPeriods) {
+        this.offering.periods = _.map(_.split(newPeriods, ',', 3), (period) => {
+          return Number(_.trim(period));
+        });
+      }
+    },
     offered() {
       return !_.isEmpty(this.badge.periods);
     }
+  },
+  mounted() {
+    this.offering.periods = this.badge.periods;
+    this.offering.duration = this.badge.duration;
+    this.offering.price = this.badge.price;
   }
 }
 </script>
