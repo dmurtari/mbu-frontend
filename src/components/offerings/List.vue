@@ -1,14 +1,34 @@
 <template>
 <div>
   <h3>
-    Manage Offerings For:
+    Manage Badges Offered For:
     <events-dropdown @select="selectEvent($event)"></events-dropdown>
   </h3>
   <p>
-    Use this page to create, edit, and remove offerings for different events.
+    Use this page to create, edit, and remove badge offerings for different events.
+    These badges are what Scoutmasters will see as being offered for an event.
+    Add badges and edit details such which periods each badge will be offered,
+    how many class periods each badge will take to teach, and how much scouts 
+    need to pay to attend class for a badge.
   </p>
-  <div class="offering-list container">
-    <badge-row v-for="badge in offerings"
+  <div class="well offering-list-filters">
+    <div class="row">
+      <div class="col-sm-6 form-inline">
+        <div class="form-group">
+          <label for="offering-list-offered-filter">Filter by:</label>
+          <select class="form-control" 
+                  id="offering-list-offered-filter"
+                  v-model="offeredFilter">
+            <option v-for="option in offeredFilters" :value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offering-list">
+    <badge-row v-for="badge in filteredOfferings"
               :badge="badge"></badge-row>
   </div>
 </div>
@@ -24,13 +44,32 @@ export default {
   data() {
     return {
       selectedEvent: {},
-      offerings: []
+      offerings: [],
+      offeredFilter: 'all',
+      offeredFilters: [
+        { text: 'All', value: 'all' },
+        { text: 'Badges Offered at this Event', value: 'offered' },
+        { text: 'Badge Not Offered at this Event', value: 'unoffered'}
+      ]
     };
   },
   computed: {
     ...mapGetters([
       'badgeIdsAndNames'
-    ])
+    ]),
+    filteredOfferings() {
+      if (this.offeredFilter === 'offered') {
+        return _.filter(this.offerings, (offering) => {
+          return !_.isEmpty(offering.periods);
+        });
+      } else if (this.offeredFilter === 'unoffered') {
+        return _.filter(this.offerings, (offering) => {
+          return _.isEmpty(offering.periods);
+        });
+      } else {
+        return this.offerings;
+      }
+    }
   },
   methods: {
     selectEvent(selectedEvent) {
@@ -62,7 +101,7 @@ export default {
 </script>
 
 <style lang="sass">
-.offering-list {
-  padding-top: 2em;
+.offering-list-filters {
+  margin-top: 2em;
 }
 </style>

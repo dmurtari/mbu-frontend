@@ -42,16 +42,16 @@
                 class="btn btn-primary">Save Offering</button>
         <button v-if="offered" 
                 @click.prevent="toggleRemove()"
-                class="btn btn-danger">Remove Offering</button>
+                class="btn btn-danger">Remove This Offering</button>
         <button v-if="!offered"
                 @click.prevent="toggleCreate()"
-                class="btn btn-success">Create Offering</button>
+                class="btn btn-success">Offer This Badge</button>
       </span>
       <span v-if="creating">
         <button @click.prevent="createOffering()"
-                class="btn btn-success">Finish Creating</button>
+                class="btn btn-success">Finish Adding</button>
         <button @click.prevent="toggleCreate()"
-                class="btn btn-default">Cancel Creation</button>
+                class="btn btn-default">Cancel Adding</button>
       </span>
     </div>
   </form>
