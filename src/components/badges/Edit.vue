@@ -46,7 +46,8 @@
                   @deleteSuccess="deleteBadge()"
                   @close="hideDeleteConfirm()">
     <span slot="header">
-      Do you really want to delete this badge? This cannot be undone!
+      Do you really want to delete this badge? This cannot be undone!, and will
+      likely break existing registration records!
     </span>
     <span slot="help-text">
       Enter the full name of this badge with correct capitalization to confirm

@@ -53,7 +53,8 @@
                     @deleteSuccess="deleteEvent()"
                     @close="hideDeleteConfirm()">
       <span slot="header">
-        Do you really want to delete this event? This cannot be undone!
+        Do you really want to delete this event? This cannot be undone, and will
+        likely break existing registration records!
       </span>
       <span slot="help-text">
         Enter the semester and year to confirm deletion. <b>This action cannot

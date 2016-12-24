@@ -1,7 +1,7 @@
 <template>
 <div class="badge-row row">
   <b class="col-md-2">{{ badge.name }}</b>
-  <form class="form col-md-10 row">
+  <form class="form col-md-10 row" v-if="!removing">
     <div class="form-group col-md-2">
       <label for="offering-periods" class="sr-only">Periods</label>
       <input type="text"
@@ -48,12 +48,31 @@
                 class="btn btn-success">Create Offering</button>
       </span>
       <span v-if="creating">
-        <button class="btn btn-success">Finish Creating</button>
+        <button @click.prevent="createOffering()"
+                class="btn btn-success">Finish Creating</button>
         <button @click.prevent="toggleCreate()"
                 class="btn btn-default">Cancel Creation</button>
       </span>
     </div>
   </form>
+  <confirm-delete v-if="removing"
+                  :match-text="this.badge.name"
+                  class="col-md-10"
+                  :placeholder="'Badge Name'"
+                  @deleteSuccess="deleteOffering()"
+                  @close="toggleRemove()">
+    <span slot="header">
+      Do you really want to remove this offering? This cannot be undone, and will
+      likely break existing registration records!
+    </span>
+    <span slot="help-text">
+      Enter the full name of this badge with correct capitalization to confirm
+      that you wish to remove this offering. <b>This action cannot be undone, and 
+      will delete all associated completion records and badge requests! Adding
+      this badge as an offering again will not restore previous records and 
+      requests!</b>
+    </span>
+  </confirm-delete>
 </div>
 </template>
 
@@ -103,6 +122,12 @@ export default {
     }
   },
   methods: {
+    createOffering() {
+      console.log('Creating');
+    },
+    deleteOffering() {
+      console.log('Removing');
+    },
     toggleCreate() {
       this.creating = !this.creating;
     },
@@ -110,7 +135,7 @@ export default {
       this.removing = !this.removing;
     },
     saveOffering() {
-      return;
+      console.log('Saving');
     }
   },
   mounted() {
