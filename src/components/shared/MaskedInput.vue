@@ -6,6 +6,7 @@
          :placeholder="placeholder"
          :data-mask="mask"
          :value="value"
+         :disabled="disabled"
          @keyup="updateValue($event.target.value)">
 </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

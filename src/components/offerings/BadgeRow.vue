@@ -1,42 +1,58 @@
 <template>
-<div class="badge-row">
-  <b class="col-xs-2">{{ badge.name }}</b>
-  <form class="form col-xs-8">
-    <fieldset :disabled="!offered">
-      <div class="form-group col-sm-3">
-        <label for="offering-periods" class="sr-only">Periods</label>
-        <input type="text"
-               class="form-control"
-               id="offering-periods"
-               v-model.lazy="editablePeriods"
-               placeholder="Periods">
+<div class="badge-row row">
+  <b class="col-md-2">{{ badge.name }}</b>
+  <form class="form col-md-10 row">
+    <div class="form-group col-md-2">
+      <label for="offering-periods" class="sr-only">Periods</label>
+      <input type="text"
+              class="form-control"
+              id="offering-periods"
+              v-model.lazy="editablePeriods"
+              placeholder="Periods"
+              :disabled="!offered && !creating">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="offering-duration" class="sr-only">Duration</label>
+      <div class="input-group">
+        <masked-input mask="9"
+                      id="offering-duration"
+                      type="Number"
+                      placeholder="Duration"
+                      v-model="offering.duration"
+                      :disabled="!offered && !creating"></masked-input>
+        <span class="input-group-addon">{{ durationLabel }}</span>
       </div>
-      <div class="form-group col-sm-4">
-        <label for="offering-duration" class="sr-only">Duration</label>
-        <div class="input-group">
-          <masked-input mask="9"
-                        id="offering-duration"
-                        type="Number"
-                        placeholder="Duration"
-                        v-model="offering.duration"></masked-input>
-          <span class="input-group-addon">{{ durationLabel }}</span>
-        </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="offering-price" class="sr-only">Price</label>
+      <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <masked-input mask="99.99"
+                      id="offering-price"
+                      type="Number"
+                      placeholder="Price"
+                      v-model="offering.price"
+                      :disabled="!offered && !creating">
       </div>
-      <div class="form-group col-sm-3">
-        <label for="offering-price" class="sr-only">Price</label>
-        <div class="input-group">
-          <span class="input-group-addon">$</span>
-          <masked-input mask="99.99"
-                        id="offering-price"
-                        type="Number"
-                        placeholder="Price"
-                        v-model="offering.price">
-        </div>
-      </div>
-      <div class="form-group col-sm-2 pull-right">
-        <button class="btn btn-primary">Save Offering</button>
-      </div>
-    </fieldset>
+    </div>
+    <div class="form-group col-md-5">
+      <span v-if="!creating">
+        <button v-if="offered"
+                @click.prevent="saveOffering()"
+                class="btn btn-primary">Save Offering</button>
+        <button v-if="offered" 
+                @click.prevent="toggleRemove()"
+                class="btn btn-danger">Remove Offering</button>
+        <button v-if="!offered"
+                @click.prevent="toggleCreate()"
+                class="btn btn-success">Create Offering</button>
+      </span>
+      <span v-if="creating">
+        <button class="btn btn-success">Finish Creating</button>
+        <button @click.prevent="toggleCreate()"
+                class="btn btn-default">Cancel Creation</button>
+      </span>
+    </div>
   </form>
 </div>
 </template>
@@ -55,7 +71,10 @@ export default {
         periods: [],
         duration: 1,
         price: 0
-      }
+      },
+      creating: false,
+      removing: false,
+      saving: false,
     };
   },
   watch: {
@@ -81,6 +100,17 @@ export default {
     },
     offered() {
       return !_.isEmpty(this.badge.periods);
+    }
+  },
+  methods: {
+    toggleCreate() {
+      this.creating = !this.creating;
+    },
+    toggleRemove() {
+      this.removing = !this.removing;
+    },
+    saveOffering() {
+      return;
     }
   },
   mounted() {
