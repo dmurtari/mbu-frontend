@@ -82,6 +82,9 @@ export default {
     badge: {
       type: Object,
       required: true
+    },
+    eventId: {
+      required: true
     }
   },
   data() {

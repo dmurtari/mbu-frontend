@@ -29,7 +29,8 @@
   </div>
   <div class="offering-list">
     <badge-row v-for="badge in filteredOfferings"
-              :badge="badge"></badge-row>
+               :eventId="selectedEvent.id"
+               :badge="badge"></badge-row>
   </div>
 </div>
 </template>
