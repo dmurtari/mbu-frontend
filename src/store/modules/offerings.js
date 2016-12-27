@@ -30,7 +30,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.EVENTS_URL + offering.eventId + '/badges', offering.details)
         .then((response) => {
-          console.log('Created offering', offering.details, 'for event', eventId);
+          console.log('Created offering', offering.details, 'for event', offering.eventId);
           commit(types.SET_OFFERINGS, response.data.event);
           resolve();
         })

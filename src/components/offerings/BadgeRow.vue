@@ -1,7 +1,7 @@
 <template>
 <div class="badge-row row">
-  <b class="col-md-2">{{ badge.name }}</b>
-  <span v-if="offered && !editing" class="col-md-10 offering-row">
+  <b class="col-xs-2">{{ badge.name }}</b>
+  <span v-if="offered && !editing" class="col-xs-10 offering-row">
     <span class="col-md-4 offering-detail"><b>Periods offered: </b>{{ periods }}</span>
     <span class="col-md-4 offering-detail"><b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}</span>
     <span class="col-md-3 offering-detail"><b>Price: </b>${{ badge.price }}</span>
@@ -16,11 +16,16 @@
       </button>
     </span>
   </span>
-  <edit-offering class="col-md-10" 
+  <edit-offering class="col-xs-10" 
                  :badge="badge"
                  :eventId="eventId"
-                 v-if="editing"
+                 v-if="offered && editing"
                  @cancel="toggleEdit()"></edit-offering>
+  <button v-if="!offered"
+          class="btn btn-success col-xs-2"
+          @click="createOffering">
+    {{ creating ? 'Creating Offering...' : 'Offer this Badge' }}
+  </button>
 </div>
 </template>
 
@@ -43,6 +48,7 @@ export default {
     return {
       creating: false,
       editing: false,
+      error: ''
     };
   },
   computed: {
@@ -60,8 +66,32 @@ export default {
     }
   },
   methods: {
-    toggleCreate() {
-      this.creating = !this.creating;
+    createOffering() {
+      this.creating = true;
+
+      let offering = {
+        badge_id: this.badge.badge_id,
+        offering: {
+          duration: 1,
+          periods: [1, 2, 3]
+        }
+      };
+
+      this.$store.dispatch('createOffering', {
+        eventId: this.eventId,
+        details: offering
+      })
+        .then((response) => {
+          return this.$store.dispatch('getBadges');
+        })
+        .then((response) => {
+          this.error = '';
+          this.editing = true;
+          this.creating = false;
+        })
+        .catch((err) => {
+          this.error = 'Couldn\'t create offering. Please refresh and try again';
+        })
     },
     toggleEdit() {
       this.editing = !this.editing;
