@@ -23,6 +23,7 @@ export const UPDATE_EVENT = 'events/UPDATE';
 export const ADD_OFFERING = 'offerings/ADD';
 export const DELETE_OFFERING = 'offerings/DELETE';
 export const GET_OFFERINGS = 'offerings/GET';
+export const SET_OFFERINGS = 'offerings/SET';
 export const UPDATE_OFFERING = 'offgerints/UPDATE'
 
 // Users

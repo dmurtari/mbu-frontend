@@ -49,8 +49,8 @@ export default {
       offeredFilter: 'all',
       offeredFilters: [
         { text: 'All', value: 'all' },
-        { text: 'Badges Offered at this Event', value: 'offered' },
-        { text: 'Badge Not Offered at this Event', value: 'unoffered'}
+        { text: 'Badges offered at this event', value: 'offered' },
+        { text: 'Badge not offered at this event', value: 'unoffered'}
       ]
     };
   },
