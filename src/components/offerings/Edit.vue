@@ -87,6 +87,7 @@ export default {
       },
       removing: false,
       saving: false,
+      error: ''
     };
   },
   watch: {
@@ -113,7 +114,20 @@ export default {
   },
   methods: {
     deleteOffering() {
-      console.log('Removing');
+      this.$store.dispatch('deleteOffering', {
+        eventId: this.eventId,
+        badgeId: this.badge.badge_id
+      })
+        .then(() => {
+          return this.$store.dispatch('getBadges');
+        })
+        .then(() => {
+          this.error = '';
+          this.$emit('cancel');
+        })
+        .catch(() => {
+          this.error = 'Failed to remove badge from this event. Please try again';
+        })
     },
     toggleRemove() {
       this.removing = !this.removing;

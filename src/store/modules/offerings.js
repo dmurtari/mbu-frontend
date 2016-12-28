@@ -5,14 +5,14 @@ import * as types from '../mutation-types';
 import URLS from '../../urls';
 
 const state = {
-  event: {},
+  eventId: {},
   offerings: []
 };
 
 const getters = {
   offerings(state) {
     return {
-      eventId: event,
+      eventId: state.eventId,
       offerings: offerings
     };
   }
@@ -21,7 +21,14 @@ const getters = {
 const mutations = {
   [types.SET_OFFERINGS] (state, event) {
     state.offerings = _.map(event.offerings, 'details');
-    state.event = event.id;
+    state.eventId = event.id;
+  },
+  [types.DELETE_OFFERING] (state, details) {
+    if (state.event === details.eventId) {
+      _.remove(state.offerings, (offering) => {
+        return offering.badge
+      })
+    }
   }
 };
 
@@ -37,6 +44,20 @@ const actions = {
         .catch((err) => {
           console.log('Failed to create offering', offering.details);
           reject(err.response.data.message);
+        });
+    });
+  },
+  deleteOffering({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.EVENTS_URL + details.eventId + '/badges/' + details.badgeId)
+        .then((response) => {
+          console.log('Deleted badge', details.badgeId, 'from event', details.eventId);
+          commit(types.DELETE_OFFERING, details);
+          resolve();
+        })
+        .catch(() => {
+          console.log('Failed to delete offering', details.badgeId);
+          reject();
         });
     });
   },
