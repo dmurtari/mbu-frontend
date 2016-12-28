@@ -1,8 +1,8 @@
 <template>
 <div>
-  <form class="form-inline" v-if="!removing">
-    <div class="edit-badge">
-      <div class="form-group form-item">
+  <form class="form" v-if="!removing">
+    <div class="row">
+      <div class="form-group col-sm-3">
         <label for="offering-periods">Periods:</label>
         <input type="text"
               class="form-control"
@@ -10,9 +10,9 @@
               v-model.lazy="editablePeriods"
               placeholder="Periods">
       </div>
-      <div class="form-group form-item">
+      <div class="form-group col-sm-3">
         <label for="offering-duration">Duration:</label>
-        <div class="input-group">
+        <div class="input-group duration-select">
           <select class="form-control" 
                   id="offering-duration"
                   v-model="offering.duration">
@@ -22,7 +22,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group form-item">
+      <div class="form-group col-sm-2">
         <label for="offering-price">Price:</label>
         <input type="number"
                class="form-control"
@@ -30,7 +30,7 @@
                v-model="offering.price"
                placeholder="Price">
       </div>
-      <div class="form-group form-item">
+      <div class="form-group col-sm-4 submit-group">
         <button class="btn btn-primary"
                 @click.prevent="saveOffering()">
           <span class="glyphicon glyphicon-ok" aria-label="Save"></span>
@@ -160,17 +160,16 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.edit-badge {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-flow: row wrap;
-  flex: 1 1 20%;
+<style lang="sass" scoped>
+.submit-group {
+  margin-top: 25px;
+}
 
-  .form-group {
-    margin-top: 1em;
-    margin-bottom: 1em;
+.duration-select {
+  width: 100%;
+
+  select { 
+    width: 100%;
   }
 }
 </style>

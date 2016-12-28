@@ -11,6 +11,11 @@
     how many class periods each badge will take to teach, and how much scouts 
     need to pay to attend class for a badge.
   </p>
+  <div class="alert alert-danger" v-if="error">
+    <p>
+      {{ error }}
+    </p>
+  </div>
   <div class="well offering-list-filters">
     <div class="row">
       <div class="col-sm-6 form-inline">
@@ -27,7 +32,9 @@
       </div>
     </div>
   </div>
-  <div class="offering-list">
+  <loader v-if="loading" :color="'lightgray'" class="center-block loader"></loader>
+  <div class="offering-list"
+       v-if="!loading">
     <badge-row v-for="badge in filteredOfferings"
                :eventId="eventId"
                :badge="badge"></badge-row>
@@ -51,7 +58,9 @@ export default {
         { text: 'All', value: 'all' },
         { text: 'Badges offered at this event', value: 'offered' },
         { text: 'Badge not offered at this event', value: 'unoffered'}
-      ]
+      ],
+      error: '',
+      loading: false
     };
   },
   computed: {
@@ -87,14 +96,30 @@ export default {
   },
   methods: {
     updateOfferings(selectedEventId) {
+      this.loading = true;
       this.eventId = selectedEventId;
       this.$store.dispatch('getOfferings', selectedEventId)
+        .then(() => { 
+          this.error = '';
+          this.loading = false;
+        })
+        .catch(() => {
+          this.error = 'Couldn\'t load offerings. Please try refreshing'
+          this.loading = false;
+        });
     }
   },
   mounted() {
-    this.$store.dispatch('getBadges').catch(() => {
-      this.error = 'Couldn\'t load badges. Please try again';
-    });
+    this.loading = true;
+    this.$store.dispatch('getBadges')
+      .then(() => { 
+        this.error = '';
+        this.loading = false;
+      })
+      .catch(() => {
+        this.error = 'Couldn\'t load badges. Please try again'
+        this.loading = false;
+      });
   },
   components: {
     'badge-row': BadgeRow,
@@ -106,5 +131,10 @@ export default {
 <style lang="sass">
 .offering-list-filters {
   margin-top: 2em;
+}
+
+.loader {
+  margin-top: 5em;
+  width: 5em;
 }
 </style>

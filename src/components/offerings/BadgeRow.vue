@@ -1,12 +1,12 @@
 <template>
 <div class="badge-row row">
-  <b class="col-xs-2">{{ badge.name }}</b>
-  <span v-if="offered && !editing" class="col-xs-10 offering-row">
-    <span class="col-md-4 offering-detail"><b>Periods offered: </b>{{ periods }}</span>
-    <span class="col-md-4 offering-detail"><b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}</span>
-    <span class="col-md-3 offering-detail"><b>Price: </b>${{ badge.price }}</span>
-    <span class="col-md-1">
-      <button class="btn btn-default"
+  <b class="col-sm-2 col-xs-3">{{ badge.name }}</b>
+  <div v-if="offered && !editing" class="col-xs-8 col-sm-10 row">
+    <div class="col-sm-4 offering-detail"><b>Periods offered: </b>{{ periods }}</div>
+    <div class="col-sm-4 offering-detail"><b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}</div>
+    <div class="col-sm-3 offering-detail"><b>Price: </b>${{ badge.price }}</div>
+    <div class="col-sm-1">
+      <button class="btn btn-default offering-detail"
               v-if="isAdmin"
               @click="toggleEdit()"
               data-toggle="tooltip" 
@@ -14,15 +14,15 @@
               title="Edit">
         <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
       </button>
-    </span>
-  </span>
-  <edit-offering class="col-xs-10" 
+    </div>
+  </div>
+  <edit-offering class="col-sm-10 col-xs-8" 
                  :badge="badge"
                  :eventId="eventId"
                  v-if="offered && editing"
                  @cancel="toggleEdit()"></edit-offering>
   <button v-if="!offered"
-          class="btn btn-success col-xs-2"
+          class="btn btn-success"
           @click="createOffering">
     {{ creating ? 'Creating Offering...' : 'Offer this Badge' }}
   </button>
@@ -112,12 +112,9 @@ export default {
   align-items: center;
 }
 
-.offering-row {
-  display: flex;
-  align-items: center;
-}
-
 .offering-detail {
+  padding-top: .5em;
+  padding-bottom: .5em;
   white-space: nowrap;
 }
 </style>
