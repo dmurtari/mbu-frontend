@@ -26,6 +26,10 @@ const mutations = {
         return offering.badge
       })
     }
+  },
+  [types.UPDATE_OFFERING] (state, offering) {
+    let index = _.indexOf(state.offerings, { badge_id: offering.badge_id });
+    state.offerings.splice(index, 1, offering);
   }
 };
 
@@ -71,6 +75,20 @@ const actions = {
           reject();
         });
     }); 
+  },
+  updateOffering({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.EVENTS_URL + details.eventId + '/badges/' + details.badgeId, details.offering)
+        .then((response) => {
+          console.log('Updated offering for badge', details.badgeId);
+          commit(types.UPDATE_OFFERING, response.data.offering);
+          resolve()
+        })
+        .catch(() => {
+          console.log('Failed to update offering');
+          reject();
+        });
+    });
   }
 };
 

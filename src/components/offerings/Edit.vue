@@ -24,12 +24,11 @@
       </div>
       <div class="form-group form-item">
         <label for="offering-price">Price:</label>
-        <masked-input mask="99.99"
-                      class="input-group"
-                      id="offering-price"
-                      type="Number"
-                      placeholder="Price"
-                      v-model="offering.price">
+        <input type="number"
+               class="form-control"
+               id="offering-price"
+               v-model="offering.price"
+               placeholder="Price">
       </div>
       <div class="form-group form-item">
         <button class="btn btn-primary"
@@ -136,7 +135,21 @@ export default {
       this.$emit('cancel');
     },
     saveOffering() {
-      console.log('Saving');
+      this.$store.dispatch('updateOffering', {
+        eventId: this.eventId,
+        badgeId: this.badge.badge_id,
+        offering: this.offering
+      })
+        .then(() => {
+          return this.$store.dispatch('getOfferings', this.eventId);
+        })
+        .then(() => {
+          this.error = '';
+          this.$emit('cancel');
+        })
+        .catch(() => {
+          this.error = 'Failed to save badge. Please try again.';
+        })
     }
   },
   mounted() {
