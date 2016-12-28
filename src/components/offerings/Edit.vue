@@ -34,7 +34,7 @@
       <div class="form-group form-item">
         <button class="btn btn-primary"
                 @click.prevent="saveOffering()">
-          <span class="glyphicon glyphicon-save" aria-label="Save"></span>
+          <span class="glyphicon glyphicon-ok" aria-label="Save"></span>
         </button>
         <button class="btn btn-default"
                 @click.prevent="toggleEdit()">
@@ -119,7 +119,7 @@ export default {
         badgeId: this.badge.badge_id
       })
         .then(() => {
-          return this.$store.dispatch('getBadges');
+          return this.$store.dispatch('getOfferings', this.eventId);
         })
         .then(() => {
           this.error = '';

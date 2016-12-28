@@ -46,7 +46,7 @@ export default {
         return event.id === selectedId;
       });
 
-      this.$emit('select', selectedEvent);
+      this.$emit('select', selectedId);
     }
   },
   mounted() {
@@ -61,9 +61,9 @@ export default {
       .catch(() => {
         if (this.orderedEvents.length > 0) {
           this.loading = false;
-          this.$emit('select', this.orderedEvents[0]);
+          this.$emit('select', this.orderedEvents[0].id);
         } else {
-          this.$emit('select', {});
+          this.$emit('select', '');
         }
       });
   }

@@ -11,10 +11,7 @@ const state = {
 
 const getters = {
   offerings(state) {
-    return {
-      eventId: state.eventId,
-      offerings: offerings
-    };
+    return state.offerings;
   }
 };
 

@@ -82,7 +82,7 @@ export default {
         details: offering
       })
         .then((response) => {
-          return this.$store.dispatch('getBadges');
+          return this.$store.dispatch('getOfferings', this.eventId);
         })
         .then((response) => {
           this.error = '';

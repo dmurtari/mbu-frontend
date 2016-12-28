@@ -2,7 +2,7 @@
 <div>
   <h3>
     Manage Badges Offered For:
-    <events-dropdown @select="selectEvent($event)"></events-dropdown>
+    <events-dropdown @select="updateOfferings($event)"></events-dropdown>
   </h3>
   <p>
     Use this page to create, edit, and remove badge offerings for different events.
@@ -29,7 +29,7 @@
   </div>
   <div class="offering-list">
     <badge-row v-for="badge in filteredOfferings"
-               :eventId="selectedEvent.id"
+               :eventId="eventId"
                :badge="badge"></badge-row>
   </div>
 </div>
@@ -44,8 +44,8 @@ import EventsDropdown from './EventsDropdown.vue';
 export default {
   data() {
     return {
-      selectedEvent: {},
-      offerings: [],
+      eventId: '',
+      offeringsList: [],
       offeredFilter: 'all',
       offeredFilters: [
         { text: 'All', value: 'all' },
@@ -56,29 +56,25 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'badgeIdsAndNames'
+      'badgeIdsAndNames',
+      'offerings'
     ]),
     filteredOfferings() {
       if (this.offeredFilter === 'offered') {
-        return _.filter(this.offerings, (offering) => {
+        return _.filter(this.offeringList, (offering) => {
           return !_.isEmpty(offering.periods);
         });
       } else if (this.offeredFilter === 'unoffered') {
-        return _.filter(this.offerings, (offering) => {
+        return _.filter(this.offeringList, (offering) => {
           return _.isEmpty(offering.periods);
         });
       } else {
-        return this.offerings;
+        return this.offeringList;
       }
-    }
-  },
-  methods: {
-    selectEvent(selectedEvent) {
-      this.selectedEvent = selectedEvent;
-      
-      let existingOfferings = _.map(this.selectedEvent.offerings, 'details');
-      this.offerings = _.map(this.badgeIdsAndNames, (badge) => {
-        let offering = _.find(existingOfferings, { 'badge_id': badge.id }) || {};
+    },
+    offeringList() {
+      return _.map(this.badgeIdsAndNames, (badge) => {
+        let offering = _.find(this.offerings, { 'badge_id': badge.id }) || {};
         return {
           badge_id: badge.id,
           name: badge.name,
@@ -87,6 +83,12 @@ export default {
           price: offering.price
         };
       });
+    }
+  },
+  methods: {
+    updateOfferings(selectedEventId) {
+      this.eventId = selectedEventId;
+      this.$store.dispatch('getOfferings', selectedEventId)
     }
   },
   mounted() {
