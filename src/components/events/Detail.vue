@@ -19,9 +19,6 @@
     <div v-if="orderedOfferings.length > 0">
       <div v-for="offering in orderedOfferings">
         {{ offering.name }}
-        <span v-if="Number(offering.details.price) > 0">
-          (${{offering.details.price}})
-        </span>
       </div>
     </div>
     <div v-else>
