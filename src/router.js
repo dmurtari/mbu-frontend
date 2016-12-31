@@ -9,6 +9,8 @@ import OfferingList from './components/offerings/List.vue';
 import Profile from './components/users/profile/Profile.vue';
 import UsersList from './components/users/list/List.vue';
 
+import ScoutsList from './components/scouts/List.vue';
+
 import EmailForm from './components/authentication/EmailForm.vue';
 import Reset from './components/authentication/Reset.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
@@ -34,6 +36,9 @@ export default [
   }, {
     path: '/signup',
     component: Signup
+  }, {
+    path: '/scouts',
+    component: ScoutsList
   }, {
     path: '/reset',
     component: Reset,
