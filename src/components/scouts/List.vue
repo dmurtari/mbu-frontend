@@ -1,5 +1,5 @@
 <template>
   <div class="container-fluid">
-    <h3>Manage Your Scouts</h3>
+    <h3>Your Troop</h3>
   </div>
 </template>

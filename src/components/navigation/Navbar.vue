@@ -8,7 +8,19 @@
         <li><router-link to="/about">About</router-link></li>
         <li><router-link to="/badges">Badges</router-link></li>
         <li><router-link to="/events">Events</router-link></li>
-        <li><router-link v-if="isCoordinator" to="/scouts">Manage Scouts</router-link></li>
+        <li v-if="isCoordinator"
+            class="dropdown">
+          <a href="#"
+             class="dropdown-toggle"
+             id="scouts-dropdown"
+             data-toggle="dropdown"
+             role="button"
+             aria-haspopup="true"
+             aria-expanded="false">Manage Your Scouts <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><router-link to="/scouts">Your Troop</router-link></li>
+          </ul>
+        </li>
         <li v-if="isAdmin"
             class="dropdown">
           <a href="#"
