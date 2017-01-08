@@ -26,5 +26,11 @@ export const GET_OFFERINGS = 'offerings/GET';
 export const SET_OFFERINGS = 'offerings/SET';
 export const UPDATE_OFFERING = 'offgerints/UPDATE'
 
+// Scouts
+export const ADD_SCOUT = 'scouts/ADD';
+export const DELETE_SCOUT = 'scouts/DELETE';
+export const GET_SCOUT = 'scouts/GET';
+export const UPDATE_SCOUT = 'scouts/UPDATE';
+
 // Users
 export const GET_USERS = 'users/GET_USERS';
