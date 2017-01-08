@@ -148,6 +148,9 @@ export default {
           this.error = 'Error adding scout. Please refresh the page, and try again.';
         });
     }
+  },
+  mounted() {
+    this.scout.troop = this.profile.details.troop;
   }
 }
 </script>
