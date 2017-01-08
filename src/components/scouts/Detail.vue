@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid">
       <div class="row">
-        <strong>Added On:</strong> {{ scout.created_at | longDate }}
+        <strong>Added On:</strong> {{ scout.created_at | shortDate }}
       </div>
       <div class="row">
-        <strong>Birthday:</strong> {{ scout.birthday | longDate }}
+        <strong>Birthday:</strong> {{ scout.birthday | shortDate }}
       </div>
       <div class="row">
         <strong>Age:</strong> {{ scout.age }}
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import moment from 'moment';
-
 export default {
   props: {
     scout: {
