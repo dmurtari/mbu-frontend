@@ -8,10 +8,10 @@
         <strong>Registration Fee:</strong> ${{ event.price }}
       </div>
       <div class="col-md-3">
-        <strong>Registration Open:</strong> {{ event.registration_open | longDate}}
+        <strong>Registration Open:</strong> {{ event.registration_open | longDate }}
       </div>
       <div class="col-md-3">
-        <strong>Registration Close:</strong> {{ event.registration_close | longDate}}
+        <strong>Registration Close:</strong> {{ event.registration_close | longDate }}
       </div>
     </div>
     <br>

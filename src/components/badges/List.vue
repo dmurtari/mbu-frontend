@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <h3>All Badges ({{ totalBadges }} Total)
+  <h3 class="page-header">All Badges ({{ totalBadges }} Total)
     <button class="btn btn-default"
             v-if="isAdmin"
             @click="toggleAdd()"

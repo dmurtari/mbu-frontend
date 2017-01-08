@@ -15,12 +15,19 @@
     </button>
     <create-scout v-if="displayAddScout"
                   @close="toggleAdd()"></create-scout>
+    <div class="scout-list row">
+      <div v-for="scout in scouts" class="col-md-6">
+        <scout :scout="scout"></scout>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Create from './Create.vue';
 import { mapGetters } from 'vuex';
+
+import Scout from './Scout.vue';
 
 export default { 
   data() {
@@ -30,7 +37,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'profile'
+      'profile',
+      'scouts'
     ])
   },
   methods: {
@@ -44,7 +52,14 @@ export default {
     }
   },
   components: {
-    'create-scout': Create
+    'create-scout': Create,
+    'scout': Scout
   }
 }
 </script>
+
+<style lang="sass">
+.scout-list {
+  margin-top: 2em;
+}
+</style>
