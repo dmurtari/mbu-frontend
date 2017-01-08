@@ -8,12 +8,13 @@
     </p>
     <button class="btn btn-default"
             v-if="!displayAddScout"
-            @click="toggleAdd"
+            @click="toggleAdd()"
             data-toggle="tooltip"
             data-placement="right">
       Add a new scout
     </button>
-    <create-scout v-if="displayAddScout"></create-scout>
+    <create-scout v-if="displayAddScout"
+                  @close="toggleAdd()"></create-scout>
   </div>
 </template>
 

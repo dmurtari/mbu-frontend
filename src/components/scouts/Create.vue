@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h5>Add a Scout to Your Troop</h5>
       <span class="glyphicon glyphicon-remove close-button"
-          @click="close"
+          @click="close()"
           aria-label="Close"></span>
     </div>
     <div class="panel-body">
@@ -40,6 +40,8 @@
                    placeholder="Troop"
                    v-model="scout.troop">
           </div>
+        </div>
+        <div class="row">
           <div class="form-group col-sm-12">
             <label for="scout-create-notes">Anything else we should know?</label>
             <textarea class="form-control"
@@ -49,12 +51,53 @@
                       v-model="scout.notes"></textarea>
           </div>
         </div>
+        <div class="row container-fluid">
+          <h5>Emergency Contact Information</h5>
+          <p>
+            We will contact this person in the event that something happens to
+            this scout. If possible, please enter the information for someone 
+            that will be able to reach the event should it be necessary.
+          </p>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label for="scout-create-emergency-name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="scout-create-emergency-name"
+                   placeholder="Name"
+                   v-model="scout.emergency_name">
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="scout-create-emergency-relation">Relation</label>
+            <input type="text"
+                   class="form-control"
+                   id="scout-create-emergency-relation"
+                   placeholder="Relationship to Scout"
+                   v-model="scout.emergency_relation">
+          </div>
+          <div class="form-group col-sm-4">
+            <label for="scout-create-emergency-phone">Phone Number</label>
+            <masked-input mask="(999) 999-9999"
+                          placeholder="(___) ___-____"
+                          id="scout-create-emergency-phone"
+                          v-model="scout.emergency_phone">
+          </div>
+        </div>
+        <div class="pull-right">
+          <button class="btn btn-primary" 
+                  @click.prevent="createScout()">Add Scout</button>
+          <button class="btn btn-default" 
+                  @click.prevent="close()">Cancel</button>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   data() {
     return {
@@ -67,8 +110,30 @@ export default {
         emergency_name: '',
         emergency_phone: '',
         emergency_relation: ''
-      }
+      },
+      error: ''
     };
+  },
+  methods: {
+    close() {
+      this.error = '';
+      this.$emit('close');
+    },
+    createScout() {
+      let scout = _.clone(this.scout);
+
+      this.$store.dispatch('addScout', scout)
+        .then(() => {
+          return this.$store.dispatch('getScouts');
+        })
+        .then(() => {
+          this.error = '';
+          this.close();
+        })
+        .catch((err) => {
+          this.error = 'Erro adding scout. Please refresh the page, and try again.';
+        });
+    }
   }
 }
 </script>
