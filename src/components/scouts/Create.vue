@@ -135,7 +135,7 @@ export default {
 
       this.$store.dispatch('addScout', {
         scout: scout,
-        user_id: this.profile.id
+        userId: this.profile.id
       })
         .then(() => {
           return this.$store.dispatch('getScouts');

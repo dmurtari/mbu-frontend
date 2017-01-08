@@ -20,6 +20,7 @@
 
 <script>
 import Create from './Create.vue';
+import { mapGetters } from 'vuex';
 
 export default { 
   data() {
@@ -27,9 +28,19 @@ export default {
       displayAddScout: false
     };
   },
+  computed: {
+    ...mapGetters([
+      'profile'
+    ])
+  },
   methods: {
     toggleAdd() {
       this.displayAddScout = !this.displayAddScout;
+    }
+  },
+  watch: {
+    profile() {
+      this.$store.dispatch('getScouts', this.profile.id);
     }
   },
   components: {

@@ -23,7 +23,7 @@ const mutations = {
 const actions = {
   addScout({ commit }, details) {
     return new Promise((resolve, reject) => {
-      axios.post(URLS.USERS_URL + details.user_id + '/scouts', details.scout)
+      axios.post(URLS.USERS_URL + details.userId + '/scouts', details.scout)
         .then((response) => {
           console.log('Added scout', details.scout, 'for user', details.user_id);
           commit(types.SET_SCOUTS, response.details.user.scouts);
@@ -32,6 +32,20 @@ const actions = {
         .catch((err) => {
           console.log('Failed to create scout with error', err.response.data.message);
           reject(err.response.data.message);
+        })
+    });
+  },
+  getScouts({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      axios.get(URLS.USERS_URL + userId + '/scouts')
+        .then((response) => {
+          console.log('Got scouts for user', userId, response.data[0].scouts);
+          commit(types.SET_SCOUTS, response.data[0].scouts);
+          resolve()
+        })
+        .catch((err) => {
+          console.log('Failed to get scouts', err);
+          reject();
         })
     });
   }
