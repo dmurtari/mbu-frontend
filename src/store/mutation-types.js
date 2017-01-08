@@ -30,6 +30,7 @@ export const UPDATE_OFFERING = 'offgerints/UPDATE'
 export const ADD_SCOUT = 'scouts/ADD';
 export const DELETE_SCOUT = 'scouts/DELETE';
 export const GET_SCOUT = 'scouts/GET';
+export const SET_SCOUTS = 'scouts/SET';
 export const UPDATE_SCOUT = 'scouts/UPDATE';
 
 // Users

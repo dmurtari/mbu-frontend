@@ -5,6 +5,7 @@ import authentication from './modules/authentication'
 import badges from './modules/badge';
 import event from './modules/event';
 import offerings from './modules/offerings';
+import scouts from './modules/scout';
 import users from './modules/users';
 
 Vue.use(Vuex);
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     badges,
     event,
     offerings,
+    scouts,
     users
   }
 });

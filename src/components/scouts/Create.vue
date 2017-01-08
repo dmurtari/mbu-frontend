@@ -7,6 +7,11 @@
           aria-label="Close"></span>
     </div>
     <div class="panel-body">
+      <div class="alert alert-danger" v-if="error">
+        <p>
+          {{ error }}
+        </p>
+      </div>
       <form>
         <div class="row">
           <div class="form-group col-sm-3">
@@ -97,6 +102,7 @@
 
 <script>
 import _ from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -114,6 +120,11 @@ export default {
       error: ''
     };
   },
+  computed: {
+    ...mapGetters([
+      'profile'
+    ])
+  },
   methods: {
     close() {
       this.error = '';
@@ -122,7 +133,10 @@ export default {
     createScout() {
       let scout = _.clone(this.scout);
 
-      this.$store.dispatch('addScout', scout)
+      this.$store.dispatch('addScout', {
+        scout: scout,
+        user_id: this.profile.id
+      })
         .then(() => {
           return this.$store.dispatch('getScouts');
         })
@@ -131,7 +145,7 @@ export default {
           this.close();
         })
         .catch((err) => {
-          this.error = 'Erro adding scout. Please refresh the page, and try again.';
+          this.error = 'Error adding scout. Please refresh the page, and try again.';
         });
     }
   }

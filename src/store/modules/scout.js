@@ -15,11 +15,26 @@ const getters = {
 };
 
 const mutations = {
-
+  [types.SET_SCOUTS] (state, scouts) {
+    state.scouts = scouts;
+  }
 };
 
 const actions = {
-
+  addScout({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.USERS_URL + details.user_id + '/scouts', details.scout)
+        .then((response) => {
+          console.log('Added scout', details.scout, 'for user', details.user_id);
+          commit(types.SET_SCOUTS, response.details.user.scouts);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to create scout with error', err.response.data.message);
+          reject(err.response.data.message);
+        })
+    });
+  }
 };
 
 export default {
