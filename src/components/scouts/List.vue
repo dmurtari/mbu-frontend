@@ -16,7 +16,7 @@
     <create-scout v-if="displayAddScout"
                   @close="toggleAdd()"></create-scout>
     <div class="scout-list row">
-      <div v-for="scout in scouts" class="col-md-6">
+      <div v-for="scout in scouts" class="col-sm-6 col-md-4">
         <scout :scout="scout"></scout>
       </div>
     </div>
