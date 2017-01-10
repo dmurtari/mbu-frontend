@@ -16,7 +16,7 @@
     </div>
     <div class="panel-body">
       <scout-detail v-if="!editing" :scout="scout"></scout-detail>
-      <scout-edit v-if="editing" :scout="scout"></scout-edit>
+      <scout-edit v-if="editing" :scout="scout" @close="toggleEdit()"></scout-edit>
     </div>
   </div>
 </template>
