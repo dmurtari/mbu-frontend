@@ -73,7 +73,7 @@
           </div>
         <div class="pull-right">
           <button class="btn btn-primary" 
-                  @click.prevent="saveScout()">Add Scout</button>
+                  @click.prevent="saveScout()">Save</button>
           <button class="btn btn-default" 
                   @click.prevent="close()">Cancel</button>
         </div>
@@ -97,7 +97,8 @@ export default {
         emergency_name: '',
         emergency_phone: '',
         emergency_relation: ''
-      }
+      },
+      error: ''
     };
   },
   props: {
@@ -108,7 +109,20 @@ export default {
   },
   methods: {
     saveScout() {
-
+      this.$store.dispatch('updateScout', {
+        userId: this.scout.user_id,
+        scout: this.scoutUpdate
+      })
+        .then(() => {
+          return this.$store.dispatch('getScouts', this.scout.user_id);
+        })
+        .then(() => {
+          this.error = '';
+          this.close();
+        })
+        .catch(() => {
+          this.error = 'Failed to save changes. Please refresh and try again';
+        })
     },
     close() {
       this.$emit('close');

@@ -17,6 +17,10 @@ const getters = {
 const mutations = {
   [types.SET_SCOUTS] (state, scouts) {
     state.scouts = scouts;
+  },
+  [types.UPDATE_SCOUT] (state, scout) {
+    let index = _.indexOf(state.scouts, { id: scout.id });
+    state.scouts.splice(index, 1, scout);
   }
 };
 
@@ -48,6 +52,20 @@ const actions = {
           reject();
         })
     });
+  },
+  updateScout({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.USERS_URL + details.userId + '/scouts/' + details.scout.id, details.scout)
+        .then((response) => {
+          console.log('Updated scout', details.scout.id);
+          commit(types.UPDATE_SCOUT, response.data.scout);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to update scout', err);
+          reject();
+        })
+    })
   }
 };
 
