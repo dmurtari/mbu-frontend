@@ -138,7 +138,7 @@ export default {
         userId: this.profile.id
       })
         .then(() => {
-          return this.$store.dispatch('getScouts');
+          return this.$store.dispatch('getScouts', this.profile.id);
         })
         .then(() => {
           this.error = '';
