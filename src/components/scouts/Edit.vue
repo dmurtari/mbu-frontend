@@ -107,6 +107,7 @@
 <script>
 import _ from 'lodash';
 import moment from 'moment';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -131,14 +132,19 @@ export default {
       required: true
     }
   },
+  computed: {
+    ...mapGetters([
+      'profile'
+    ])
+  },
   methods: {
     deleteScout() {
       this.$store.dispatch('deleteScout', {
-        userId: this.scout.user_id,
+        userId: this.profile.id,
         scoutId: this.scout.id
       })
         .then(() => {
-          return this.$store.dispatch('getScouts', this.scout.user_id);
+          return this.$store.dispatch('getScouts', this.profile.id);
         })
         .then(() => {
           this.error = '';
@@ -150,11 +156,11 @@ export default {
     },
     saveScout() {
       this.$store.dispatch('updateScout', {
-        userId: this.scout.user_id,
+        userId: this.profile.id,
         scout: this.scoutUpdate
       })
         .then(() => {
-          return this.$store.dispatch('getScouts', this.scout.user_id);
+          return this.$store.dispatch('getScouts', this.profile.id);
         })
         .then(() => {
           this.error = '';
