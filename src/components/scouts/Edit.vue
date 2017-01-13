@@ -140,7 +140,7 @@ export default {
   methods: {
     deleteScout() {
       this.$store.dispatch('deleteScout', {
-        userId: this.profile.id,
+        userId: this.scout.user_id,
         scoutId: this.scout.id
       })
         .then(() => {
@@ -156,7 +156,7 @@ export default {
     },
     saveScout() {
       this.$store.dispatch('updateScout', {
-        userId: this.profile.id,
+        userId: this.scout.user_id,
         scout: this.scoutUpdate
       })
         .then(() => {
