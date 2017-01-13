@@ -15,12 +15,20 @@ const getters = {
 };
 
 const mutations = {
+  [types.DELETE_SCOUT] (state, scoutId) {
+    state.scouts = _.reject(state.scouts, (existingScout) => {
+      return existingScout.id === scoutId;
+    });
+  },
   [types.SET_SCOUTS] (state, scouts) {
     state.scouts = scouts;
   },
-  [types.UPDATE_SCOUT] (state, scout) {
-    let index = _.indexOf(state.scouts, { id: scout.id });
-    state.scouts.splice(index, 1, scout);
+  [types.UPDATE_SCOUT] (state, updatedScout) {
+    state.scouts = _.reject(state.scouts, (existingScout) => {
+      return existingScout.id === updatedScout.id;
+    });
+
+    state.scouts.push(updatedScout);
   }
 };
 
@@ -30,12 +38,26 @@ const actions = {
       axios.post(URLS.USERS_URL + details.userId + '/scouts', details.scout)
         .then((response) => {
           console.log('Added scout', details.scout, 'for user', details.user_id);
-          commit(types.SET_SCOUTS, response.details.user.scouts);
+          commit(types.SET_SCOUTS, response.data.user.scouts);
           resolve();
         })
         .catch((err) => {
           console.log('Failed to create scout with error', err.response.data.message);
           reject(err.response.data.message);
+        })
+    });
+  },
+  deleteScout({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.USERS_URL + details.userId + '/scouts/' + details.scoutId)
+        .then((response) => {
+          console.log('Deleted scout', details.scoutId, 'for user', details.user_id);
+          commit(types.DELETE_SCOUT, details.scoutId);
+          resolve()
+        })
+        .catch((err) => {
+          console.log('Failed to delete scout with error', err);
+          reject();
         })
     });
   },
