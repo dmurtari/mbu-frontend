@@ -53,7 +53,7 @@ export default {
       this.$store.dispatch('login', credentials)
         .then(() => {
           this.error = false;
-          this.$emit('loginSuccess');
+          this.$router.push('/');
         })
         .catch((err) => {
           this.error = true;

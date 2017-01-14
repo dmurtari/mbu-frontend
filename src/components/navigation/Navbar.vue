@@ -3,24 +3,48 @@
     <nav class="nav has-shadow">
       <div class="nav-left">
         <router-link class="nav-item brand" to="/">MBU Online</router-link>
-        <router-link class="nav-item" to="/about">About</router-link>
-        <router-link class="nav-item" to="/badges">Badges</router-link>
-        <router-link class="nav-item" to="/events">Events</router-link>
-        <router-link class="nav-item" 
+        <router-link class="nav-item is-hidden-mobile is-tab"
+                     active-class="is-active" to="/about">About</router-link>
+        <router-link class="nav-item is-hidden-mobile is-tab"
+                     active-class="is-active" to="/badges">Badges</router-link>
+        <router-link class="nav-item is-hidden-mobile is-tab"
+                     active-class="is-active" to="/events">Events</router-link>
+        <router-link class="nav-item is-hidden-mobile is-tab" 
                      v-if="isCoordinator"
                      to="/scouts">Manage Scouts</router-link>
-        <router-link class="nav-item" 
+        <router-link class="nav-item is-hidden-mobile is-tab" 
                      v-if="isAdmin" 
                      to="/administration">Administration</router-link>
       </div>
-      <div class="nav-right" v-if="!isAuthenticated">
-        <span class="nav-item">
+      <span class="nav-toggle" @click.prevent="toggleDropdown()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <div class="nav-right nav-menu" 
+           :class="{ 'is-active': dropdownActive }">
+        <router-link class="nav-item is-hidden-tablet"
+                  active-class="is-active" to="/about">About</router-link>
+        <router-link class="nav-item is-hidden-tablet"
+                     active-class="is-active" to="/badges">Badges</router-link>
+        <router-link class="nav-item is-hidden-tablet"
+                     active-class="is-active" to="/events">Events</router-link>
+        <router-link class="nav-item is-hidden-tablet" 
+                     v-if="isCoordinator"
+                     to="/scouts">Manage Scouts</router-link>
+        <router-link class="nav-item is-hidden-tablet" 
+                     v-if="isAdmin" 
+                     to="/administration">Administration</router-link>
+        <span class="nav-item" v-if="!isAuthenticated">
           <router-link class="button" to="/signup">Sign Up</router-link>
           <router-link class="button is-primary" to="/login">Login</router-link>
         </span>
-      </div>
-      <div class="nav-right" v-if="isAuthenticated">
-        <a href="#" class="nav-item" @click.prevent="logout()">Logout</a>
+        <router-link class="nav-item" v-if="isAuthenticated" to="/profile">
+          Profile
+        </router-link>
+        <span class="nav-item" v-if="isAuthenticated">
+          <a href="#" class="button" @click.prevent="logout()">Logout</a>
+        </span>
       </div>
     </nav>
   </div>
@@ -32,6 +56,11 @@ import { mapGetters } from 'vuex';
 import Login from '../authentication/Login.vue';
 
 export default {
+  data() {
+    return {
+      dropdownActive: false
+    };
+  },
   computed: {
     ...mapGetters([
       'profile',
@@ -44,10 +73,9 @@ export default {
     logout() {
       this.$store.dispatch('logout');
       this.$router.push('/');
-      this.closeDropdown();
     },
-    closeDropdown() {
-      $('#login-dropdown').dropdown('toggle');
+    toggleDropdown() {
+      this.dropdownActive = !this.dropdownActive;
     }
   },
   components: {
