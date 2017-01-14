@@ -4,7 +4,7 @@
     <div class="container">
       <router-view></router-view>
     </div>
-    <mbu-footer></mbu-footer>
+    <!-- <mbu-footer></mbu-footer> -->
   </div>
 </template>
 
