@@ -1,76 +1,29 @@
 <template>
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <router-link to="/" class="navbar-brand">MBU Online</router-link>
+  <div class="container">
+    <nav class="nav has-shadow">
+      <div class="nav-left">
+        <router-link class="nav-item brand" to="/">MBU Online</router-link>
+        <router-link class="nav-item" to="/about">About</router-link>
+        <router-link class="nav-item" to="/badges">Badges</router-link>
+        <router-link class="nav-item" to="/events">Events</router-link>
+        <router-link class="nav-item" 
+                     v-if="isCoordinator"
+                     to="/scouts">Manage Scouts</router-link>
+        <router-link class="nav-item" 
+                     v-if="isAdmin" 
+                     to="/administration">Administration</router-link>
       </div>
-      <ul class="nav navbar-nav">
-        <li><router-link to="/about">About</router-link></li>
-        <li><router-link to="/badges">Badges</router-link></li>
-        <li><router-link to="/events">Events</router-link></li>
-        <li v-if="isCoordinator"
-            class="dropdown">
-          <a href="#"
-             class="dropdown-toggle"
-             id="scouts-dropdown"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">Manage Your Scouts <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><router-link to="/scouts">Your Troop</router-link></li>
-          </ul>
-        </li>
-        <li v-if="isAdmin"
-            class="dropdown">
-          <a href="#"
-             class="dropdown-toggle"
-             id="login-dropdown"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">Administration <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><router-link to="/users">View/Edit Users</router-link></li>
-            <li><router-link to="/offerings">Manage Badge Offerings</router-link></li>
-          </ul>
-        </li>
-      </ul>        
-      <ul class="nav navbar-nav navbar-right">
-        <li v-if="isAuthenticated"
-            class="dropdown">
-          <a href="#"
-             class="dropdown-toggle"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">
-            {{ profile.firstname }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><router-link to="/profile">My Profile</router-link></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#" @click="logout()">Logout</a></li>
-          </ul>
-        </li>
-        <li v-if="!isAuthenticated"
-            class="dropdown">
-          <a href="#"
-             class="dropdown-toggle"
-             id="login-dropdown"
-             data-toggle="dropdown"
-             role="button"
-             aria-haspopup="true"
-             aria-expanded="false">Login/Signup <span class="caret"></span></a>
-          <ul @click.stop
-              class="dropdown-menu">
-            <div class="container dropdown-form">
-              <li><login @close="closeDropdown()"></login></li>
-            </div>
-          </ul>
-        </li>          
-      </ul>
-    </div>
-  </nav>
+      <div class="nav-right" v-if="!isAuthenticated">
+        <span class="nav-item">
+          <router-link class="button" to="/signup">Sign Up</router-link>
+          <router-link class="button is-primary" to="/login">Login</router-link>
+        </span>
+      </div>
+      <div class="nav-right" v-if="isAuthenticated">
+        <a href="#" class="nav-item" @click.prevent="logout()">Logout</a>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -108,5 +61,9 @@ export default {
   max-width: 400px;
   padding-bottom: .5em;
   padding-top: .5em;
+}
+
+.brand {
+  
 }
 </style>

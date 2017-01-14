@@ -14,6 +14,7 @@ import ScoutsList from './components/scouts/List.vue';
 import EmailForm from './components/authentication/EmailForm.vue';
 import Reset from './components/authentication/Reset.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
+import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
 export default [
@@ -36,6 +37,9 @@ export default [
   }, {
     path: '/signup',
     component: Signup
+  }, {
+    path: '/login',
+    component: Login
   }, {
     path: '/scouts',
     component: ScoutsList
