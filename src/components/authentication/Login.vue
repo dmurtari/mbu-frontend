@@ -1,38 +1,62 @@
 <template>
-  <div>
-    <div class="alert alert-danger" v-if="error">
-      <p>Invalid email/password combination</p>
+  <div class="section">
+    <div class="column is-half is-offset-one-quarter">
+      <h1 class="title">Login</h1>
+      <h3 class="subtitle">Welcome back to MBU Online!</h3>
+      <div class="notification is-warning" v-if="error">
+        <button class="delete" @click.prevent="dismissError()"></button>
+        <p>Invalid email/password combination</p>
+      </div>
+      <form>
+        <div class="control">
+          <label class="label" for="login-email">Email</label>
+          <input type="email"
+                 class="input"
+                 id="login-email"
+                 placeholder="Enter your email"
+                 :class="{ 'is-danger': $v.credentials.email.$error }"
+                 @blur="$v.credentials.email.$touch"
+                 v-model="credentials.email">
+          <span v-if="$v.credentials.email.$error">
+            <span class="help is-danger" v-if="!$v.credentials.email.email">
+              Email address is invalid
+            </span>
+            <span class="help is-danger" v-if="!$v.credentials.email.required">
+              Email is required
+            </span>
+          </span>
+        </div>
+        <div class="control">
+          <label class="label" for="login-password">Password</label>
+          <input type="password"
+                class="input"
+                id="login-password"
+                placeholder="Password"
+                :class="{ 'is-danger': $v.credentials.password.$error }"
+                @blur="$v.credentials.password.$touch"
+                v-model="credentials.password">
+          <span class="help is-danger" 
+                v-if="!$v.credentials.password.required && $v.credentials.password.$error">
+            Password is required
+          </span>
+        </div>
+        <div class="control">
+          <button class="button is-primary" 
+                  :disabled="$v.credentials.$invalid"
+                  @click.prevent="submit()">Login</button>
+          <button class="button" 
+                  @click.prevent="signup()">Create an Account</button>
+          <router-link class="button is-link is-pulled-right" to="/reset">Forgot your password?</router-link>
+        </div>
+        <br>
+      </form>
     </div>
-    <form>
-      <div class="form-group">
-        <label for="login-email">Email</label>
-        <input type="email"
-               class="form-control"
-               id="login-email"
-               placeholder="Enter your email"
-               v-model="credentials.email">
-      </div>
-      <div class="form-group">
-        <label for="loginPassword">Password</label>
-        <input type="password"
-               class="form-control"
-               id="loginPassword"
-               placeholder="Password"
-               v-model="credentials.password">
-      </div>
-      <div class="btn-group form-group">
-        <button class="btn btn-primary" 
-                @click.prevent="submit()">Login</button>
-        <button class="btn btn-default" 
-                @click.prevent="signup()">Create an Account</button>
-      </div>
-      <br>
-      <a @click="reset()">Forgot your password?</a>
-    </form>
   </div>
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
+
 export default {
   data() {
     return {
@@ -44,6 +68,10 @@ export default {
     }
   },
   methods: {
+    dismissError() {
+      this.$v.$reset();
+      this.error = '';
+    },
     submit() {
       let credentials = {
         email: this.credentials.email,
@@ -66,6 +94,17 @@ export default {
     reset() {
       this.$emit('close');
       this.$router.push('/reset');
+    }
+  },
+  validations: {
+    credentials: {
+      email: {
+        required,
+        email
+      },
+      password: {
+        required
+      }
     }
   }
 }
