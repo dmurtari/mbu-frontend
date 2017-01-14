@@ -33,6 +33,11 @@ module.exports = {
         query: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /node_modules/
       }
     ]
   },
