@@ -10,6 +10,8 @@ import routes from './router';
 import components from './components';
 import filters from './filters'
 
+import './assets/sass/main.scss';
+
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
