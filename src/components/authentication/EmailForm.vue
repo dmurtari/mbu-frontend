@@ -21,9 +21,9 @@
       </span>
     </div>
     <button class="button is-primary is-pulled-right"
-            :class="{ 'disabled': clicked }"
+            :class="{ 'is-disabled is-loading': sending }"
             @click.prevent="sendResetEmail()">
-            {{ clicked ? 'Sending Email...' : 'Send Email' }}
+      {{ sent ? 'Resend Email' : 'Send Email' }}
     </button>
   </form>
 </template>
@@ -35,20 +35,20 @@ export default {
       email: '',
       error: false,
       sent: false,
-      clicked: false
+      sending: false
     }
   },
   methods: {
     sendResetEmail() {
-      this.clicked = true;
+      this.sending = true;
       this.$store.dispatch('sendResetEmail', this.email)
         .then(() => {
-          this.clicked = false;
+          this.sending = false;
           this.error = false;
           this.sent = true;
         })
         .catch(() => {
-          this.clicked= false;
+          this.sending= false;
           this.sent = false;
           this.error = true;
         });
