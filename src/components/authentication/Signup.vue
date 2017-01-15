@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { required, email, sameAs, minLength, alpha } from 'vuelidate/lib/validators'
+
 export default {
   data() {
     return {
@@ -175,6 +177,29 @@ export default {
     },
     toggle() {
       this.$emit('toggle-create');
+    }
+  },
+  validations: {
+    credentials: {
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minLength: minLength(8)
+      },
+      passwordConfirmation: {
+        sameAs: sameAs('credentials.password')
+      },
+      firstname: {
+        required,
+        alpha
+      },
+      lastname: {
+        required,
+        alpha
+      }
     }
   }
 }
