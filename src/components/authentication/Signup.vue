@@ -63,36 +63,34 @@
             </select>
           </span>
         </div>
-        <div class="column is-12" v-if="credentials.role === 'coordinator'">
-          <div class="columns">
-            <div class="control column is-one-third">
-              <label class="label" for="signup-troop">Troop</label>
-              <input type="number"
-                    class="input"
-                    id="signup-troop"
-                    placeholder="Troop"
-                    v-model="credentials.coordinator.troop">
-            </div>
-            <div class="control column is-one-third">
-              <label class="label" for="signup-district">District</label>
-              <input type="text"
-                    class="input"
-                    id="signup-district"
-                    placeholder="District"
-                    v-model="credentials.coordinator.district">
-            </div>
-            <div class="control column is-one-third">
-              <label class="label" for="signup-council">Council</label>
-              <input type="text"
-                    class="input"
-                    id="signup-council"
-                    placeholder="Council"
-                    v-model="credentials.coordinator.council">
-            </div>
+        <template v-if="credentials.role === 'coordinator'">
+          <div class="control column is-one-third">
+            <label class="label" for="signup-troop">Troop</label>
+            <input type="number"
+                  class="input"
+                  id="signup-troop"
+                  placeholder="Troop"
+                  v-model="credentials.coordinator.troop">
           </div>
-        </div>
-        <div class="control column is-12" v-if="credentials.role === 'teacher'">
-          <div>
+          <div class="control column is-one-third">
+            <label class="label" for="signup-district">District</label>
+            <input type="text"
+                  class="input"
+                  id="signup-district"
+                  placeholder="District"
+                  v-model="credentials.coordinator.district">
+          </div>
+          <div class="control column is-one-third">
+            <label class="label" for="signup-council">Council</label>
+            <input type="text"
+                  class="input"
+                  id="signup-council"
+                  placeholder="Council"
+                  v-model="credentials.coordinator.council">
+          </div>
+        </template>
+        <template v-if="credentials.role === 'teacher'">
+          <div class="control column is-12">
             <label class="label" for="signup-chapter">Chapter/Organization</label>
             <input type="text"
                    class="input"
@@ -100,7 +98,7 @@
                    placeholder="Your group"
                    v-model="credentials.teacher.chapter">
           </div>
-        </div>
+        </template>
         <div class="control column is-12">
           <button class="button is-primary" @click.prevent="submit()">Signup</button>
         </div>
