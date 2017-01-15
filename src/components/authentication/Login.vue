@@ -7,6 +7,13 @@
         <button class="delete" @click.prevent="dismissError()"></button>
         <p>Invalid email/password combination</p>
       </div>
+      <div class="notification is-success" 
+           v-if="$route.query.from === 'resetSuccess'">
+        <p>
+          Successfully reset your password! Please login to your account with 
+          using new password.
+        </p>
+      </div>
       <form>
         <div class="control">
           <label class="label" for="login-email">Email</label>

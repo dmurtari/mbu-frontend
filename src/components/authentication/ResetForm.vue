@@ -95,18 +95,15 @@ export default {
           this.password = '';
           this.passwordConfirmation = '';
           this.sending = false;
-          this.$router.push('/login');
+          this.$router.replace({
+            path: '/login',
+            query: { from: 'resetSuccess' }
+          });
         })
         .catch((err) => {
           this.sending = false;
           this.error = 'Failed to reset password. Please try again.';
         });
-    },
-    loginSuccess() {
-      console.log('redirecting');
-      this.$router.push({ 
-        name: 'home'
-      });
     }
   },
   components: {
