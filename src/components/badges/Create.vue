@@ -1,58 +1,63 @@
 <template>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4>Create a Badge</h4>
-    <span class="glyphicon glyphicon-remove close-button"
-          @click="close"
-          aria-label="Close"></span>
-  </div>
-  <div class="panel-body">
-    <div class="alert alert-danger" v-if="error">
+  <div class="box">
+    <h4 class="title is-4">Create a Badge</h4>
+    <h6 class="title is-6">
+      Fill out the information below to add a new merit badge. Note that this
+      will not be associated with any events 
+      (go to <router-link to="/offerings"> the offerings page</router-link>
+      to manage merit badge offerings).
+    </h6>
+    <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
     <form>
-      <div class="row">
-        <div class="form-group col-sm-4 col-xs-6">
-          <label for="badge-create-name">Name</label>
+      <div class="columns">
+        <div class="control column is-4">
+          <label class="label" for="badge-create-name">Name</label>
           <input type="text"
-                 class="form-control"
+                 class="input"
                  id="badge-create-name"
                  placeholder="New Badge"
+                 @blur="$v.badge.name.$touch"
+                 :class="{ 'is-danger': $v.badge.name.$error }"
                  v-model="badge.name">
+          <span class="help is-danger" v-if="$v.badge.name.$error">
+            The name of the merit badge is required
+          </span>
         </div>
-        <div class="form-group col-sm-8 col-xs-6">
-          <label for="badge-create-notes">Notes</label>
+        <div class="control column is-8">
+          <label class="label" for="badge-create-notes">Notes</label>
           <input type="text"
-                 class="form-control"
+                 class="input"
                  id="badge-create-notes"
                  placeholder="Notes about this badge"
                  v-model="badge.notes">
         </div>
       </div>
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <label for="badge-create-description">Description</label>
-          <textarea class="form-control"
-                    id="badge-create-description"
-                    rows="5"
-                    placeholder="Description of this badge"
-                    v-model="badge.description"></textarea>
-        </div>
+      <div class="control">
+        <label class="label" for="badge-create-description">Description</label>
+        <textarea class="textarea"
+                  id="badge-create-description"
+                  rows="5"
+                  placeholder="Description of this badge"
+                  v-model="badge.description"></textarea>
       </div>
-      <div class="pull-right">
-        <button class="btn btn-primary" 
+      <div>
+        <button class="button is-primary" 
+                :disabled="$v.$invalid"
                 @click.prevent="createBadge()">Create Badge</button>
-        <button class="btn btn-default" 
+        <button class="button" 
                 @click.prevent="clearAndClose()">Cancel</button>
       </div>
     </form>
   </div>
-</div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+
 export default {
   data() {
     return {
@@ -94,14 +99,11 @@ export default {
     close() {
       this.$emit('close');
     }
+  },
+  validations: {
+    badge: {
+      name: { required }
+    }
   }
 }
 </script>
-
-<style scoped lang="sass">
-.panel-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-</style>
