@@ -1,24 +1,21 @@
 <template>
-<div class="container-fluid">
-  <h3 class="page-header">All Badges ({{ totalBadges }} Total)
-    <button class="btn btn-default"
-            v-if="isAdmin"
-            @click="toggleAdd()"
-            data-toggle="tooltip" 
-            data-placement="right" 
-            title="Toggle badge creation panel">
-      <span v-if="!displayAddBadge" 
-            class="glyphicon glyphicon-plus"></span>
-      <span v-if="displayAddBadge" 
-            class="glyphicon glyphicon-minus"></span>
-    </button>
-  </h3>
-  <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
-  <div class="badge-list">
-    <badge v-for="badge in badges" :badge="badge"></badge>
+  <div class="section">
+    <h3 class="title is-3">All Badges ({{ totalBadges }} Total)
+      <button class="button"
+              v-if="isAdmin"
+              @click="toggleAdd()">
+        <span v-if="!displayAddBadge" 
+              class="fa fa-plus"></span>
+        <span v-if="displayAddBadge" 
+              class="fa fa-minus"></span>
+      </button>
+    </h3>
+    <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
+    <div class="badge-list">
+      <badge v-for="badge in badges" :badge="badge"></badge>
+    </div>
   </div>
-</div>
-</template>
+  </template>
 
 <script>
 import { mapGetters } from 'vuex';
@@ -52,7 +49,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getBadges');
-    $('[data-toggle="tooltip"]').tooltip();
   }
 }
 </script>

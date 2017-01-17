@@ -1,72 +1,74 @@
 <template>
-<div>
-  <form>
-    <div class="alert alert-danger" v-if="error">
-      {{ error }}
-    </div>
-    <div class="row">
-      <div class="form-group col-sm-6 col-xs-6">
-        <label for="edit-firstname">First Name</label>
-        <input type="text"
-              class="form-control"
-              id="edit-firstname"
-              v-model="profileUpdate.firstname">
+  <div class="section">
+    <h4 class="title is-4">Edit Your Information</h4>
+    <form class="columns is-multiline">
+      <div class="alert alert-danger" v-if="error">
+        {{ error }}
       </div>
-      <div class="form-group col-sm-6 col-xs-6">
-        <label for="edit-lastname">Last Name</label>
+      <div class="control column is-6">
+        <label class="label" for="edit-firstname">First Name</label>
         <input type="text"
-              class="form-control"
-              id="edit-lastname"
-              v-model="profileUpdate.lastname">
+                class="input"
+                id="edit-firstname"
+                v-model="profileUpdate.firstname">
       </div>
-    </div>
-    <div class="row">
-      <div v-if="profile.role === 'coordinator'">
-        <div class="form-group col-sm-4">
-          <label for="edit-troop">Troop</label>
+      <div class="control column is-6">
+        <label class="label" for="edit-lastname">Last Name</label>
+        <input type="text"
+                class="input"
+                id="edit-lastname"
+                v-model="profileUpdate.lastname">
+      </div>
+      <template v-if="profile.role === 'coordinator'">
+        <div class="control column is-4">
+          <label class="label" for="edit-troop">Troop</label>
           <input type="number"
-                  class="form-control"
+                  class="input"
                   id="edit-troop"
                   placeholder="Troop"
                   v-model="profileUpdate.coordinator.troop">
         </div>
-        <div class="form-group col-sm-4">
-          <label for="edit-district">District</label>
+        <div class="control column is-4">
+          <label class="label" for="edit-district">District</label>
           <input type="text"
-                  class="form-control"
+                  class="input"
                   id="edit-district"
                   placeholder="District"
                   v-model="profileUpdate.coordinator.district">
         </div>
-        <div class="form-group col-sm-4">
-          <label for="edit-council">Council</label>
+        <div class="control column is-4">
+          <label class="label" for="edit-council">Council</label>
           <input type="text"
-                  class="form-control"
+                  class="input"
                   id="edit-council"
                   placeholder="Council"
                   v-model="profileUpdate.coordinator.council">
         </div>
-      </div>
-      <div v-if="profile.role === 'teacher'">
-        <div class="form-group col-sm-12">
-          <label for="edit-chapter">Chapter/Organization</label>
+      </template>
+      <template v-if="profile.role === 'teacher'">
+        <div class="control column is-12">
+          <label class="label" for="edit-chapter">Chapter/Organization</label>
           <input type="text"
-                  class="form-control"
+                  class="input"
                   id="edit-chapter"
                   placeholder="Your group"
                   v-model="profileUpdate.teacher.chapter">
         </div>
+      </template>
+      <div class="control column is-12">
+        <button class="button is-primary" 
+                :class="{ 'is-disabled is-loading': saving }"
+                @click.prevent="update()">
+          {{ saving ? 'Saving Changes...' : 'Save Changes' }}
+        </button>
+        <button class="button"
+                :class="{ 'is-disabled is-loading': saving }"
+                @click.prevent="cancel()">
+          Cancel
+        </button>
       </div>
-    </div>
-    <div class="form-group pull-right">
-      <button class="btn btn-primary" 
-              :class="{ 'disabled': saving }"
-              @click.prevent="update()">
-        {{ saving ? 'Saving Changes...' : 'Save Changes' }}
-      </button>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -104,6 +106,9 @@ export default {
     ])
   },
   methods: {
+    cancel() {
+      this.$emit('toggle');
+    },
     update() {
       let profile = {
         id: this.profile.id,

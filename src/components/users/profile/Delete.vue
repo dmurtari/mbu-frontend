@@ -1,23 +1,25 @@
 <template>
-<div>
-  <div class="alert alert-danger" v-if="error">
-    <p>{{ error }}</p>
+  <div class="section">
+    <h4 class="title is-4">Delete Your Account</h4>
+    <div class="alert alert-danger" v-if="error">
+      <p>{{ error }}</p>
+    </div>
+    <confirm-delete :match-text="this.firstname + ' ' + this.lastname"
+                    :placeholder="'Full Name'"
+                    @deleteSuccess="confirmDelete()"
+                    @close="cancel()">
+      <span slot="header">
+        Do you really want to delete your account? This cannot be undone
+      </span>
+      <span slot="help-text">
+        Enter your full name (capitalization matters) to confirm deleting your 
+        account. 
+        <b v-if="role==='coordinator'">This will also remove all scouts that 
+        you have registered, as well as their registration and completion 
+        records!</b>
+      </span>
+    </confirm-delete>
   </div>
-  <confirm-delete :match-text="this.firstname + ' ' + this.lastname"
-                  :placeholder="'Full Name'"
-                  @deleteSuccess="confirmDelete()"
-                  @close="cancel()">
-    <span slot="header">
-      Do you really want to delete your account? This cannot be undone
-    </span>
-    <span slot="help-text">
-      Enter your full name (capitalization matters) to confirm deleting your 
-      account. <b v-if="role==='admin'">This will also remove all of the 
-      scouts that you registered, as well as their registrations and completion 
-      records!</b>
-    </span>
-  </confirm-delete>
-</div>
 </template>
 
 <script>

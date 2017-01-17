@@ -1,7 +1,7 @@
 <template>
 <div>
   <input ref="input"
-         class="form-control"
+         class="input"
          type="String"
          :placeholder="placeholder"
          :data-mask="mask"
