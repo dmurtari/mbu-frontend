@@ -20,7 +20,7 @@
         if you do not see this email. 
       </span>
     </div>
-    <button class="button is-primary is-pulled-right"
+    <button class="button is-primary"
             :class="{ 'is-disabled is-loading': sending }"
             @click.prevent="sendResetEmail()">
       {{ sent ? 'Resend Email' : 'Send Email' }}

@@ -1,26 +1,26 @@
 <template>
-<div>
-  <div class="form-group has-error">
-    <label class="control-label" for="delete-confirm">
-      <slot name="header"></slot>
-    </label>
-    <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
+  <div>
+    <div class="control">
+      <label class="label" for="delete-confirm">
+        <slot name="header"></slot>
+      </label>
+      <div class="notification is-danger" v-if="error">
+        <p>{{ error }}</p>
+      </div>
+      <input type="text"
+             :placeholder="placeholder"
+             class="input"
+             id="delete-confirm"
+             v-model="enteredText">
+      <span class="help">
+        <slot name="help-text"></slot>
+      </span>
     </div>
-    <input type="text"
-           :placeholder="placeholder"
-           class="form-control"
-           id="delete-confirm"
-           v-model="enteredText">
-    <span class="help-block">
-      <slot name="help-text"></slot>
-    </span>
+    <button class="button"
+            @click.prevent="cancel()">Don't Delete</button>
+    <button class="button is-danger"
+            @click.prevent="confirmDelete()">Confirm Deletion</button>
   </div>
-  <button class="btn btn-default"
-          @click.prevent="cancel()">Don't Delete</button>
-  <button class="btn btn-danger"
-          @click.prevent="confirmDelete()">Confirm Deletion</button>
-</div>
 </template>
 
 <script>
@@ -54,3 +54,9 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.help {
+  font-size: 1rem;
+}
+</style>
