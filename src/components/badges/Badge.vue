@@ -1,25 +1,23 @@
 <template>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="btn-group pull-right">
-      <button class="btn btn-default"
-              v-if="isAdmin"
-              @click="toggleEdit()"
-              data-toggle="tooltip" 
-              data-placement="top" 
-              title="Edit">
-        <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
-      </button>
+  <div class="box">
+    <div class="level">
+      <div class="level-left">
+        <h4 class="title is-4 level-item">{{ badge.name }}</h4>
+      </div>
+      <div class="level-right">
+        <button class="button level-item"
+                v-if="isAdmin"
+                @click="toggleEdit()"
+                title="Edit">
+          <span class="fa fa-edit"></span>
+        </button>
+      </div>
     </div>
-    <h4>{{ badge.name }}</h4>
-  </div>
-  <div class="panel-body">
     <badge-detail v-if="!displayEditBadge" :badge="badge"></badge-detail>
     <badge-edit v-if="displayEditBadge" 
                 :badge="badge"
                 @close="toggleEdit()"></badge-edit>
   </div>
-</div>
 </template>
 
 <script>

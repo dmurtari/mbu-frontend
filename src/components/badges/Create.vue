@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <h4 class="title is-4">Create a Badge</h4>
+    <h4 class="title is-4">Add a New Merit Badge</h4>
     <h6 class="title is-6">
       Fill out the information below to add a new merit badge. Note that this
       will not be associated with any events 
