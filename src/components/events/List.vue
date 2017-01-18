@@ -1,25 +1,22 @@
 <template>
-  <div class="container-fluid">
-    <div>
-      <h3>All Events ({{ totalEvents }} Total)
+  <div class="container">
+    <div class="section">
+      <h3 class="title is-3">All Events ({{ totalEvents }} Total)
         <button class="btn btn-default"
                 v-if="isAdmin"
-                @click="toggleAdd"
-                data-toggle="tooltip" 
-                data-placement="right" 
-                title="Toggle event creation panel">
+                @click="toggleAdd()">
           <span v-if="!displayAddEvent" 
-                class="glyphicon glyphicon-plus"></span>
+                class="fa fa-plus"></span>
           <span v-if="displayAddEvent" 
-                class="glyphicon glyphicon-minus"></span>
+                class="fa fa-minus"></span>
         </button>
       </h3>
+      <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
     </div>
-    <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
     <div class="event-list">
       <event v-for="event in orderedEvents" 
-             :event="event"
-             :currentEvent="event.id === currentEvent.id"></event>
+            :event="event"
+            :currentEvent="event.id === currentEvent.id"></event>
     </div>
   </div>
 </template>

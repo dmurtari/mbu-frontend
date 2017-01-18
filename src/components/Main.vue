@@ -1,7 +1,5 @@
 <template>
-  <section class="section">
-    <div class="container">
-      Welcome to MBU Online
-    </div>
-  </section>
+  <div class="container">
+    Welcome to MBU Online
+  </div>
 </template>

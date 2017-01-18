@@ -1,22 +1,20 @@
 <template>
-  <section class="section">
-    <div class="container">
-      <h3 class="title is-3">All Badges ({{ totalBadges }} Total)
-        <button class="button"
-                v-if="isAdmin"
-                @click="toggleAdd()">
-          <span v-if="!displayAddBadge" 
-                class="fa fa-plus"></span>
-          <span v-if="displayAddBadge" 
-                class="fa fa-minus"></span>
-        </button>
-      </h3>
-      <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
-      <div class="badge-list">
-        <badge v-for="badge in badges" :badge="badge"></badge>
-      </div>
+  <div class="container">
+    <h3 class="title is-3">All Badges ({{ totalBadges }} Total)
+      <button class="button"
+              v-if="isAdmin"
+              @click="toggleAdd()">
+        <span v-if="!displayAddBadge" 
+              class="fa fa-plus"></span>
+        <span v-if="displayAddBadge" 
+              class="fa fa-minus"></span>
+      </button>
+    </h3>
+    <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
+    <div class="badge-list">
+      <badge v-for="badge in badges" :badge="badge"></badge>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <div>
+    <section class="section">
       <router-view></router-view>
-    </div>
+    </section>
     <!-- <mbu-footer></mbu-footer> -->
   </div>
 </template>
