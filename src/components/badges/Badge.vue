@@ -1,18 +1,12 @@
 <template>
   <div class="box">
-    <div class="level">
-      <div class="level-left">
-        <h4 class="title is-4 level-item">{{ badge.name }}</h4>
-      </div>
-      <div class="level-right">
-        <button class="button level-item"
-                v-if="isAdmin"
-                @click="toggleEdit()"
-                title="Edit">
-          <span class="fa fa-edit"></span>
-        </button>
-      </div>
-    </div>
+      <h4 class="title is-4">{{ badge.name }}
+      <button class="button edit-button is-pulled-right"
+              v-if="isAdmin"
+              @click="toggleEdit()"
+              title="Edit">
+        <span class="fa fa-edit"></span>
+      </button></h4>
     <badge-detail v-if="!displayEditBadge" :badge="badge"></badge-detail>
     <badge-edit v-if="displayEditBadge" 
                 :badge="badge"
@@ -54,3 +48,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  .edit-button {
+    margin-top: -.5em;
+    margin-right: -.5em;
+  }
+</style>
