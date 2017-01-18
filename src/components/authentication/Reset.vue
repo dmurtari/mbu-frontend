@@ -1,10 +1,12 @@
 <template>
-  <div class="section">
-    <div class="column is-6 is-offset-3">
-      <h1 class="title">Reset your password</h1>
-      <router-view></router-view>
+  <section class="section">
+    <div class="container">
+      <div class="column is-6 is-offset-3">
+        <h1 class="title">Reset your password</h1>
+        <router-view></router-view>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

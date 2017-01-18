@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <div class="container">
+    <div>
       <router-view></router-view>
     </div>
     <!-- <mbu-footer></mbu-footer> -->

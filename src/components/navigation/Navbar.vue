@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <nav class="nav has-shadow">
+  <nav class="nav has-shadow">
+    <div class="container">
       <div class="nav-left">
         <router-link class="nav-item brand" to="/">MBU Online</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
@@ -46,8 +46,8 @@
           <a href="#" class="button" @click.prevent="logout()">Logout</a>
         </span>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </template>
 
 <script>

@@ -1,110 +1,112 @@
 <template>
-  <div class="section">
-    <div class="column is-8 is-offset-2">
-      <h1 class="title">Create Your Account</h1>
-      <h3 class="subtitle">
-        Welcome to MBU Online! Create your account here to be able to use all 
-        of the features of this website.
-      </h3>
-      <div class="notification is-warning" v-if="error">
-        <button class="delete" @click.prevent="dismissError()"></button>
-        <p>{{ error }}</p>
-      </div>
-      <form class="columns is-multiline">
-        <div class="control column is-12">
-          <label class="label" for="signup-email">Email</label>
-          <input type="email"
-                  class="input"
-                  id="signup-email"
-                  placeholder="Your email address"
-                  v-model="credentials.email">
+  <section class="section">
+    <div class="container">
+      <div class="column is-8 is-offset-2">
+        <h1 class="title">Create Your Account</h1>
+        <h3 class="subtitle">
+          Welcome to MBU Online! Create your account here to be able to use all 
+          of the features of this website.
+        </h3>
+        <div class="notification is-warning" v-if="error">
+          <button class="delete" @click.prevent="dismissError()"></button>
+          <p>{{ error }}</p>
         </div>
-        <div class="control column is-half">
-          <label class="label" for="signup-password">Password</label>
-          <input type="password"
-                  class="input"
-                  id="signup-password"
-                  placeholder="Password"
-                  v-model="credentials.password">
-        </div>
-        <div class="control column is-half">
-          <label class="label" for="signup-password-confirm">Password Confirmation</label>
-          <input type="password"
-                  class="input"
-                  id="signup-password-confirm"
-                  placeholder="Confirm your password"
-                  v-model="credentials.passwordConfirmation">
-        </div>
-        <div class="control column is-half">
-          <label class="label" for="signup-first-name">First Name</label>
-          <input type="text"
-                  class="input"
-                  id="signup-first-name"
-                  placeholder="First Name"
-                  v-model="credentials.firstname">
-        </div>
-        <div class="control column is-half">
-          <label class="label" for="signup-last-name">Last Name</label>
-          <input type="text"
-                  class="input"
-                  id="signup-last-name"
-                  placeholder="Last Name"
-                  v-model="credentials.lastname">
-        </div>
-        <div class="control column is-12">
-          <label class="label" for="signup-role">I am a...</label>
-          <span class="select">
-            <select class="input" 
-                    id="signup-role"
-                    v-model="credentials.role">
-              <option v-for="option in roles" :value="option.value">
-                {{ option.text }}
-              </option>
-            </select>
-          </span>
-        </div>
-        <template v-if="credentials.role === 'coordinator'">
-          <div class="control column is-one-third">
-            <label class="label" for="signup-troop">Troop</label>
-            <input type="number"
-                  class="input"
-                  id="signup-troop"
-                  placeholder="Troop"
-                  v-model="credentials.coordinator.troop">
-          </div>
-          <div class="control column is-one-third">
-            <label class="label" for="signup-district">District</label>
-            <input type="text"
-                  class="input"
-                  id="signup-district"
-                  placeholder="District"
-                  v-model="credentials.coordinator.district">
-          </div>
-          <div class="control column is-one-third">
-            <label class="label" for="signup-council">Council</label>
-            <input type="text"
-                  class="input"
-                  id="signup-council"
-                  placeholder="Council"
-                  v-model="credentials.coordinator.council">
-          </div>
-        </template>
-        <template v-if="credentials.role === 'teacher'">
+        <form class="columns is-multiline">
           <div class="control column is-12">
-            <label class="label" for="signup-chapter">Chapter/Organization</label>
-            <input type="text"
-                   class="input"
-                   id="signup-chapter"
-                   placeholder="Your group"
-                   v-model="credentials.teacher.chapter">
+            <label class="label" for="signup-email">Email</label>
+            <input type="email"
+                    class="input"
+                    id="signup-email"
+                    placeholder="Your email address"
+                    v-model="credentials.email">
           </div>
-        </template>
-        <div class="control column is-12">
-          <button class="button is-primary" @click.prevent="submit()">Signup</button>
-        </div>
-      </form>
+          <div class="control column is-half">
+            <label class="label" for="signup-password">Password</label>
+            <input type="password"
+                    class="input"
+                    id="signup-password"
+                    placeholder="Password"
+                    v-model="credentials.password">
+          </div>
+          <div class="control column is-half">
+            <label class="label" for="signup-password-confirm">Password Confirmation</label>
+            <input type="password"
+                    class="input"
+                    id="signup-password-confirm"
+                    placeholder="Confirm your password"
+                    v-model="credentials.passwordConfirmation">
+          </div>
+          <div class="control column is-half">
+            <label class="label" for="signup-first-name">First Name</label>
+            <input type="text"
+                    class="input"
+                    id="signup-first-name"
+                    placeholder="First Name"
+                    v-model="credentials.firstname">
+          </div>
+          <div class="control column is-half">
+            <label class="label" for="signup-last-name">Last Name</label>
+            <input type="text"
+                    class="input"
+                    id="signup-last-name"
+                    placeholder="Last Name"
+                    v-model="credentials.lastname">
+          </div>
+          <div class="control column is-12">
+            <label class="label" for="signup-role">I am a...</label>
+            <span class="select">
+              <select class="input" 
+                      id="signup-role"
+                      v-model="credentials.role">
+                <option v-for="option in roles" :value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+            </span>
+          </div>
+          <template v-if="credentials.role === 'coordinator'">
+            <div class="control column is-one-third">
+              <label class="label" for="signup-troop">Troop</label>
+              <input type="number"
+                    class="input"
+                    id="signup-troop"
+                    placeholder="Troop"
+                    v-model="credentials.coordinator.troop">
+            </div>
+            <div class="control column is-one-third">
+              <label class="label" for="signup-district">District</label>
+              <input type="text"
+                    class="input"
+                    id="signup-district"
+                    placeholder="District"
+                    v-model="credentials.coordinator.district">
+            </div>
+            <div class="control column is-one-third">
+              <label class="label" for="signup-council">Council</label>
+              <input type="text"
+                    class="input"
+                    id="signup-council"
+                    placeholder="Council"
+                    v-model="credentials.coordinator.council">
+            </div>
+          </template>
+          <template v-if="credentials.role === 'teacher'">
+            <div class="control column is-12">
+              <label class="label" for="signup-chapter">Chapter/Organization</label>
+              <input type="text"
+                    class="input"
+                    id="signup-chapter"
+                    placeholder="Your group"
+                    v-model="credentials.teacher.chapter">
+            </div>
+          </template>
+          <div class="control column is-12">
+            <button class="button is-primary" @click.prevent="submit()">Signup</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
