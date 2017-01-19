@@ -4,7 +4,6 @@ import NotFound from './components/NotFound.vue';
 
 import BadgeList from './components/badges/List.vue';
 import EventList from './components/events/List.vue';
-import OfferingList from './components/offerings/List.vue';
 
 import Profile from './components/users/profile/Profile.vue';
 import UsersList from './components/users/list/List.vue';
@@ -17,6 +16,8 @@ import ResetForm from './components/authentication/ResetForm.vue';
 import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
+import Administration from './components/administration/Administration.vue';
+
 export default [
   {
     path: '/',
@@ -26,14 +27,14 @@ export default [
     path: '/about',
     component: About
   }, {
+    path: '/administration',
+    component: Administration
+  }, {
     path: '/events',
     component: EventList
   }, {
     path: '/badges',
     component: BadgeList
-  }, {
-    path: '/offerings',
-    component: OfferingList
   }, {
     path: '/signup',
     component: Signup

@@ -1,45 +1,47 @@
 <template>
-<div>
-  <h3>
-    Manage Badges Offered For:
-    <events-dropdown @select="updateOfferings($event)"></events-dropdown>
-  </h3>
-  <p>
-    Use this page to create, edit, and remove badge offerings for different events.
-    These badges are what Scoutmasters will see as being offered for an event.
-    Add badges and edit details such which periods each badge will be offered,
-    how many class periods each badge will take to teach, and how much scouts 
-    need to pay to attend class for a badge.
-  </p>
-  <div class="alert alert-danger" v-if="error">
+  <div>
+    <h4 class="title is-4">
+      Manage Badges Offered For:
+      <events-dropdown @select="updateOfferings($event)"></events-dropdown>
+    </h4>
     <p>
-      {{ error }}
+      Use this page to create, edit, and remove badge offerings for different events.
+      These badges are what Scoutmasters will see as being offered for an event.
+      Add badges and edit details such which periods each badge will be offered,
+      how many class periods each badge will take to teach, and how much scouts 
+      need to pay to attend class for a badge.
     </p>
-  </div>
-  <div class="well offering-list-filters">
-    <div class="row">
-      <div class="col-sm-6 form-inline">
-        <div class="form-group">
-          <label for="offering-list-offered-filter">Filter by:</label>
-          <select class="form-control" 
-                  id="offering-list-offered-filter"
-                  v-model="offeredFilter">
-            <option v-for="option in offeredFilters" :value="option.value">
-              {{ option.text }}
-            </option>
-          </select>
+    <div class="notification is-danger" v-if="error">
+      <p>
+        {{ error }}
+      </p>
+    </div>
+    <div class="box offering-list-filters">
+      <div class="control is-horizontal">
+        <div class="control-label">
+          <label class="label" for="offering-list-offered-filter">Filter by:</label>
+        </div>
+        <div class="control">
+          <span class="select">
+            <select class="form-control" 
+                    id="offering-list-offered-filter"
+                    v-model="offeredFilter">
+              <option v-for="option in offeredFilters" :value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+          </span>
         </div>
       </div>
     </div>
+    <loader v-if="loading" :color="'lightgray'" class="center-block loader"></loader>
+    <div class="offering-list"
+        v-if="!loading">
+      <badge-row v-for="badge in filteredOfferings"
+                :eventId="eventId"
+                :badge="badge"></badge-row>
+    </div>
   </div>
-  <loader v-if="loading" :color="'lightgray'" class="center-block loader"></loader>
-  <div class="offering-list"
-       v-if="!loading">
-    <badge-row v-for="badge in filteredOfferings"
-               :eventId="eventId"
-               :badge="badge"></badge-row>
-  </div>
-</div>
 </template>
 
 <script>

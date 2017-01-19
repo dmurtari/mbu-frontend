@@ -1,9 +1,9 @@
 <template>
-<inline-dropdown v-if="!loading"
-                 :displayKey="'event'"
-                 :objects="readableEvents"
-                 :initial="currentEventText"
-                 @select="selectEvent($event)"></inline-dropdown>
+  <inline-dropdown v-if="!loading"
+                  :displayKey="'event'"
+                  :objects="readableEvents"
+                  :initial="currentEventText"
+                  @select="selectEvent($event)"></inline-dropdown>
 </template>
 
 
