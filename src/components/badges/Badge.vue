@@ -1,12 +1,12 @@
 <template>
   <div class="box">
-      <h4 class="title is-4">{{ badge.name }}
+    <h4 class="title is-4">{{ badge.name }}
       <button class="button edit-button is-pulled-right"
               v-if="isAdmin"
-              @click="toggleEdit()"
-              title="Edit">
-        <span class="fa fa-edit"></span>
-      </button></h4>
+              @click="toggleEdit()">
+        <span class="fa fa-edit" aria-label="Edit"></span>
+      </button>
+    </h4>
     <badge-detail v-if="!displayEditBadge" :badge="badge"></badge-detail>
     <badge-edit v-if="displayEditBadge" 
                 :badge="badge"
