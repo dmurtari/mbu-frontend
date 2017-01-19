@@ -1,5 +1,4 @@
 <template>
-<div>
   <input ref="input"
          class="input"
          type="String"
@@ -8,7 +7,6 @@
          :value="value"
          :disabled="disabled"
          @keyup="updateValue($event.target.value)">
-</div>
 </template>
 
 <script>

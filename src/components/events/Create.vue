@@ -1,75 +1,75 @@
 <template>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4>Create an Event</h4>
-    <span class="glyphicon glyphicon-remove close-button"
-          @click="close"
-          aria-label="Close"></span>
-  </div>
-  <div class="panel-body">
-    <div class="alert alert-danger" v-if="error">
+  <div class="box">
+    <h4 class="title is-4">Create an Event</h4>
+    <h6 class="title is-6">
+      Fill out the information below to create a new Merit Badge University
+      event. To add merit badges that will be offered at this event, go to
+      <router-link to="/offerings"> the offerings page</router-link>.
+    </h6>
+    <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
     <form>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventYearInput">Year</label>
-        <masked-input mask="9999" 
-                      placeholder="yyyy"
-                      v-model="event.year"></masked-input>
-      </div>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventSemesterInput">Semester</label>
-        <select class="form-control" v-model="event.semester">
-          <option v-for="semester in semesters" v-bind:value="semester.value">
-            {{ semester.text }}
-          </option>
-        </select>
-      </div>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventPriceInput">Registration Fee</label>
-        <div class="input-group">
-          <div class="input-group-addon">$</div>
+      <div class="columns is-multiline">
+        <div class="control column is-4">
+          <label class="label" for="event-create-year">Year</label>
+          <masked-input mask="9999" 
+                        placeholder="yyyy"
+                        id="event-create-year"
+                        v-model="event.year"></masked-input>
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="event-create-semester">Semester</label>
+          <span class="select">
+            <select id="event-create-semester" v-model="event.semester">
+              <option v-for="semester in semesters" v-bind:value="semester.value">
+                {{ semester.text }}
+              </option>
+            </select>
+          </span>
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="event-create-price">Registration Fee</label>
           <masked-input mask="99.99"
                         placeholder="00.00"
-                        v-model="event.price">
+                        id="event-create-price"
+                        v-model="event.price"></masked-input>
         </div>
-      </div>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventDateInput">Date</label>
-        <masked-input mask="99/99/9999"
-                      placeholder="mm/dd/yyyy"
-                      v-model="event.date">
-      </div>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventOpenInput">Registration Opens</label>
-        <masked-input mask="99/99/9999"
-                      placeholder="mm/dd/yyyy"
-                      v-model="event.registration_open">
-      </div>
-      <div class="form-group col-sm-4 col-xs-6">
-        <label for="eventCloseInput">Registration Closes</label>
-        <masked-input mask="99/99/9999"
-                      placeholder="mm/dd/yyyy"
-                      v-model="event.registration_close">
-      </div>
-      <div class="form-group col-sm-12">
-        <div class="pull-right checkbox">
-          <label>
+        <div class="control column is-4">
+          <label class="label" for="event-create-date">Date</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-create-date"
+                        v-model="event.date">
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="event-create-open">Registration Opens</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-create-open"
+                        v-model="event.registration_open">
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="event-create-close">Registration Closes</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-create-close"
+                        v-model="event.registration_close">
+        </div>
+        <div class="control column is-12">
+          <label class="checkbox">
             <input v-model="current" type="checkbox"> Mark this as the current event
           </label>
         </div>
       </div>
-      <div class="pull-right">
-        <button class="btn btn-primary" 
-                @click.prevent="createEvent()">Create Event</button>
-        <button class="btn btn-default" 
-                @click.prevent="clearAndClose()">Cancel</button>
-      </div>
+      <button class="button is-primary" 
+              @click.prevent="createEvent()">Create Event</button>
+      <button class="button" 
+              @click.prevent="clearAndClose()">Cancel</button>
     </form>
   </div>
-</div>
 </template>
 
 <script>
@@ -142,9 +142,11 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.panel-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  span.select {
+    width: 100%;
+
+    select {
+      width: 100%;
+    }
+  }
 </style>

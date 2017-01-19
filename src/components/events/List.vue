@@ -1,18 +1,16 @@
 <template>
   <div class="container">
-    <div class="section">
-      <h3 class="title is-3">All Events ({{ totalEvents }} Total)
-        <button class="btn btn-default"
-                v-if="isAdmin"
-                @click="toggleAdd()">
-          <span v-if="!displayAddEvent" 
-                class="fa fa-plus"></span>
-          <span v-if="displayAddEvent" 
-                class="fa fa-minus"></span>
-        </button>
-      </h3>
-      <event-create @close="toggleAdd" v-show="displayAddEvent"></event-create>
-    </div>
+    <h3 class="title is-3">All Events ({{ totalEvents }} Total)
+      <button class="button"
+              v-if="isAdmin"
+              @click="toggleAdd()">
+        <span v-if="!displayAddEvent" 
+              class="fa fa-plus"></span>
+        <span v-if="displayAddEvent" 
+              class="fa fa-minus"></span>
+      </button>
+    </h3>
+    <event-create @close="toggleAdd()" v-show="displayAddEvent"></event-create>
     <div class="event-list">
       <event v-for="event in orderedEvents" 
             :event="event"

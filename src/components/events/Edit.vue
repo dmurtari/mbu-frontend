@@ -1,51 +1,53 @@
 <template>
-<div>
-  <div class="alert alert-danger" v-if="error">
-    <p>
-      {{ error }}
-    </p>
-  </div>
-  <form>
-    <div class="form-group col-sm-6 col-xs-6">
-      <label for="eventDateInput">Date</label>
-      <masked-input mask="99/99/9999"
-                    v-model="eventUpdate.date">
+  <div>
+    <div class="alert alert-danger" v-if="error">
+      <p>
+        {{ error }}
+      </p>
     </div>
-    <div class="form-group col-sm-6 col-xs-6">
-      <label for="eventPriceInput">Registration Fee</label>
-      <div class="input-group">
-        <div class="input-group-addon">$</div>
-        <masked-input mask="99.99"
-                      v-model="eventUpdate.price">
-      </div>
-    </div>
-    <div class="form-group col-sm-6 col-xs-6">
-      <label for="eventOpenInput">Registration Opens</label>
-      <masked-input mask="99/99/9999"
-                    v-model="eventUpdate.registration_open">
-    </div>
-    <div class="form-group col-sm-6 col-xs-6">
-      <label for="eventCloseInput">Registration Closes</label>
-      <masked-input mask="99/99/9999"
-                    v-model="eventUpdate.registration_close">
-    </div>
-    <div v-if="!showDeleteConfirmation">
-      <div class="col-sm-6 col-sm-push-6">
-        <div class="pull-right">
-          <button class="btn btn-primary"
-                  type="submit" 
-                  @click.prevent="updateEvent()">Update Event</button>
-          <button class="btn btn-default" 
-                  @click.prevent="close()">Cancel</button>
+    <form  v-if="!showDeleteConfirmation">
+      <div class="columns is-multiline">
+        <div class="control column is-6">
+          <label class="label" for="event-edit-price">Registration Fee</label>
+          <masked-input mask="99.99"
+                        placeholder="00.00"
+                        id="event-edit-price"
+                        v-model="eventUpdate.price"></masked-input>
+        </div>
+        <div class="control column is-6">
+          <label class="label" for="event-edit-date">Date</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-edit-date"
+                        v-model="eventUpdate.date">
+        </div>
+        <div class="control column is-6">
+          <label class="label" for="event-edit-open">Registration Opens</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-edit-open"
+                        v-model="eventUpdate.registration_open">
+        </div>
+        <div class="control column is-6">
+          <label class="label" for="event-edit-close">Registration Closes</label>
+          <masked-input mask="99/99/9999"
+                        placeholder="mm/dd/yyyy"
+                        id="event-create-close"
+                        v-model="eventUpdate.registration_close">
         </div>
       </div>
-      <div class="col-sm-6 col-sm-pull-6">
-        <button class="btn btn-danger"
-                @click.prevent="showDeleteConfirm()">Delete Event</button>
-        <button class="btn btn-info"
-                @click.prevent="setAsCurrent()">Set as the Current Event</button>
-      </div>
-    </div>   
+      <div>
+          <button class="button is-primary"
+                  @click.prevent="updateEvent()">Update Event</button>
+          <button class="button is-default" 
+                  @click.prevent="close()">Cancel</button>
+          <button class="button is-link"
+                  @click.prevent="setAsCurrent()">Set as the Current Event</button>
+          <button class="button is-danger is-pulled-right"
+                  @click.prevent="showDeleteConfirm()">Delete Event</button>
+
+      </div>   
+    </form>
     <confirm-delete v-if="showDeleteConfirmation"
                     class="container-fluid"
                     :match-text="this.semesterAndYear"
@@ -62,8 +64,7 @@
         including registrations and completion records.</b>
       </span>
     </confirm-delete>
-  </form>
-</div>
+  </div>
 </template>
 
 <script>

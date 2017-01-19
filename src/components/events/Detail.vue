@@ -1,21 +1,13 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-md-3">
-        <strong>Date:</strong> {{ event.date | longDate }}
-      </div>
-      <div class="col-md-3">
-        <strong>Registration Fee:</strong> ${{ event.price }}
-      </div>
-      <div class="col-md-3">
-        <strong>Registration Open:</strong> {{ event.registration_open | longDate }}
-      </div>
-      <div class="col-md-3">
-        <strong>Registration Close:</strong> {{ event.registration_close | longDate }}
-      </div>
+    <div>
+      <p><strong>Date:</strong> {{ event.date | longDate }}</p>
+      <p><strong>Registration Fee:</strong> ${{ event.price }}</p>
+      <p><strong>Registration Open:</strong> {{ event.registration_open | longDate }}</p>
+      <p><strong>Registration Close:</strong> {{ event.registration_close | longDate }}</p>
     </div>
     <br>
-    <h4>Badges offered at this event:</h4>
+    <h5 class="title is-5">Badges offered at this event:</h5>
     <div v-if="orderedOfferings.length > 0">
       <div v-for="offering in orderedOfferings">
         {{ offering.name }}
