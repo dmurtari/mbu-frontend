@@ -26,7 +26,7 @@
         <div class="column is-6">
           <div class="control is-horizontal">
             <div class="control-label">
-              <label class="label" for="offering-list-offered-filter">Search:</label>
+              <label class="label" for="user-list-find">Search:</label>
             </div>
             <div class="control">
               <input class="input"
