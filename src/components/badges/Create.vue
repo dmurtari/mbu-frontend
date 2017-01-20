@@ -1,19 +1,20 @@
 <template>
   <div class="box">
     <h4 class="title is-4">Add a New Merit Badge</h4>
-    <h6 class="title is-6">
+    <p>
       Fill out the information below to add a new merit badge. Note that this
       will not be associated with any events 
-      (go to <router-link to="/offerings"> the offerings page</router-link>
+      (go to <router-link to="/administration"> the administration page</router-link>
       to manage merit badge offerings).
-    </h6>
+    </p>
+    <br>
     <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
     <form>
-      <div class="columns">
+      <div class="columns is-multiline">
         <div class="control column is-4">
           <label class="label" for="badge-create-name">Name</label>
           <input type="text"
@@ -35,14 +36,14 @@
                  placeholder="Notes about this badge"
                  v-model="badge.notes">
         </div>
-      </div>
-      <div class="control">
-        <label class="label" for="badge-create-description">Description</label>
-        <textarea class="textarea"
-                  id="badge-create-description"
-                  rows="5"
-                  placeholder="Description of this badge"
-                  v-model="badge.description"></textarea>
+        <div class="control column is-12">
+          <label class="label" for="badge-create-description">Description</label>
+          <textarea class="textarea"
+                    id="badge-create-description"
+                    rows="5"
+                    placeholder="Description of this badge"
+                    v-model="badge.description"></textarea>
+        </div>
       </div>
       <div>
         <button class="button is-primary" 

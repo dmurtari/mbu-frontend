@@ -1,11 +1,12 @@
 <template>
   <div class="box">
     <h4 class="title is-4">Create an Event</h4>
-    <h6 class="title is-6">
+    <p>
       Fill out the information below to create a new Merit Badge University
       event. To add merit badges that will be offered at this event, go to
-      <router-link to="/offerings"> the offerings page</router-link>.
-    </h6>
+      <router-link to="/administration"> the administration page</router-link>.
+    </p>
+    <br>
     <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
