@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <h4 class="title is-4">
+      Manage Users of MBU Online
+    </h4>
+    <p>
+      Use this page to view current users of this website.
+    </p>
+    <div class="box user-list-filters">
+      <div class="columns">
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="user-list-role-filter">Role:</label>
+            </div>
+            <span class="select">
+              <select id="user-list-role-filter"
+                      v-model="selectedRole">
+                <option v-for="option in roles" :value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+            </span>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="offering-list-offered-filter">Search:</label>
+            </div>
+            <div class="control">
+              <input class="input"
+                     id="user-list-find"
+                     v-model="search"></input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <general-table v-if="selectedRole === 'all' || selectedRole === 'admin'"
+                  :users="usersToDisplay"></general-table>
+    <coordinators-table v-if="selectedRole === 'coordinator'"
+                        :coordinators="usersToDisplay"></coordinators-table>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+import _ from 'lodash';
+
+import GeneralList from './GeneralList.vue';
+import CoordinatorList from './CoordinatorList.vue';
+
+export default {
+  data() {
+    return {
+      selectedRole: 'all',
+      search: '',
+      roles: [
+        { text: 'All Users', value: 'all' },
+        { text: 'Admins', value: 'admin' },
+        { text: 'Coordinators/Scoutmasters', value: 'coordinator' },
+        { text: 'Teachers/Volunteers', value: 'teacher' },
+        { text: 'Others', value: 'anonymous' }
+      ]
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'users',
+    ]),
+    usersInRole() {
+      if (this.selectedRole === 'all') {
+        return this.users;
+      } else {
+        return _.filter(this.users, (user) => {
+          return user.role === this.selectedRole
+        });
+      }
+    },
+    usersToDisplay() {
+      return _.filter(this.usersInRole, (user) => {
+        return user.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getUsers');
+  },
+  components: {
+    'general-table': GeneralList,
+    'coordinators-table': CoordinatorList
+  }
+}
+</script>
+
+<style lang="sass">
+.user-list-filters {
+  margin-top: 2em;
+}
+</style>

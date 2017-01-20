@@ -6,7 +6,6 @@ import BadgeList from './components/badges/List.vue';
 import EventList from './components/events/List.vue';
 
 import Profile from './components/users/profile/Profile.vue';
-import UsersList from './components/users/list/List.vue';
 
 import ScoutsList from './components/scouts/List.vue';
 
@@ -59,9 +58,6 @@ export default [
   }, {
     path: '/profile/:id?',
     component: Profile
-  }, {
-    path: '/users',
-    component: UsersList
   }, {
     path: '*',
     component: NotFound
