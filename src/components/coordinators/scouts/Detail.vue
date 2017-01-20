@@ -1,33 +1,35 @@
 <template>
-  <div class="container-fluid">
-      <div class="row">
+  <div>
+      <p>
         <strong>Added On:</strong> {{ scout.created_at | shortDate }}
-      </div>
-      <div class="row">
+      </p>
+      <p>
         <strong>Birthday:</strong> {{ scout.birthday | shortDate }}
-      </div>
-      <div class="row">
+      </p>
+      <p>
         <strong>Age:</strong> {{ scout.age }}
-      </div>
-      <div class="row">
+      </p>
+      <p>
         <strong>Troop:</strong> {{ scout.troop }}
-      </div>
-    <div class="row" v-if="scout.notes">
+      </p>
+    <p v-if="scout.notes">
       <strong>Notes:</strong> {{ scout.notes }}
-    </div>
-    <br><br>
-    <div class="row">
-      <h5>Emergency Contact Information (Please keep this information up to date):</h5>
-    </div>
-    <div class="row">
+    </p>
+    <br>
+    <p>
+      <h6 class="title is-6">
+        <b>Emergency Contact:</b>
+      </h6>
+    </p>
+    <p>
       <strong>Name:</strong> {{ scout.emergency_name }}
-    </div>
-    <div class="row">
+    </p>
+    <p>
       <strong>Relationship to Scout:</strong> {{ scout.emergency_relation }}
-    </div>
-    <div class="row">
+    </p>
+    <p>
       <strong>Contact Number:</strong> {{ scout.emergency_phone }}
-    </div>
+    </p>
   </div>
 </template>
 

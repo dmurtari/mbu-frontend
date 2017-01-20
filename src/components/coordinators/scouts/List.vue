@@ -1,23 +1,25 @@
 <template>
-  <div class="container-fluid">
-    <h3>Your Troop</h3>
+  <div>
+    <h3 class="title is-4">Your Troop</h3>
     <p>
       This is an overview of the scouts that you have added to your troop. You 
       can add new scouts, edit scout information, and remove scouts from your 
       troop.
     </p>
-    <button class="btn btn-default"
+    <br>
+    <button class="button"
             v-if="!displayAddScout"
-            @click="toggleAdd()"
-            data-toggle="tooltip"
-            data-placement="right">
+            @click="toggleAdd()">
       Add a new scout
     </button>
     <create-scout v-if="displayAddScout"
                   @close="toggleAdd()"></create-scout>
-    <div class="scout-list row">
-      <div v-for="scout in scouts" class="col-sm-6 col-md-4">
-        <scout :scout="scout"></scout>
+    <br>
+    <div class="scout-list">
+      <div class="columns is-multiline">
+        <div v-for="scout in scouts" class="column is-6-tablet is-4-desktop">
+          <scout :scout="scout"></scout>
+        </div>
       </div>
     </div>
   </div>

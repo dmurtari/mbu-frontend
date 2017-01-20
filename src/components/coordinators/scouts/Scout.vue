@@ -1,23 +1,14 @@
 <template>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="btn-group pull-right">
-        <button class="btn btn-default"
-                @click="toggleEdit()"
-                data-toggle="tooltip" 
-                data-placement="top" 
-                title="Edit">
-          <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
-        </button>
-      </div>
-      <h4>
-        {{ scout.firstname }} {{ scout.lastname }}
-      </h4>
-    </div>
-    <div class="panel-body">
-      <scout-detail v-if="!editing" :scout="scout"></scout-detail>
-      <scout-edit v-if="editing" :scout="scout" @close="toggleEdit()"></scout-edit>
-    </div>
+  <div class="box">
+    <h4 class="title is-4">
+      {{ scout.firstname }} {{ scout.lastname }}
+      <button class="button edit-button is-pulled-right"
+              @click="toggleEdit()">
+        <span class="fa fa-edit" aria-label="Edit"></span>
+      </button>
+    </h4>
+    <scout-detail v-if="!editing" :scout="scout"></scout-detail>
+    <scout-edit v-if="editing" :scout="scout" @close="toggleEdit()"></scout-edit>
   </div>
 </template>
 
@@ -48,3 +39,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  .edit-button {
+    margin-top: -.5em;
+    margin-right: -.5em;
+  }
+</style>
