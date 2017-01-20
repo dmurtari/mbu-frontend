@@ -36,7 +36,7 @@
                      v-if="isAdmin" 
                      to="/administration">Administration</router-link>
         <span class="nav-item" v-if="!isAuthenticated">
-          <router-link class="button" to="/signup">Sign Up</router-link>
+          <router-link class="button is-light" to="/signup">Sign Up</router-link>
           <router-link class="button is-primary" to="/login">Login</router-link>
         </span>
         <router-link class="nav-item" v-if="isAuthenticated" to="/profile">

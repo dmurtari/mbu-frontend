@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3 class="title is-3">All Badges ({{ totalBadges }} Total)
-      <button class="button"
+      <button class="button is-primary"
               v-if="isAdmin"
               @click="toggleAdd()">
         <span v-if="!displayAddBadge" 

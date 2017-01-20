@@ -5,8 +5,8 @@
       {{ event.semester }} {{ event.year }}
       <span v-if="currentEvent">(Current Event)</span>
       <button class="button edit-button is-pulled-right"
-            v-if="isAdmin"
-            @click="toggleEdit">
+              v-if="isAdmin"
+              @click="toggleEdit">
       <span class="fa fa-edit" aria-label="Edit"></span>
     </button>
     </h4>
