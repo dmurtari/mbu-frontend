@@ -8,7 +8,7 @@
     <div class="columns">
       <div class="column is-3">
         <aside class="menu">
-          <p class="menu-label">Jump to a section</p>
+          <p class="menu-label">Jump to a Section</p>
           <ul class="menu-list">
             <a href="#" @click="display('offerings')">Manage Offerings</a>
             <a href="#" @click="display('users')">Manage Users</a>

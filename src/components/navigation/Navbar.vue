@@ -11,7 +11,7 @@
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab" 
                      v-if="isCoordinator"
-                     to="/scouts">Manage Scouts</router-link>
+                     to="/coordinator">Manage Scouts</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab" 
                      v-if="isAdmin" 
                      to="/administration">Administration</router-link>

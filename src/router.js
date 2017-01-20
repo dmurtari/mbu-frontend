@@ -16,6 +16,7 @@ import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
 import Administration from './components/administration/Administration.vue';
+import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 
 export default [
   {
@@ -28,6 +29,9 @@ export default [
   }, {
     path: '/administration',
     component: Administration
+  }, {
+    path: '/coordinator',
+    component: CoordinatorPage
   }, {
     path: '/events',
     component: EventList
