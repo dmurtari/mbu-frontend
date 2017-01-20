@@ -17,7 +17,7 @@
     <br>
     <div class="scout-list">
       <div class="columns is-multiline">
-        <div v-for="scout in scouts" class="column is-6-tablet is-4-desktop">
+        <div v-for="scout in scouts" class="column is-6">
           <scout :scout="scout"></scout>
         </div>
       </div>

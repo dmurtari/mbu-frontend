@@ -1,90 +1,85 @@
 <template>
   <div>
-    <div class="alert alert-danger" v-if="error">
+    <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
     <form v-if="!showDeleteConfirmation">
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label for="scout-edit-first-name">First Name</label>
+      <div class="columns is-multiline">
+        <div class="control column is-6">
+          <label class="label" for="scout-edit-first-name">First Name</label>
           <input type="text"
-                  class="form-control"
-                  id="scout-edit-first-name"
-                  placeholder="First Name"
-                  v-model="scoutUpdate.firstname">
+                 class="input"
+                 id="scout-edit-first-name"
+                 placeholder="First Name"
+                 v-model="scoutUpdate.firstname">
         </div>
-        <div class="form-group col-xs-6">
-          <label for="scout-edit-last-name">Last Name</label>
+        <div class="control column is-6">
+          <label class="label" for="scout-edit-last-name">Last Name</label>
           <input type="text"
-                  class="form-control"
-                  id="scout-edit-last-name"
-                  placeholder="Last Name"
-                  v-model="scoutUpdate.lastname">
+                 class="input"
+                 id="scout-edit-last-name"
+                 placeholder="Last Name"
+                 v-model="scoutUpdate.lastname">
         </div>
-        <div class="form-group col-xs-8">
-          <label for="scout-edit-birthday">Birthday</label>
+        <div class="control column is-8">
+          <label class="label" for="scout-edit-birthday">Birthday</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="scout-edit-birthday"
                         v-model="scoutUpdate.birthday">
         </div>
-        <div class="form-group col-xs-4">
-          <label for="scout-edit-troop">Troop</label>
+        <div class="control column is-4">
+          <label class="label" for="scout-edit-troop">Troop</label>
           <input type="number"
-                  class="form-control"
+                  class="input"
                   id="scout-edit-troop"
                   placeholder="Troop"
                   v-model="scoutUpdate.troop">
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-12">
-          <label for="scout-edit-notes">Anything else we should know?</label>
-          <textarea class="form-control"
+        <div class="control column is-12">
+          <label class="label" for="scout-edit-notes">Anything else we should know?</label>
+          <textarea class="input"
                     id="scout-edit-notes"
                     rows="2"
                     placeholder="Allergies, dietery needs, etc."
                     v-model="scoutUpdate.notes"></textarea>
         </div>
-      </div>
-      <div class="row container-fluid">
-        <h5>Emergency Contact Information</h5>
-      </div>
-      <div class="container-fluid">
-        <div class="form-group row">
-          <label for="scout-edit-emergency-name">Name</label>
+        <div class="column is-12">
+          <h5 class="title is-5">Emergency Contact Information</h5>
+        </div>
+        <div class="control column is-12">
+          <label class="label" for="scout-edit-emergency-name">Name</label>
           <input type="text"
-                  class="form-control"
+                  class="input"
                   id="scout-edit-emergency-name"
                   placeholder="Name"
                   v-model="scoutUpdate.emergency_name">
         </div>
-        <div class="form-group row">
-          <label for="scout-edit-emergency-relation">Relation</label>
+        <div class="control column is-12">
+          <label class="label" for="scout-edit-emergency-relation">Relation</label>
           <input type="text"
-                  class="form-control"
+                  class="input"
                   id="scout-edit-emergency-relation"
                   placeholder="Relationship to Scout"
                   v-model="scoutUpdate.emergency_relation">
         </div>
-        <div class="form-group row">
-          <label for="scout-edit-emergency-phone">Phone Number</label>
+        <div class="control column is-12">
+          <label class="label" for="scout-edit-emergency-phone">Phone Number</label>
           <masked-input mask="(999) 999-9999"
                         placeholder="(___) ___-____"
                         id="scout-edit-emergency-phone"
                         v-model="scoutUpdate.emergency_phone">
         </div>
-      </div>
-      <div class="pull-right">
-        <button class="btn btn-primary" 
+        <div class="column">
+        <button class="button is-primary" 
                 @click.prevent="saveScout()">Save</button>
-        <button class="btn btn-default" 
+        <button class="button" 
                 @click.prevent="close()">Cancel</button>
+        <button class="button is-danger is-pulled-right"
+                @click.prevent="toggleDeleteConfirmation()">Delete</button>
       </div>
-      <button class="btn btn-danger"
-              @click.prevent="toggleDeleteConfirmation()">Delete</button>
     </form>
     <confirm-delete v-if="showDeleteConfirmation"
                     class="container-fluid"
