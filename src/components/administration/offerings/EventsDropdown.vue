@@ -1,9 +1,12 @@
 <template>
-  <inline-dropdown v-if="!loading"
-                  :displayKey="'event'"
-                  :objects="readableEvents"
-                  :initial="currentEventText"
-                  @select="selectEvent($event)"></inline-dropdown>
+  <span class="select">
+    <select id="event-offering-select"
+            @change="emitEvent()"
+            v-model="selectedEvent">
+      <option v-for="option in readableEvents" :value="option.id">
+        {{ option.event }}
+      </option>
+  </span>
 </template>
 
 
@@ -13,7 +16,8 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      loading: true
+      loading: true,
+      selectedEvent: ''
     };
   },
   computed: {
@@ -28,25 +32,11 @@ export default {
           event: event.semester + ' ' + event.year 
         };
       });
-    },
-    currentEventText() {
-      if (!this.currentEvent.id) {
-        return undefined;
-      }
-
-      return {
-        id: this.currentEvent.id,
-        event: this.currentEvent.semester + ' ' + this.currentEvent.year
-      };
     }
   },
   methods: {
-    selectEvent(selectedId) {
-      let selectedEvent = _.find(this.orderedEvents, (event) => {
-        return event.id === selectedId;
-      });
-
-      this.$emit('select', selectedId);
+    emitEvent() {
+      this.$emit('select', this.selectedEvent);
     }
   },
   mounted() {
@@ -55,8 +45,8 @@ export default {
         return this.$store.dispatch('getCurrentEvent');
       })
       .then(() => {
-        this.loading = false;
-        this.selectedEvent(this.currentEvent.id);
+        this.selectedEvent = this.currentEvent.id;
+        this.emitEvent();
       })
       .catch(() => {
         if (this.orderedEvents.length > 0) {

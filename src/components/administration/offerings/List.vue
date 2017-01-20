@@ -1,8 +1,7 @@
 <template>
   <div>
     <h4 class="title is-4">
-      Manage Badges Offered For:
-      <events-dropdown @select="updateOfferings($event)"></events-dropdown>
+      Manage Merit Badge Offerings
     </h4>
     <p>
       Use this page to create, edit, and remove badge offerings for different events.
@@ -17,26 +16,40 @@
       </p>
     </div>
     <div class="box offering-list-filters">
-      <div class="control is-horizontal">
-        <div class="control-label">
-          <label class="label" for="offering-list-offered-filter">Filter by:</label>
+      <div class="columns">
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label">For&nbsp;Event:</label>
+            </div>
+            <div class="control">
+              <events-dropdown @select="updateOfferings($event)"></events-dropdown>
+            </div>
+          </div>
         </div>
-        <div class="control">
-          <span class="select">
-            <select class="form-control" 
-                    id="offering-list-offered-filter"
-                    v-model="offeredFilter">
-              <option v-for="option in offeredFilters" :value="option.value">
-                {{ option.text }}
-              </option>
-            </select>
-          </span>
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="offering-list-offered-filter">Filter&nbsp;by:</label>
+            </div>
+            <div class="control">
+              <span class="select">
+                <select class="form-control" 
+                        id="offering-list-offered-filter"
+                        v-model="offeredFilter">
+                  <option v-for="option in offeredFilters" :value="option.value">
+                    {{ option.text }}
+                  </option>
+                </select>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <loader v-if="loading" :color="'lightgray'" class="center-block loader"></loader>
+    <loader v-if="loading" :color="'lightgray'" class="offering-loading"></loader>
     <div class="offering-list"
-        v-if="!loading">
+         v-if="!loading">
       <badge-row v-for="badge in filteredOfferings"
                 :eventId="eventId"
                 :badge="badge"></badge-row>
@@ -58,8 +71,8 @@ export default {
       offeredFilter: 'all',
       offeredFilters: [
         { text: 'All', value: 'all' },
-        { text: 'Badges offered at this event', value: 'offered' },
-        { text: 'Badge not offered at this event', value: 'unoffered'}
+        { text: 'Offered badges', value: 'offered' },
+        { text: 'Unoffered badges', value: 'unoffered'}
       ],
       error: '',
       loading: false
@@ -116,7 +129,7 @@ export default {
     this.$store.dispatch('getBadges')
       .then(() => { 
         this.error = '';
-        this.loading = false;
+        // this.loading = false;
       })
       .catch(() => {
         this.error = 'Couldn\'t load badges. Please try again'
@@ -131,12 +144,22 @@ export default {
 </script>
 
 <style lang="sass">
-.offering-list-filters {
-  margin-top: 2em;
-}
+  .offering-list-filters {
+    margin-top: 2em;
+  }
 
-.loader {
-  margin-top: 5em;
-  width: 5em;
-}
+  .offering-loading {
+    margin-top: 5em;
+    width: 5em;
+    display: block;
+    margin: auto;
+  }
+
+  span.select {
+    width: 100%;
+
+    select {
+      width: 100%;
+    }
+  }
 </style>

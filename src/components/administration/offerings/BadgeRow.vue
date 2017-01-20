@@ -1,32 +1,43 @@
 <template>
-<div class="badge-row row">
-  <b class="col-sm-2 col-xs-3">{{ badge.name }}</b>
-  <div v-if="offered && !editing" class="col-xs-8 col-sm-10 row">
-    <div class="col-sm-4 offering-detail"><b>Periods offered: </b>{{ periods }}</div>
-    <div class="col-sm-4 offering-detail"><b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}</div>
-    <div class="col-sm-3 offering-detail"><b>Price: </b>${{ badge.price }}</div>
-    <div class="col-sm-1">
-      <button class="btn btn-default offering-detail"
-              v-if="isAdmin"
-              @click="toggleEdit()"
-              data-toggle="tooltip" 
-              data-placement="top" 
-              title="Edit">
-        <span class="glyphicon glyphicon-edit" aria-label="Edit"></span>
+  <div class="badge-row is-flex-tablet columns is-multiline">
+    <template v-if="editing">
+      <edit-offering class="column auto" 
+                     :badge="badge"
+                     :eventId="eventId"
+                     v-if="offered && editing"
+                     @cancel="toggleEdit()"></edit-offering>
+    </template>
+    <template v-if="!editing">
+      <b class="column is-2-tablet is-3-desktop">{{ badge.name }}</b>
+      <template v-if="offered">
+        <div class="column is-4-tablet is-3-desktop offering-detail">
+          <b>Periods offered: </b>{{ periods }}
+        </div>
+        <div class="column is-3-tablet is-3-desktop offering-detail">
+          <b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}
+        </div>
+        <div class="column is-2-tablet is-2-desktop offering-detail">
+          <b>Price: </b>${{ badge.price }}
+        </div>
+        <div class="column is-1" v-if="isAdmin">
+          <button class="button is-white offering-detail is-hidden-mobile"
+                  @click="toggleEdit()">
+            <span class="fa fa-edit" aria-label="Edit"></span>
+          </button>
+          <button class="button offering-detail is-hidden-tablet"
+                  @click="toggleEdit()">
+            Edit Offering
+          </button>
+        </div>
+      </template>
+      <button v-if="!offered"
+              class="button is-success"
+              :class="{ 'is-disabled is-loading': creating }"
+              @click="createOffering">
+        Offer this Badge
       </button>
-    </div>
+    </template>
   </div>
-  <edit-offering class="col-sm-10 col-xs-8" 
-                 :badge="badge"
-                 :eventId="eventId"
-                 v-if="offered && editing"
-                 @cancel="toggleEdit()"></edit-offering>
-  <button v-if="!offered"
-          class="btn btn-success"
-          @click="createOffering">
-    {{ creating ? 'Creating Offering...' : 'Offer this Badge' }}
-  </button>
-</div>
 </template>
 
 <script>
@@ -94,6 +105,7 @@ export default {
         })
     },
     toggleEdit() {
+      console.log("Toggling")
       this.editing = !this.editing;
     }
   },
@@ -104,17 +116,16 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.badge-row {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  border-bottom: 1px lightgray solid;
-  display: flex;
-  align-items: center;
-}
+  .badge-row {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px lightgray solid;
+    align-items: center;
+  }
 
-.offering-detail {
-  padding-top: .5em;
-  padding-bottom: .5em;
-  white-space: nowrap;
-}
+  .offering-detail {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    white-space: nowrap;
+  }
 </style>

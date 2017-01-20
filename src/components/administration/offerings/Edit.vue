@@ -1,69 +1,75 @@
 <template>
-<div>
-  <form class="form" v-if="!removing">
-    <div class="row">
-      <div class="form-group col-sm-3">
-        <label for="offering-periods">Periods:</label>
-        <input type="text"
-              class="form-control"
-              id="offering-periods"
-              v-model.lazy="editablePeriods"
-              placeholder="Periods">
-      </div>
-      <div class="form-group col-sm-3">
-        <label for="offering-duration">Duration:</label>
-        <div class="input-group duration-select">
-          <select class="form-control" 
-                  id="offering-duration"
-                  v-model="offering.duration">
-            <option value="1">1 period</option>
-            <option value="2">2 periods</option>
-            <option value="3">3 periods</option>
-          </select>
+  <div>
+    <h5 class="title is-5">Editing {{ badge.name }}</h5>
+    <div class="notification is-danger" v-if="error">
+      <p>
+        {{ error }}
+      </p>
+    </div>
+    <form class="form" v-if="!removing">
+      <div class="columns multiline">
+        <div class="control column is-4">
+          <label class="label" for="offering-periods">Periods:</label>
+          <input type="text"
+                 class="input"
+                 id="offering-periods"
+                 v-model.lazy="editablePeriods"
+                 placeholder="Periods">
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="offering-duration">Duration:</label>
+          <span class="input-group select duration-select">
+            <select class="input" 
+                    id="offering-duration"
+                    v-model="offering.duration">
+              <option value="1">1 period</option>
+              <option value="2">2 periods</option>
+              <option value="3">3 periods</option>
+            </select>
+          </span>
+        </div>
+        <div class="control column is-4">
+          <label class="label" for="offering-price">Price:</label>
+          <input type="number"
+                 class="input"
+                 id="offering-price"
+                 v-model="offering.price"
+                 placeholder="Price">
         </div>
       </div>
-      <div class="form-group col-sm-2">
-        <label for="offering-price">Price:</label>
-        <input type="number"
-               class="form-control"
-               id="offering-price"
-               v-model="offering.price"
-               placeholder="Price">
-      </div>
-      <div class="form-group col-sm-4 submit-group">
-        <button class="btn btn-primary"
+      <div class="control">
+        <button class="button is-primary"
                 @click.prevent="saveOffering()">
-          <span class="glyphicon glyphicon-ok" aria-label="Save"></span>
+          Save Offering
         </button>
-        <button class="btn btn-default"
+        <button class="button is-light"
                 @click.prevent="toggleEdit()">
-          <span class="glyphicon glyphicon-remove" aria-label="Cancel"></span>
+          Cancel Changes
         </button>
-        <button class="btn btn-danger"
+        <button class="button is-danger is-pulled-right"
                 @click.prevent="toggleRemove()">
-          <span class="glyphicon glyphicon-trash" aria-label="Remove"></span>
+          Remove
         </button>
       </div>
-    </div>
-  </form>
-  <confirm-delete v-if="removing"
-                  :match-text="this.badge.name"
-                  :placeholder="'Badge Name'"
-                  @deleteSuccess="deleteOffering()"
-                  @close="toggleRemove()">
-    <span slot="header">
-      Do you really want to remove this offering? This cannot be undone, and will
-      likely break existing registration records!
-    </span>
-    <span slot="help-text">
-      Enter the full name of this badge with correct capitalization to confirm
-      that you wish to remove this offering. <b>This action cannot be undone, and 
-      will delete all associated completion records and badge requests! Adding
-      this badge as an offering again will not restore previous records and 
-      requests!</b>
-    </span>
-  </confirm-delete>
-</div>
+    </form>
+    <confirm-delete v-if="removing"
+                    :match-text="this.badge.name"
+                    :placeholder="'Badge Name'"
+                    @deleteSuccess="deleteOffering()"
+                    @close="toggleRemove()">
+      <span slot="header">
+        Do you really want to remove this offering? This cannot be undone, and will
+        likely break existing registration records!
+      </span>
+      <span slot="help-text">
+        Enter the full name of this badge with correct capitalization to confirm
+        that you wish to remove this offering. <b>This action cannot be undone, and 
+        will delete all associated completion records and badge requests! Adding
+        this badge as an offering again will not restore previous records and 
+        requests!</b>
+      </span>
+    </confirm-delete>
+  </div>
 </template>
 
 <script>
@@ -118,11 +124,9 @@ export default {
         badgeId: this.badge.badge_id
       })
         .then(() => {
-          return this.$store.dispatch('getOfferings', this.eventId);
-        })
-        .then(() => {
-          this.error = '';
           this.$emit('cancel');
+          this.error = '';
+          this.$store.dispatch('getOfferings', this.eventId);
         })
         .catch(() => {
           this.error = 'Failed to remove badge from this event. Please try again';
