@@ -7,8 +7,6 @@ import EventList from './components/events/List.vue';
 
 import Profile from './components/users/profile/Profile.vue';
 
-import ScoutsList from './components/scouts/List.vue';
-
 import EmailForm from './components/authentication/EmailForm.vue';
 import Reset from './components/authentication/Reset.vue';
 import ResetForm from './components/authentication/ResetForm.vue';
@@ -44,9 +42,6 @@ export default [
   }, {
     path: '/login',
     component: Login
-  }, {
-    path: '/scouts',
-    component: ScoutsList
   }, {
     path: '/reset',
     component: Reset,
