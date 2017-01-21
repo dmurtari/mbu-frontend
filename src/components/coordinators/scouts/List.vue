@@ -7,7 +7,7 @@
       troop.
     </p>
     <br>
-    <button class="button"
+    <button class="button is-primary"
             v-if="!displayAddScout"
             @click="toggleAdd()">
       Add a new scout
@@ -15,12 +15,39 @@
     <create-scout v-if="displayAddScout"
                   @close="toggleAdd()"></create-scout>
     <br>
-    <div class="scout-list">
-      <div class="columns is-multiline">
-        <div v-for="scout in scouts" class="column is-6">
-          <scout :scout="scout"></scout>
+    <div class="box scout-list-filters">
+      <div class="columns">
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="scout-list-sort-filter">Sort&nbsp;by:</label>
+            </div>
+            <span class="select">
+              <select id="scout-list-sort-filter"
+                      v-model="sortBy">
+                <option v-for="option in orders" :value="option.value">
+                  {{ option.text }}
+                </option>
+              </select>
+            </span>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="scout-list-find">Search:</label>
+            </div>
+            <div class="control">
+              <input class="input"
+                     id="scout-list-find"
+                     v-model="search"></input>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="scout-list">
+      <scout v-for="scout in filteredScouts" :scout="scout"></scout>
     </div>
   </div>
 </template>
@@ -34,18 +61,38 @@ import Scout from './Scout.vue';
 export default { 
   data() {
     return {
-      displayAddScout: false
+      displayAddScout: false,
+      sortBy: 'lastname',
+      orders: [
+        { value: 'firstname', text: 'First Name' },
+        { value: 'lastname', text: 'Last Name' },
+        { value: 'created_at', text: 'Date Added' },
+        { value: 'updated_at', text: 'Date Updated' }
+      ],
+      search: ''
     };
   },
   computed: {
     ...mapGetters([
       'profile',
       'scouts'
-    ])
+    ]),
+    orderedScouts() {
+      return _.orderBy(this.scouts, this.sortBy);
+    },
+    filteredScouts() {
+      return _.filter(this.orderedScouts, (scout) => {
+        return scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
+    }
   },
   methods: {
     toggleAdd() {
       this.displayAddScout = !this.displayAddScout;
+    },
+    clearFilters() {
+      this.sortBy = 'lastname';
+      this.search = '';
     }
   },
   watch: {
@@ -60,8 +107,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.scout-list {
-  margin-top: 2em;
-}
+<style lang="sass" scoped>
+  .scout-list-filters {
+    margin-top: 2em;
+  }
 </style>
