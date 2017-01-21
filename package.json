@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
+    "test": "karma start test/karma.conf.js",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
@@ -33,9 +34,12 @@
     "karma": "^1.4.0",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.2",
     "karma-sinon": "^1.0.5",
+    "karma-webpack": "^2.0.1",
     "mocha": "^3.2.0",
     "node-sass": "^4.3.0",
+    "phantomjs": "^2.1.7",
     "sass-loader": "^4.1.1",
     "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
