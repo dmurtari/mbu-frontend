@@ -7,7 +7,7 @@
     </div>
     <form v-if="!showDeleteConfirmation">
       <div class="columns is-multiline">
-        <div class="control column is-6">
+        <div class="control column is-3">
           <label class="label" for="scout-edit-first-name">First Name</label>
           <input type="text"
                  class="input"
@@ -15,7 +15,7 @@
                  placeholder="First Name"
                  v-model="scoutUpdate.firstname">
         </div>
-        <div class="control column is-6">
+        <div class="control column is-3">
           <label class="label" for="scout-edit-last-name">Last Name</label>
           <input type="text"
                  class="input"
@@ -23,14 +23,14 @@
                  placeholder="Last Name"
                  v-model="scoutUpdate.lastname">
         </div>
-        <div class="control column is-8">
+        <div class="control column is-3">
           <label class="label" for="scout-edit-birthday">Birthday</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="scout-edit-birthday"
                         v-model="scoutUpdate.birthday">
         </div>
-        <div class="control column is-4">
+        <div class="control column is-3">
           <label class="label" for="scout-edit-troop">Troop</label>
           <input type="number"
                   class="input"
@@ -40,7 +40,7 @@
         </div>
         <div class="control column is-12">
           <label class="label" for="scout-edit-notes">Anything else we should know?</label>
-          <textarea class="input"
+          <textarea class="textarea"
                     id="scout-edit-notes"
                     rows="2"
                     placeholder="Allergies, dietery needs, etc."
@@ -49,7 +49,7 @@
         <div class="column is-12">
           <h5 class="title is-5">Emergency Contact Information</h5>
         </div>
-        <div class="control column is-12">
+        <div class="control column is-4">
           <label class="label" for="scout-edit-emergency-name">Name</label>
           <input type="text"
                   class="input"
@@ -57,7 +57,7 @@
                   placeholder="Name"
                   v-model="scoutUpdate.emergency_name">
         </div>
-        <div class="control column is-12">
+        <div class="control column is-4">
           <label class="label" for="scout-edit-emergency-relation">Relation</label>
           <input type="text"
                   class="input"
@@ -65,7 +65,7 @@
                   placeholder="Relationship to Scout"
                   v-model="scoutUpdate.emergency_relation">
         </div>
-        <div class="control column is-12">
+        <div class="control column is-4">
           <label class="label" for="scout-edit-emergency-phone">Phone Number</label>
           <masked-input mask="(999) 999-9999"
                         placeholder="(___) ___-____"
