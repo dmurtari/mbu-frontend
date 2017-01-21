@@ -37,10 +37,15 @@
             <div class="control-label">
               <label class="label" for="scout-list-find">Search:</label>
             </div>
-            <div class="control">
+            <div class="control has-addons">
               <input class="input"
                      id="scout-list-find"
                      v-model="search"></input>
+              <button class="button" 
+                      @click="clearSearch()"
+                      :class="{ 'is-disabled': search.length <= 0 }">
+                Clear
+              </button>
             </div>
           </div>
         </div>
@@ -90,8 +95,7 @@ export default {
     toggleAdd() {
       this.displayAddScout = !this.displayAddScout;
     },
-    clearFilters() {
-      this.sortBy = 'lastname';
+    clearSearch() {
       this.search = '';
     }
   },

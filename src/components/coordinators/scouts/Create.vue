@@ -1,6 +1,12 @@
 <template>
   <div class="box">
-    <h4 class="title is-4">Add a Scout to Your Troop</h4>
+    <h4 class="title is-4">
+      Add a Scout to Your Troop
+      <button class="button is-white close-button is-pulled-right"
+              @click="close()">
+        <span class="fa fa-close" aria-label="Close"></span>
+      </button>
+    </h4>
     <p>
       Add a new scout to your troop by filling in the information below. This
       will allow you to register this scout for events, and view their 
@@ -149,9 +155,14 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.panel-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .close-button {
+    margin-top: -.5em;
+    margin-right: -.5em;
+  }
 </style>
