@@ -14,7 +14,11 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.js'
-    }
+    },
+    modules: [
+      path.resolve('./src'),
+      path.resolve('./node_modules')
+    ]
   },
   module: {
     loaders: [
