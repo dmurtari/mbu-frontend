@@ -51,7 +51,7 @@
           <button class="button is-primary" 
                   :disabled="$v.credentials.$invalid"
                   @click.prevent="submit()">Login</button>
-          <button class="button" 
+          <button class="button is-info is-outlined" 
                   @click.prevent="signup()">Create an Account</button>
           <router-link class="button is-link is-pulled-right" to="/reset">Forgot your password?</router-link>
         </div>
