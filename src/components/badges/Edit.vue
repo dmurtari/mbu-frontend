@@ -33,6 +33,8 @@
         </div>
       </div>
       <button class="button is-primary" 
+              :disabled="$v.badgeUpdate.$invalid"
+              :class="{ 'is-disabled is-loading': saving }"
               @click.prevent="updateBadge()">Save Changes</button>
       <button class="button" 
               @click.prevent="close()">Cancel</button>
@@ -75,11 +77,14 @@ export default {
         name: '',
         description: '',
         notes: ''
-      }
+      },
+      saving: false
     };
   },
   methods: {
     updateBadge() {
+      this.saving = true;
+
       let badge = {
         name: this.badgeUpdate.name,
         description: this.badgeUpdate.description,
@@ -93,9 +98,11 @@ export default {
           return this.$store.dispatch('getBadges')
         })
         .then(() => {
+          this.saving = false;
           this.close();
         })
         .catch((err) => {
+          this.saving = false;
           this.error = 'Error updating badge, please try again. Name is required.';
         });
     },

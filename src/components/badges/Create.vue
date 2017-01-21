@@ -48,6 +48,7 @@
       <div>
         <button class="button is-primary" 
                 :disabled="$v.$invalid"
+                :class="{ 'is-loading is-disabled': creating }"
                 @click.prevent="createBadge()">Create Badge</button>
         <button class="button" 
                 @click.prevent="clearAndClose()">Cancel</button>
@@ -67,11 +68,14 @@ export default {
         name: '',
         description: '',
         notes: ''
-      }
+      },
+      creating: false
     };
   },
   methods: {
     createBadge() {
+      this.creating = true;
+
       let badge = {
         name: this.badge.name,
         description: this.badge.description,
@@ -83,10 +87,12 @@ export default {
           return this.$store.dispatch('getBadges')
         })
         .then(() => {
+          this.creating = false;
           this.clearAndClose();
         })
         .catch((err) => {
-          this.error = 'Error creating badge, please try again. Name is required.';
+          this.creating = false;
+          this.error = 'Error creating badge, please refresh the page and try again';
         });
     },
     clearAndClose() {

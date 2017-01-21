@@ -38,10 +38,12 @@
       </div>
       <div>
           <button class="button is-primary"
+                  :class="{ 'is-disabled is-loading': saving }"
                   @click.prevent="updateEvent()">Update Event</button>
           <button class="button is-default" 
                   @click.prevent="close()">Cancel</button>
           <button class="button is-link"
+                  :class="{ 'is-disabled is-loading': settingCurrent }"
                   @click.prevent="setAsCurrent()">Set as the Current Event</button>
           <button class="button is-danger is-pulled-right"
                   @click.prevent="showDeleteConfirm()">Delete Event</button>
@@ -82,7 +84,9 @@ export default {
         price: ''
       },
       error: '',
-      showDeleteConfirmation: false
+      showDeleteConfirmation: false,
+      saving: false,
+      settingCurrent: false
     }
   },
   props: {
@@ -98,6 +102,8 @@ export default {
   },
   methods: {
     updateEvent() {
+      this.saving = true;
+
       let event = {
         id: this.event.id,
         date: this.eventUpdate.date,
@@ -111,9 +117,11 @@ export default {
           return this.$store.dispatch('getEvents');
         })
         .then(() => {
+          this.saving = false;
           this.close();
         })
         .catch((err) => {
+          this.saving = false;
           this.error = err;
         });
     },
@@ -128,12 +136,16 @@ export default {
         });
     },
     setAsCurrent() {
+      this.settingCurrent = true;
       this.$store.dispatch('saveCurrentEvent', this.event.id)
         .then(() => {
-          this.$store.dispatch('getEvents');
+          return this.$store.dispatch('getEvents');
+        }).then(() => {
+          this.settingCurrent = false;
           this.$emit('close');
         })
         .catch(() => {
+          this.settingCurrent = false;
           this.error = 'Failed to set this event as current.';
         });
     },
