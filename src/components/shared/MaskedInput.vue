@@ -6,6 +6,7 @@
          :data-mask="mask"
          :value="value"
          :disabled="disabled"
+         @blur="$emit('blur')"
          @keyup="updateValue($event.target.value)">
 </template>
 
