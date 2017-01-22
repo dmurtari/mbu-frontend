@@ -19,24 +19,41 @@
           <masked-input mask="9999" 
                         placeholder="yyyy"
                         id="event-create-year"
+                        :class="{ 'is-danger': $v.event.year.$error }"
+                        @blur="$v.event.year.$touch"
                         v-model="event.year"></masked-input>
+          <span class="help is-danger" v-if="$v.event.year.$error">
+            Please enter a valid year
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-semester">Semester</label>
           <span class="select">
-            <select id="event-create-semester" v-model="event.semester">
+            <select id="event-create-semester" 
+                    class="input"
+                    :class="{ 'is-danger': $v.event.semester.$error }"
+                    @blur="$v.event.semester.$touch"
+                    v-model="event.semester">
               <option v-for="semester in semesters" v-bind:value="semester.value">
                 {{ semester.text }}
               </option>
             </select>
+          </span>
+          <span class="help is-danger" v-if="$v.event.semester.$error">
+            Please pick a semester for this event
           </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-price">Registration Fee</label>
           <masked-input mask="99.99"
                         placeholder="00.00"
+                        :class="{ 'is-danger': $v.event.price.$error }"
+                        @blur="$v.event.price.$touch"
                         id="event-create-price"
                         v-model="event.price"></masked-input>
+          <span class="help is-danger" v-if="$v.event.price.$error">
+            Please enter the price of the event (or 00.00)
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-date">Date</label>
@@ -75,6 +92,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
+import { date } from 'validators';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -137,6 +156,16 @@ export default {
     },
     close() {
       this.$emit('close');
+    }
+  },
+  validations: {
+    event: {
+      year: { required, date: date('YYYY') },
+      semester: { required },
+      date: { required, date: date('MM/DD/YYYY') },
+      registration_open: { required, date },
+      registration_close: { required, date },
+      price: { required }
     }
   }
 }
