@@ -14,7 +14,10 @@ export default (first, second, format = 'MM/DD/YYYY') => {
     const secondDate = moment(compareSecond, format);
     const testDate = moment(value, format);
 
-    if (!firstDate.isValid() || !secondDate.isValid() || !testDate.isValid())
+    if (!firstDate.isValid() || !secondDate.isValid())
+      return true;
+
+    if (!testDate.isValid())
       return false;
 
     return testDate.isBetween(firstDate, secondDate) || testDate.isBetween(secondDate, firstDate);

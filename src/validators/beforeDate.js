@@ -9,7 +9,10 @@ export default (beforeDate, format = 'MM/DD/YYYY') => {
     const compareDate = moment(compareTo, format);
     const testDate = moment(value, format);
 
-    if (!testDate.isValid() || !compareDate.isValid())
+    if (!compareDate.isValid()) 
+      return true;
+
+    if (!testDate.isValid())
       return false;
 
     return testDate.isBefore(moment(compareTo, format));

@@ -12,28 +12,50 @@
           <masked-input mask="99.99"
                         placeholder="00.00"
                         id="event-edit-price"
+                        :class="{ 'is-danger': $v.eventUpdate.price.$error }"
+                        @blur="$v.eventUpdate.price.$touch"
                         v-model="eventUpdate.price"></masked-input>
+          <span class="help is-danger" v-if="$v.eventUpdate.price.$error">
+            Please enter the price of the event (or 00.00)
+          </span>
         </div>
         <div class="control column is-6">
           <label class="label" for="event-edit-date">Date</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-edit-date"
-                        v-model="eventUpdate.date">
+                        :class="{ 'is-danger': $v.eventUpdate.date.$error }"
+                        @blur="$v.eventUpdate.date.$touch"
+                        v-model="eventUpdate.date"></masked-input>
+          <span class="help is-danger" v-if="$v.eventUpdate.date.$error">
+            Please enter a valid date for this event
+          </span>
         </div>
         <div class="control column is-6">
           <label class="label" for="event-edit-open">Registration Opens</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-edit-open"
-                        v-model="eventUpdate.registration_open">
+                        :class="{ 'is-danger': $v.eventUpdate.registration_open.$error }"
+                        @blur="$v.eventUpdate.registration_open.$touch"
+                        v-model="eventUpdate.registration_open"></masked-input>
+          <span class="help is-danger" v-if="$v.eventUpdate.registration_open.$error">
+            Please enter a valid date for registration opening, before the day
+            of the event
+          </span>
         </div>
         <div class="control column is-6">
           <label class="label" for="event-edit-close">Registration Closes</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-create-close"
-                        v-model="eventUpdate.registration_close">
+                        :class="{ 'is-danger': $v.eventUpdate.registration_close.$error }"
+                        @blur="$v.eventUpdate.registration_close.$touch"
+                        v-model="eventUpdate.registration_close"></masked-input>
+          <span class="help is-danger" v-if="$v.eventUpdate.registration_close.$error">
+            Please enter a valid date for registration closing, between 
+            registration opening and the event day
+          </span>
         </div>
       </div>
       <div>
@@ -70,6 +92,9 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+import { date, beforeDate, betweenDate } from 'validators';
+
 import moment from 'moment'
 
 const dateFormat = 'MM/DD/YYYY'
@@ -106,9 +131,9 @@ export default {
 
       let event = {
         id: this.event.id,
-        date: this.eventUpdate.date,
-        registration_open: this.eventUpdate.registration_open,
-        registration_close: this.eventUpdate.registration_close,
+        date: moment(this.eventUpdate.date, dateFormat),
+        registration_open: moment(this.eventUpdate.registration_open, dateFormat),
+        registration_close: moment(this.eventUpdate.registration_close, dateFormat),
         price: this.eventUpdate.price
       }
 
@@ -166,6 +191,22 @@ export default {
     this.eventUpdate.registration_close = 
       moment(this.event.registration_close).format(dateFormat);
     this.eventUpdate.price = this.event.price;
+  },
+  validations: {
+    eventUpdate: {
+      date: { required, date: date('MM/DD/YYYY') },
+      registration_open: {
+        required,
+        date,
+        beforeDate: beforeDate('date')
+      },
+      registration_close: {
+        required,
+        date,
+        betweenDate: betweenDate('registration_open', 'date')
+      },
+      price: { required }
+    }
   }
 }
 </script>
