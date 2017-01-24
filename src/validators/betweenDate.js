@@ -1,10 +1,19 @@
 import moment from 'moment'
 
 export default (first, second, format = 'MM/DD/YYYY') => {
-  return value => {
-    let firstDate = moment(first, format);
-    let secondDate = moment(second, format);
-    let testDate = moment(value, format);
+  return (value, parentVm) => {
+    const compareFirst = typeof first === 'function'
+      ? first.call(this, parentVm)
+      : parentVm[first]
+    
+    const compareSecond = typeof second === 'function'
+      ? second.call(this, parentVm)
+      : parentVm[second]
+    
+    const firstDate = moment(compareFirst, format);
+    const secondDate = moment(compareSecond, format);
+    const testDate = moment(value, format);
+
     if (!firstDate.isValid() || !secondDate.isValid() || !testDate.isValid())
       return false;
 
