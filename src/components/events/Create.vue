@@ -60,21 +60,30 @@
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-create-date"
-                        v-model="event.date">
+                        :class="{ 'is-danger': $v.event.date.$error }"
+                        @blur="$v.event.date.$touch"
+                        v-model="event.date"></masked-input>
+          <span class="help is-danger" v-if="$v.event.date.$error">
+            Please enter a valid date for this event
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-open">Registration Opens</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-create-open"
-                        v-model="event.registration_open">
+                        :class="{ 'is-danger': $v.event.registration_open.$error }"
+                        @blur="$v.event.registration_open.$touch"
+                        v-model="event.registration_open"></masked-input>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-close">Registration Closes</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="event-create-close"
-                        v-model="event.registration_close">
+                        :class="{ 'is-danger': $v.event.registration_close.$error }"
+                        @blur="$v.event.registration_close.$touch"
+                        v-model="event.registration_close"></masked-input>
         </div>
         <div class="control column is-12">
           <label class="checkbox">
@@ -93,7 +102,7 @@
 <script>
 import { mapState } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
-import { date } from 'validators';
+import { date, beforeDate, betweenDate } from 'validators';
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -163,8 +172,16 @@ export default {
       year: { required, date: date('YYYY') },
       semester: { required },
       date: { required, date: date('MM/DD/YYYY') },
-      registration_open: { required, date },
-      registration_close: { required, date },
+      registration_open: {
+        required,
+        date,
+        beforeDate: beforeDate(this.event.date)
+      },
+      registration_close: {
+        required,
+        date,
+        betweenDate: betweenDate('event.registration_open', 'event.date')
+      },
       price: { required }
     }
   }
