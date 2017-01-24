@@ -175,12 +175,12 @@ export default {
       registration_open: {
         required,
         date,
-        beforeDate: beforeDate(this.event.date)
+        beforeDate: beforeDate('date')
       },
       registration_close: {
         required,
         date,
-        betweenDate: betweenDate('event.registration_open', 'event.date')
+        betweenDate: betweenDate('registration_open', 'date')
       },
       price: { required }
     }
