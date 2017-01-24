@@ -100,6 +100,8 @@
         </div>
       </div>
       <button class="button is-primary" 
+              :disabled="$v.$invalid"
+              :class="{ 'is-loading is-disabled': creating }"
               @click.prevent="createEvent()">Create Event</button>
       <button class="button" 
               @click.prevent="clearAndClose()">Cancel</button>
@@ -131,12 +133,15 @@ export default {
         { text: 'Fall', value: 'Fall' }
       ],
       error: '',
-      current: false
+      current: false,
+      creating: false
     }
   },
   methods: {
     createEvent() {
+      this.creating = true;
       const dateFormat = 'MM/DD/YYYY'
+
       let event = {
         year: Number(this.event.year),
         semester: this.event.semester,
@@ -158,9 +163,11 @@ export default {
           return this.$store.dispatch('getEvents');
         })
         .then((data) => {
+          this.creating = false;
           this.clearAndClose();
         })
         .catch((err) => {
+          this.creating = false;
           this.error = err;
         })
     },
