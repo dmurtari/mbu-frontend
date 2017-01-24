@@ -6,6 +6,11 @@
         {{ error }}
       </p>
     </div>
+    <div class="notification is-danger" v-if="invalidPeriodsError">
+      <p>
+        {{ invalidPeriodsError }}
+      </p>
+    </div>
     <form class="form" v-if="!removing">
       <div class="columns multiline">
         <div class="control column is-4">
@@ -14,18 +19,28 @@
                  class="input"
                  id="offering-periods"
                  v-model.lazy="editablePeriods"
+                 :class="{ 'is-danger': $v.offering.periods.$error }"
+                  @blur="$v.offering.periods.$touch"
                  placeholder="Periods">
+          <span class="help is-danger" v-if="$v.offering.periods.$error">
+            Enter the periods this badge will be offered (separated by commas)
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="offering-duration">Duration:</label>
           <span class="input-group select duration-select">
             <select class="input" 
                     id="offering-duration"
+                    :class="{ 'is-danger': $v.offering.duration.$error }"
+                    @blur="$v.offering.duration.$touch"
                     v-model="offering.duration">
               <option value="1">1 period</option>
               <option value="2">2 periods</option>
               <option value="3">3 periods</option>
             </select>
+          </span>
+          <span class="help is-danger" v-if="$v.offering.duration.$error">
+            Pick the duration of this class
           </span>
         </div>
         <div class="control column is-4">
@@ -34,11 +49,18 @@
                  class="input"
                  id="offering-price"
                  v-model="offering.price"
+                 :class="{ 'is-danger': $v.offering.price.$error }"
+                  @blur="$v.offering.price.$touch"
                  placeholder="Price">
+          <span class="help is-danger" v-if="$v.offering.price.$error">
+            Enter the price of this class
+          </span>
         </div>
       </div>
       <div class="control">
         <button class="button is-primary"
+                :disabled="$v.$invalid"
+                :class="{ 'is-loading is-disabled': saving }"
                 @click.prevent="saveOffering()">
           Save Offering
         </button>
@@ -73,6 +95,8 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+
 export default {
   props: {
     badge: {
@@ -90,6 +114,7 @@ export default {
         duration: 1,
         price: '0.00'
       },
+      invalidPeriodsError: '',
       removing: false,
       saving: false,
       error: ''
@@ -108,9 +133,21 @@ export default {
         return _.join(_.sortBy(this.offering.periods), ', ');
       },
       set(newPeriods) {
-        this.offering.periods = _.map(_.split(newPeriods, ',', 3), (period) => {
-          return Number(_.trim(period));
+        let oldPeriods = this.offering.periods;
+        this.offering.periods = _.map(_.split(newPeriods, ',', 3), (parsedPeriod) => {
+          let period = Number(_.trim(parsedPeriod));
+          if (!period) {
+            this.invalidPeriodsError = 'Periods should be a number';
+            return;
+          }
+
+          return period;
         });
+
+        if (!Array.isArray(this.offering.periods)) {
+          this.invalidPeriodsError = 'Period should be comma separated';
+          this.offering.periods = oldPeriods;
+        }
       }
     },
     offered() {
@@ -139,6 +176,8 @@ export default {
       this.$emit('cancel');
     },
     saveOffering() {
+      this.saving = true;
+
       this.$store.dispatch('updateOffering', {
         eventId: this.eventId,
         badgeId: this.badge.badge_id,
@@ -149,9 +188,11 @@ export default {
         })
         .then(() => {
           this.error = '';
+          this.saving = false;
           this.$emit('cancel');
         })
         .catch(() => {
+          this.saving = false;
           this.error = 'Failed to save badge. Please try again.';
         })
     }
@@ -160,6 +201,13 @@ export default {
     this.offering.periods = this.badge.periods;
     this.offering.duration = this.badge.duration;
     this.offering.price = this.badge.price;
+  },
+  validations: {
+    offering: {
+      periods: { required },
+      duration: { required },
+      price: { required }
+    }
   }
 }
 </script>

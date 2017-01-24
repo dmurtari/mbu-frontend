@@ -56,7 +56,6 @@ export default {
   mounted() {
     this.$store.dispatch('getEvents');
     this.$store.dispatch('getCurrentEvent');
-    document.title = 'MBU Online | Events';
   }
 }
 </script>
