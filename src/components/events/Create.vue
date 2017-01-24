@@ -75,6 +75,10 @@
                         :class="{ 'is-danger': $v.event.registration_open.$error }"
                         @blur="$v.event.registration_open.$touch"
                         v-model="event.registration_open"></masked-input>
+          <span class="help is-danger" v-if="$v.event.registration_open.$error">
+            Please enter a valid date for registration opening, before the day
+            of the event
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="event-create-close">Registration Closes</label>
@@ -84,6 +88,10 @@
                         :class="{ 'is-danger': $v.event.registration_close.$error }"
                         @blur="$v.event.registration_close.$touch"
                         v-model="event.registration_close"></masked-input>
+          <span class="help is-danger" v-if="$v.event.registration_close.$error">
+            Please enter a valid date for registration closing, between 
+            registration opening and the event day
+          </span>
         </div>
         <div class="control column is-12">
           <label class="checkbox">
