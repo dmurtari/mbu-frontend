@@ -99,10 +99,8 @@ export default {
       this.search = '';
     }
   },
-  watch: {
-    profile() {
-      this.$store.dispatch('getScouts', this.profile.id);
-    }
+  mounted() {
+    this.$store.dispatch('getScouts', this.profile.id);
   },
   components: {
     'create-scout': Create,
