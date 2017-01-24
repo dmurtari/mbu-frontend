@@ -1,12 +1,15 @@
-import moment from 'moment'
+import moment from 'moment';
 
-export default (first, format = 'MM/DD/YYYY') => {
-  return value => {
-    let firstDate = moment(first, format);
+export default (afterDate, format = 'MM/DD/YYYY') => {
+  return (value, parentVm) => {
     let testDate = moment(value, format);
-    if (!firstDate.isValid() || !testDate.isValid())
+    if (!testDate.isValid())
       return false;
 
-    return testDate.isAfter(firstDate);
+    const compareTo = typeof afterDate === 'function'
+      ? afterDate.call(this, parentVm)
+      : parentVm[afterDate]
+
+    return testDate.isAfter(moment(compareTo, format));
   }
 }
