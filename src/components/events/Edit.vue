@@ -59,17 +59,17 @@
         </div>
       </div>
       <div>
-          <button class="button is-primary"
-                  :class="{ 'is-disabled is-loading': saving }"
-                  @click.prevent="updateEvent()">Update Event</button>
-          <button class="button is-default" 
-                  @click.prevent="close()">Cancel</button>
-          <button class="button is-link"
-                  :class="{ 'is-disabled is-loading': settingCurrent }"
-                  @click.prevent="setAsCurrent()">Set as the Current Event</button>
-          <button class="button is-danger is-pulled-right"
-                  @click.prevent="showDeleteConfirm()">Delete Event</button>
-
+        <button class="button is-primary"
+                :disabled="$v.$invalid"
+                :class="{ 'is-disabled is-loading': saving }"
+                @click.prevent="updateEvent()">Update Event</button>
+        <button class="button is-default" 
+                @click.prevent="close()">Cancel</button>
+        <button class="button is-link"
+                :class="{ 'is-disabled is-loading': settingCurrent }"
+                @click.prevent="setAsCurrent()">Set as the Current Event</button>
+        <button class="button is-danger is-pulled-right"
+                @click.prevent="showDeleteConfirm()">Delete Event</button>
       </div>   
     </form>
     <confirm-delete v-if="showDeleteConfirmation"
