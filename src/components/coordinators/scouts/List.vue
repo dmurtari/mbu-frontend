@@ -2,8 +2,8 @@
   <div>
     <h3 class="title is-4">Your Troop</h3>
     <p>
-      This is an overview of the scouts that you have added to your troop. You 
-      can add new scouts, edit scout information, and remove scouts from your 
+      This is an overview of the scouts that you have added to your troop. You
+      can add new scouts, edit scout information, and remove scouts from your
       troop.
     </p>
     <br>
@@ -32,21 +32,19 @@
             </span>
           </div>
         </div>
-        <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
-              <label class="label" for="scout-list-find">Search:</label>
-            </div>
-            <div class="control has-addons">
-              <input class="input"
-                     id="scout-list-find"
-                     v-model="search"></input>
-              <button class="button" 
-                      @click="clearSearch()"
-                      :class="{ 'is-disabled': search.length <= 0 }">
-                Clear
-              </button>
-            </div>
+        <div class="control column is-6 is-horizontal">
+          <div class="control-label">
+            <label class="label" for="scout-list-find">Search:</label>
+          </div>
+          <div class="control has-addons">
+            <input class="input is-expanded"
+                   id="scout-list-find"
+                   v-model="search"></input>
+            <button class="button"
+                    @click="clearSearch()"
+                    :class="{ 'is-disabled': search.length <= 0 }">
+              Clear
+            </button>
           </div>
         </div>
       </div>
@@ -63,7 +61,7 @@ import { mapGetters } from 'vuex';
 
 import Scout from './Scout.vue';
 
-export default { 
+export default {
   data() {
     return {
       displayAddScout: false,
@@ -97,6 +95,11 @@ export default {
     },
     clearSearch() {
       this.search = '';
+    }
+  },
+  watch: {
+    profile() {
+      this.$store.dispatch('getScouts', this.profile.id);
     }
   },
   mounted() {

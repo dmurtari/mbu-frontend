@@ -9,10 +9,15 @@
     </h4>
     <p>
       Add a new scout to your troop by filling in the information below. This
-      will allow you to register this scout for events, and view their 
+      will allow you to register this scout for events, and view their
       completion records on this website.
     </p>
     <br>
+    <div class="notification" v-if="!error">
+      <p>
+        Name, birthday, troop, and emergency contact information are required.
+      </p>
+    </div>
     <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
@@ -26,7 +31,12 @@
                   class="input"
                   id="scout-create-first-name"
                   placeholder="First Name"
+                  :class="{ 'is-danger': $v.scout.firstname.$error }"
+                  @blur="$v.scout.firstname.$touch"
                   v-model="scout.firstname">
+          <span class="help is-danger" v-if="$v.scout.firstname.$error">
+            Please enter the scout's first name
+          </span>
         </div>
         <div class="control column is-3">
           <label class="label" for="scout-create-last-name">Last Name</label>
@@ -34,14 +44,24 @@
                   class="input"
                   id="scout-create-last-name"
                   placeholder="Last Name"
+                  :class="{ 'is-danger': $v.scout.lastname.$error }"
+                  @blur="$v.scout.lastname.$touch"
                   v-model="scout.lastname">
+          <span class="help is-danger" v-if="$v.scout.lastname.$error">
+            Please enter the scout's last name
+          </span>
         </div>
         <div class="control column is-3">
           <label class="label" for="scout-create-birthday">Birthday</label>
           <masked-input mask="99/99/9999"
                         placeholder="mm/dd/yyyy"
                         id="scout-create-birthday"
-                        v-model="scout.birthday">
+                        :class="{ 'is-danger': $v.scout.birthday.$error }"
+                        @blur="$v.scout.birthday.$touch"
+                        v-model="scout.birthday"></masked-input>
+          <span class="help is-danger" v-if="$v.scout.birthday.$error">
+            Please enter the scout's birthday
+          </span>
         </div>
         <div class="control column is-3">
           <label class="label" for="scout-create-troop">Troop</label>
@@ -49,7 +69,12 @@
                   class="input"
                   id="scout-create-troop"
                   placeholder="Troop"
+                  :class="{ 'is-danger': $v.scout.troop.$error }"
+                  @blur="$v.scout.troop.$touch"
                   v-model="scout.troop">
+          <span class="help is-danger" v-if="$v.scout.troop.$error">
+            Please enter the scout's troop
+          </span>
         </div>
         <div class="control column is-12">
           <label class="label" for="scout-create-notes">Anything else we should know?</label>
@@ -63,7 +88,7 @@
           <h5 class="title is-5">Emergency Contact Information</h5>
           <p>
             We will contact this person in the event that something happens to
-            this scout. If possible, please enter the information for someone 
+            this scout. If possible, please enter the information for someone
             that will be able to reach the event should it be necessary.
           </p>
         </div>
@@ -73,7 +98,13 @@
                   class="input"
                   id="scout-create-emergency-name"
                   placeholder="Name"
+                  :class="{ 'is-danger': $v.scout.emergency_name.$error }"
+                  @blur="$v.scout.emergency_name.$touch"
                   v-model="scout.emergency_name">
+          <span class="help is-danger" v-if="$v.scout.emergency_name.$error">
+            Please enter the name of the person we should contact in event
+            of emergency
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="scout-create-emergency-relation">Relation</label>
@@ -81,19 +112,32 @@
                   class="input"
                   id="scout-create-emergency-relation"
                   placeholder="Relationship to Scout"
+                  :class="{ 'is-danger': $v.scout.emergency_relation.$error }"
+                  @blur="$v.scout.emergency_relation.$touch"
                   v-model="scout.emergency_relation">
+          <span class="help is-danger" v-if="$v.scout.emergency_relation.$error">
+            Please enter the relationship of the emergency contact to the scout
+          </span>
         </div>
         <div class="control column is-4">
           <label class="label" for="scout-create-emergency-phone">Phone Number</label>
           <masked-input mask="(999) 999-9999"
                         placeholder="(___) ___-____"
                         id="scout-create-emergency-phone"
-                        v-model="scout.emergency_phone">
+                        :class="{ 'is-danger': $v.scout.emergency_phone.$error }"
+                        @blur="$v.scout.emergency_phone.$touch"
+                        v-model="scout.emergency_phone"></masked-input>
+          <span class="help is-danger" v-if="$v.scout.emergency_phone.$error">
+            Please enter the phone number of the person we should contact in event
+            of emergency
+          </span>
         </div>
       </div>
-      <button class="button is-primary" 
+      <button class="button is-primary"
+              :disabled="$v.$invalid"
+              :class="{ 'is-disabled is-loading': creating }"
               @click.prevent="createScout()">Add Scout</button>
-      <button class="button" 
+      <button class="button"
               @click.prevent="close()">Cancel</button>
     </form>
   </div>
@@ -102,6 +146,8 @@
 <script>
 import _ from 'lodash';
 import { mapGetters } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
+import { date, phone } from 'validators';
 
 export default {
   data() {
@@ -116,7 +162,8 @@ export default {
         emergency_phone: '',
         emergency_relation: ''
       },
-      error: ''
+      error: '',
+      creating: false
     };
   },
   computed: {
@@ -130,6 +177,7 @@ export default {
       this.$emit('close');
     },
     createScout() {
+      this.creating = true;
       let scout = _.clone(this.scout);
 
       this.$store.dispatch('addScout', {
@@ -141,15 +189,28 @@ export default {
         })
         .then(() => {
           this.error = '';
+          this.creating = false;
           this.close();
         })
         .catch((err) => {
+          this.creating = false;
           this.error = 'Error adding scout. Please refresh the page, and try again.';
         });
     }
   },
   mounted() {
     this.scout.troop = this.profile.details.troop;
+  },
+  validations: {
+    scout: {
+      firstname: { required },
+      lastname: { required },
+      birthday: { required, date: date('MM/DD/YYYY') },
+      troop: { required },
+      emergency_name: { required },
+      emergency_phone: { required, phone },
+      emergency_relation: { required }
+    }
   }
 }
 </script>
