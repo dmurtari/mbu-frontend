@@ -19,6 +19,7 @@
     <button class="button"
             @click.prevent="cancel()">Don't Delete</button>
     <button class="button is-danger"
+            :disabled="enteredText != matchText"
             @click.prevent="confirmDelete()">Confirm Deletion</button>
   </div>
 </template>
