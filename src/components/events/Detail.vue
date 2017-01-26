@@ -17,7 +17,7 @@
       No badges are listed as available at this event.
       <span v-if="isAdmin">
         Offer badges for this event at the
-        <router-link to="/offerings">offerings page</router-link>.
+        <router-link to="/administration">offerings page</router-link>.
       </span>
       <span v-if="!isAdmin">
         Please check with the event coordinators if you feel this is not correct.
@@ -45,5 +45,5 @@ export default {
       return _.orderBy(this.event.offerings, 'name');
     }
   }
-}  
+}
 </script>
