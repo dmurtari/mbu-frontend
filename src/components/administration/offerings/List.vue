@@ -7,7 +7,7 @@
       Use this page to create, edit, and remove badge offerings for different events.
       These badges are what Scoutmasters will see as being offered for an event.
       Add badges and edit details such which periods each badge will be offered,
-      how many class periods each badge will take to teach, and how much scouts 
+      how many class periods each badge will take to teach, and how much scouts
       need to pay to attend class for a badge.
     </p>
     <div class="notification is-danger" v-if="error">
@@ -34,7 +34,7 @@
             </div>
             <div class="control">
               <span class="select">
-                <select class="form-control" 
+                <select class="form-control"
                         id="offering-list-offered-filter"
                         v-model="offeredFilter">
                   <option v-for="option in offeredFilters" :value="option.value">
@@ -61,7 +61,7 @@
 import { mapGetters } from 'vuex';
 
 import BadgeRow from './BadgeRow.vue';
-import EventsDropdown from './EventsDropdown.vue';
+import EventsDropdown from '../../shared/EventsDropdown.vue';
 
 export default {
   data() {
@@ -114,7 +114,7 @@ export default {
       this.loading = true;
       this.eventId = selectedEventId;
       this.$store.dispatch('getOfferings', selectedEventId)
-        .then(() => { 
+        .then(() => {
           this.error = '';
           this.loading = false;
         })
@@ -127,7 +127,7 @@ export default {
   mounted() {
     this.loading = true;
     this.$store.dispatch('getBadges')
-      .then(() => { 
+      .then(() => {
         this.error = '';
         // this.loading = false;
       })
