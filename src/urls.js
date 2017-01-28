@@ -10,6 +10,7 @@ export default {
   PROFILE_URL: API_URL + 'profile/',
   RESET_API_URL: API_URL + 'reset/',
   RESET_URL: 'http://localhost:8080/reset/',
+  SCOUTS_URL: API_URL + 'scouts/',
   SIGNUP_URL: API_URL + 'signup/',
   USERS_URL: API_URL + 'users/'
 };

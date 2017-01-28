@@ -23,12 +23,12 @@
         <div class="column is-6">
           <div class="control is-horizontal">
             <div class="control-label">
-              <label class="label" for="offering-list-offered-filter">Filter&nbsp;by:</label>
+              <label class="label" for="registered-list-filters">Filter&nbsp;by:</label>
             </div>
             <div class="control">
               <span class="select">
                 <select class="form-control"
-                        id="offering-list-offered-filter"
+                        id="registered-list-filters"
                         v-model="registrationFilter">
                   <option v-for="option in registrationFilters" :value="option.value">
                     {{ option.text }}
@@ -52,6 +52,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 import EventsDropdown from '../../shared/EventsDropdown.vue';
 import RegistrationRow from './RegistrationRow.vue';
@@ -65,8 +66,8 @@ export default {
       registrationFilter: 'all',
       registrationFilters: [
         { text: 'All', value: 'all' },
-        { text: 'Attending Event', value: 'attending' },
-        { text: 'Not Attending Event', value: 'not_attending' }
+        { text: 'Registered For Event', value: 'registered' },
+        { text: 'Not Registered For Event', value: 'unregistered' }
       ]
     };
   },
@@ -76,11 +77,11 @@ export default {
       'registrations'
     ]),
     filteredScouts() {
-      if (this.registrationFilter === 'attending') {
+      if (this.registrationFilter === 'registered') {
         return _.filter(this.registrations, (scout) => {
           return _.find(scout.registrations, { 'event_id': this.eventId });
         });
-      } else if (this.registrationFilter === 'not_attending') {
+      } else if (this.registrationFilter === 'unregistered') {
         return _.filter(this.registrations, (scout) => {
           return !_.find(scout.registrations, { 'event_id': this.eventId });
         });
