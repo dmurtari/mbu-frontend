@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   .offering-list-filters {
     margin-top: 2em;
   }
@@ -153,13 +153,5 @@ export default {
     width: 5em;
     display: block;
     margin: auto;
-  }
-
-  span.select {
-    width: 100%;
-
-    select {
-      width: 100%;
-    }
   }
 </style>

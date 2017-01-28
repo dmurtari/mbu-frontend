@@ -8,7 +8,7 @@
       <button class="delete" @click.prevent="dismissError()"></button>
       <p>{{ error }}</p>
     </div>
-    <div class="box offering-list-filters">
+    <div class="box registration-list-filters">
       <div class="columns">
         <div class="column is-6">
           <div class="control is-horizontal">
@@ -40,6 +40,13 @@
         </div>
       </div>
     </div>
+    <loader v-if="loading" :color="'lightgray'" class="registration-loading"></loader>
+    <div class="registration-list"
+         v-if="!loading">
+      <registration-row v-for="scout in filteredScouts"
+                        :eventId="eventId"
+                        :scout="scout"></registration-row>
+    </div>
   </div>
 </template>
 
@@ -47,11 +54,13 @@
 import { mapGetters } from 'vuex';
 
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import RegistrationRow from './RegistrationRow.vue';
 
 export default {
   data() {
     return {
       error: '',
+      eventId: '',
       loading: false,
       registrationFilter: 'all',
       registrationFilters: [
@@ -63,15 +72,29 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'profile'
-    ])
+      'profile',
+      'registrations'
+    ]),
+    filteredScouts() {
+      if (this.registrationFilter === 'attending') {
+        return _.filter(this.registrations, (scout) => {
+          return _.find(scout.registrations, { 'event_id': this.eventId });
+        });
+      } else if (this.registrationFilter === 'not_attending') {
+        return _.filter(this.registrations, (scout) => {
+          return !_.find(scout.registrations, { 'event_id': this.eventId });
+        });
+      } else {
+        return this.registrations;
+      }
+    }
   },
   methods: {
     dismissError() {
       this.error = '';
     },
     setEvent(eventId) {
-      console.log('Piced', eventId);
+      this.eventId = eventId;
     }
   },
   mounted() {
@@ -85,7 +108,8 @@ export default {
       });
   },
   components: {
-    'events-dropdown': EventsDropdown
+    'events-dropdown': EventsDropdown,
+    'registration-row': RegistrationRow
   }
 }
 </script>
@@ -93,5 +117,12 @@ export default {
 <style lang="sass" scoped>
   .registration-list-filters {
     margin-top: 2em;
+  }
+
+  .registration-loading {
+    margin-top: 5em;
+    width: 5em;
+    display: block;
+    margin: auto;
   }
 </style>
