@@ -98,16 +98,6 @@ export default {
       this.eventId = eventId;
     }
   },
-  mounted() {
-    this.loading = true;
-    this.$store.dispatch('getRegistrations', this.profile.id)
-      .then((registrations) => {
-        this.loading = false
-      })
-      .catch(() => {
-        this.error = 'Unable to get registrations. Please refresh and try again.';
-      });
-  },
   components: {
     'events-dropdown': EventsDropdown,
     'registration-row': RegistrationRow

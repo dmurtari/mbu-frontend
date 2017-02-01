@@ -8,16 +8,18 @@
       </template>
       <template v-if="!registered">
         <button class="button is-link"
-                v-if="isRegistrationOpen"
-                :class="{ 'is-disabled is-loading': creating }"
-                @click="registerScout()">
+                v-if="isRegistrationOpen && !creating"
+                @click="toggleCreate()">
           Register for {{ event.semester + ' ' + event.year }}
         </button>
+        <create-registration v-if="creating"
+                             :scout="scout"
+                             :eventId="eventId"
+                             @created="toggleCreate()"></create-registration>
         <p v-if="!isRegistrationOpen">
           Sorry, registration for this event is closed.
         </p>
       </template>
-
   </div>
 </template>
 
@@ -25,6 +27,8 @@
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
 import moment from 'moment';
+
+import CreateRegistration from './Create.vue';
 
 export default {
   props: {
@@ -50,10 +54,12 @@ export default {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
     isRegistrationOpen() {
-      return moment().isBetween(this.event.registration_open,
-                                this.event.registration_close,
-                                null,
-                                '[]');
+      if (this.event) {
+        return moment().isBetween(this.event.registration_open,
+                                  this.event.registration_close,
+                                  null,
+                                  '[]');
+      }
     },
     projectedCost() {
       return this.event.price;
@@ -63,22 +69,12 @@ export default {
     }
   },
   methods: {
-    registerScout() {
-      this.creating = true;
-      this.$store.dispatch('addRegistration', {
-        scoutId: this.scout.id,
-        eventId: this.eventId
-      })
-        .then(() => {
-          this.creating = false;
-          this.$emit('projectedCostChange', projectedCost);
-        })
-        .catch(() => {
-          this.creating = false;
-          this.error = 'Failed to register scout for this event.';
-        })
-
+    toggleCreate() {
+      this.creating = !this.creating;
     }
+  },
+  components: {
+    'create-registration': CreateRegistration
   }
 }
 </script>
