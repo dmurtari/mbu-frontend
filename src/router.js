@@ -14,7 +14,12 @@ import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
 import Administration from './components/administration/Administration.vue';
+import AdminOfferings from'./components/administration/offerings/List.vue';
+import AdminUsers from './components/administration/users/List.vue';
+
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
+import CoordinatorScouts from './components/coordinators/scouts/List.vue';
+import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
 
 export default [
   {
@@ -26,10 +31,28 @@ export default [
     component: About
   }, {
     path: '/administration',
-    component: Administration
+    component: Administration,
+    children: [
+      {
+        path: 'offerings',
+        component: AdminOfferings
+      }, {
+        path: 'users',
+        component: AdminUsers
+      }
+    ]
   }, {
     path: '/coordinator',
-    component: CoordinatorPage
+    component: CoordinatorPage,
+    children: [
+      {
+        path: 'scouts',
+        component: CoordinatorScouts
+      }, {
+        path: 'registrations',
+        component: CoordinatorRegistration
+      }
+    ]
   }, {
     path: '/events',
     component: EventList

@@ -9,10 +9,10 @@
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isCoordinator"
-                     to="/coordinator">Manage Troop</router-link>
+                     to="/coordinator/scouts">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isAdmin"
-                     to="/administration">Administration</router-link>
+                     to="/administration/offerings">Administration</router-link>
       </div>
       <span class="nav-toggle" @click.prevent="toggleDropdown()">
         <span></span>

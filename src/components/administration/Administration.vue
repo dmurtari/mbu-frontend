@@ -10,37 +10,14 @@
         <aside class="menu">
           <p class="menu-label">Jump to a Section</p>
           <ul class="menu-list">
-            <a href="#" @click="display('offerings')">Manage Offerings</a>
-            <a href="#" @click="display('users')">Manage Users</a>
+            <router-link to="/administration/offerings">Manage Offerings</router-link>
+            <router-link to="/administration/users">Manage Users</router-link>
           </ul>
         </aside>
       </div>
       <div class="column">
-        <offerings v-if="displayed === 'offerings'"></offerings>
-        <users v-if="displayed === 'users'"></users>
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import Offerings from './offerings/List.vue';
-import Users from './users/List.vue';
-
-export default {
-  data() {
-    return {
-      displayed: 'offerings'
-    };
-  },
-  methods: {
-    display(newDisplay) {
-      this.displayed = newDisplay;
-    }
-  },
-  components: {
-    'offerings': Offerings,
-    'users': Users
-  }
-}
-</script>
