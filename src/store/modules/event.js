@@ -18,15 +18,29 @@ const mutations = {
       return event.id === eventId;
     });
   },
+  [types.DELETE_OFFERING] (state, details) {
+    let event = _.find(state.events, { id: details.eventId });
+    _.remove(event.offerings, (offering) => {
+      return offering.badge_id === details.badgeId;
+    });
+  },
   [types.GET_EVENTS] (state, events) {
     state.events = events;
   },
   [types.SET_CURRENT] (state, event) {
     state.currentEvent = event;
   },
+  [types.SET_OFFERINGS] (state, event) {
+    let existingEvent = _.find(state.events, { id: event.id });
+    existingEvent.offerings = _.map(event.offerings, 'details');
+  },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });
     state.events.splice(index, 1, event);
+  },
+  [types.UPDATE_OFFERING] (state, offering) {
+    let index = _.indexOf(state.offerings, { badge_id: offering.badge_id });
+    state.offerings.splice(index, 1, offering);
   }
 };
 
@@ -44,6 +58,13 @@ const getters = {
   },
   orderedEvents(state) {
     return _.orderBy(state.events, 'date', 'desc');
+  },
+  offeringsForEvent: (state) => (eventId) => {
+    let event = _.find(state.events, { id: eventId });
+    if (!event) {
+      return [];
+    }
+    return event.offerings;
   }
 };
 
@@ -62,6 +83,20 @@ const actions = {
         });
     });
   },
+  createOffering({ commit }, offering) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.EVENTS_URL + offering.eventId + '/badges', offering.details)
+        .then((response) => {
+          console.log('Created offering', offering.details, 'for event', offering.eventId);
+          commit(types.SET_OFFERINGS, response.data.event);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to create offering', offering.details);
+          reject(err.response.data.message);
+        });
+    });
+  },
   deleteEvent({ commit }, eventId) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.EVENTS_URL + eventId)
@@ -73,7 +108,21 @@ const actions = {
         .catch(() => {
           console.log('Failed to delete event', eventId);
           reject();
-        }); 
+        });
+    });
+  },
+  deleteOffering({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.EVENTS_URL + details.eventId + '/badges/' + details.badgeId)
+        .then((response) => {
+          console.log('Deleted badge', details.badgeId, 'from event', details.eventId);
+          commit(types.DELETE_OFFERING, details);
+          resolve();
+        })
+        .catch(() => {
+          console.log('Failed to delete offering', details.badgeId);
+          reject();
+        });
     });
   },
   getEvents({ commit }) {
@@ -129,6 +178,20 @@ const actions = {
         .catch((err) => {
           console.log('Failed to update event', err.response.data.message);
           reject(err.response.data.message);
+        });
+    });
+  },
+  updateOffering({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.EVENTS_URL + details.eventId + '/badges/' + details.badgeId, details.offering)
+        .then((response) => {
+          console.log('Updated offering for badge', details.badgeId);
+          commit(types.UPDATE_OFFERING, response.data.offering);
+          resolve()
+        })
+        .catch(() => {
+          console.log('Failed to update offering');
+          reject();
         });
     });
   }
