@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import Vue from 'vue';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -20,8 +21,8 @@ const mutations = {
   },
   [types.DELETE_OFFERING] (state, details) {
     let event = _.find(state.events, { id: details.eventId });
-    _.remove(event.offerings, (offering) => {
-      return offering.badge_id === details.badgeId;
+    event.offerings = _.reject(event.offerings, (offering) => {
+      return offering.id === details.badgeId;
     });
   },
   [types.GET_EVENTS] (state, events) {
@@ -32,15 +33,16 @@ const mutations = {
   },
   [types.SET_OFFERINGS] (state, event) {
     let existingEvent = _.find(state.events, { id: event.id });
-    existingEvent.offerings = _.map(event.offerings, 'details');
+    Vue.set(existingEvent.offerings, event.offerings);
   },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });
     state.events.splice(index, 1, event);
   },
   [types.UPDATE_OFFERING] (state, offering) {
-    let index = _.indexOf(state.offerings, { badge_id: offering.badge_id });
-    state.offerings.splice(index, 1, offering);
+    let event = _.find(state.events, { id: offering.event_id });
+    let existingOffering = _.find(event.offerings, { id: offering.badge_id });
+    existingOffering.details = offering;
   }
 };
 
@@ -88,7 +90,7 @@ const actions = {
       axios.post(URLS.EVENTS_URL + offering.eventId + '/badges', offering.details)
         .then((response) => {
           console.log('Created offering', offering.details, 'for event', offering.eventId);
-          commit(types.SET_OFFERINGS, response.data.event);
+          commit(types.UPDATE_EVENT, response.data.event);
           resolve();
         })
         .catch((err) => {

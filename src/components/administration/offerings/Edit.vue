@@ -144,14 +144,13 @@ export default {
   },
   methods: {
     deleteOffering() {
+      this.toggleEdit();
       this.$store.dispatch('deleteOffering', {
         eventId: this.eventId,
         badgeId: this.badge.badge_id
       })
         .then(() => {
-          this.$emit('cancel');
-          this.error = '';
-          this.$store.dispatch('getOfferings', this.eventId);
+          this.error = 'Hello';
         })
         .catch(() => {
           this.error = 'Failed to remove badge from this event. Please try again';
@@ -184,12 +183,9 @@ export default {
         offering: this.offering
       })
         .then(() => {
-          return this.$store.dispatch('getOfferings', this.eventId);
-        })
-        .then(() => {
           this.error = '';
           this.saving = false;
-          this.$emit('cancel');
+          this.toggleEdit();
         })
         .catch(() => {
           this.saving = false;

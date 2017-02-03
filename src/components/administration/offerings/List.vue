@@ -23,7 +23,7 @@
               <label class="label">For&nbsp;Event:</label>
             </div>
             <div class="control">
-              <events-dropdown @select="updateOfferings($event)"></events-dropdown>
+              <events-dropdown @select="pickEvent($event)"></events-dropdown>
             </div>
           </div>
         </div>
@@ -67,7 +67,6 @@ export default {
   data() {
     return {
       eventId: '',
-      offeringsList: [],
       offeredFilter: 'all',
       offeredFilters: [
         { text: 'All', value: 'all' },
@@ -80,8 +79,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'badgeIdsAndNames',
-      'offerings'
+      'badgeIdsAndNames'
     ]),
     filteredOfferings() {
       if (this.offeredFilter === 'offered') {
@@ -97,8 +95,10 @@ export default {
       }
     },
     offeringList() {
+      // Combines offerings for an event with other badges not offered at that event
+      let offerings = _.map(this.$store.getters.offeringsForEvent(this.eventId), 'details');
       return _.map(this.badgeIdsAndNames, (badge) => {
-        let offering = _.find(this.offerings, { 'badge_id': badge.id }) || {};
+        let offering = _.find(offerings, { 'badge_id': badge.id }) || {};
         return {
           badge_id: badge.id,
           name: badge.name,
@@ -110,18 +110,8 @@ export default {
     }
   },
   methods: {
-    updateOfferings(selectedEventId) {
-      this.loading = true;
-      this.eventId = selectedEventId;
-      this.$store.dispatch('getOfferings', selectedEventId)
-        .then(() => {
-          this.error = '';
-          this.loading = false;
-        })
-        .catch(() => {
-          this.error = 'Couldn\'t load offerings. Please try refreshing'
-          this.loading = false;
-        });
+    pickEvent(eventId) {
+      this.eventId = eventId;
     }
   },
   mounted() {
@@ -129,7 +119,7 @@ export default {
     this.$store.dispatch('getBadges')
       .then(() => {
         this.error = '';
-        // this.loading = false;
+        this.loading = false;
       })
       .catch(() => {
         this.error = 'Couldn\'t load badges. Please try again'

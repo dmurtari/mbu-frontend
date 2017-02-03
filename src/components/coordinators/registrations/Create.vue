@@ -1,9 +1,13 @@
 <template>
   <div>
-    <button class="button is-link"
+    <button class="button is-primary"
             :class="{ 'is-disabled is-loading': creating }"
             @click="registerScout()">
       Register Scout
+    </button>
+    <button class="button"
+            @click="cancel()">
+      Cancel
     </button>
   </div>
 </template>
@@ -26,6 +30,9 @@ export default {
     };
   },
   methods: {
+    cancel() {
+      this.$emit('cancel');
+    },
     registerScout() {
       this.creating = true;
       this.$store.dispatch('addRegistration', {

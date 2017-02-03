@@ -15,6 +15,7 @@
         <create-registration v-if="creating"
                              :scout="scout"
                              :eventId="eventId"
+                             @cancel="toggleCreate()"
                              @created="toggleCreate()"></create-registration>
         <p v-if="!isRegistrationOpen">
           Sorry, registration for this event is closed.

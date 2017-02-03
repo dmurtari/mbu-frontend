@@ -1,7 +1,7 @@
 <template>
   <div class="badge-row is-flex-tablet columns is-multiline">
     <template v-if="editing">
-      <edit-offering class="column auto" 
+      <edit-offering class="column auto"
                      :badge="badge"
                      :eventId="eventId"
                      v-if="offered && editing"
@@ -93,9 +93,6 @@ export default {
         details: offering
       })
         .then((response) => {
-          return this.$store.dispatch('getOfferings', this.eventId);
-        })
-        .then((response) => {
           this.error = '';
           this.editing = true;
           this.creating = false;
@@ -105,7 +102,7 @@ export default {
         })
     },
     toggleEdit() {
-      console.log("Toggling")
+      console.log('Toggling edit');
       this.editing = !this.editing;
     }
   },
