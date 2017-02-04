@@ -28,6 +28,11 @@ export default {
       editing: false
     };
   },
+  watch: {
+    scout() {
+      this.editing = false;
+    }
+  },
   methods: {
     toggleEdit() {
       this.editing = !this.editing;

@@ -40,14 +40,13 @@ export default {
     store.dispatch('getProfile')
       .then(() => {
         return Promise.all([
-          store.dispatch('getRegistrations', store.state.authentication.profile.id),
+          store.dispatch('getScouts', store.state.authentication.profile.id),
           store.dispatch('getEvents'),
           store.dispatch('getBadges')
         ])
       })
       .then(() => {
         next(vm => {
-          console.log(vm)
           vm.loading = false;
         });
       })

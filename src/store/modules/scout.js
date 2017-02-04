@@ -15,6 +15,10 @@ const getters = {
 };
 
 const mutations = {
+  [types.ADD_SCOUT] (state, scout) {
+    console.log('ADding', scout);
+    state.scouts.push(scout);
+  },
   [types.DELETE_SCOUT] (state, scoutId) {
     state.scouts = _.reject(state.scouts, (existingScout) => {
       return existingScout.id === scoutId;
@@ -37,8 +41,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.USERS_URL + details.userId + '/scouts', details.scout)
         .then((response) => {
-          console.log('Added scout', details.scout, 'for user', details.user_id);
-          commit(types.SET_SCOUTS, response.data.user.scouts);
+          console.log('Added scout', response.data.scout, 'for user', details.userId);
+          commit(types.ADD_SCOUT, response.data.scout);
           resolve();
         })
         .catch((err) => {
@@ -51,7 +55,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.USERS_URL + details.userId + '/scouts/' + details.scoutId)
         .then((response) => {
-          console.log('Deleted scout', details.scoutId, 'for user', details.user_id);
+          console.log('Deleted scout', details.scoutId, 'for user', details.userId);
           commit(types.DELETE_SCOUT, details.scoutId);
           resolve()
         })
@@ -63,10 +67,10 @@ const actions = {
   },
   getScouts({ commit }, userId) {
     return new Promise((resolve, reject) => {
-      axios.get(URLS.USERS_URL + userId + '/scouts')
+      axios.get(URLS.USERS_URL + userId + '/scouts/registrations')
         .then((response) => {
-          console.log('Got scouts for user', userId, response.data[0].scouts);
-          commit(types.SET_SCOUTS, response.data[0].scouts);
+          console.log('Got scouts for user', userId, response.data);
+          commit(types.SET_SCOUTS, response.data);
           resolve()
         })
         .catch((err) => {

@@ -97,9 +97,6 @@ export default {
       this.search = '';
     }
   },
-  mounted() {
-    this.$store.dispatch('getScouts', this.profile.id);
-  },
   components: {
     'create-scout': Create,
     'scout': Scout

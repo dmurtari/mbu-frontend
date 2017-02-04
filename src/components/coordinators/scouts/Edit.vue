@@ -181,9 +181,6 @@ export default {
         scoutId: this.scout.id
       })
         .then(() => {
-          return this.$store.dispatch('getScouts', this.profile.id);
-        })
-        .then(() => {
           this.error = '';
           this.close();
         })
@@ -197,9 +194,6 @@ export default {
         userId: this.scout.user_id,
         scout: this.scoutUpdate
       })
-        .then(() => {
-          return this.$store.dispatch('getScouts', this.profile.id);
-        })
         .then(() => {
           this.saving = false;
           this.error = '';
