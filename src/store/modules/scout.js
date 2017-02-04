@@ -15,6 +15,10 @@ const getters = {
 };
 
 const mutations = {
+  [types.ADD_REGISTRATION](state, registration) {
+    let scout = _.find(state.scouts, { id: registration.scout_id });
+    scout.registrations.push(registration);
+  },
   [types.ADD_SCOUT] (state, scout) {
     console.log('ADding', scout);
     state.scouts.push(scout);
@@ -37,6 +41,22 @@ const mutations = {
 };
 
 const actions = {
+  addRegistration({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/', {
+        event_id: details.eventId
+      })
+        .then((response) => {
+          console.log('Created registration for scout', details.scoutId, 'event', details.eventId);
+          commit(types.ADD_REGISTRATION, response.data.registration);
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to register', details.scoutId, 'for', details.eventId);
+          reject();
+        })
+    });
+  },
   addScout({ commit }, details) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.USERS_URL + details.userId + '/scouts', details.scout)
