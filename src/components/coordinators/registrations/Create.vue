@@ -6,18 +6,48 @@
       </p>
     </div>
     <h5 class="title is-5">Add Merit Badge Preferences for {{ scout.fullname }}</h5>
-    <div class="columns is-multiline">
 
+    <div class="columns is-multiline">
+      <p class="column is-12">
+        Please select the top six merit badges that {{ scout.firstname}} would
+        like to attend classes for. We will do our best to accommodate
+        preferences.
+      </p>
+      <template v-for="(preference, index) in preferences">
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label"
+                :for="'registration-rank' + index">
+                {{ index + 1 }}:
+                </label>
+            </div>
+            <div class="control">
+              <span class="select">
+                <select class="form-control"
+                        :id="'registration-rank' + index"
+                        v-model="preference.offering">
+                  <option v-for="option in offerings" :value="option.id">
+                    {{ option.name }}
+                  </option>
+                </select>
+              </span>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
-    <button class="button is-primary"
-            :class="{ 'is-disabled is-loading': creating }"
-            @click="registerScout()">
-      Register Scout
-    </button>
-    <button class="button"
-            @click="cancel()">
-      Cancel
-    </button>
+    <div class="is-pulled-right">
+      <button class="button is-primary"
+              :class="{ 'is-disabled is-loading': creating }"
+              @click="registerScout()">
+        Register Scout
+      </button>
+      <button class="button"
+              @click="cancel()">
+        Cancel
+      </button>
+    </div>
   </div>
 </template>
 
@@ -37,6 +67,7 @@ export default {
   },
   data() {
     return {
+      preferences: [],
       creating: false,
       error: ''
     };
@@ -64,6 +95,14 @@ export default {
           this.creating = false;
           this.error = 'Failed to register scout for this event.';
         });
+    }
+  },
+  mounted() {
+    for (var i = 1; i <= 6; i++) {
+      this.preferences.push({
+        rank: i,
+        offering: ''
+      })
     }
   }
 }
