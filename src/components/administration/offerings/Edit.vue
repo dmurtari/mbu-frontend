@@ -50,7 +50,7 @@
                  id="offering-price"
                  v-model="offering.price"
                  :class="{ 'is-danger': $v.offering.price.$error }"
-                  @blur="$v.offering.price.$touch"
+                 @blur="$v.offering.price.$touch"
                  placeholder="Price">
           <span class="help is-danger" v-if="$v.offering.price.$error">
             Enter the price of this class
@@ -120,13 +120,6 @@ export default {
       error: ''
     };
   },
-  watch: {
-    badge() {
-      this.offering.periods = this.badge.periods;
-      this.offering.duration = this.badge.duration;
-      this.offering.price = this.badge.price;
-    }
-  },
   computed: {
     editablePeriods: {
       get() {
@@ -144,13 +137,13 @@ export default {
   },
   methods: {
     deleteOffering() {
-      this.toggleEdit();
       this.$store.dispatch('deleteOffering', {
         eventId: this.eventId,
         badgeId: this.badge.badge_id
       })
         .then(() => {
-          this.error = 'Hello';
+          this.toggleEdit();
+          this.error = '';
         })
         .catch(() => {
           this.error = 'Failed to remove badge from this event. Please try again';

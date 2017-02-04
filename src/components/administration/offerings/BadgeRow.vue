@@ -1,13 +1,12 @@
 <template>
   <div class="badge-row is-flex-tablet columns is-multiline">
-    <template v-if="editing">
+    <template v-if="shouldShowEdit">
       <edit-offering class="column auto"
                      :badge="badge"
                      :eventId="eventId"
-                     v-if="offered && editing"
                      @cancel="toggleEdit()"></edit-offering>
     </template>
-    <template v-if="!editing">
+    <template v-if="!shouldShowEdit">
       <b class="column is-2-tablet is-3-desktop">{{ badge.name }}</b>
       <template v-if="offered">
         <div class="column is-4-tablet is-3-desktop offering-detail">
@@ -17,7 +16,7 @@
           <b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}
         </div>
         <div class="column is-2-tablet is-2-desktop offering-detail">
-          <b>Price: </b>${{ badge.price }}
+          <b>Price: </b>{{ offeringPrice }}
         </div>
         <div class="column is-1" v-if="isAdmin">
           <button class="button is-white offering-detail is-hidden-mobile"
@@ -42,6 +41,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import accounting from 'accounting';
 
 import Edit from './Edit.vue';
 
@@ -72,8 +72,19 @@ export default {
     offered() {
       return !_.isEmpty(this.badge.periods);
     },
+    offeringPrice() {
+      return accounting.formatMoney(this.badge.price);
+    },
     periods() {
       return _.join(_.sortBy(this.badge.periods), ', ');
+    },
+    shouldShowEdit() {
+      return this.editing && this.offered;
+    }
+  },
+  watch: {
+    badge()  {
+      this.editing = false;
     }
   },
   methods: {
@@ -102,7 +113,6 @@ export default {
         })
     },
     toggleEdit() {
-      console.log('Toggling edit');
       this.editing = !this.editing;
     }
   },

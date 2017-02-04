@@ -15,7 +15,7 @@ const mutations = {
     state.events.push(event);
   },
   [types.DELETE_EVENT] (state, eventId) {
-    _.remove(state.events, (event) => {
+    state.events = _.reject(state.events, (event) => {
       return event.id === eventId;
     });
   },
@@ -30,10 +30,6 @@ const mutations = {
   },
   [types.SET_CURRENT] (state, event) {
     state.currentEvent = event;
-  },
-  [types.SET_OFFERINGS] (state, event) {
-    let existingEvent = _.find(state.events, { id: event.id });
-    Vue.set(existingEvent.offerings, event.offerings);
   },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });

@@ -24,7 +24,7 @@ export const ADD_OFFERING = 'offerings/ADD';
 export const DELETE_OFFERING = 'offerings/DELETE';
 export const GET_OFFERINGS = 'offerings/GET';
 export const SET_OFFERINGS = 'offerings/SET';
-export const UPDATE_OFFERING = 'offgerints/UPDATE'
+export const UPDATE_OFFERING = 'offerings/UPDATE'
 
 // Registrations
 export const ADD_REGISTRATION = 'registrations/ADD';
