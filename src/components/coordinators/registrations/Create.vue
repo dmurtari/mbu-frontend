@@ -27,7 +27,7 @@
                 <select class="form-control"
                         :id="'registration-rank' + index"
                         v-model="preference.offering">
-                  <option v-for="option in offerings" :value="option.id">
+                  <option v-for="option in offerings" :value="option.details.id">
                     {{ option.name }}
                   </option>
                 </select>
@@ -87,18 +87,25 @@ export default {
         scoutId: this.scout.id,
         eventId: this.event.id
       })
+        .then((registration) => {
+          return this.$store.dispatch('setPreferences', {
+            scoutId: this.scout.id,
+            registrationId: registration.id,
+            preferences: this.preferences
+          })
+        })
         .then(() => {
           this.creating = false;
-          this.$emit('created', projectedCost);
+          this.$emit('created');
         })
-        .catch(() => {
+        .catch((err) => {
           this.creating = false;
           this.error = 'Failed to register scout for this event.';
         });
     }
   },
   mounted() {
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 1; i <= 2; i++) {
       this.preferences.push({
         rank: i,
         offering: ''

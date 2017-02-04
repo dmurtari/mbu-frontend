@@ -26,6 +26,9 @@ export const GET_OFFERINGS = 'offerings/GET';
 export const SET_OFFERINGS = 'offerings/SET';
 export const UPDATE_OFFERING = 'offerings/UPDATE'
 
+// Preferences
+export const SET_PREFERENCES = 'preferences/SET';
+
 // Registrations
 export const ADD_REGISTRATION = 'registrations/ADD';
 export const SET_REGISTRATIONS = 'registrations/SET';
