@@ -74,19 +74,19 @@ export default {
   computed: {
     ...mapGetters([
       'profile',
-      'registrations'
+      'scouts'
     ]),
     filteredScouts() {
       if (this.registrationFilter === 'registered') {
-        return _.filter(this.registrations, (scout) => {
+        return _.filter(this.scouts, (scout) => {
           return _.find(scout.registrations, { 'event_id': this.eventId });
         });
       } else if (this.registrationFilter === 'unregistered') {
-        return _.filter(this.registrations, (scout) => {
+        return _.filter(this.scouts, (scout) => {
           return !_.find(scout.registrations, { 'event_id': this.eventId });
         });
       } else {
-        return this.registrations;
+        return this.scouts;
       }
     }
   },
