@@ -14,7 +14,7 @@
                  id="scout-edit-first-name"
                  placeholder="First Name"
                  :class="{ 'is-danger': $v.scoutUpdate.firstname.$error }"
-                  @blur="$v.scoutUpdate.firstname.$touch"
+                 @blur="$v.scoutUpdate.firstname.$touch"
                  v-model="scoutUpdate.firstname">
           <span class="help is-danger" v-if="$v.scoutUpdate.firstname.$error">
             Please enter the scout's first name
@@ -27,7 +27,7 @@
                  id="scout-edit-last-name"
                  placeholder="Last Name"
                  :class="{ 'is-danger': $v.scoutUpdate.lastname.$error }"
-                  @blur="$v.scoutUpdate.lastname.$touch"
+                 @blur="$v.scoutUpdate.lastname.$touch"
                  v-model="scoutUpdate.lastname">
           <span class="help is-danger" v-if="$v.scoutUpdate.lastname.$error">
             Please enter the scout's last name

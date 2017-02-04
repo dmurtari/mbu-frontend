@@ -1,6 +1,7 @@
 <template>
   <div class="registration-row is-flex-tablet columns is-multiline">
-    <b class="column is-2">{{ scout.fullname }}</b>
+    <template v-if="!creating">
+      <b class="column is-2">{{ scout.fullname }}</b>
       <template v-if="registered">
         <div class="column is-2">
           <b>Projected Fee: </b>${{ projectedCost }}
@@ -12,15 +13,16 @@
                 @click="toggleCreate()">
           Register for {{ event.semester + ' ' + event.year }}
         </button>
-        <create-registration v-if="creating"
-                             :scout="scout"
-                             :eventId="eventId"
-                             @cancel="toggleCreate()"
-                             @created="toggleCreate()"></create-registration>
         <p v-if="!isRegistrationOpen">
           Sorry, registration for this event is closed.
         </p>
       </template>
+    </template>
+    <create-registration v-if="creating"
+                         :scout="scout"
+                         :event="event"
+                         @cancel="toggleCreate()"
+                         @created="toggleCreate()"></create-registration>
   </div>
 </template>
 
@@ -46,6 +48,11 @@ export default {
       creating: false,
       error: ''
     };
+  },
+  watch: {
+    eventId() {
+      this.creating = false;
+    }
   },
   computed: {
     ...mapGetters([
