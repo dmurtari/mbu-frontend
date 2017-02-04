@@ -16,7 +16,7 @@
       <div class="columns is-multiline">
         <div class="control column is-4">
           <label class="label" for="event-create-year">Year</label>
-          <masked-input mask="9999" 
+          <masked-input mask="9999"
                         placeholder="yyyy"
                         id="event-create-year"
                         :class="{ 'is-danger': $v.event.year.$error }"
@@ -29,7 +29,7 @@
         <div class="control column is-4">
           <label class="label" for="event-create-semester">Semester</label>
           <span class="select">
-            <select id="event-create-semester" 
+            <select id="event-create-semester"
                     class="input"
                     :class="{ 'is-danger': $v.event.semester.$error }"
                     @blur="$v.event.semester.$touch"
@@ -89,7 +89,7 @@
                         @blur="$v.event.registration_close.$touch"
                         v-model="event.registration_close"></masked-input>
           <span class="help is-danger" v-if="$v.event.registration_close.$error">
-            Please enter a valid date for registration closing, between 
+            Please enter a valid date for registration closing, between
             registration opening and the event day
           </span>
         </div>
@@ -99,11 +99,11 @@
           </label>
         </div>
       </div>
-      <button class="button is-primary" 
+      <button class="button is-primary"
               :disabled="$v.$invalid"
               :class="{ 'is-loading is-disabled': creating }"
               @click.prevent="createEvent()">Create Event</button>
-      <button class="button" 
+      <button class="button"
               @click.prevent="clearAndClose()">Cancel</button>
     </form>
   </div>
@@ -163,6 +163,7 @@ export default {
           return this.$store.dispatch('getEvents');
         })
         .then((data) => {
+          this.$v.$reset();
           this.creating = false;
           this.clearAndClose();
         })

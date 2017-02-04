@@ -3,7 +3,7 @@
     <h4 class="title is-4">Add a New Merit Badge</h4>
     <p>
       Fill out the information below to add a new merit badge. Note that this
-      will not be associated with any events 
+      will not be associated with any events
       (go to <router-link to="/administration"> the administration page</router-link>
       to manage merit badge offerings).
     </p>
@@ -46,11 +46,11 @@
         </div>
       </div>
       <div>
-        <button class="button is-primary" 
+        <button class="button is-primary"
                 :disabled="$v.$invalid"
                 :class="{ 'is-loading is-disabled': creating }"
                 @click.prevent="createBadge()">Create Badge</button>
-        <button class="button" 
+        <button class="button"
                 @click.prevent="clearAndClose()">Cancel</button>
       </div>
     </form>
@@ -88,6 +88,7 @@ export default {
         })
         .then(() => {
           this.creating = false;
+          this.$v.$reset();
           this.clearAndClose();
         })
         .catch((err) => {

@@ -8,7 +8,7 @@
     </div>
     <br>
     <h5 class="title is-5">Badges offered at this event:</h5>
-    <div v-if="orderedOfferings.length > 0">
+    <div v-if="orderedOfferings.length > 0" class="offering-list">
       <div v-for="offering in orderedOfferings">
         {{ offering.name }}
       </div>
@@ -47,3 +47,23 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  @media screen and (min-width: 700px) {
+    .offering-list {
+      columns: 3
+    }
+  }
+
+  @media screen and (max-width: 699px) and (min-width: 500px) {
+    .offering-list {
+      columns: 2
+    }
+  }
+
+  @media screen and (max-width: 499) {
+    .offering-list {
+      columns: 1
+    }
+  }
+</style>

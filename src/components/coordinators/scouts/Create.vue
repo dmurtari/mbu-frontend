@@ -188,6 +188,7 @@ export default {
           return this.$store.dispatch('getScouts', this.profile.id);
         })
         .then(() => {
+          this.$v.$reset();
           this.error = '';
           this.creating = false;
           this.close();
