@@ -36,17 +36,17 @@
           </div>
         </div>
       </template>
-    </div>
-    <div class="is-pulled-right">
-      <button class="button is-primary"
-              :class="{ 'is-disabled is-loading': creating }"
-              @click="registerScout()">
-        Register Scout
-      </button>
-      <button class="button"
-              @click="cancel()">
-        Cancel
-      </button>
+      <div class="column is-12">
+        <button class="button is-primary"
+                :class="{ 'is-disabled is-loading': creating }"
+                @click="registerScout()">
+          Register Scout
+        </button>
+        <button class="button"
+                @click="cancel()">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </template>

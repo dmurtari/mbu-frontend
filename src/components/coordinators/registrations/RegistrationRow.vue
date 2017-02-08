@@ -2,14 +2,20 @@
   <div class="registration-row is-flex-tablet columns is-multiline">
     <template v-if="!creating">
       <b class="column is-2">{{ scout.fullname }}</b>
-      <template v-if="registered">
-        <div class="column is-2">
-          <b>Projected Fee: </b>${{ projectedCost }}
+      <loader v-if="loading" :color="'lightgray'"></loader>
+      <template v-if="registration && !loading">
+        <div class="column auto">
+          <p>
+            <b>Projected Fee: </b>${{ projectedCost }}
+          </p>
+          <p>
+            <b>Badge Preferences: </b>{{ preferences }}
+          </p>
         </div>
       </template>
-      <template v-if="!registered">
+      <template v-if="!registration">
         <button class="button is-link"
-                v-if="isRegistrationOpen && !creating"
+                v-if="isRegistrationOpen"
                 @click="toggleCreate()">
           Register for {{ event.semester + ' ' + event.year }}
         </button>
@@ -46,17 +52,36 @@ export default {
   data() {
     return {
       creating: false,
+      loading: false,
       error: ''
     };
   },
   watch: {
     eventId() {
       this.creating = false;
+    },
+    registration() {
+      if (this.registration.details) {
+        console.log('Getting preferences for', this.registration)
+        this.loading = true;
+        this.$store.dispatch('getPreferences', {
+          scoutId: this.scout.id,
+          registrationId: this.registration.details.id
+        })
+          .then(() => {
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+            this.error = 'Failed to load registration details. Please refresh and try again';
+          })
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'allEvents'
+      'allEvents',
+      'badgeIdsAndNames'
     ]),
     event() {
       return _.find(this.allEvents, { 'id': this.eventId });
@@ -69,10 +94,15 @@ export default {
                                   '[]');
       }
     },
+    preferences() {
+      return _.join(_.map(this.registration.preferences, (preference) => {
+        return _.find(this.badgeIdsAndNames, { id: preference.badge_id }).name;
+      }), ', ');
+    },
     projectedCost() {
       return this.event.price;
     },
-    registered() {
+    registration() {
       return _.find(this.scout.registrations, { 'event_id': this.eventId });
     }
   },

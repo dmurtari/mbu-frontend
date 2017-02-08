@@ -17,10 +17,13 @@ const getters = {
 const mutations = {
   [types.ADD_REGISTRATION](state, registration) {
     let scout = _.find(state.scouts, { id: registration.scout_id });
-    scout.registrations.push(registration);
+    scout.registrations.push({
+      preferences: [],
+      event_id: registration.event_id,
+      details: registration
+    });
   },
   [types.ADD_SCOUT] (state, scout) {
-    console.log('ADding', scout);
     state.scouts.push(scout);
   },
   [types.DELETE_SCOUT] (state, scoutId) {
@@ -30,8 +33,10 @@ const mutations = {
   },
   [types.SET_PREFERENCES] (state, details) {
     let scout = _.find(state.scouts, { id: details.scoutId });
-    let registration = _.find(scout.registrations, { id: details.registrationId});
-    registration.preferences = details.preferences;
+    let registration = _.find(scout.registrations, (registration) => {
+      return registration.details.id === details.registrationId;
+    });
+    registration.preferences = _.sortBy(details.preferences, ['details.rank']);
   },
   [types.SET_SCOUTS] (state, scouts) {
     state.scouts = scouts;
@@ -86,6 +91,25 @@ const actions = {
         })
         .catch((err) => {
           console.log('Failed to delete scout with error', err);
+          reject();
+        })
+    });
+  },
+  getPreferences({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.get(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+                details.registrationId + '/preferences')
+        .then((response) => {
+          console.log('Received preferences', response.data);
+          commit(types.SET_PREFERENCES, {
+            scoutId: details.scoutId,
+            registrationId: details.registrationId,
+            preferences: response.data
+          });
+          resolve();
+        })
+        .catch((err) => {
+          console.log('Failed to fetch preferences with', err);
           reject();
         })
     });
