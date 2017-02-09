@@ -1,6 +1,6 @@
 <template>
   <div class="registration-row is-flex-tablet columns is-multiline">
-    <template v-if="!creating">
+    <template v-if="state === 'displaying'">
       <b class="column is-2">{{ scout.fullname }}</b>
       <loader v-if="loading" :color="'lightgray'"></loader>
       <template v-if="registration && !loading">
@@ -12,11 +12,18 @@
             <b>Badge Preferences: </b>{{ preferences }}
           </p>
         </div>
+        <div class="column is-1">
+          <button class="button"
+                  @click="toggleState('editing')"
+                  @cancel="toggleState()">
+            <span class="fa fa-edit" aria-label="Modify"></span>
+          </button>
+        </div>
       </template>
       <template v-if="!registration">
         <button class="button is-link"
                 v-if="isRegistrationOpen"
-                @click="toggleCreate()">
+                @click="toggleState('creating')">
           Register for {{ event.semester + ' ' + event.year }}
         </button>
         <p v-if="!isRegistrationOpen">
@@ -24,11 +31,15 @@
         </p>
       </template>
     </template>
-    <create-registration v-if="creating"
+    <create-registration v-if="state === 'creating'"
                          :scout="scout"
                          :event="event"
-                         @cancel="toggleCreate()"
-                         @created="toggleCreate()"></create-registration>
+                         @cancel="toggleState()"
+                         @created="toggleState()"></create-registration>
+    <edit-registration v-if="state === 'editing'"
+                       :scout="scout"
+                       :registration="registration"
+                       @cancel="toggleState()"></edit-registration>
   </div>
 </template>
 
@@ -38,6 +49,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import CreateRegistration from './Create.vue';
+import EditRegistration from './Edit.vue';
 
 export default {
   props: {
@@ -51,18 +63,17 @@ export default {
   },
   data() {
     return {
-      creating: false,
+      state: 'displaying',
       loading: false,
       error: ''
     };
   },
   watch: {
     eventId() {
-      this.creating = false;
+      this.state = 'displaying';
     },
     registration() {
-      if (this.registation && this.registration.details) {
-        console.log('Getting preferences for', this.registration)
+      if (this.registration && this.registration.details) {
         this.loading = true;
         this.$store.dispatch('getPreferences', {
           scoutId: this.scout.id,
@@ -107,12 +118,13 @@ export default {
     }
   },
   methods: {
-    toggleCreate() {
-      this.creating = !this.creating;
+    toggleState(state = 'displaying') {
+      this.state = state;
     }
   },
   components: {
-    'create-registration': CreateRegistration
+    'create-registration': CreateRegistration,
+    'edit-registration': EditRegistration
   }
 }
 </script>
