@@ -61,7 +61,7 @@ export default {
       this.creating = false;
     },
     registration() {
-      if (this.registration.details) {
+      if (this.registation && this.registration.details) {
         console.log('Getting preferences for', this.registration)
         this.loading = true;
         this.$store.dispatch('getPreferences', {
