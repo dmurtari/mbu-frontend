@@ -4,7 +4,12 @@
       {{ scout.firstname }} {{ scout.lastname }}
       <button class="button edit-button is-pulled-right"
               @click="toggleEdit()">
-        <span class="fa fa-edit" aria-label="Edit"></span>
+        <span class="fa fa-edit"
+              v-if="!editing"
+              aria-label="Edit"></span>
+        <span class="fa fa-close"
+              v-if="editing"
+              aria-label="Close"></span>
       </button>
     </h4>
     <scout-detail v-if="!editing" :scout="scout"></scout-detail>
