@@ -54,6 +54,9 @@ const getters = {
       event.id === state.currentEvent.id;
     });
   },
+  isCurrentEvent: (state) => (eventId) => {
+    return state.currentEvent.id === eventId;
+  },
   orderedEvents(state) {
     return _.orderBy(state.events, 'date', 'desc');
   },
