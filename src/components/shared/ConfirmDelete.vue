@@ -17,10 +17,10 @@
       </span>
     </div>
     <button class="button"
-            @click.prevent="cancel()">Don't Delete</button>
+            @click.prevent="cancel()">{{ cancelText }}</button>
     <button class="button is-danger"
             :disabled="enteredText != matchText"
-            @click.prevent="confirmDelete()">Confirm Deletion</button>
+            @click.prevent="confirmDelete()">{{ confirmText }}</button>
   </div>
 </template>
 
@@ -31,7 +31,15 @@ export default {
       type: String,
       required: true
     },
-    placeholder: String
+    placeholder: String,
+    cancelText: {
+      type: String,
+      default: 'Don\'t Delete'
+    },
+    confirmText: {
+      type: String,
+      default: 'Confirm Deletion'
+    }
   },
   data() {
     return {
