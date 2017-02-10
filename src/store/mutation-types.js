@@ -31,6 +31,7 @@ export const SET_PREFERENCES = 'preferences/SET';
 
 // Registrations
 export const ADD_REGISTRATION = 'registrations/ADD';
+export const DELETE_REGISTRATION = 'registration/DELETE';
 export const SET_REGISTRATIONS = 'registrations/SET';
 
 // Scouts
