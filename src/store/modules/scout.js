@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import Vue from 'vue';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -26,6 +27,12 @@ const mutations = {
   [types.ADD_SCOUT] (state, scout) {
     state.scouts.push(scout);
   },
+  [types.DELETE_REGISTRATION] (state, details) {
+    let scout = _.find(state.scouts, { id: details.scoutId });
+    scout.registrations = _.reject(scout.registrations, (registration) => {
+      return registration.event_id === details.eventId;
+    });
+  },
   [types.DELETE_SCOUT] (state, scoutId) {
     state.scouts = _.reject(state.scouts, (existingScout) => {
       return existingScout.id === scoutId;
@@ -36,16 +43,17 @@ const mutations = {
     let registration = _.find(scout.registrations, (registration) => {
       return registration.details.id === details.registrationId;
     });
-    registration.preferences = _.sortBy(details.preferences, ['details.rank']);
+    Vue.set(registration, 'preferences', _.sortBy(details.preferences, ['details.rank']));
   },
   [types.SET_SCOUTS] (state, scouts) {
     state.scouts = scouts;
   },
   [types.UPDATE_SCOUT] (state, updatedScout) {
+    let scout = _.find(state.scouts, { id: updatedScout.id });
     state.scouts = _.reject(state.scouts, (existingScout) => {
       return existingScout.id === updatedScout.id;
     });
-
+    updatedScout.registrations = scout.registrations;
     state.scouts.push(updatedScout);
   }
 };
@@ -62,7 +70,7 @@ const actions = {
           resolve(response.data.registration);
         })
         .catch((err) => {
-          console.log('Failed to register', details.scoutId, 'for', details.eventId);
+          console.error('Failed to register', details.scoutId, 'for', details.eventId);
           reject();
         })
     });
@@ -76,8 +84,22 @@ const actions = {
           resolve(response.data.scout);
         })
         .catch((err) => {
-          console.log('Failed to create scout with error', err.response.data.message);
+          console.error('Failed to create scout with error', err.response.data.message);
           reject(err.response.data.message);
+        })
+    });
+  },
+  deleteRegistration({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.SCOUTS_URL + details.scoutId + '/registrations/' + details.eventId)
+        .then((response) => {
+          console.log('Deleted registration for event', details.eventId);
+          commit(types.DELETE_REGISTRATION, details);
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to delete registration', err);
+          reject();
         })
     });
   },
@@ -90,7 +112,7 @@ const actions = {
           resolve()
         })
         .catch((err) => {
-          console.log('Failed to delete scout with error', err);
+          console.errpr('Failed to delete scout with error', err);
           reject();
         })
     });
@@ -109,7 +131,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to fetch preferences with', err);
+          console.error('Failed to fetch preferences with', err);
           reject();
         })
     });
@@ -123,7 +145,7 @@ const actions = {
           resolve(response.data);
         })
         .catch((err) => {
-          console.log('Failed to get scouts', err);
+          console.error('Failed to get scouts', err);
           reject();
         })
     });
@@ -143,7 +165,7 @@ const actions = {
           resolve(response.data.registration.preferences);
         })
         .catch((err) => {
-          console.log('Failed to set preferences', err);
+          console.error('Failed to set preferences', err);
           reject();
         })
     });
@@ -157,7 +179,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to update scout', err);
+          console.error('Failed to update scout', err);
           reject();
         })
     })
