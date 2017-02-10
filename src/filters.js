@@ -1,4 +1,5 @@
 import moment from 'moment';
+import numeral from 'numeral';
 import _ from 'lodash';
 
 export default function(Vue) {
@@ -14,4 +15,10 @@ export default function(Vue) {
   Vue.filter('titleCase', (value) => {
     return _.startCase(_.toLower(value));
   });
+  Vue.filter('ordinalSuffix', (number) => {
+    return numeral(number).format('Oo');
+  });
+  Vue.filter('currency', (number) => {
+    return numeral(number).format('$0,0.00');
+  })
 }
