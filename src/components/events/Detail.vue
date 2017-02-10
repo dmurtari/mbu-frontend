@@ -11,6 +11,9 @@
     <div v-if="orderedOfferings.length > 0" class="offering-list">
       <div v-for="offering in orderedOfferings">
         {{ offering.name }}
+        <span v-if="offering.details.price !== '0.00'">
+          ({{ offering.details.price | currency }})
+        </span>
       </div>
     </div>
     <div v-else>

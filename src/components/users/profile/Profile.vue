@@ -8,12 +8,12 @@
           <p class="menu-label">Jump to a section</p>
           <ul class="menu-list">
             <li>
-              <a href="#general-profile" 
-                @click="showDisplay()">My Profile</a>
+              <a href="#general-profile"
+                 @click="showDisplay()">My Profile</a>
             </li>
             <li>
-              <a href="#coordinator-details" 
-                @click="showDisplay()">Details</a>
+              <a href="#coordinator-details"
+                 @click="showDisplay()">Details</a>
             </li>
           </ul>
           <p class="menu-label">Make changes to your account</p>
@@ -39,7 +39,7 @@
       <div class="column">
         <div v-if="state === 'display'">
           <general-profile id="general-profile"
-                          class="general-profile" :profile="profile"></general-profile>
+                           class="general-profile" :profile="profile"></general-profile>
           <coordinator-detail v-if="profile.role === 'coordinator' "
                               id="coordinator-details"></coordinator-detail>
         </div>

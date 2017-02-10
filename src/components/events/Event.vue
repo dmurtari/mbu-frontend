@@ -10,7 +10,7 @@
       <span class="fa fa-edit" aria-label="Edit"></span>
     </button>
     </h4>
-    <event-detail v-if="!displayEditEvent" 
+    <event-detail v-if="!displayEditEvent"
                   :event="event"></event-detail>
     <event-edit v-if="displayEditEvent"
                 @close="toggleEdit"
@@ -52,10 +52,7 @@ export default {
   },
   components: {
     'event-edit': EventEdit,
-    'event-detail': EventDetail    
-  },
-  mounted() {
-    $('[data-toggle="tooltip"]').tooltip();    
+    'event-detail': EventDetail
   }
 }
 </script>
