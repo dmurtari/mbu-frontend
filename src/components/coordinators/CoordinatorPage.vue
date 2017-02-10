@@ -7,16 +7,18 @@
       records.
     </h5>
     <div class="columns">
-      <div class="column is-3">
+      <div class="column is-narrow sidebar">
         <aside class="menu">
-          <p class="menu-label">Jump to a Section</p>
+          <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
-            <router-link to="/coordinator/scouts">Manage Scouts</router-link>
-            <router-link to="/coordinator/registrations">Event Registrations</router-link>
+            <router-link to="/coordinator/scouts"
+                         active-class="is-active">Manage Scouts</router-link>
+            <router-link to="/coordinator/registrations"
+                         active-class="is-active">Event Registrations</router-link>
           </ul>
         </aside>
       </div>
-      <div class="column">
+      <div class="column auto">
         <div class="notification is-danger" v-if="error">
           <p>{{ error }}</p>
         </div>
@@ -59,3 +61,10 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  .sidebar {
+    padding-right: 2rem;
+    min-width: 17rem;
+  }
+</style>
