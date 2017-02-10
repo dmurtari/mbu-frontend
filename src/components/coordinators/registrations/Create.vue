@@ -1,12 +1,11 @@
 <template>
-  <div class="container section">
+  <div>
     <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
     <h5 class="title is-5">Add Merit Badge Preferences for {{ scout.fullname }}</h5>
-
     <div class="columns is-multiline">
       <p class="column is-12">
         Please select the top six merit badges that {{ scout.firstname}} would
@@ -14,47 +13,52 @@
         preferences.
       </p>
       <template v-for="(preference, index) in preferences">
-        <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
-              <label class="label"
-                :for="'registration-rank' + index">
-                {{ index + 1 }}:
-                </label>
-            </div>
-            <div class="control">
-              <span class="select">
-                <select class="form-control"
-                        :id="'registration-rank' + index"
-                        v-model="preference.offering">
-                  <option v-for="option in offerings" :value="option.details.id">
-                    {{ option.name }}
-                  </option>
-                </select>
-              </span>
-            </div>
+        <div class="column is-6 is-4-widescreen">
+          <label class="label"
+            :for="'registration-rank' + index">
+            {{ index + 1 | ordinalSuffix }}&nbsp;choice:
+          </label>
+          <div class="control">
+            <span class="select">
+              <select class="input"
+                      :id="'registration-rank' + index"
+                      @blur="$v.preferences.$each[index].$touch"
+                      :class="{ 'is-danger': $v.preferences.$each[index].$error }"
+                      v-model="preference.offering">
+                <option v-for="option in offerings" :value="option.details.id">
+                  {{ option.name }}
+                </option>
+              </select>
+            </span>
+            <span class="help is-danger"
+                  v-if="$v.preferences.$each[index].$error">
+              Please select a {{ index + 1 | ordinalSuffix }}&nbsp;choice badge
+            </span>
           </div>
         </div>
       </template>
-      <div class="column">
-        <div class="is-pulled-right">
-          <button class="button is-primary"
-                  :class="{ 'is-disabled is-loading': creating }"
-                  @click="registerScout()">
-            Register Scout
-          </button>
-          <button class="button"
-                  @click="cancel()">
-            Cancel
-          </button>
-        </div>
+      <div class="column is-12">
+        <button class="button is-primary"
+                :disabled="$v.$invalid"
+                :class="{ 'is-disabled is-loading': creating }"
+                @click="registerScout()">
+          Register Scout
+        </button>
+        <button class="button"
+                :class="{ 'is-disabled': creating }"
+                @click="cancel()">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
+
 import { mapGetters } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   props: {
@@ -84,6 +88,11 @@ export default {
       this.$emit('cancel');
     },
     registerScout() {
+      if (!this.uniqueOfferings()) {
+        this.error = 'Merit Badge requests cannot be duplicates.';
+        return;
+      }
+
       this.creating = true;
       this.$store.dispatch('addRegistration', {
         scoutId: this.scout.id,
@@ -97,6 +106,7 @@ export default {
           })
         })
         .then(() => {
+          this.error = '';
           this.creating = false;
           this.$emit('created');
         })
@@ -104,22 +114,27 @@ export default {
           this.creating = false;
           this.error = 'Failed to register scout for this event.';
         });
+    },
+    uniqueOfferings() {
+      let offerings = _.map(this.preferences, 'offering');
+      console.log(offerings)
+      return _.uniq(offerings).length === offerings.length;
     }
   },
   mounted() {
-    for (var i = 1; i <= 2; i++) {
+    for (var i = 1; i <= 6; i++) {
       this.preferences.push({
         rank: i,
         offering: ''
       })
     }
+  },
+  validations: {
+    preferences: {
+      $each: {
+        offering: { required }
+      }
+    }
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  .section {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-</style>
