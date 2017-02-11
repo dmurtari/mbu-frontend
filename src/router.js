@@ -16,6 +16,7 @@ import Signup from './components/authentication/Signup.vue';
 import Administration from './components/administration/Administration.vue';
 import AdminOfferings from'./components/administration/offerings/List.vue';
 import AdminUsers from './components/administration/users/List.vue';
+import AdminPurchasables from './components/administration/purchasables/List.vue'
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorScouts from './components/coordinators/scouts/List.vue';
@@ -39,6 +40,9 @@ export default [
       }, {
         path: 'users',
         component: AdminUsers
+      }, {
+        path: 'purchasables',
+        component: AdminPurchasables
       }
     ]
   }, {
