@@ -31,9 +31,10 @@
     </div>
     <button class="button is-primary"
             v-if="!showCreate"
-            @close="toggleCreate()"
             @click="toggleCreate()">Add a New Item</button>
-    <create-purchasable v-if="showCreate"></create-purchasable>
+    <create-purchasable v-if="showCreate"
+                        @close="toggleCreate()"
+                        :eventId="eventId"></create-purchasable>
     <loader v-if="loading" :color="'lightgray'" class="purchasables-loading"></loader>
   </div>
 </template>

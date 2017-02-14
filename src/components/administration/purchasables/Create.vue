@@ -73,6 +73,9 @@
 
 <script>
 export default {
+  props: {
+    eventId: { required: true }
+  },
   data() {
     return {
       creating: false,
