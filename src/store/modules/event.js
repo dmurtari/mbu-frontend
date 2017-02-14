@@ -31,6 +31,10 @@ const mutations = {
   [types.SET_CURRENT] (state, event) {
     state.currentEvent = event;
   },
+  [types.SET_PURCHASABLES] (state, details) {
+    let event = _.find(state.events, { id: details.eventId });
+    Vue.set(event, 'purchasables', details.purchasables);
+  },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });
     state.events.splice(index, 1, event);
@@ -79,7 +83,7 @@ const actions = {
           resolve(response.data.event);
         })
         .catch((err) => {
-          console.log('Failed to create event', err.response.data.message);
+          console.error('Failed to create event', err.response.data.message);
           reject(err.response.data.message);
         });
     });
@@ -93,10 +97,30 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to create offering', offering.details);
+          console.error('Failed to create offering', offering.details);
           reject(err.response.data.message);
         });
     });
+  },
+  createPurchasable({ commit }, details) {
+    console.log('dispatching')
+    return new Promise((resolve, reject) => {
+      console.log('posting', details)
+      axios.post(URLS.EVENTS_URL + details.eventId + '/purchasables', details.purchasable)
+        .then((response) => {
+          console.log('Added purchasable', details.purchasable)
+          commit(types.SET_PURCHASABLES, {
+            eventId: details.eventId,
+            purchasables: response.data.purchasables
+          });
+          resolve();
+        })
+        .catch((err) => {
+          console.log(err)
+          console.error('Failed to create purchasable', err);
+          reject();
+        })
+    })
   },
   deleteEvent({ commit }, eventId) {
     return new Promise((resolve, reject) => {
@@ -107,7 +131,7 @@ const actions = {
           resolve();
         })
         .catch(() => {
-          console.log('Failed to delete event', eventId);
+          console.error('Failed to delete event', eventId);
           reject();
         });
     });
@@ -121,7 +145,7 @@ const actions = {
           resolve();
         })
         .catch(() => {
-          console.log('Failed to delete offering', details.badgeId);
+          console.error('Failed to delete offering', details.badgeId);
           reject();
         });
     });
@@ -135,7 +159,7 @@ const actions = {
           resolve();
         })
         .catch(() => {
-          console.log('Failed to get events');
+          console.error('Failed to get events');
           reject();
         });
     });
@@ -149,7 +173,7 @@ const actions = {
           resolve(response.data);
         })
         .catch(() => {
-          console.log('Failed to get current event');
+          console.error('Failed to get current event');
           reject();
         })
     });
@@ -163,7 +187,7 @@ const actions = {
           resolve(response.data.currentEvent);
         })
         .catch((err) => {
-          console.log('Failed to save current event', err.response.data.message);
+          console.error('Failed to save current event', err.response.data.message);
           reject(err.response.data.message);
         });
     })
@@ -177,7 +201,7 @@ const actions = {
           resolve(event);
         })
         .catch((err) => {
-          console.log('Failed to update event', err.response.data.message);
+          console.error('Failed to update event', err.response.data.message);
           reject(err.response.data.message);
         });
     });
@@ -191,7 +215,7 @@ const actions = {
           resolve()
         })
         .catch(() => {
-          console.log('Failed to update offering');
+          console.error('Failed to update offering');
           reject();
         });
     });

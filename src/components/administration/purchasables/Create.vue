@@ -13,12 +13,12 @@
     <form>
       <div class="columns is-multiline">
         <div class="control column is-6">
-          <label class="label" for="purchasable-create-name">Name</label>
+          <label class="label" for="purchasable-create-item">Item Name</label>
           <input type="text"
                  class="input"
-                 id="purchasable-create-name"
+                 id="purchasable-create-item"
                  placeholder="New Item"
-                 v-model="purchasable.name">
+                 v-model="purchasable.item">
         </div>
         <div class="control column is-6">
           <label class="label" for="purchasable-create-price">Price</label>
@@ -51,7 +51,7 @@
             <input type="number"
                    class="input"
                    id="purchasable-min-age"
-                   v-model="purchasable.minimum">
+                   v-model="purchasable.minimum_age">
           </div>
           <div class="control column is-6">
             <label class="label" for="purchasable-max-age">Maximum Age (If Any)</label>
@@ -82,7 +82,7 @@ export default {
       error: '',
       hasAgeRestriction: false,
       purchasable: {
-        name: '',
+        item: '',
         description: '',
         price: '',
         has_size: false,
@@ -93,7 +93,28 @@ export default {
   },
   methods: {
     createPurchasable() {
+      let purchasable = {};
+      purchasable.item = this.purchasable.item;
+      purchasable.description = this.purchasable.description;
+      purchasable.price = this.purchasable.price;
+      purchasable.has_size = this.purchasable.has_size;
+      purchasable.maximum_age = this.purchasable.maximum_age ?
+                                  this.purchasable.maximum_age : null;
+      purchasable.minimum_age = this.purchasable.minimum_age ?
+                                  this.purchasable.minimum_age : null;
 
+      this.$store.dispatch('createPurchasable', {
+        eventId: this.eventId,
+        purchasable: purchasable
+      })
+        .then(() => {
+          this.error = '';
+          this.close();
+        })
+        .catch((err) => {
+          console.log(err)
+          this.error = 'Failed to create item. Please refresh and try again.';
+        })
     },
     close() {
       this.$emit('close');

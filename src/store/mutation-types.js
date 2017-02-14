@@ -29,6 +29,9 @@ export const UPDATE_OFFERING = 'offerings/UPDATE'
 // Preferences
 export const SET_PREFERENCES = 'preferences/SET';
 
+// Purchasables
+export const SET_PURCHASABLES = 'purchasables/SET';
+
 // Registrations
 export const ADD_REGISTRATION = 'registrations/ADD';
 export const DELETE_REGISTRATION = 'registration/DELETE';
