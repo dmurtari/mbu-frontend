@@ -36,12 +36,21 @@
                         @close="toggleCreate()"
                         :eventId="eventId"></create-purchasable>
     <loader v-if="loading" :color="'lightgray'" class="purchasables-loading"></loader>
+    <div class="purchasable-list" v-if="!loading">
+      <purchasable v-for="purchasable in purchasables"
+                  :purchasable="purchasable"
+                  :eventId="eventId"></purchasable>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import _ from 'lodash';
+
 import Create from './Create.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import Purchasable from './Purchasable.vue';
 
 export default {
   data() {
@@ -51,6 +60,18 @@ export default {
       loading: false,
       showCreate: false
     };
+  },
+  computed: {
+    ...mapGetters([
+      'orderedEvents'
+    ]),
+    purchasables() {
+      let event = _.find(this.orderedEvents, { id: this.eventId });
+      if (!event) {
+        return [];
+      }
+      return event.purchasables;
+    }
   },
   methods: {
     pickEvent(eventId) {
@@ -62,7 +83,8 @@ export default {
   },
   components: {
     'create-purchasable': Create,
-    'events-dropdown': EventsDropdown
+    'events-dropdown': EventsDropdown,
+    'purchasable': Purchasable
   }
 }
 </script>
@@ -77,5 +99,9 @@ export default {
     width: 5em;
     display: block;
     margin: auto;
+  }
+
+  .purchasable-list {
+    margin-top: 2em;
   }
 </style>

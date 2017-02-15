@@ -3,6 +3,7 @@
     <h4 class="title is-4">Add a New Item</h4>
     <p>
       Add a new purchasable item for this event by filling out the form below.
+      The name and price of the item are required.
     </p>
     <br>
     <div class="notification is-danger" v-if="error">
@@ -18,14 +19,25 @@
                  class="input"
                  id="purchasable-create-item"
                  placeholder="New Item"
+                 :class="{ 'is-danger': $v.purchasable.item.$error }"
+                 @blur="$v.purchasable.item.$touch"
                  v-model="purchasable.item">
+          <span class="help is-danger" v-if="$v.purchasable.item.$error">
+            Please enter the name of the item
+          </span>
         </div>
         <div class="control column is-6">
           <label class="label" for="purchasable-create-price">Price</label>
-          <masked-input mask="99.99"
-                        placeholder="00.00"
-                        id="purchasable-create-price"
-                        v-model="purchasable.price"></masked-input>
+          <input type="number"
+                 class="input"
+                 placeholder="10.00"
+                 id="purchasable-create-price"
+                 :class="{ 'is-danger': $v.purchasable.price.$error }"
+                 @blur="$v.purchasable.price.$touch"
+                 v-model="purchasable.price">
+          <span class="help is-danger" v-if="$v.purchasable.price.$error">
+            Please enter the price of the item
+          </span>
         </div>
         <div class="control column is-12">
           <label class="label" for="purchasable-create-description">Description</label>
@@ -63,6 +75,7 @@
         </template>
       </div>
       <button class="button is-primary"
+              :disabled="$v.$invalid"
               :class="{ 'is-loading is-disabled': creating }"
               @click.prevent="createPurchasable()">Create Item</button>
       <button class="button"
@@ -72,6 +85,8 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+
 export default {
   props: {
     eventId: { required: true }
@@ -118,6 +133,12 @@ export default {
     },
     close() {
       this.$emit('close');
+    }
+  },
+  validations: {
+    purchasable: {
+      item: { required },
+      price: { required }
     }
   }
 }
