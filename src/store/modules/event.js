@@ -25,6 +25,12 @@ const mutations = {
       return offering.id === details.badgeId;
     });
   },
+  [types.DELETE_PURCHASABLE] (state, details) {
+    let event = _.find(state.events, { id: details.eventId });
+    event.purchasables = _.reject(event.purchasables, (purchasable) => {
+      return purchasable.id === details.purchasableId
+    });
+  },
   [types.GET_EVENTS] (state, events) {
     state.events = events;
   },
@@ -43,6 +49,13 @@ const mutations = {
     let event = _.find(state.events, { id: offering.event_id });
     let existingOffering = _.find(event.offerings, { id: offering.badge_id });
     existingOffering.details = offering;
+  },
+  [types.UPDATE_PURCHASABLE] (state, details) {
+    let event = _.find(state.events, { id: details.eventId });
+    let index = _.findIndex(event.purchasables, (purchasable) => {
+      return purchasable.id === details.purchasable.id
+    });
+    event.purchasables.splice(index, 1, details.purchasable);
   }
 };
 
@@ -103,7 +116,6 @@ const actions = {
     });
   },
   createPurchasable({ commit }, details) {
-    console.log('dispatching')
     return new Promise((resolve, reject) => {
       console.log('posting', details)
       axios.post(URLS.EVENTS_URL + details.eventId + '/purchasables', details.purchasable)
@@ -116,11 +128,10 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log(err)
           console.error('Failed to create purchasable', err);
           reject();
-        })
-    })
+        });
+    });
   },
   deleteEvent({ commit }, eventId) {
     return new Promise((resolve, reject) => {
@@ -146,6 +157,20 @@ const actions = {
         })
         .catch(() => {
           console.error('Failed to delete offering', details.badgeId);
+          reject();
+        });
+    });
+  },
+  deletePurchasable({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.EVENTS_URL + details.eventId + '/purchasables/' + details.purchasableId)
+        .then((response) => {
+          console.log('Deleted item', details.purchasableId, 'from event', details.eventId);
+          commit(types.DELETE_PURCHASABLE, details);
+          resolve();
+        })
+        .catch(() => {
+          console.error('Failed to delete item', details.purchasableId);
           reject();
         });
     });
@@ -216,6 +241,22 @@ const actions = {
         })
         .catch(() => {
           console.error('Failed to update offering');
+          reject();
+        });
+    });
+  },
+  updatePurchasable({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.EVENTS_URL + details.eventId + '/purchasables/' + details.purchasable.id, details.purchasable)
+        .then((response) => {
+          commit(types.UPDATE_PURCHASABLE, {
+            eventId: details.eventId,
+            purchasable: response.data.purchasable
+          });
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to update purchasable', err);
           reject();
         });
     });

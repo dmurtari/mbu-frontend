@@ -7,8 +7,8 @@
       <button class="button edit-button is-pulled-right"
               v-if="isAdmin"
               @click="toggleEdit">
-      <span class="fa fa-edit" aria-label="Edit"></span>
-    </button>
+        <span class="fa fa-edit" aria-label="Edit"></span>
+      </button>
     </h4>
     <event-detail v-if="!displayEditEvent"
                   :event="event"></event-detail>

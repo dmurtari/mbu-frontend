@@ -67,10 +67,12 @@ export default {
     ]),
     purchasables() {
       let event = _.find(this.orderedEvents, { id: this.eventId });
+
       if (!event) {
         return [];
       }
-      return event.purchasables;
+
+      return _.orderBy(event.purchasables, 'item');
     }
   },
   methods: {

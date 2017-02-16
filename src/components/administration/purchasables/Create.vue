@@ -28,7 +28,7 @@
         </div>
         <div class="control column is-6">
           <label class="label" for="purchasable-create-price">Price</label>
-          <input type="number"
+          <input type="text"
                  class="input"
                  placeholder="10.00"
                  id="purchasable-create-price"
@@ -86,6 +86,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import _ from 'lodash';
 
 export default {
   props: {
@@ -108,11 +109,7 @@ export default {
   },
   methods: {
     createPurchasable() {
-      let purchasable = {};
-      purchasable.item = this.purchasable.item;
-      purchasable.description = this.purchasable.description;
-      purchasable.price = this.purchasable.price;
-      purchasable.has_size = this.purchasable.has_size;
+      let purchasable = _.clone(this.purchasable);
       purchasable.maximum_age = this.purchasable.maximum_age ?
                                   this.purchasable.maximum_age : null;
       purchasable.minimum_age = this.purchasable.minimum_age ?
@@ -127,9 +124,8 @@ export default {
           this.close();
         })
         .catch((err) => {
-          console.log(err)
           this.error = 'Failed to create item. Please refresh and try again.';
-        })
+        });
     },
     close() {
       this.$emit('close');

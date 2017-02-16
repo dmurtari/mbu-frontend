@@ -30,7 +30,9 @@ export const UPDATE_OFFERING = 'offerings/UPDATE'
 export const SET_PREFERENCES = 'preferences/SET';
 
 // Purchasables
+export const DELETE_PURCHASABLE = 'purchasable/DELETE';
 export const SET_PURCHASABLES = 'purchasables/SET';
+export const UPDATE_PURCHASABLE = 'purchasable/UPDATE';
 
 // Registrations
 export const ADD_REGISTRATION = 'registrations/ADD';
