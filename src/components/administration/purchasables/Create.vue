@@ -63,14 +63,30 @@
             <input type="number"
                    class="input"
                    id="purchasable-min-age"
+                   :class="{ 'is-danger': $v.purchasable.minimum_age.$error }"
+                   @blur="$v.purchasable.minimum_age.$touch"
                    v-model="purchasable.minimum_age">
+            <span class="help is-danger" v-if="!$v.purchasable.minimum_age.number">
+              Minimum age must be a number
+            </span>
+            <span class="help is-danger" v-if="!$v.purchasable.minimum_age.lessThan">
+              Minimum age must be less than maximum age
+            </span>
           </div>
           <div class="control column is-6">
             <label class="label" for="purchasable-max-age">Maximum Age (If Any)</label>
             <input type="number"
                    class="input"
                    id="purchasable-max-age"
+                   :class="{ 'is-danger': $v.purchasable.maximum_age.$error }"
+                   @blur="$v.purchasable.maximum_age.$touch"
                    v-model="purchasable.maximum_age">
+            <span class="help is-danger" v-if="!$v.purchasable.maximum_age.number">
+              Maximum age must be a number
+            </span>
+            <span class="help is-danger" v-if="!$v.purchasable.maximum_age.greaterThan">
+              Maximum age must be greater than minimum age
+            </span>
           </div>
         </template>
       </div>
@@ -86,6 +102,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { lessThan, greaterThan, number } from 'validators';
 import _ from 'lodash';
 
 export default {
@@ -134,7 +151,15 @@ export default {
   validations: {
     purchasable: {
       item: { required },
-      price: { required }
+      price: { required },
+      minimum_age: {
+        number,
+        lessThan: lessThan('maximum_age')
+      },
+      maximum_age: {
+        number,
+        greaterThan: greaterThan('minimum_age')
+      }
     }
   }
 }

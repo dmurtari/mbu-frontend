@@ -39,16 +39,32 @@
         <div class="control column is-6">
           <label class="label" for="purchasable-update-min-age">Minimum Age (If Any)</label>
           <input type="number"
-                  class="input"
-                  id="purchasable-update-min-age"
-                  v-model="purchasableUpdate.minimum_age">
+                 class="input"
+                 id="purchasable-update-min-age"
+                 :class="{ 'is-danger': $v.purchasableUpdate.minimum_age.$error }"
+                 @blur="$v.purchasableUpdate.minimum_age.$touch"
+                 v-model="purchasableUpdate.minimum_age">
+          <span class="help is-danger" v-if="!$v.purchasableUpdate.minimum_age.number">
+            Minimum age must be a number
+          </span>
+          <span class="help is-danger" v-if="!$v.purchasableUpdate.minimum_age.lessThan">
+            Minimum age must be less than maximum age
+          </span>
         </div>
         <div class="control column is-6">
           <label class="label" for="purchasable-update-max-age">Maximum Age (If Any)</label>
           <input type="number"
-                  class="input"
-                  id="purchasable-update-max-age"
-                  v-model="purchasableUpdate.maximum_age">
+                 class="input"
+                 id="purchasable-update-max-age"
+                 :class="{ 'is-danger': $v.purchasableUpdate.maximum_age.$error }"
+                 @blur="$v.purchasableUpdate.maximum_age.$touch"
+                 v-model="purchasableUpdate.maximum_age">
+          <span class="help is-danger" v-if="!$v.purchasableUpdate.maximum_age.number">
+            Maximum age must be a number
+          </span>
+          <span class="help is-danger" v-if="!$v.purchasableUpdate.maximum_age.greaterThan">
+            Maximum age must be greater than minimum age
+          </span>
         </div>
         <div class="control column is-6">
           <label class="checkbox">
@@ -85,6 +101,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { lessThan, greaterThan, number } from 'validators';
 
 export default {
   props: {
@@ -155,7 +172,15 @@ export default {
   validations: {
     purchasableUpdate: {
       item: { required },
-      price: { required }
+      price: { required },
+      minimum_age: {
+        number,
+        lessThan: lessThan('maximum_age')
+      },
+      maximum_age: {
+        number,
+        greaterThan: greaterThan('minimum_age')
+      }
     }
   }
 }
