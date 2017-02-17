@@ -16,8 +16,8 @@ describe('The less than validator', () => {
     expect(lessThan('number')(13, parentVm)).to.be.false;
   });
 
-  it('should fail if the number is equal', () => {
-    expect(lessThan('number')(12, parentVm)).to.be.false;
+  it('should pass if the number is equal', () => {
+    expect(lessThan('number')(12, parentVm)).to.be.true;
   });
 
   it('should pass if there is nothing to compare to', () => {

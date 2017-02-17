@@ -12,6 +12,6 @@ export default (compare) => {
       return true
     }
 
-    return value < compareTo;
+    return value <= compareTo;
   }
 }
