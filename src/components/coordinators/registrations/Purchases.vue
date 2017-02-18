@@ -73,7 +73,8 @@
     <div class="columns is-mobile" v-if="existingPurchases.length > 0">
       <template v-for="item in existingPurchases">
         <div class="column is-6">
-          <b>{{ item.item }}</b>: <span v-if="item.details.size">({{ item.details.size }})</span>
+          <b>{{ item.item }}</b>:
+          <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
           {{ item.price | currency }} &times; {{ item.details.quantity }} =
           {{ item.price * item.details.quantity | currency }}
           <span class="tag is-danger"><span class="fa fa-trash"></span></span>

@@ -15,6 +15,9 @@ export default function(Vue) {
   Vue.filter('titleCase', (value) => {
     return _.startCase(_.toLower(value));
   });
+  Vue.filter('upperCase', (value) => {
+    return _.upperCase(value);
+  })
   Vue.filter('ordinalSuffix', (number) => {
     return numeral(number).format('Oo');
   });
