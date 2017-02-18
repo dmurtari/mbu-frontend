@@ -35,6 +35,7 @@ export const SET_PURCHASABLES = 'purchasables/SET';
 export const UPDATE_PURCHASABLE = 'purchasable/UPDATE';
 
 // Purchases
+export const DELETE_PURCHASE = 'purchase/DELETE';
 export const SET_PURCHASES = 'purchases/SET';
 
 // Registrations

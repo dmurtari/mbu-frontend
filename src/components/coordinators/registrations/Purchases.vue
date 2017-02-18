@@ -67,17 +67,22 @@
         </button>
       </div>
     </div>
-    <h5 class="title is-5">
-      Items Already Purchased ({{ event.semester }} {{ event.year }})
-    </h5>
-    <div class="columns is-mobile" v-if="existingPurchases.length > 0">
+    <div class="columns is-multiline is-mobile" v-if="existingPurchases.length > 0">
+      <div class="column is-12">
+        <h5 class="title is-5">
+          Items Already Purchased ({{ event.semester }} {{ event.year }})
+        </h5>
+      </div>
       <template v-for="item in existingPurchases">
         <div class="column is-6">
           <b>{{ item.item }}</b>:
           <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
           {{ item.price | currency }} &times; {{ item.details.quantity }} =
           {{ item.price * item.details.quantity | currency }}
-          <span class="tag is-danger"><span class="fa fa-trash"></span></span>
+          <span class="tag is-danger delete-button"
+                @click="deleteItem(item.id)">
+            <span class="fa fa-trash"></span>
+          </span>
         </div>
       </template>
     </div>
@@ -122,7 +127,8 @@ export default {
         { value: 'xl', text: 'XL' }
       ],
       error: '',
-      creating: false
+      creating: false,
+      deleting: false
     };
   },
   computed: {
@@ -133,6 +139,9 @@ export default {
       return _.filter(this.orderedPurchasables, (purchasable) => {
         return !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
+    },
+    shouldShowPurchases() {
+      return this.existingPurchases.length > 0;
     }
   },
   methods: {
@@ -142,6 +151,19 @@ export default {
         quantity: '',
         size: ''
       };
+    },
+    deleteItem(purchasableId) {
+      this.$store.dispatch('deletePurchase', {
+        registrationId: this.registrationId,
+        scoutId: this.scoutId,
+        purchasableId: purchasableId
+      })
+        .then(() => {
+          this.error = '';
+        })
+        .catch(() => {
+          this.error = 'Unable to delete. Please try again or contact an administration';
+        })
     },
     purchaseItem() {
       let purchase = {
@@ -165,6 +187,7 @@ export default {
           this.clearItem();
         })
         .catch(() => {
+          this.creating = false;
           this.error = 'Unable to purchase item. Please refresh and try again';
         });
     }
@@ -180,3 +203,9 @@ export default {
   }
 }
 </script>
+
+<style class="sass" scoped>
+  .delete-button {
+    cursor: pointer;
+  }
+</style>

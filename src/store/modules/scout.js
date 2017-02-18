@@ -28,6 +28,16 @@ const mutations = {
   [types.ADD_SCOUT] (state, scout) {
     state.scouts.push(scout);
   },
+  [types.DELETE_PURCHASE] (state, details) {
+    let registrations = _.flatten(_.map(state.scouts, 'registrations'));
+    let registration = _.find(registrations, (registration) => {
+      return registration.details.id === details.registrationId;
+    });
+
+    registration.purchases = _.reject(registration.purchases, (purchase) => {
+      return purchase.id === details.purchasableId;
+    });
+  },
   [types.DELETE_REGISTRATION] (state, details) {
     let scout = _.find(state.scouts, { id: details.scoutId });
     scout.registrations = _.reject(scout.registrations, (registration) => {
@@ -114,6 +124,21 @@ const actions = {
           console.error('Failed to create scout with error', err.response.data.message);
           reject(err.response.data.message);
         })
+    });
+  },
+  deletePurchase({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+                   details.registrationId + '/purchases/' + details.purchasableId)
+        .then((response) => {
+          console.log('Removed item', details.purchasableId);
+          commit(types.DELETE_PURCHASE, details);
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to delete purchasable', err);
+          reject();
+        });
     });
   },
   deleteRegistration({ commit }, details) {
