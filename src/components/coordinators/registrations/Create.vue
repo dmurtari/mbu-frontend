@@ -5,7 +5,9 @@
         {{ error }}
       </p>
     </div>
-    <h5 class="title is-5">Add Merit Badge Preferences for {{ scout.fullname }}</h5>
+    <h5 class="title is-5">
+      Register {{ scout.fullname }} for {{ event.semester }} {{ event.year}}
+    </h5>
     <div class="columns is-multiline">
       <p class="column is-12">
         Please select the top six merit badges that {{ scout.firstname}} would

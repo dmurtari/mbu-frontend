@@ -7,6 +7,11 @@
         {{ error }}
       </p>
     </div>
+    <p>
+      Edit merit badge preferences for {{ scout.fullname }} below. You must
+      select six unique merit badges.
+    </p>
+    <br>
     <div v-if="!showDeleteConfirmation" class="columns is-multiline">
       <template v-for="(preference, index) in preferences">
         <div class="column is-6 is-4-widescreen">
@@ -34,6 +39,10 @@
           </div>
         </div>
       </template>
+      <purchases class="column is-12"
+                 :event="event"
+                 :purchasables="event.purchasables"
+                 :registrationId="registration.details.id"></purchases>
       <div class="column is-12">
         <button class="button is-primary"
                 :disabled="$v.$invalid"
@@ -73,6 +82,8 @@ import _ from 'lodash';
 
 import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
+
+import Purchases from './Purchases.vue';
 
 export default {
   props: {
@@ -163,6 +174,9 @@ export default {
         offering: ''
       })
     }
+  },
+  components: {
+    Purchases
   },
   validations: {
     preferences: {
