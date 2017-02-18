@@ -16,7 +16,7 @@
       </p>
     </div>
     <div class="columns is-mobile" v-if="unpurchasedItems.length > 0">
-      <div class="control column is-6">
+      <div class="control column is-3-mobile is-5-tablet">
         <label class="label" for="purchasable-item-select">Item</label>
         <span class="select">
           <select id="purchasable-item-select"
@@ -27,7 +27,7 @@
             </option>
         </span>
       </div>
-      <div class="control column is-2">
+      <div class="control column is-3-mobile is-2-tablet">
         <label class="label" for="purchasable-item-quantity">Quantity</label>
         <input type="number"
                class="input"
@@ -40,7 +40,7 @@
           Please enter a number greater than 0
         </span>
       </div>
-      <div class="control column is-2">
+      <div class="control column is-3-mobile is-2-tablet">
         <label class="label" for="purchasable-item-size">Size</label>
         <span class="select">
           <select type="select"
