@@ -7,7 +7,7 @@
       <p><strong>Registration Close:</strong> {{ event.registration_close | longDate }}</p>
     </div>
     <br>
-    <h5 class="title is-5">Badges offered at this event:</h5>
+    <h5 class="title is-5">Merit Badges offered at this event:</h5>
     <div v-if="orderedOfferings.length > 0" class="offering-list">
       <div v-for="offering in orderedOfferings">
         {{ offering.name }}
@@ -20,10 +20,32 @@
       No badges are listed as available at this event.
       <span v-if="isAdmin">
         Offer badges for this event at the
-        <router-link to="/administration">offerings page</router-link>.
+        <router-link to="/administration/offerings">offerings page</router-link>.
       </span>
       <span v-if="!isAdmin">
         Please check with the event coordinators if you feel this is not correct.
+      </span>
+    </div>
+    <br>
+    <h5 class="title is-5">Items available for purchase:</h5>
+    <div v-if="event.purchasables.length > 0">
+      <div v-for="purchasable in event.purchasables" class="purchasable-item">
+        {{ purchasable.item }} ({{ purchasable.price | currency}})
+        <span v-if="purchasable.description">{{ purchasable.description}}</span>
+        <span v-if="purchasable.minimum_age || purchasable.maximum_age">
+          <br>
+          <i>
+            This item is restricted to
+            {{ ageText(purchasable.minimum_age, purchasable.maximum_age) }}
+          </i>
+        </span>
+      </div>
+    </div>
+    <div v-else>
+      No items are available for purchase at this event.
+      <span v-if="isAdmin">
+        Add items for purchase at the
+        <router-link to="/administration/purchasables">purchasables page</router-link>.
       </span>
     </div>
   </div>
@@ -47,11 +69,26 @@ export default {
     orderedOfferings() {
       return _.orderBy(this.event.offerings, 'name');
     }
+  },
+  methods: {
+    ageText(min, max) {
+      if (min && max) {
+        return 'ages ' + min + ' to ' + max;
+      } else if (min) {
+        return 'ages greater than ' + min;
+      } else {
+        return 'ages less than ' + max;
+      }
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+  .purchasable-item {
+    padding-bottom: 1rem;
+  }
+
   @media screen and (min-width: 700px) {
     .offering-list {
       columns: 3
