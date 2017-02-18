@@ -42,7 +42,17 @@
       <purchases class="column is-12"
                  :event="event"
                  :purchasables="event.purchasables"
+                 :existingPurchases="registration.purchases"
+                 :scoutId="scout.id"
                  :registrationId="registration.details.id"></purchases>
+      <div class="column is-12">
+        <h5 class="title is-5">Save Changes for {{ scout.fullname }}</h5>
+        <p>
+          Once you are done editing {{ scout.fullname }}'s registration, save these
+          changes by clicking the button below. You can also remove this
+          registration by clicking the "Unregister" button.
+        </p>
+      </div>
       <div class="column is-12">
         <button class="button is-primary"
                 :disabled="$v.$invalid"

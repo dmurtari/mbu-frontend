@@ -4,13 +4,19 @@
       Items Available for Purchase ({{ event.semester }} {{ event.year }})
     </h5>
     <p>
-      These items are available for purchase for this event. You can select an
-      item and specify the quantity of each that this scout would like to
-      purchase.
+      Add items that this scout would like to purchase for this event by picking
+      an item from the dropdown, and entering a quantity and size (if applicable).
+      View details about these items on the <router-link to="/events">events
+      page.</router-link>
     </p>
     <br>
-    <div class="columns">
-      <div class="control column is-4">
+    <div class="notification is-danger" v-if="error">
+      <p>
+        {{ error }}
+      </p>
+    </div>
+    <div class="columns is-mobile" v-if="unpurchasedItems.length > 0">
+      <div class="control column is-6">
         <label class="label" for="purchasable-item-select">Item</label>
         <span class="select">
           <select id="purchasable-item-select"
@@ -21,19 +27,25 @@
             </option>
         </span>
       </div>
-      <div class="control column is-3">
+      <div class="control column is-2">
         <label class="label" for="purchasable-item-quantity">Quantity</label>
         <input type="number"
                class="input"
-               placeholder="Quantity"
                id="purchasable-item-quantity"
+               :class="{ 'is-danger': $v.itemToPurchase.quantity.$error && itemToPurchase.purchasable }"
+               @blur="$v.itemToPurchase.quantity.$touch"
                v-model="itemToPurchase.quantity">
+        <span class="help is-danger"
+              v-if="$v.itemToPurchase.quantity.$error && itemToPurchase.purchasable">
+          Please enter a number greater than 0
+        </span>
       </div>
-      <div class="control column is-3" v-if="itemToPurchase.purchasable.has_size">
+      <div class="control column is-2">
         <label class="label" for="purchasable-item-size">Size</label>
         <span class="select">
           <select type="select"
                   class="input"
+                  :class="{ 'is-disabled': !itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size }"
                   v-model="itemToPurchase.size">
             <option v-for="size in sizes" :value="size.value">
               {{ size.text }}
@@ -41,16 +53,40 @@
           </select>
         </span>
       </div>
-      <div class="column is-2">
-        <label class="label is-hidden-mobile">&nbsp;</label>
+      <div class="column auto">
+        <label class="label">&nbsp;</label>
         <button class="button is-primary"
-                @click="purchaseItem()">Add</button>
+                :class="{ 'is-disabled is-loading': creating }"
+                @click="purchaseItem()">
+          <span class="fa fa-check"></span>
+        </button>
+        <button class="button is-light"
+                :class="{ 'is-disabled': creating }"
+                @click="clearItem()">
+          <span class="fa fa-times"></span>
+        </button>
       </div>
+    </div>
+    <h5 class="title is-5">
+      Items Already Purchased ({{ event.semester }} {{ event.year }})
+    </h5>
+    <div class="columns is-mobile" v-if="existingPurchases.length > 0">
+      <template v-for="item in existingPurchases">
+        <div class="column is-6">
+          <b>{{ item.item }}</b>: <span v-if="item.details.size">({{ item.details.size }})</span>
+          {{ item.price | currency }} &times; {{ item.details.quantity }} =
+          {{ item.price * item.details.quantity | currency }}
+          <span class="tag is-danger"><span class="fa fa-trash"></span></span>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+import { number } from 'validators';
+
 export default {
   props: {
     event: {
@@ -58,6 +94,9 @@ export default {
       required: true
     },
     registrationId: {
+      required: true
+    },
+    scoutId: {
       required: true
     },
     existingPurchases: {
@@ -80,7 +119,9 @@ export default {
         { value: 'm', text: 'M' },
         { value: 'l', text: 'L' },
         { value: 'xl', text: 'XL' }
-      ]
+      ],
+      error: '',
+      creating: false
     };
   },
   computed: {
@@ -89,11 +130,18 @@ export default {
     },
     unpurchasedItems() {
       return _.filter(this.orderedPurchasables, (purchasable) => {
-        return !_.find(this.existingPurchases, { 'purchasable_id': purchasable.id });
+        return !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
     }
   },
   methods: {
+    clearItem() {
+      this.itemToPurchase = {
+        purchasable: '',
+        quantity: '',
+        size: ''
+      };
+    },
     purchaseItem() {
       let purchase = {
         purchasable: this.itemToPurchase.purchasable.id,
@@ -104,7 +152,29 @@ export default {
         purchase.size = this.itemToPurchase.size;
       }
 
-      console.log('Purchasing', purchase)
+      this.creating = true;
+      this.$store.dispatch('addPurchase', {
+        registrationId: this.registrationId,
+        scoutId: this.scoutId,
+        purchase: purchase
+      })
+        .then(() => {
+          this.creating = false;
+          this.error = '';
+          this.clearItem();
+        })
+        .catch(() => {
+          this.error = 'Unable to purchase item. Please refresh and try again';
+        });
+    }
+  },
+  validations: {
+    itemToPurchase: {
+      quantity: {
+        required,
+        number,
+        positive: (value) => { return value > 0 }
+      }
     }
   }
 }
