@@ -16,10 +16,11 @@ const getters = {
 };
 
 const mutations = {
-  [types.ADD_REGISTRATION](state, registration) {
+  [types.ADD_REGISTRATION] (state, registration) {
     let scout = _.find(state.scouts, { id: registration.scout_id });
     scout.registrations.push({
       preferences: [],
+      purchases: [],
       event_id: registration.event_id,
       details: registration
     });
@@ -37,6 +38,14 @@ const mutations = {
     state.scouts = _.reject(state.scouts, (existingScout) => {
       return existingScout.id === scoutId;
     });
+  },
+  [types.SET_PURCHASES] (state, details) {
+    let registrations = _.flatten(_.map(state.scouts, 'registrations'));
+    let registration = _.find(registrations, (registration) => {
+      return registration.details.id === details.registrationId;
+    });
+
+    Vue.set(registration, 'purchases', details.purchases);
   },
   [types.SET_PREFERENCES] (state, details) {
     let scout = _.find(state.scouts, { id: details.scoutId });
@@ -59,6 +68,24 @@ const mutations = {
 };
 
 const actions = {
+  addPurchase({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+                 details.registrationId + '/purchases/', details.purchase)
+        .then((response) => {
+          console.log('Created purchase for scout', details.scoutId, details.purchase);
+          commit(types.SET_PURCHASES, {
+            registrationId: details.registrationId,
+            purchases: response.data.registration.purchases
+          });
+          resolve(response.data.registration.purchases);
+        })
+        .catch((err) => {
+          console.error('Failed to purchase', details.purchase);
+          reject();
+        })
+    });
+  },
   addRegistration({ commit }, details) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/', {
@@ -113,6 +140,25 @@ const actions = {
         })
         .catch((err) => {
           console.errpr('Failed to delete scout with error', err);
+          reject();
+        })
+    });
+  },
+  getPurchases({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.get(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+                details.registrationId + '/purchases')
+        .then((response) => {
+          console.log('Received purchases', response.data);
+          commit(types.SET_PURCHASES, {
+            scoutId: details.scoutId,
+            registrationId: details.registrationId,
+            purchases: response.data
+          });
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to fetch purchases with', err);
           reject();
         })
     });

@@ -108,10 +108,16 @@ export default {
     registration() {
       if (this.registration && this.registration.details) {
         this.loading = true;
-        this.$store.dispatch('getPreferences', {
-          scoutId: this.scout.id,
-          registrationId: this.registration.details.id
-        })
+        Promise.all([
+          this.$store.dispatch('getPreferences', {
+            scoutId: this.scout.id,
+            registrationId: this.registration.details.id
+          }),
+          this.$store.dispatch('getPurchases', {
+            scoutId: this.scout.id,
+            registrationId: this.registration.details.id
+          }),
+        ])
           .then(() => {
             this.error = '';
             this.loading = false;
