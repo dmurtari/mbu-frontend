@@ -14,11 +14,10 @@
           <div class="column auto">
             <p>
               <b>Projected Fee: </b>{{ projectedCost | currency }}
-              <ul class="price-list">
+              <ul class="itemized-list">
                 <li>Event Fee: {{ event.price | currency }}</li>
-                <li v-for="preference in preferences" v-if="preference.price !== '0.00'">
-                  {{ preference.name }}: {{ preference.price | currency }}
-                </li>
+                <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
+                <li>Purchases: {{ purchaseCosts | currency }}</li>
               </ul>
             </p>
             <br>
@@ -32,6 +31,18 @@
                   </span>
                 </li>
               </ol>
+            </p>
+            <br>
+            <p v-if="purchases.length > 0">
+              <b>Purchased Items</b>
+              <ul class="itemized-list">
+                <li v-for="purchase in purchases">
+                  {{ purchase.item }}:
+                  <span v-if="purchase.details.size">(Size {{ purchase.details.size | upperCase }})</span>
+                  {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
+                  {{ purchase.price * purchase.details.quantity | currency }}
+                </li>
+              </ul>
             </p>
           </div>
           <div class="column is-1">
@@ -144,10 +155,22 @@ export default {
         }
       });
     },
-    projectedCost() {
+    preferenceCosts() {
       return _.reduce(this.preferences, (sum, preference) => {
         return sum + Number(preference.price);
-      }, Number(this.event.price));
+      }, 0);
+    },
+    purchases() {
+      return this.registration.purchases || [];
+    },
+    projectedCost() {
+      return Number(this.event.price) + Number(this.preferenceCosts)
+             + Number(this.purchaseCosts);
+    },
+    purchaseCosts() {
+      return _.reduce(this.purchases, (sum, purchase) => {
+        return sum + (Number(purchase.price) * Number(purchase.details.quantity));
+      }, 0);
     },
     registration() {
       return _.find(this.scout.registrations, { 'event_id': this.event.id });
@@ -172,7 +195,7 @@ export default {
     align-items: center;
   }
 
-  .price-list {
+  .itemized-list {
     padding-top: .5rem;
     padding-left: 1rem;
   }
