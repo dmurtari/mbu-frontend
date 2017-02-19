@@ -106,12 +106,10 @@ export default {
       required: true
     },
     existingPurchases: {
-      type: Array,
-      default: () => { return [] }
+      type: Array
     },
     purchasables: {
-      type: Array,
-      detault: () => { return [] }
+      type: Array
     }
   },
   data() {

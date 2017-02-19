@@ -8,7 +8,7 @@
     <h5 class="title is-5">
       Register {{ scout.fullname }} for {{ event.semester }} {{ event.year}}
     </h5>
-    <div class="columns is-multiline" v-if="!registered">
+    <div class="columns is-multiline">
       <p class="column is-12">
         Please select the top six merit badges that {{ scout.firstname}} would
         like to attend classes for. We will do our best to accommodate
@@ -29,9 +29,6 @@
                       v-model="preference.offering">
                 <option v-for="option in offerings" :value="option.details.id">
                   {{ option.name }}
-                  <span v-if="option.details.price !== '0.00'">
-                    ({{ option.details.price | currency }})
-                  </span>
                 </option>
               </select>
             </span>
@@ -56,23 +53,6 @@
         </button>
       </div>
     </div>
-    <div v-if="registered">
-      <div class="notification is-success">
-        <p>
-          {{ scout.fullname }} has successfully been registered for MBU
-          {{ event.semester }} {{ event.year }}! Add any additional items to
-          purchase below.
-        </p>
-      </div>
-      <purchases :event="event"
-                 :purchasables="event.purchasables"
-                 :existingPurchases="registration.purchases"
-                 :scoutId="scout.id"
-                 :registrationId="registrationId"></purchases>
-      <br>
-      <button class="button is-primary"
-              @click="done()">Done</button>
-    </div>
   </div>
 </template>
 
@@ -81,8 +61,6 @@ import _ from 'lodash';
 
 import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
-
-import Purchases from './Purchases.vue';
 
 export default {
   props: {
@@ -99,25 +77,17 @@ export default {
     return {
       preferences: [],
       creating: false,
-      error: '',
-      registered: false,
-      registrationId: null
+      error: ''
     };
   },
   computed: {
     offerings() {
       return _.orderBy(this.event.offerings, 'name');
-    },
-    registration() {
-      return _.find(this.scout.registrations, { 'event_id': this.event.id }) || {};
     }
   },
   methods: {
     cancel() {
       this.$emit('cancel');
-    },
-    done() {
-      this.$emit('created');
     },
     registerScout() {
       if (!this.uniqueOfferings()) {
@@ -131,7 +101,6 @@ export default {
         eventId: this.event.id
       })
         .then((registration) => {
-          this.registrationId = registration.id;
           return this.$store.dispatch('setPreferences', {
             scoutId: this.scout.id,
             registrationId: registration.id,
@@ -141,7 +110,7 @@ export default {
         .then(() => {
           this.error = '';
           this.creating = false;
-          this.registered = true;
+          this.$emit('created');
         })
         .catch((err) => {
           this.creating = false;
@@ -161,9 +130,6 @@ export default {
         offering: ''
       })
     }
-  },
-  components: {
-    Purchases
   },
   validations: {
     preferences: {

@@ -29,9 +29,6 @@
                 <option v-for="option in offerings"
                         :value="option.details.id">
                   {{ option.name }}
-                  <span v-if="option.details.price !== '0.00'">
-                    ({{ option.details.price | currency }})
-                  </span>
                 </option>
               </select>
             </span>
