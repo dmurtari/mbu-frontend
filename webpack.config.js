@@ -8,9 +8,6 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
-  },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.js'
@@ -21,19 +18,19 @@ module.exports = {
     ]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file',
+        loader: 'file-loader',
         query: {
           name: '[name].[ext]?[hash]'
         }
@@ -45,11 +42,11 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&minetype=application/font-woff" 
+        loader: "url-loader?limit=10000&minetype=application/font-woff"
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-        loader: "file-loader" 
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
       }
     ]
   },
