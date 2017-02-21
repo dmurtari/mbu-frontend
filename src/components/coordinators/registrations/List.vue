@@ -104,7 +104,7 @@ export default {
       'scouts'
     ]),
     filteredScouts() {
-      if (this.registrationFilter === 'registered' || !this.isCurrentEvent) {
+      if (this.registrationFilter === 'registered') {
         return _.filter(this.scouts, (scout) => {
           return _.find(scout.registrations, { 'event_id': this.eventId });
         });
@@ -140,6 +140,11 @@ export default {
     },
     setEvent(eventId) {
       this.eventId = eventId;
+      if (!this.isCurrentEvent) {
+        this.registrationFilter = 'registered';
+      } else {
+        this.registrationFilter = 'all';
+      }
     }
   },
   components: {
