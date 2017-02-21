@@ -67,6 +67,12 @@
         </button>
       </div>
     </div>
+    <div class="notification" v-else>
+      <p>
+        There are no items listed as available for purchase at this event yet.
+        Please check back later.
+      </p>
+    </div>
     <div class="columns is-multiline is-mobile" v-if="existingPurchases.length > 0">
       <div class="column is-12">
         <h5 class="title is-5">

@@ -13,7 +13,7 @@
         <template v-if="registration && !loading">
           <div class="column auto">
             <p>
-              <b>Projected Fee: </b>{{ projectedCost | currency }}
+              <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
               <ul class="itemized-list">
                 <li>Event Fee: {{ event.price | currency }}</li>
                 <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
@@ -22,7 +22,7 @@
             </p>
             <br>
             <p>
-              <b>Merit Badge Preferences: </b>
+              <b>Merit Badge Preferences:</b>
               <ol class="preference-list">
                 <li v-for="preference in preferences">
                   {{ preference.name }}
@@ -32,9 +32,9 @@
                 </li>
               </ol>
             </p>
-            <br>
             <p v-if="purchases.length > 0">
-              <b>Purchased Items</b>
+              <br>
+              <b>Purchased Items:</b>
               <ul class="itemized-list">
                 <li v-for="purchase in purchases">
                   {{ purchase.item }}:
@@ -63,22 +63,32 @@
                   @click="toggleState('creating')">
             Register for {{ event.semester + ' ' + event.year }}
           </button>
-          <p v-if="!registrationOpen">
+          <span class="column auto" v-if="!registrationOpen">
             Sorry, registration for this event is closed.
-          </p>
+          </span>
         </template>
       </template>
       <create-registration v-if="state === 'creating'"
                           :scout="scout"
                           :event="event"
                           @cancel="toggleState()"
-                          @created="toggleState()"></create-registration>
+                          @created="toggleState('purchasing')"></create-registration>
       <edit-registration v-if="state === 'editing'"
                         :scout="scout"
                         :event="event"
                         :registration="registration"
                         @cancel="toggleState()"
                         @saved="toggleState()"></edit-registration>
+      <template v-if="state === 'purchasing'">
+        <purchases :event="event"
+                   :purchasables="event.purchasables"
+                   :existingPurchases="registration.purchases"
+                   :scoutId="scout.id"
+                   :registrationId="registration.details.id"></purchases>
+        <button class="button is-primary done-purchasing-button"
+                @click="toggleState()">Done</button>
+      </template>
+
     </div>
   </div>
 </template>
@@ -89,6 +99,7 @@ import _ from 'lodash';
 
 import CreateRegistration from './Create.vue';
 import EditRegistration from './Edit.vue';
+import Purchases from './Purchases.vue';
 
 export default {
   props: {
@@ -183,7 +194,8 @@ export default {
   },
   components: {
     'create-registration': CreateRegistration,
-    'edit-registration': EditRegistration
+    'edit-registration': EditRegistration,
+    Purchases
   }
 }
 </script>
@@ -209,5 +221,9 @@ export default {
 
   .register-button {
     height: auto;
+  }
+
+  .done-purchasing-button {
+    margin-top: 1em;
   }
 </style>
