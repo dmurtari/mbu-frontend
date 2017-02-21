@@ -7,10 +7,10 @@
         <button class="delete" @click.prevent="dismissError()"></button>
         <p>Invalid email/password combination</p>
       </div>
-      <div class="notification is-success" 
+      <div class="notification is-success"
           v-if="$route.query.from === 'resetSuccess'">
         <p>
-          Successfully reset your password! Please login to your account with 
+          Successfully reset your password! Please login to your account with
           using new password.
         </p>
       </div>
@@ -42,16 +42,17 @@
                 :class="{ 'is-danger': $v.credentials.password.$error }"
                 @blur="$v.credentials.password.$touch"
                 v-model="credentials.password">
-          <span class="help is-danger" 
+          <span class="help is-danger"
                 v-if="!$v.credentials.password.required && $v.credentials.password.$error">
             Password is required
           </span>
         </div>
+        <br>
         <div class="control">
-          <button class="button is-primary" 
+          <button class="button is-primary"
                   :disabled="$v.credentials.$invalid"
                   @click.prevent="submit()">Login</button>
-          <button class="button is-info is-outlined" 
+          <button class="button is-info is-outlined"
                   @click.prevent="signup()">Create an Account</button>
           <router-link class="button is-link is-pulled-right" to="/reset">Forgot your password?</router-link>
         </div>
@@ -84,7 +85,7 @@ export default {
         email: this.credentials.email,
         password: this.credentials.password,
       }
-      
+
       this.$store.dispatch('login', credentials)
         .then(() => {
           this.error = false;
