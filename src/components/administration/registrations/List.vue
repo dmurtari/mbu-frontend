@@ -24,21 +24,47 @@
         </div>
       </div>
     </div>
+    <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
   </div>
 </template>
 
 <script>
 import EventsDropdown from '../../shared/EventsDropdown.vue';
 
+import { mapGetters } from 'vuex';
+import _ from 'lodash'
+
 export default {
   data() {
     return {
-      error: ''
+      error: '',
+      loading: false,
+      selectedEventId: 0
     };
+  },
+  computed: {
+    ...mapGetters([
+      'registrations'
+    ]),
+    filteredRegistrations() {
+      return _.filter(this.registrations, (registrations) => {
+        return registrations.eventId === this.selectedEventId;
+      });
+    }
   },
   methods: {
     pickEvent(eventId) {
-
+      this.selectedEventId = eventId;
+      this.loading = true;
+      this.$store.dispatch('getRegistrations', eventId)
+        .then(() => {
+          this.loading = false;
+          this.error = '';
+        })
+        .catch(() => {
+          this.loading = false;
+          this.error = 'Failed to get registrations for this event';
+        });
     }
   },
   components: {
