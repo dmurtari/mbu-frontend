@@ -8,14 +8,16 @@
     <div class="columns">
       <div class="column is-3">
         <aside class="menu">
-          <p class="menu-label">Pick a task</p>
+          <p class="menu-label">Manage</p>
           <ul class="menu-list">
             <router-link to="/administration/offerings"
-                         active-class="is-active">Manage Offerings</router-link>
+                         active-class="is-active">Offerings</router-link>
             <router-link to="/administration/users"
-                         active-class="is-active">Manage Users</router-link>
+                         active-class="is-active">Users</router-link>
             <router-link to="/administration/purchasables"
                          active-class="is-active">Purchasables</router-link>
+            <router-link to="/administration/registrations"
+                         active-class="is-active">Registrations</router-link>
           </ul>
         </aside>
       </div>
