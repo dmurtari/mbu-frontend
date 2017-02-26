@@ -8,6 +8,9 @@
       <ul class="attendance-section attendance-list">
         <li v-for="preference in preferences" v-if="preferences.length > 0">
           {{ preference.details.rank }}: {{ preference.badge.name }}
+          <span v-if="preference.price !== '0.00'">
+            ({{ preference.price | currency }})
+          </span>
         </li>
         <div v-else class="notification">
           This scout does not have any preferences listed for this event.
@@ -22,9 +25,10 @@
           <span v-if="purchase.details.size">
             (Size: {{ purchase.details.size | capitalize }})
           </span>
+          {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
+          {{ purchase.price * purchase.details.quantity | currency }}
         </li>
       </ul>
-    </div>
     </div>
   </div>
 </template>

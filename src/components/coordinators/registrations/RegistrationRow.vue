@@ -10,53 +10,12 @@
         <b class="column is-2 is-hidden-mobile">{{ scout.fullname }}</b>
         <h5 class="column is-2 title is-5 is-hidden-tablet">{{ scout.fullname }}</h5>
         <loader v-if="loading" :color="'lightgray'"></loader>
-        <template v-if="registration && !loading">
-          <div class="column auto">
-            <p>
-              <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
-              <ul class="itemized-list">
-                <li>Event Fee: {{ event.price | currency }}</li>
-                <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
-                <li>Purchases: {{ purchaseCosts | currency }}</li>
-              </ul>
-            </p>
-            <br>
-            <p>
-              <b>Merit Badge Preferences:</b>
-              <ol class="preference-list">
-                <li v-for="preference in preferences">
-                  {{ preference.name }}
-                  <span v-if="preference.price !== '0.00'">
-                    ({{ preference.price | currency }})
-                  </span>
-                </li>
-              </ol>
-            </p>
-            <p v-if="purchases.length > 0">
-              <br>
-              <b>Purchased Items:</b>
-              <ul class="itemized-list">
-                <li v-for="purchase in purchases">
-                  {{ purchase.item }}:
-                  <span v-if="purchase.details.size">(Size {{ purchase.details.size | upperCase }})</span>
-                  {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
-                  {{ purchase.price * purchase.details.quantity | currency }}
-                </li>
-              </ul>
-            </p>
-          </div>
-          <div class="column is-1">
-            <button class="button"
-                    @click="toggleState('editing')"
-                    @cancel="toggleState()"
-                    data-balloon="Modify Registration"
-                    data-balloon-pos="left"
-                    :disabled="!registrationOpen">
-              <span class="fa fa-edit is-hidden-mobile" aria-label="Modify"></span>
-              <span class="is-hidden-tablet">Modify Registration</span>
-            </button>
-          </div>
-        </template>
+        <registration-detail class="column auto"
+                             v-if="registration && !loading"
+                             :scout="scout"
+                             :registration="registration"
+                             :event="event"
+                             @edit="toggleState('editing')"></registration-detail>
         <template v-if="!registration">
           <button class="button is-link register-button"
                   v-if="registrationOpen"
@@ -100,6 +59,7 @@ import _ from 'lodash';
 import CreateRegistration from './Create.vue';
 import EditRegistration from './Edit.vue';
 import Purchases from './Purchases.vue';
+import RegistrationDetail from '../../scouts/RegistrationDetail.vue'
 
 export default {
   props: {
@@ -154,35 +114,6 @@ export default {
     }
   },
   computed: {
-    offerings() {
-      return this.event.offerings;
-    },
-    preferences() {
-      return _.map(this.registration.preferences, (preference) => {
-        let offering = _.find(this.offerings, { id: preference.badge_id });
-        return {
-          name: offering.name,
-          price: offering.details.price
-        }
-      });
-    },
-    preferenceCosts() {
-      return _.reduce(this.preferences, (sum, preference) => {
-        return sum + Number(preference.price);
-      }, 0);
-    },
-    purchases() {
-      return this.registration.purchases || [];
-    },
-    projectedCost() {
-      return Number(this.event.price) + Number(this.preferenceCosts)
-             + Number(this.purchaseCosts);
-    },
-    purchaseCosts() {
-      return _.reduce(this.purchases, (sum, purchase) => {
-        return sum + (Number(purchase.price) * Number(purchase.details.quantity));
-      }, 0);
-    },
     registration() {
       return _.find(this.scout.registrations, { 'event_id': this.event.id });
     }
@@ -195,7 +126,8 @@ export default {
   components: {
     'create-registration': CreateRegistration,
     'edit-registration': EditRegistration,
-    Purchases
+    Purchases,
+    RegistrationDetail
   }
 }
 </script>
@@ -205,18 +137,6 @@ export default {
     padding: 2rem 1rem;
     border-bottom: 1px lightgray solid;
     align-items: center;
-  }
-
-  .itemized-list {
-    padding-top: .5rem;
-    padding-left: 1rem;
-  }
-
-  .preference-list {
-    padding-top: .5rem;
-    padding-left: 2rem;
-    columns: 2;
-    column-gap: 3rem;
   }
 
   .register-button {
