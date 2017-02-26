@@ -3,13 +3,28 @@
     <h5 class="title is-5">
       Attendance for {{ scout.fullname }} (Troop {{ scout.troop }})
     </h5>
-    <div class="attendance-preferences">
-      <b>Merit Badge Preferences</b>:
-      <ul class="attendance-preference-list">
-        <li v-for="preference in preferences">
+    <div class="attendance-preferences attendance-section">
+      <b>Merit Badge Preferences:</b>
+      <ul class="attendance-section attendance-list">
+        <li v-for="preference in preferences" v-if="preferences.length > 0">
           {{ preference.details.rank }}: {{ preference.badge.name }}
         </li>
+        <div v-else class="notification">
+          This scout does not have any preferences listed for this event.
+        </div>
       </ul>
+    </div>
+    <div class="attendance-purchases attendance-section" v-if="purchases.length > 0">
+      <b>Purchases:</b>
+      <ul class="attendance-section attendance-list">
+        <li v-for="purchase in purchases">
+          ({{ purchase.details.quantity }}) {{ purchase.item }}
+          <span v-if="purchase.details.size">
+            (Size: {{ purchase.details.size | capitalize }})
+          </span>
+        </li>
+      </ul>
+    </div>
     </div>
   </div>
 </template>
@@ -41,8 +56,11 @@ export default {
     border-bottom: 1px lightgray solid;
   }
 
-  .attendance-preference-list {
+  .attendance-section {
     margin-top: .5rem;
+  }
+
+  ul.attendance-list {
     padding-left: 1rem;
     columns: 2;
     column-gap: 3rem;

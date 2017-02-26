@@ -25,9 +25,12 @@
       </div>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
-    <div class="registration-list">
-    <attendance-row v-for="registration in filteredRegistrations"
-                    :registration="registration"></attandance-row>
+    <div class="registration-list" v-if="!loading">
+      <attendance-row v-for="registration in filteredRegistrations"
+                      :registration="registration"></attendance-row>
+      <div class="notification" v-if="noRegistrations">
+        No scouts are currently registered for this event.
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +54,9 @@ export default {
     ...mapGetters([
       'registrations'
     ]),
+    noRegistrations() {
+      return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
+    },
     selectedRegistration() {
       return _.find(this.registrations, (registrations) => {
         return registrations.eventId === this.selectedEventId;
