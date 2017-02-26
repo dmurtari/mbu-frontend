@@ -17,7 +17,7 @@ import Administration from './components/administration/Administration.vue';
 import AdminOfferings from'./components/administration/offerings/List.vue';
 import AdminUsers from './components/administration/users/List.vue';
 import AdminPurchasables from './components/administration/purchasables/List.vue'
-import AdminRegistrations from './components/administration/registrations/List.vue';
+import AdminAttendance from './components/administration/attendance/List.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorScouts from './components/coordinators/scouts/List.vue';
@@ -45,8 +45,8 @@ export default [
         path: 'purchasables',
         component: AdminPurchasables
       }, {
-        path: 'registrations',
-        component: AdminRegistrations
+        path: 'attendances',
+        component: AdminAttendance
       }
     ]
   }, {

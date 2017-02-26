@@ -16,8 +16,8 @@
                          active-class="is-active">Users</router-link>
             <router-link to="/administration/purchasables"
                          active-class="is-active">Purchasables</router-link>
-            <router-link to="/administration/registrations"
-                         active-class="is-active">Registrations</router-link>
+            <router-link to="/administration/attendances"
+                         active-class="is-active">Event Attendance</router-link>
           </ul>
         </aside>
       </div>

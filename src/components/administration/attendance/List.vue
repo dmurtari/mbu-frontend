@@ -25,11 +25,16 @@
       </div>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
+    <div class="registration-list">
+    <attendance-row v-for="registration in filteredRegistrations"
+                    :registration="registration"></attandance-row>
+    </div>
   </div>
 </template>
 
 <script>
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import AttendanceRow from './AttendanceRow.vue';
 
 import { mapGetters } from 'vuex';
 import _ from 'lodash'
@@ -46,10 +51,17 @@ export default {
     ...mapGetters([
       'registrations'
     ]),
-    filteredRegistrations() {
-      return _.filter(this.registrations, (registrations) => {
+    selectedRegistration() {
+      return _.find(this.registrations, (registrations) => {
         return registrations.eventId === this.selectedEventId;
       });
+    },
+    filteredRegistrations() {
+      if (!this.selectedRegistration) {
+        return {};
+      }
+
+      return this.selectedRegistration.registrations;
     }
   },
   methods: {
@@ -68,7 +80,8 @@ export default {
     }
   },
   components: {
-    EventsDropdown
+    EventsDropdown,
+    AttendanceRow
   }
 }
 </script>
