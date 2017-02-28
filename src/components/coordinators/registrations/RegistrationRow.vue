@@ -38,7 +38,9 @@
               <ul class="itemized-list">
                 <li v-for="purchase in purchases">
                   {{ purchase.item }}:
-                  <span v-if="purchase.details.size">(Size {{ purchase.details.size | upperCase }})</span>
+                  <span v-if="purchase.details.size">
+                    (Size {{ purchase.details.size | upperCase }})
+                  </span>
                   {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
                   {{ purchase.price * purchase.details.quantity | currency }}
                 </li>

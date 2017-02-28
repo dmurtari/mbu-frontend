@@ -3,49 +3,67 @@
     <h5 class="title is-5">
       Attendance for {{ scout.fullname }} (Troop {{ scout.troop }})
     </h5>
-    <div class="attendance-section">
-      <p>
-        <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
-        <ul class="cost-list">
-          <li>Event Fee: {{ event.price | currency }}</li>
-          <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
-          <li>Purchases: {{ purchaseCosts | currency }}</li>
+    <div v-if="state === 'displaying'">
+      <div class="attendance-section">
+        <p>
+          <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
+          <ul class="itemized-list">
+            <li>Event Fee: {{ event.price | currency }}</li>
+            <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
+            <li>Purchases: {{ purchaseCosts | currency }}</li>
+          </ul>
+        </p>
+      </div>
+      <div class="attendance-preferences attendance-section">
+        <b>Merit Badge Preferences:</b>
+        <ul class="itemized-list attendance-list">
+          <li v-for="preference in preferences" v-if="preferences.length > 0">
+            {{ preference.details.rank }}: {{ preference.badge.name }}
+            <span v-if="preference.price !== '0.00'">
+              ({{ preference.price | currency }})
+            </span>
+          </li>
+          <div v-else class="notification">
+            This scout does not have any preferences listed for this event.
+          </div>
         </ul>
-      </p>
-    </div>
-    <div class="attendance-preferences attendance-section">
-      <b>Merit Badge Preferences:</b>
-      <ul class="attendance-section attendance-list">
-        <li v-for="preference in preferences" v-if="preferences.length > 0">
-          {{ preference.details.rank }}: {{ preference.badge.name }}
-          <span v-if="preference.price !== '0.00'">
-            ({{ preference.price | currency }})
-          </span>
-        </li>
-        <div v-else class="notification">
-          This scout does not have any preferences listed for this event.
+      </div>
+      <div class="attendance-purchases attendance-section" v-if="purchases.length > 0">
+        <b>Purchases:</b>
+        <ul class="itemized-list">
+          <li v-for="purchase in purchases">
+            {{ purchase.item }}
+            <span v-if="purchase.details.size">
+              (Size: {{ purchase.details.size | capitalize }})
+            </span>
+            {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
+            {{ purchase.price * purchase.details.quantity | currency }}
+          </li>
+        </ul>
+      </div>
+      <div class="attendance-assignments attendance-section">
+        <b>Assignments:</b>
+        <div class="attendance-section" v-if="assignments.length < 1">
+          <div class="notification">
+            {{ scout.fullname }} has not yet been assigned any merit badges for
+            MBU {{ event.semester }} {{ event.year }}.
+            <br>
+            <a class="is-link"
+               @click.prevent="toggleState('assigning')">
+              Assign Merit Badges
+            </a>
+          </div>
         </div>
-      </ul>
+      </div>
     </div>
-    <div class="attendance-purchases attendance-section" v-if="purchases.length > 0">
-      <b>Purchases:</b>
-      <ul class="attendance-section attendance-list">
-        <li v-for="purchase in purchases">
-          {{ purchase.item }}
-          <span v-if="purchase.details.size">
-            (Size: {{ purchase.details.size | capitalize }})
-          </span>
-          {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
-          {{ purchase.price * purchase.details.quantity | currency }}
-        </li>
-      </ul>
-    </div>
-    </div>
+    <assignment-create v-else></assignment-create>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
+
+import AssignmentCreate from './AssignmentCreate.vue';
 
 export default {
   props: {
@@ -57,6 +75,11 @@ export default {
       type: Object,
       required: true
     }
+  },
+  data() {
+    return {
+      state: 'displaying'
+    };
   },
   computed: {
     scout() { return this.registration.scout },
@@ -79,6 +102,14 @@ export default {
         return sum + (Number(purchase.price) * Number(purchase.details.quantity));
       }, 0);
     }
+  },
+  methods: {
+    toggleState(state = 'displaying') {
+      this.state = state;
+    }
+  },
+  components: {
+    AssignmentCreate
   }
 }
 </script>
@@ -90,16 +121,16 @@ export default {
   }
 
   .attendance-section {
-    margin-top: .5rem;
+    margin-top: 1rem;
   }
 
   .attendance-list {
-    padding-left: 1rem;
     columns: 2;
     column-gap: 3rem;
   }
 
-  .cost-list {
+  .itemized-list {
+    margin-top: .5rem;
     padding-left: 1rem;
   }
 </style>
