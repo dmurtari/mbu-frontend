@@ -26,12 +26,14 @@
             <select class="input"
                     id="period-1-assignment">
               <option :value="null">No Assignment</option>
+              <option disabled></option>
               <optgroup label="Preferences">
                 <option v-for="preference in preferences"
                         :value="preference.offering_id">
                   {{ preference.badge.name }}
                 </option>
               </optgroup>
+              <option disabled></option>
               <optgroup label="All Offerings">
                 <option v-for="offering in sortedOfferings"
                         :value="offering.details.id"
