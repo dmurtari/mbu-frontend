@@ -56,7 +56,12 @@
         </div>
       </div>
     </div>
-    <assignment-create v-else></assignment-create>
+    <assignment-create v-if="state === 'assigning'"
+                       :scout="scout"
+                       :event="event"
+                       :preferences="preferences"
+                       :registration="registration"
+                       @done="toggleState('displaying')"></assignment-create>
   </div>
 </template>
 
