@@ -29,7 +29,8 @@
               <option disabled></option>
               <optgroup label="Preferences">
                 <option v-for="preference in preferences"
-                        :value="preference.offering_id">
+                        :value="preference.offering_id"
+                        :disabled="!offered(preference.offering_id, 1)">
                   {{ preference.badge.name }}
                 </option>
               </optgroup>
@@ -37,7 +38,7 @@
               <optgroup label="All Offerings">
                 <option v-for="offering in sortedOfferings"
                         :value="offering.details.id"
-                        :disabled="!offered(offering, 1)">
+                        :disabled="!offered(offering.details.id, 1)">
                   {{ offering.name }}
                 </option>
               </optgroup>
@@ -65,7 +66,7 @@
       </div>
     </form>
     </form>
-    <button class="button is-primary">Save Assignment</button>
+    <button class="button is-primary">Save Assignments</button>
     <button class="button"
             @click="$emit('done')">Cancel</button>
 
@@ -94,13 +95,30 @@ export default {
       require: true
     }
   },
+  data() {
+    return {
+      assignments: []
+    };
+  },
   computed: {
     sortedOfferings() {
       return _.orderBy(this.event.offerings, 'name');
+    },
+    assignmentsByPeriod: {
+      set() {
+
+      },
+      get() {
+
+      }
     }
   },
   methods: {
-    offered(offering, period) {
+    offered(offeringId, period) {
+      let offering = _.find(this.event.offerings, (offering) => {
+        return offering.details.id === offeringId;
+      });
+
       return _.indexOf(offering.details.periods, period) >= 0;
     }
   }

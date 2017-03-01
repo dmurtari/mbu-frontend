@@ -16,8 +16,18 @@ const getters = {
 };
 
 const mutations = {
-  [types.SET_EVENT_REGISTRATIONS] (state, details) {
+  [types.SET_ASSIGNMENTS] (state, details) {
+    let registrations = _.find(state.registrations, (registration) => {
+      return registration.eventId === details.eventId;
+    });
 
+    let registration = _.find(registrations, (registration) => {
+      return registration.registration_id === details.registrationId;
+    });
+
+    Vue.set(registration, 'assignments', details.assignments);
+  },
+  [types.SET_EVENT_REGISTRATIONS] (state, details) {
     state.registrations.push(details);
   }
 };
@@ -43,6 +53,26 @@ const actions = {
           console.error('Failed to get registrations with', err);
           reject();
         });
+    });
+  },
+  setAssignments({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+                 details.registrationId + '/assignments', details.assignments)
+        .then((response) => {
+          console.log('Set assignments for registration', details.registrationId,
+                      response.data.registration.assignments);
+          commit(types.SET_assignments, {
+            eventId: details.eventId,
+            registrationId: details.registrationId,
+            assignments: response.data.registration.assignments
+          });
+          resolve(response.data.registration.assignments);
+        })
+        .catch((err) => {
+          console.error('Failed to set assignments', err);
+          reject();
+        })
     });
   }
 };
