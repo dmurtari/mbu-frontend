@@ -4,12 +4,20 @@
       Attendance for {{ scout.fullname }} (Troop {{ scout.troop }})
     </h5>
     <div v-if="state === 'displaying'">
-      <div class="attendance-section">
-        <p>
+      <div class="attendance-section columns">
+        <p class="column is-6">
           <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
           <ul class="itemized-list">
             <li>Event Fee: {{ event.price | currency }}</li>
             <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
+            <li>Purchases: {{ purchaseCosts | currency }}</li>
+          </ul>
+        </p>
+        <p class="column is-6">
+          <b>Actual Cost of Attendance: </b>{{ actualCost | currency }}
+          <ul class="itemized-list">
+            <li>Event Fee: {{ event.price | currency }}</li>
+            <li>Merit Badge Fees: {{ assignmentCosts | currency }}</li>
             <li>Purchases: {{ purchaseCosts | currency }}</li>
           </ul>
         </p>
@@ -54,6 +62,17 @@
             </a>
           </div>
         </div>
+        <div v-else>
+          <ul class="itemized-list">
+            <li v-for="assignment in assignments">
+              {{assignment.details.periods}} {{ assignment.badge.name }}
+            </li>
+          </ul>
+          <button class="button is-link"
+                  @click="toggleState('assigning')">
+            Edit Assignments
+          </button>
+        </div>
       </div>
     </div>
     <assignment-create v-if="state === 'assigning'"
@@ -93,6 +112,15 @@ export default {
     },
     assignments() { return this.registration.assignments },
     purchases() { return this.registration.purchases },
+    actualCost() {
+      return Number(this.event.price) + Number(this.assignmentCosts)
+             + Number(this.purchaseCosts);
+    },
+    assignmentCosts() {
+      return _.reduce(this.assignments, (sum, assignment) => {
+        return sum + Number(assignment.price);
+      }, 0);
+    },
     preferenceCosts() {
       return _.reduce(this.preferences, (sum, preference) => {
         return sum + Number(preference.price);
