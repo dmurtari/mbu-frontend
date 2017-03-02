@@ -64,8 +64,12 @@
         </div>
         <div v-else>
           <ul class="itemized-list">
-            <li v-for="assignment in assignments">
-              {{assignment.details.periods}} {{ assignment.badge.name }}
+            <li v-for="(assignment, index) in assignmentList">
+              Period {{ index + 1 }}:
+              {{ assignment.badge.name }}
+              <span v-if="assignment.price !== '0.00'">
+                ({{ assignment.price | currency }})
+              </span>
             </li>
           </ul>
           <button class="button is-link"
@@ -120,6 +124,17 @@ export default {
       return _.reduce(this.assignments, (sum, assignment) => {
         return sum + Number(assignment.price);
       }, 0);
+    },
+    assignmentList() {
+      let result = [null, null, null];
+
+      _.forEach(this.registration.assignments, (assignment) => {
+        return _.forEach(assignment.details.periods, (period) => {
+          result[Number(period) - 1] = assignment;
+        });
+      });
+
+      return result;
     },
     preferenceCosts() {
       return _.reduce(this.preferences, (sum, preference) => {
