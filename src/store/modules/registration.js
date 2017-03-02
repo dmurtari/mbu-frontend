@@ -21,7 +21,7 @@ const mutations = {
       return registration.eventId === details.eventId;
     });
 
-    let registration = _.find(registrations, (registration) => {
+    let registration = _.find(registrations.registrations, (registration) => {
       return registration.registration_id === details.registrationId;
     });
 
@@ -62,7 +62,7 @@ const actions = {
         .then((response) => {
           console.log('Set assignments for registration', details.registrationId,
                       response.data.registration.assignments);
-          commit(types.SET_assignments, {
+          commit(types.SET_ASSIGNMENTS, {
             eventId: details.eventId,
             registrationId: details.registrationId,
             assignments: response.data.registration.assignments
