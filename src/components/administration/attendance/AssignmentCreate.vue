@@ -142,6 +142,7 @@ export default {
         .then(() => {
           this.error = '';
           this.saving = false;
+          this.$emit('done');
         })
         .catch(() => {
           this.error = 'Failed to save assignments. Please refresh and try again';
@@ -150,12 +151,15 @@ export default {
     }
   },
   mounted() {
-    this.assignments = _.reduce(this.assignments, (array, assignment) => {
-      _.forEach(assignment.periods, (period) => {
-      array[Number(period)
-        - 1] = assignment.offering;
+    let result = [null, null, null];
+
+    _.forEach(this.registration.assignments, (assignment) => {
+      return _.forEach(assignment.details.periods, (period) => {
+        result[Number(period) - 1] = assignment.offering_id;
       });
-    }, []);
+    });
+
+    this.assignments = result;
   }
 }
 </script>
