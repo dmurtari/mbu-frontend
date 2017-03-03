@@ -57,6 +57,7 @@
                           :role="profile.role"
                           :id="profile.id"
                           @toggle="toggleDeleteAccount()"></delete-account>
+        </div>
       </div>
     </div>
   </div>

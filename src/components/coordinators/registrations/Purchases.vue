@@ -25,6 +25,7 @@
             <option v-for="purchasable in unpurchasedItems" :value="purchasable">
               {{ purchasable.item }} ({{ purchasable.price | currency }})
             </option>
+          </select>
         </span>
       </div>
       <div class="control column is-3-mobile is-2-tablet">

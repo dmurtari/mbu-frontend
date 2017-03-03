@@ -51,7 +51,7 @@
           The event you have selected is not the current MBU. You can view
           registration information for scouts that were registered for the
           {{ readableEvent }} event, but you can not add or modify registrations.
-        <p>
+        </p>
       </div>
       <div class="notification" v-if="filteredScouts.length < 1">
         <p>

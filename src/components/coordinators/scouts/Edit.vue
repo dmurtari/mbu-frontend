@@ -40,7 +40,7 @@
                         id="scout-edit-birthday"
                         :class="{ 'is-danger': $v.scoutUpdate.birthday.$error }"
                         @blur="$v.scoutUpdate.birthday.$touch"
-                        v-model="scoutUpdate.birthday">
+                        v-model="scoutUpdate.birthday"></masked-input>
           <span class="help is-danger" v-if="$v.scoutUpdate.birthday.$error">
             Please enter the scout's birthday
           </span>
@@ -103,21 +103,22 @@
                         id="scout-edit-emergency-phone"
                         :class="{ 'is-danger': $v.scoutUpdate.emergency_phone.$error }"
                         @blur="$v.scoutUpdate.emergency_phone.$touch"
-                        v-model="scoutUpdate.emergency_phone">
+                        v-model="scoutUpdate.emergency_phone"></masked-input>
           <span class="help is-danger" v-if="$v.scoutUpdate.emergency_phone.$error">
             Please enter the phone number of the person we should contact in event
             of emergency
           </span>
         </div>
         <div class="column">
-        <button class="button is-primary"
-                :disabled="$v.$invalid"
-                :class="{ 'is-disabled is-loading': saving }"
-                @click.prevent="saveScout()">Save</button>
-        <button class="button"
-                @click.prevent="close()">Cancel</button>
-        <button class="button is-danger is-pulled-right"
-                @click.prevent="toggleDeleteConfirmation()">Delete</button>
+          <button class="button is-primary"
+                  :disabled="$v.$invalid"
+                  :class="{ 'is-disabled is-loading': saving }"
+                  @click.prevent="saveScout()">Save</button>
+          <button class="button"
+                  @click.prevent="close()">Cancel</button>
+          <button class="button is-danger is-pulled-right"
+                  @click.prevent="toggleDeleteConfirmation()">Delete</button>
+        </div>
       </div>
     </form>
     <confirm-delete v-if="showDeleteConfirmation"

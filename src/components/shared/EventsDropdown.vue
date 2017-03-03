@@ -6,6 +6,7 @@
       <option v-for="option in readableEvents" :value="option.id">
         {{ option.event }}
       </option>
+    </select>
   </span>
 </template>
 
@@ -27,9 +28,9 @@ export default {
     ]),
     readableEvents() {
       return _.map(this.orderedEvents, (event) => {
-        return { 
+        return {
           id: event.id,
-          event: event.semester + ' ' + event.year 
+          event: event.semester + ' ' + event.year
         };
       });
     }
