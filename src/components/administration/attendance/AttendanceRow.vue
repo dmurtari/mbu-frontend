@@ -1,8 +1,16 @@
 <template>
   <div class="attendance-row">
-    <h5 class="title is-5">
-      Attendance for {{ scout.fullname }} (Troop {{ scout.troop }})
-    </h5>
+    <div class="level is-mobile">
+      <div class="level-left">
+        <h5 class="title is-5 level-item">
+          Attendance for {{ scout.fullname }} (Troop {{ scout.troop }})
+        </h5>
+      </div>
+      <div class="level-right">
+        <button class="button level-item"
+                @click="toggleState('assigning')">Edit</button>
+      </div>
+    </div>
     <div v-if="state === 'displaying'">
       <div class="attendance-section columns">
         <p class="column is-6">
@@ -72,10 +80,6 @@
               </span>
             </li>
           </ul>
-          <button class="button is-link"
-                  @click="toggleState('assigning')">
-            Edit Assignments
-          </button>
         </div>
       </div>
     </div>
