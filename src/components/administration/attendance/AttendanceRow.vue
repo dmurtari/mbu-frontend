@@ -158,6 +158,11 @@ export default {
       }, 0);
     }
   },
+  watch: {
+    registration() {
+      this.state = 'displaying';
+    }
+  },
   methods: {
     toggleState(state = 'displaying') {
       this.state = state;

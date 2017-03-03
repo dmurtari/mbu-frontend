@@ -22,6 +22,24 @@
             </div>
           </div>
         </div>
+        <div class="column is-6">
+          <div class="control is-horizontal">
+            <div class="control-label">
+              <label class="label">For&nbsp;Troop:</label>
+            </div>
+            <div class="control">
+              <span class="input-group select">
+                <select class="input"
+                        v-model="troopFilter">
+                  <option :value="null">All Troops</option>
+                  <option v-for="troop in troops" :value="troop">
+                    {{ troop }}
+                  </option>
+                </select>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
@@ -48,7 +66,8 @@ export default {
     return {
       error: '',
       loading: false,
-      selectedEventId: 0
+      selectedEventId: 0,
+      troopFilter: null
     };
   },
   computed: {
@@ -56,14 +75,6 @@ export default {
       'registrations',
       'allEvents'
     ]),
-    noRegistrations() {
-      return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
-    },
-    selectedRegistration() {
-      return _.find(this.registrations, (registrations) => {
-        return registrations.eventId === this.selectedEventId;
-      });
-    },
     event() {
       return _.find(this.allEvents, { 'id': this.selectedEventId });
     },
@@ -72,7 +83,28 @@ export default {
         return {};
       }
 
-      return this.selectedRegistration.registrations;
+      if (!this.troopFilter) {
+        return this.selectedRegistration.registrations;
+      } else {
+        return _.filter(this.selectedRegistration.registrations, (registration) => {
+          return registration.scout.troop === this.troopFilter;
+        });
+      }
+    },
+    noRegistrations() {
+      return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
+    },
+    selectedRegistration() {
+      return _.find(this.registrations, (registrations) => {
+        return registrations.eventId === this.selectedEventId;
+      });
+    },
+    troops() {
+      if (!this.selectedRegistration) {
+        return [];
+      }
+
+      return _.uniq(_.map(this.selectedRegistration.registrations, ('scout.troop')));
     }
   },
   methods: {
