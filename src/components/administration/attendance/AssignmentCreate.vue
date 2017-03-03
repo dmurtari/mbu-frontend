@@ -25,10 +25,8 @@
           <span class="input-group select">
             <select class="input"
                     :id="'period-' + n + '-assignment'"
-                    @change="checkDuration($event)"
+                    @change="maybeRespondToDuration($event.target.value, n)"
                     v-model="assignments[n - 1]">
-              <option :value="null">No Assignment</option>
-              <option disabled></option>
               <optgroup label="Preferences">
                 <option v-for="preference in preferences"
                         :value="preference.offering_id"
@@ -106,8 +104,17 @@ export default {
     }
   },
   methods: {
-    checkDuration(event) {
-      console.log(event.target.value)
+    maybeRespondToDuration(offeringId, period) {
+      let offering = _.find(this.event.offerings, (offering) => {
+        return offering.details.id === Number(offeringId);
+      });
+
+      if (!offering || offering.details.duration < 2) {
+        return;
+      } else {
+        this.assignments[1] = offeringId;
+        this.assignments[2] = offeringId;
+      }
     },
     offered(offeringId, period) {
       let offering = _.find(this.event.offerings, (offering) => {
