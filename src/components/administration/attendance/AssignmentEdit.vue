@@ -27,6 +27,8 @@
                     :id="'period-' + n + '-assignment'"
                     @change="maybeRespondToDuration($event.target.value, n)"
                     v-model="assignments[n - 1]">
+              <option :value="null">No Assignment</option>
+              <option disabled></option>
               <optgroup label="Preferences">
                 <option v-for="preference in preferences"
                         :value="preference.offering_id"
@@ -129,7 +131,12 @@ export default {
       let postData = [];
 
       _.forEach(this.assignments, (assignment, index) => {
+        if (!assignment) {
+          return;
+        }
+
         let existingData = _.find(postData, { offering: assignment });
+
         if (existingData) {
           existingData.periods.push(index + 1);
         } else {

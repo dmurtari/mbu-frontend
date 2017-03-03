@@ -74,28 +74,31 @@
           <ul class="itemized-list">
             <li v-for="(assignment, index) in assignmentList">
               Period {{ index + 1 }}:
-              {{ assignment.badge.name }}
-              <span v-if="assignment.price !== '0.00'">
-                ({{ assignment.price | currency }})
+              <span v-if="!assignment">Unassigned</span>
+              <span v-else>
+                {{ assignment.badge.name }}
+                <span v-if="assignment.price !== '0.00'">
+                  ({{ assignment.price | currency }})
+                </span>
               </span>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <assignment-create v-if="state === 'assigning'"
+    <assignment-edit v-if="state === 'assigning'"
                        :scout="scout"
                        :event="event"
                        :preferences="preferences"
                        :registration="registration"
-                       @done="toggleState('displaying')"></assignment-create>
+                       @done="toggleState('displaying')"></assignment-edit>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
 
-import AssignmentCreate from './AssignmentCreate.vue';
+import AssignmentEdit from './AssignmentEdit.vue';
 
 export default {
   props: {
@@ -161,7 +164,7 @@ export default {
     }
   },
   components: {
-    AssignmentCreate
+    AssignmentEdit
   }
 }
 </script>
