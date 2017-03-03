@@ -67,6 +67,7 @@
         closes.
       </div>
       <registration-row v-for="scout in filteredScouts"
+                        :key="scout.id"
                         :event="event"
                         :registrationOpen="registrationOpen"
                         :eventId="eventId"

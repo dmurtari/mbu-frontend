@@ -38,6 +38,7 @@
     <loader v-if="loading" :color="'lightgray'" class="purchasables-loading"></loader>
     <div class="purchasable-list" v-if="!loading">
       <purchasable v-for="purchasable in purchasables"
+                  :key="purchasable.id"
                   :purchasable="purchasable"
                   :eventId="eventId"></purchasable>
     </div>

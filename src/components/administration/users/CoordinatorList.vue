@@ -11,6 +11,7 @@
     </thead>
     <tbody>
       <coordinator-row v-for="coordinator in coordinators"
+                      :key="coordinator.id"
                       :coordinator="coordinator"></coordinator-row>
     </tbody>
   </table>

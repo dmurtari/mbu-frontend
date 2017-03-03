@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="scout-list">
-      <scout v-for="scout in filteredScouts" :scout="scout"></scout>
+      <scout v-for="scout in filteredScouts" :scout="scout" :key="scout.id"></scout>
     </div>
   </div>
 </template>

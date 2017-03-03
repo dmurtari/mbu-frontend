@@ -10,6 +10,7 @@
     </thead>
     <tbody>
       <general-row v-for="user in users"
+                  :key="user.id"
                   :user="user"></general-row>
     </tbody>
   </table>

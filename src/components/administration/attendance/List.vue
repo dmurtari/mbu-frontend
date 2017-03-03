@@ -32,7 +32,7 @@
                 <select class="input"
                         v-model="troopFilter">
                   <option :value="null">All Troops</option>
-                  <option v-for="troop in troops" :value="troop">
+                  <option v-for="troop in troops" :value="troop" :key="troop">
                     {{ troop }}
                   </option>
                 </select>
@@ -45,6 +45,7 @@
     <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
     <div class="registration-list" v-if="!loading">
       <attendance-row v-for="registration in filteredRegistrations"
+                      :key="registration.id"
                       :registration="registration"
                       :event="event"></attendance-row>
       <div class="notification" v-if="noRegistrations">

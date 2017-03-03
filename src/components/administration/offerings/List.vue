@@ -37,7 +37,9 @@
                 <select class="form-control"
                         id="offering-list-offered-filter"
                         v-model="offeredFilter">
-                  <option v-for="option in offeredFilters" :value="option.value">
+                  <option v-for="option in offeredFilters"
+                          :key="option.value"
+                          :value="option.value">
                     {{ option.text }}
                   </option>
                 </select>
@@ -51,6 +53,7 @@
     <div class="offering-list"
          v-if="!loading">
       <badge-row v-for="badge in filteredOfferings"
+                :key="badge.id"
                 :eventId="eventId"
                 :badge="badge"></badge-row>
     </div>

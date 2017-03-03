@@ -4,16 +4,17 @@
       <button class="button is-primary"
               v-if="isAdmin"
               @click="toggleAdd()">
-        <span v-if="!displayAddEvent" 
+        <span v-if="!displayAddEvent"
               class="fa fa-plus"></span>
-        <span v-if="displayAddEvent" 
+        <span v-if="displayAddEvent"
               class="fa fa-minus"></span>
       </button>
     </h3>
     <event-create @close="toggleAdd()" v-show="displayAddEvent"></event-create>
     <div class="event-list">
-      <event v-for="event in orderedEvents" 
+      <event v-for="event in orderedEvents"
             :event="event"
+            :key="event.id"
             :currentEvent="event.id === currentEvent.id"></event>
     </div>
   </div>

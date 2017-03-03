@@ -16,7 +16,7 @@
             <span class="select">
               <select id="user-list-role-filter"
                       v-model="selectedRole">
-                <option v-for="option in roles" :value="option.value">
+                <option v-for="option in roles" :value="option.value" :key="option.value">
                   {{ option.text }}
                 </option>
               </select>
