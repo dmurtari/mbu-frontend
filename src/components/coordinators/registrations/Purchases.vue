@@ -22,7 +22,9 @@
           <select id="purchasable-item-select"
                   class="input"
                   v-model="itemToPurchase.purchasable">
-            <option v-for="purchasable in unpurchasedItems" :value="purchasable">
+            <option v-for="purchasable in unpurchasedItems"
+                    :value="purchasable"
+                    :key="purchasable.id">
               {{ purchasable.item }} ({{ purchasable.price | currency }})
             </option>
           </select>
@@ -81,7 +83,7 @@
         </h5>
       </div>
       <template v-for="item in existingPurchases">
-        <div class="column is-6">
+        <div class="column is-12">
           <b>{{ item.item }}</b>:
           <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
           {{ item.price | currency }} &times; {{ item.details.quantity }} =

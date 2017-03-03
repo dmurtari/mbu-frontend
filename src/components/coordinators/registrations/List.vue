@@ -33,7 +33,9 @@
                         id="registered-list-filters"
                         :disabled="!isCurrentEvent"
                         v-model="registrationFilter">
-                  <option v-for="option in registrationFilters" :value="option.value">
+                  <option v-for="option in registrationFilters"
+                          :value="option.value"
+                          :key="option.value">
                     {{ option.text }}
                   </option>
                 </select>

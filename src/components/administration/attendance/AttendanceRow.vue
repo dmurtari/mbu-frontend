@@ -30,7 +30,9 @@
       <div class="attendance-preferences attendance-section">
         <b>Merit Badge Preferences:</b>
         <ul class="itemized-list attendance-list">
-          <li v-for="preference in preferences" v-if="preferences.length > 0">
+          <li v-for="preference in preferences"
+              :key="preference.id"
+              v-if="preferences.length > 0">
             {{ preference.details.rank }}: {{ preference.badge.name }}
             <span v-if="preference.price !== '0.00'">
               ({{ preference.price | currency }})
@@ -44,7 +46,7 @@
       <div class="attendance-purchases attendance-section" v-if="purchases.length > 0">
         <b>Purchases:</b>
         <ul class="itemized-list">
-          <li v-for="purchase in purchases">
+          <li v-for="purchase in purchases" :key="purchase.id">
             {{ purchase.item }}
             <span v-if="purchase.details.size">
               (Size: {{ purchase.details.size | capitalize }})
@@ -69,7 +71,7 @@
         </div>
         <div v-else>
           <ul class="itemized-list">
-            <li v-for="(assignment, index) in assignmentList">
+            <li v-for="(assignment, index) in assignmentList" :key="assignment.offering_id">
               Period {{ index + 1 }}:
               <span v-if="!assignment">Unassigned</span>
               <span v-else>

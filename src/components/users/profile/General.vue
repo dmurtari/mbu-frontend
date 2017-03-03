@@ -4,7 +4,7 @@
     <p><strong>Name: </strong>{{ fullname }}</p>
     <p><strong>Email: </strong>{{ profile.email }}</p>
     <p><strong>Your Role: </strong>{{ profile.role | titleCase }}</p>
-    <div v-for="(value, key) in profile.details">
+    <div v-for="(value, key) in profile.details" :key="key">
       <p><strong>{{ key | titleCase}}: </strong>{{ value | titleCase}}</p>
     </div>
   </div>

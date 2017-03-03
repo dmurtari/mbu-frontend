@@ -3,7 +3,9 @@
     <select id="event-offering-select"
             @change="emitEvent()"
             v-model="selectedEvent">
-      <option v-for="option in readableEvents" :value="option.id">
+      <option v-for="option in readableEvents"
+              :key="option.id"
+              :value="option.id">
         {{ option.event }}
       </option>
     </select>

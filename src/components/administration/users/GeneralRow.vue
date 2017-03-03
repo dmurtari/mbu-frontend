@@ -5,7 +5,7 @@
     <td>{{ user.email }}</td>
     <td>
       <ul class="details-list">
-        <li v-for="(value, key) in user.details">
+        <li v-for="(value, key) in user.details" :key="value">
           <b>{{ key | titleCase}}:</b> {{ value | titleCase}}
         </li>
       </ul>

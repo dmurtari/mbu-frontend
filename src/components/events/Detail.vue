@@ -29,7 +29,9 @@
     <br>
     <h5 class="title is-5">Items available for purchase:</h5>
     <div v-if="event.purchasables.length > 0">
-      <div v-for="purchasable in event.purchasables" class="purchasable-item">
+      <div v-for="purchasable in event.purchasables"
+           :class="purchasable.id"
+           class="purchasable-item">
         <b>{{ purchasable.item }}</b> ({{ purchasable.price | currency}})
         <span v-if="purchasable.description">{{ purchasable.description}}</span>
         <span v-if="purchasable.minimum_age || purchasable.maximum_age">

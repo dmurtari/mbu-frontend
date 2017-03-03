@@ -34,7 +34,9 @@
                     :class="{ 'is-danger': $v.event.semester.$error }"
                     @blur="$v.event.semester.$touch"
                     v-model="event.semester">
-              <option v-for="semester in semesters" v-bind:value="semester.value">
+              <option v-for="semester in semesters"
+                      :value="semester.value"
+                      :key="semester.value">
                 {{ semester.text }}
               </option>
             </select>

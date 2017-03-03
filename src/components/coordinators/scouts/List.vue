@@ -25,7 +25,9 @@
             <span class="select">
               <select id="scout-list-sort-filter"
                       v-model="sortBy">
-                <option v-for="option in orders" :value="option.value">
+                <option v-for="option in orders"
+                        :value="option.value"
+                        :key="option.value">
                   {{ option.text }}
                 </option>
               </select>

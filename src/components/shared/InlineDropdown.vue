@@ -6,7 +6,7 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li v-for="object in objects">
+      <li v-for="object in objects" :key="object">
         <a href="#"
           @click="selected(object)">{{ object[displayKey] }}</a>
       </li>

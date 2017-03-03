@@ -31,6 +31,7 @@
               <option disabled></option>
               <optgroup label="Preferences">
                 <option v-for="preference in preferences"
+                        :key="preference.offering_id"
                         :value="preference.offering_id"
                         :disabled="!offered(preference.offering_id, n)">
                   {{ preference.badge.name }}
@@ -45,6 +46,7 @@
               <option disabled></option>
               <optgroup label="All Offerings">
                 <option v-for="offering in sortedOfferings"
+                        :key="offering.details.id"
                         :value="offering.details.id"
                         :disabled="!offered(offering.details.id, n)">
                   {{ offering.name }}

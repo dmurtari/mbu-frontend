@@ -27,7 +27,8 @@
                       :class="{ 'is-danger': $v.preferences.$each[index].$error }"
                       v-model="preference.offering">
                 <option v-for="option in offerings"
-                        :value="option.details.id">
+                        :value="option.details.id"
+                        :key="option.details.id">
                   {{ option.name }}
                   <span v-if="option.details.price !== '0.00'">
                     ({{ option.details.price | currency }})

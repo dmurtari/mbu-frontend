@@ -24,7 +24,7 @@
             <p>
               <b>Merit Badge Preferences:</b>
               <ol class="preference-list">
-                <li v-for="preference in preferences">
+                <li v-for="preference in preferences" :key="preference.name">
                   {{ preference.name }}
                   <span v-if="preference.price !== '0.00'">
                     ({{ preference.price | currency }})
@@ -36,7 +36,7 @@
               <br>
               <b>Purchased Items:</b>
               <ul class="itemized-list">
-                <li v-for="purchase in purchases">
+                <li v-for="purchase in purchases" :key="purchase.id">
                   {{ purchase.item }}:
                   <span v-if="purchase.details.size">
                     (Size {{ purchase.details.size | upperCase }})

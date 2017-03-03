@@ -105,7 +105,9 @@
                     @blur="$v.credentials.role.$touch"
                     @change="clearRoleDetails()"
                     v-model="credentials.role">
-              <option v-for="option in roles" :value="option.value">
+              <option v-for="option in roles"
+                      :value="option.value"
+                      :key="option.value">
                 {{ option.text }}
               </option>
             </select>
