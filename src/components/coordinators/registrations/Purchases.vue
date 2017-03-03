@@ -15,14 +15,14 @@
         {{ error }}
       </p>
     </div>
-    <div class="columns is-mobile" v-if="unpurchasedItems.length > 0">
+    <div class="columns is-mobile" v-if="availableItems.length > 0">
       <div class="control column is-3-mobile is-5-tablet">
         <label class="label" for="purchasable-item-select">Item</label>
         <span class="select">
           <select id="purchasable-item-select"
                   class="input"
                   v-model="itemToPurchase.purchasable">
-            <option v-for="purchasable in unpurchasedItems"
+            <option v-for="purchasable in availableItems"
                     :value="purchasable"
                     :key="purchasable.id">
               {{ purchasable.item }} ({{ purchasable.price | currency }})
@@ -144,9 +144,10 @@ export default {
     orderedPurchasables() {
       return _.orderBy(this.purchasables, 'item');
     },
-    unpurchasedItems() {
+    availableItems() {
       return _.filter(this.orderedPurchasables, (purchasable) => {
-        return !_.find(this.existingPurchases, { 'id': purchasable.id });
+        return purchasable.has_size ||
+              !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
     },
     shouldShowPurchases() {
