@@ -76,25 +76,22 @@
         Please check back later.
       </p>
     </div>
-    <div class="columns is-multiline is-mobile" v-if="existingPurchases.length > 0">
-      <div class="column is-12">
-        <h5 class="title is-5">
-          Items Already Purchased ({{ event.semester }} {{ event.year }})
-        </h5>
+    <div v-if="existingPurchases.length > 0">
+      <h5 class="title is-5">
+        Items Already Purchased ({{ event.semester }} {{ event.year }})
+      </h5>
+      <div v-for="item in existingPurchases" class="purchased-item">
+        <b>{{ item.item }}</b>:
+        <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
+        {{ item.price | currency }} &times; {{ item.details.quantity }} =
+        {{ item.price * item.details.quantity | currency }}
+        <span class="tag is-danger delete-button"
+              @click="deleteItem(item.id)">
+          <span class="fa fa-trash"></span>
+        </span>
       </div>
-      <template v-for="item in existingPurchases">
-        <div class="column is-12">
-          <b>{{ item.item }}</b>:
-          <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
-          {{ item.price | currency }} &times; {{ item.details.quantity }} =
-          {{ item.price * item.details.quantity | currency }}
-          <span class="tag is-danger delete-button"
-                @click="deleteItem(item.id)">
-            <span class="fa fa-trash"></span>
-          </span>
-        </div>
-      </template>
     </div>
+  </div>
   </div>
 </template>
 
@@ -217,5 +214,10 @@ export default {
 <style class="sass" scoped>
   .delete-button {
     cursor: pointer;
+  }
+
+  .purchased-item {
+    margin-top: .25rem;
+    margin-left: 1rem;
   }
 </style>
