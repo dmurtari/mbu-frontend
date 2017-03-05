@@ -5,8 +5,23 @@
       <div class="container" v-if="!isApproved">
         <div class="notification is-warning">
           Your account has not yet been approved by an administrator. You can
-          view Merit Badge and Event information, but other functionality will
-          be restricted until your account has been approved.
+          view Merit Badge and Event information,
+          <span v-if="isCoordinator">
+            but you will not be able to add scouts to your troop or register
+            your troop for an event until your account is approved.
+          </span>
+          <span v-else-if="isTeacher">
+            but you will not be able to edit requirements or class information
+            until your account is approved.
+          </span>
+          <span v-else-if="isAdmin">
+            but you will not be able to perform administrative tasks until your
+            account is approved.
+          </span>
+          <span v-else>
+            but you will not be able to perform other tasks until your account
+            is approved.
+          </span>
         </div>
       </div>
       <router-view></router-view>
@@ -28,7 +43,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isApproved'
+      'isApproved',
+      'isCoordinator',
+      'isTeacher',
+      'isAdmin'
     ])
   },
   mounted() {

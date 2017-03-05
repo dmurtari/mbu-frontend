@@ -8,7 +8,7 @@
         <router-link class="nav-item is-hidden-mobile is-tab"
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
-                     v-if="isCoordinator"
+                     v-if="isCoordinator && isApproved"
                      to="/coordinator/scouts">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isAdmin"
@@ -26,7 +26,7 @@
         <router-link class="nav-item is-hidden-tablet"
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-tablet"
-                     v-if="isCoordinator"
+                     v-if="isCoordinator && isApproved"
                      to="/coordinator">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-tablet"
                      v-if="isAdmin"
@@ -62,6 +62,7 @@ export default {
       'profile',
       'isAdmin',
       'isAuthenticated',
+      'isApproved',
       'isCoordinator'
     ])
   },
