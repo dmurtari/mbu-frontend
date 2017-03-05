@@ -10,8 +10,6 @@
         <aside class="menu">
           <p class="menu-label">Manage</p>
           <ul class="menu-list">
-            <router-link to="/administration/offerings"
-                         active-class="is-active">Offerings</router-link>
             <li>
               <a @click="toggleUserMenu()">Users</a>
               <ul v-if="showUserMenu">
@@ -27,10 +25,16 @@
                 </router-link>
               </ul>
             </li>
+          </ul>
+          <p class="menu-label">Event Specific</p>
+          <ul class="menu-list">
+            <router-link to="/administration/attendances"
+                         active-class="is-active">Assignments</router-link>
+            <router-link to="/administration/offerings"
+                         active-class="is-active">Offerings</router-link>
             <router-link to="/administration/purchasables"
                          active-class="is-active">Purchasables</router-link>
-            <router-link to="/administration/attendances"
-                         active-class="is-active">Event Attendance</router-link>
+          </ul>
           </ul>
         </aside>
       </div>
