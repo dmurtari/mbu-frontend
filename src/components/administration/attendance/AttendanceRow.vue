@@ -71,7 +71,7 @@
         </div>
         <div v-else>
           <ul class="itemized-list">
-            <li v-for="(assignment, index) in assignmentList" :key="assignment.offering_id">
+            <li v-for="(assignment, index) in assignmentList" :key="index">
               Period {{ index + 1 }}:
               <span v-if="!assignment">Unassigned</span>
               <span v-else>

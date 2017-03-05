@@ -52,7 +52,6 @@
                     @click="toggleState('editing')"
                     @cancel="toggleState()"
                     data-balloon="Modify Registration"
-                    data-balloon-pos="left"
                     :disabled="!registrationOpen">
               <span class="fa fa-edit is-hidden-mobile" aria-label="Modify"></span>
               <span class="is-hidden-tablet">Modify Registration</span>
