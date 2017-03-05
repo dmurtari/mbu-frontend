@@ -55,4 +55,6 @@ export const SET_SCOUTS = 'scouts/SET';
 export const UPDATE_SCOUT = 'scouts/UPDATE';
 
 // Users
+export const APPROVE_USER = 'users/APPROVE';
+export const DELETE_USER = 'users/DELETE';
 export const GET_USERS = 'users/GET_USERS';

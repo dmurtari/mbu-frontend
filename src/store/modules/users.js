@@ -20,12 +20,33 @@ const getters = {
 };
 
 const mutations = {
+  [types.APPROVE_USER] (state, userId) {
+    let user = _.find(state.users, (user) => {
+      return user.id === userId;
+    });
+
+    user.approved = true;
+  },
   [types.GET_USERS] (state, users) {
     state.users = users;
   }
 };
 
 const actions = {
+  approveUser({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.USERS_URL + userId)
+        .then((response) => {
+          console.log('Approved user', userId);
+          commit(types.APPROVE_USER, userId);
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to approve user', err);
+          reject();
+        })
+    });
+  },
   getUsers({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get(URLS.USERS_URL)
@@ -35,7 +56,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Error retrieving users', err.data);
+          console.error('Error retrieving users', err.data);
           reject();
         })
     })

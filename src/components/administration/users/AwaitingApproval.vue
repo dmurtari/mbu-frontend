@@ -21,31 +21,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in unapprovedUsers" :key="user.id">
-          <td>{{ user.fullname }}</td>
-          <td>{{ user.role | capitalize }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.created_at | shortDate }}</td>
-          <td>
-            <ul class="details-list">
-              <li v-for="(value, key) in user.details" :key="value">
-                <b>{{ key | titleCase}}:</b> {{ value | titleCase}}
-              </li>
-            </ul>
-          </td>
-          <td>
-            <button class="button is-primary"
-                    data-balloon="Approve User"
-                    @click="approveUser(user.id)">
-              <span class="fa fa-check" aria-label="Approve"></span>
-            </button>
-            <button class="button is-danger"
-                    data-balloon="Delete User Account"
-                    @click="deleteUser(user.id)">
-              <span class="fa fa-trash" aria-label="Delete Account"></span>
-            </button>
-          </td>
-        </tr>
+        <approval-row v-for="user in unapprovedUsers"
+                      :key="user.id"
+                      :user="user">
+        </approval-row>
       </tbody>
     </table>
     <div v-else
@@ -58,22 +37,22 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import ApprovalRow from './ApprovalRow.vue';
+
 export default {
   computed: {
     ...mapGetters([
       'unapprovedUsers'
     ])
+  },
+  components: {
+    ApprovalRow
   }
 }
 </script>
 
 <style lang="sass" scoped>
-  table {
+  table, div.notification {
     margin-top: 1rem;
-  }
-
-  .details-list {
-    list-style: none;
-    padding-left: 0;
   }
 </style>
