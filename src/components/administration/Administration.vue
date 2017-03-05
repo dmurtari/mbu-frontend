@@ -21,7 +21,7 @@
                              active-class="is-active">
                   Need Approval&nbsp;
                   <span class="tag is-pulled-right is-small"
-                        :class="{ 'is-info': unapprovedUsers.length > 0 }">
+                        :class="{ 'is-black': unapprovedUsers.length > 0 }">
                     {{ unapprovedUsers.length }}
                   </span>
                 </router-link>
@@ -59,7 +59,7 @@ export default {
     ])
   },
   methods: {
-    maybeGetUsers() {
+    getUsers() {
       this.$store.dispatch('getUsers')
         .then(() => {
           this.error = '';
@@ -73,9 +73,15 @@ export default {
     toggleUserMenu() {
       this.showUserMenu = !this.showUserMenu;
       if (this.users.length < 1) {
-        this.maybeGetUsers();
+        this.getUsers();
       }
     }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  span.tag {
+    margin-top: -2px;
+  }
+</style>

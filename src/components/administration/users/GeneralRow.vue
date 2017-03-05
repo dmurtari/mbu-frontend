@@ -24,9 +24,9 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.details-list {
-  list-style: none;
-  padding-left: 0;
-}
+<style lang="sass" scoped>
+  .details-list {
+    list-style: none;
+    padding-left: 0;
+  }
 </style>
