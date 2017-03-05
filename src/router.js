@@ -18,7 +18,8 @@ import Signup from './components/authentication/Signup.vue';
 import Administration from './components/administration/Administration.vue';
 import AdminOfferings from'./components/administration/offerings/List.vue';
 import AdminUsers from './components/administration/users/List.vue';
-import AdminPurchasables from './components/administration/purchasables/List.vue'
+import AdminApproval from './components/administration/users/AwaitingApproval.vue';
+import AdminPurchasables from './components/administration/purchasables/List.vue';
 import AdminAttendance from './components/administration/attendance/List.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
@@ -42,8 +43,11 @@ export default [
         path: 'offerings',
         component: AdminOfferings
       }, {
-        path: 'users',
+        path: 'users/current',
         component: AdminUsers
+      }, {
+        path: 'users/approval',
+        component: AdminApproval
       }, {
         path: 'purchasables',
         component: AdminPurchasables

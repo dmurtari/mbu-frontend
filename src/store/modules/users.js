@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -10,6 +11,11 @@ const state = {
 const getters = {
   users(state) {
     return state.users;
+  },
+  unapprovedUsers(state) {
+    return _.filter(state.users, (user) => {
+      return !user.approved;
+    });
   }
 };
 

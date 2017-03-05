@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="title is-4">
-      Manage Users of MBU Online
+      Current Users of MBU Online
     </h4>
     <p>
       Use this page to view current users of this website.
@@ -85,9 +85,6 @@ export default {
         return user.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
     }
-  },
-  mounted() {
-    this.$store.dispatch('getUsers');
   },
   components: {
     'general-table': GeneralList,
