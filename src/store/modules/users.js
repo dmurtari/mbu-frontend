@@ -27,6 +27,11 @@ const mutations = {
 
     user.approved = true;
   },
+  [types.DELETE_USER] (state, userId) {
+    state.users = _.filter(state.users, (user) => {
+      return user.id !== userId;
+    });
+  },
   [types.GET_USERS] (state, users) {
     state.users = users;
   }
@@ -35,7 +40,7 @@ const mutations = {
 const actions = {
   approveUser({ commit }, userId) {
     return new Promise((resolve, reject) => {
-      axios.put(URLS.USERS_URL + userId)
+      axios.put(URLS.USERS_URL + userId, { approved: true })
         .then((response) => {
           console.log('Approved user', userId);
           commit(types.APPROVE_USER, userId);
@@ -46,6 +51,20 @@ const actions = {
           reject();
         })
     });
+  },
+  deleteUser({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      axios.delete(URLS.USERS_URL + userId)
+        .then((response) => {
+          console.log('Deleted user', userId);
+          commit(types.DELETE_USER, userId);
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Failed to delete user', err);
+          reject();
+        });
+    })
   },
   getUsers({ commit }) {
     return new Promise((resolve, reject) => {
