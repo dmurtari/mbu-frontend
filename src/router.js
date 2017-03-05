@@ -1,3 +1,5 @@
+import store from './store';
+
 import About from './components/About.vue';
 import Main from './components/Main.vue';
 import NotFound from './components/NotFound.vue';
@@ -34,6 +36,7 @@ export default [
   }, {
     path: '/administration',
     component: Administration,
+    beforeEnter: requireApproval,
     children: [
       {
         path: 'offerings',
@@ -52,6 +55,7 @@ export default [
   }, {
     path: '/coordinator',
     component: CoordinatorPage,
+    beforeEnter: requireApproval,
     children: [
       {
         path: 'scouts',
@@ -93,3 +97,13 @@ export default [
     component: NotFound
   }
 ];
+
+function requireApproval (to, from, next) {
+  if (!store.getters.isApproved) {
+    next({
+      path: '/'
+    });
+  } else {
+    next();
+  }
+}
