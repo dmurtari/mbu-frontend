@@ -16,6 +16,9 @@ const getters = {
   isAuthenticated(state) {
     return state.isAuthenticated;
   },
+  isApproved(state) {
+    return state.profile.approved;
+  },
   isTeacher(state) {
     return state.profile.role === 'teacher';
   },
@@ -92,7 +95,7 @@ const actions = {
   login({ commit }, credentials) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.LOGIN_URL, credentials)
-        .then((response) => {  
+        .then((response) => {
           console.log('Successfully logged in user');
           commit(types.LOGIN, response.data);
           resolve();
@@ -100,7 +103,7 @@ const actions = {
         .catch((err) => {
           console.log('Failed to login user');
           reject(err.response.data.message);
-        });    
+        });
     });
   },
   signup({ commit }, credentials) {
