@@ -43,13 +43,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 export default {
   data() {
     return {
       error: '',
       loading: false,
-      showUserMenu: false
+      showUserMenu: _.startsWith(this.$route.path, '/administration/users')
     };
   },
   computed: {
@@ -59,22 +60,8 @@ export default {
     ])
   },
   methods: {
-    getUsers() {
-      this.$store.dispatch('getUsers')
-        .then(() => {
-          this.error = '';
-          this.loading = true;
-        })
-        .catch(() => {
-          this.error = 'Failed to load users. Please refresh and try again';
-          this.loading = false;
-        });
-    },
     toggleUserMenu() {
       this.showUserMenu = !this.showUserMenu;
-      if (this.users.length < 1) {
-        this.getUsers();
-      }
     }
   }
 }

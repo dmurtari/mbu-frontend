@@ -43,8 +43,24 @@ export default [
         path: 'offerings',
         component: AdminOfferings
       }, {
-        path: 'users/current',
-        component: AdminUsers
+        path: 'users',
+        beforeEnter(to, from, next) {
+          store.dispatch('getUsers')
+            .then(() => next())
+            .catch(() => next({ path: '/administration' }));
+        },
+        component: {
+          render (component) { return component('router-view') }
+        },
+        children: [
+          {
+            path: 'current',
+            component: AdminUsers
+          }, {
+            path: 'approval',
+            component: AdminApproval
+          }
+        ]
       }, {
         path: 'users/approval',
         component: AdminApproval
@@ -103,11 +119,23 @@ export default [
 ];
 
 function requireApproval (to, from, next) {
-  if (!store.getters.isApproved) {
-    next({
-      path: '/'
-    });
+  if (store.getters.isApproved === undefined) {
+    store.dispatch('getProfile')
+      .then(() => {
+        if (!store.getters.isApproved) {
+          next(false);
+        } else {
+          next();
+        }
+      })
+      .catch(() => {
+        next(false);
+      });
   } else {
-    next();
+    if (!store.getters.isApproved) {
+      next(false);
+    } else {
+      next();
+    }
   }
 }

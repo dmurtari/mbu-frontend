@@ -18,6 +18,7 @@
         <span class="fa fa-check" aria-label="Approve"></span>
       </button>
       <button class="button is-danger"
+              :class="{ 'is-disabled is-loading': deleting }"
               @click="deleteUser()">
         <span class="fa fa-trash" aria-label="Delete Account"></span>
       </button>
@@ -69,5 +70,10 @@ export default {
   .details-list {
     list-style: none;
     padding-left: 0;
+  }
+
+  button {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 </style>

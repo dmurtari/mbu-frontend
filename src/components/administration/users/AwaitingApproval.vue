@@ -17,7 +17,7 @@
           <th>Email</th>
           <th>Date Created</th>
           <th>Details</th>
-          <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
