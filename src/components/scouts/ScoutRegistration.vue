@@ -26,11 +26,11 @@
       <ul class="itemized-list">
         <li v-for="purchase in purchases" :key="purchase.id">
           {{ purchase.item }}:
-          <span v-if="purchase.details.size">
-            (Size {{ purchase.details.size | upperCase }})
+          <span v-if="purchase.size">
+            (Size {{ purchase.size | upperCase }})
           </span>
-          {{ purchase.price | currency }} &times; {{ purchase.details.quantity }} =
-          {{ purchase.price * purchase.details.quantity | currency }}
+          {{ purchase.price | currency }} &times; {{ purchase.quantity }} =
+          {{ purchase.price * purchase.quantity | currency }}
         </li>
       </ul>
     </p>
@@ -69,7 +69,7 @@ export default {
     },
     purchaseCosts() {
       return _.reduce(this.purchases, (sum, purchase) => {
-        return sum + (Number(purchase.price) * Number(purchase.details.quantity));
+        return sum + (Number(purchase.price) * Number(purchase.quantity));
       }, 0);
     },
   }

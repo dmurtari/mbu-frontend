@@ -138,7 +138,15 @@ export default {
       });
     },
     purchases() {
-      return this.registration.purchases || [];
+      return _.map(this.registration.purchases, (purchase) => {
+        return {
+          price: purchase.price,
+          size: purchase.details.size,
+          item: purchase.item,
+          quantity: purchase.details.quantity,
+          id: purchase.id
+        }
+      });
     },
     registration() {
       return _.find(this.scout.registrations, { 'event_id': this.event.id });
