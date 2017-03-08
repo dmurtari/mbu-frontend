@@ -2,15 +2,15 @@
   <div>
     <div class="columns">
       <p class="column is-6">
-        <b>Projected Cost of Attendance: </b>{{ projectedCost | currency }}
+        <b>Projected Costs: </b>{{ projectedCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
           <li>Merit Badge Fees: {{ preferenceCosts | currency }}</li>
           <li>Purchases: {{ purchaseCosts | currency }}</li>
         </ul>
       </p>
-      <p class="column is-6">
-        <b>Actual Cost of Attendance: </b>{{ actualCost | currency }}
+      <p class="column is-6" v-if="assignments.length > 0">
+        <b>Actual Costs: </b>{{ actualCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
           <li>Merit Badge Fees: {{ assignmentCosts | currency }}</li>
