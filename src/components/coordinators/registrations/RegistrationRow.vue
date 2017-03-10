@@ -14,7 +14,9 @@
           <div class="column auto">
             <scout-registration :event="event"
                                 :preferences="preferences"
-                                :purchases="purchases"></scout-registration>
+                                :purchases="purchases"
+                                :showActualCost="false"
+                                :showAssignments="false"></scout-registration>
           </div>
           <div class="column is-1">
             <button class="button"

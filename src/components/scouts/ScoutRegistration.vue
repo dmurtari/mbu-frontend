@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="columns">
-      <p class="column is-6">
+      <p class="column is-6" v-if="showProjectedCost">
         <b>Projected Costs: </b>{{ projectedCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
@@ -9,7 +9,7 @@
           <li>Purchases: {{ purchaseCosts | currency }}</li>
         </ul>
       </p>
-      <p class="column is-6" v-if="assignments.length > 0">
+      <p class="column is-6" v-if="showActualCost">
         <b>Actual Costs: </b>{{ actualCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
@@ -18,7 +18,7 @@
         </ul>
       </p>
     </div>
-    <div class="registration-section">
+    <div class="registration-section" v-if="showPreferences">
       <b>Merit Badge Preferences:</b>
       <div class="preference-list" v-if="preferences.length > 0">
         <ol>
@@ -49,7 +49,7 @@
         </li>
       </ul>
     </div>
-    <div class="registration-section">
+    <div class="registration-section" v-if="showAssignments">
       <b>Assignments:</b>
       <div class="attendance-section" v-if="assignments.length < 1">
         <div class="notification">
@@ -95,6 +95,22 @@ export default {
     assignments: {
       type: Array,
       default: () => []
+    },
+    showAssignments: {
+      type: Boolean,
+      default: true
+    },
+    showPreferences: {
+      type: Boolean,
+      default: true
+    },
+    showActualCost: {
+      type: Boolean,
+      default: true
+    },
+    showProjectedCost: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
