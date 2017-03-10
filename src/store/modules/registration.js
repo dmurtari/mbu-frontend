@@ -33,14 +33,22 @@ const mutations = {
 };
 
 const actions = {
-  getRegistrations({ commit, state }, eventId) {
+  getRegistrations({ commit, state, rootState }, eventId) {
     if (_.find(state.registrations, { eventId: eventId })) {
       console.log('Registration exists');
       return;
     }
+    let getURL;
+
+    if (rootState.authentication.profile.role === 'coordinator') {
+      getURL = URLS.USERS_URL + rootState.authentication.profile.id + '/events/'
+        + eventId + '/registrations';
+    } else {
+      getURL = URLS.EVENTS_URL + eventId + '/registrations';
+    }
 
     return new Promise((resolve, reject) => {
-      axios.get(URLS.EVENTS_URL + eventId + '/registrations')
+      axios.get(getURL)
         .then((response) => {
           console.log('Received registrations', response.data);
           commit(types.SET_EVENT_REGISTRATIONS, {
@@ -58,10 +66,10 @@ const actions = {
   setAssignments({ commit }, details) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
-                 details.registrationId + '/assignments', details.assignments)
+        details.registrationId + '/assignments', details.assignments)
         .then((response) => {
           console.log('Set assignments for registration', details.registrationId,
-                      response.data.registration.assignments);
+            response.data.registration.assignments);
           commit(types.SET_ASSIGNMENTS, {
             eventId: details.eventId,
             registrationId: details.registrationId,
