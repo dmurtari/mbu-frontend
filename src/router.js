@@ -25,7 +25,7 @@ import AdminAttendance from './components/administration/attendance/List.vue';
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorScouts from './components/coordinators/scouts/List.vue';
 import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
-import CoordinatorAssignments from './components/coordinators/assignments/List.vue';
+import CoordinatorAttendance from './components/coordinators/attendance/List.vue';
 
 export default [
   {
@@ -85,8 +85,8 @@ export default [
         path: 'registrations',
         component: CoordinatorRegistration
       }, {
-        path: 'assignments',
-        component: CoordinatorAssignments
+        path: 'attendance',
+        component: CoordinatorAttendance
       }
     ]
   }, {
