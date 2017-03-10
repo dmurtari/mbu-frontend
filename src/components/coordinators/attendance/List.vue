@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h4 class="title is-4">Event Assignments</h4>
+    <h4 class="title is-4">Event Attendances</h4>
+    <p>
+      Once your scouts have been assigned classes for an event, their
+      assignments will appear here, along with the actual cost of a scout's
+      registration.
+    </p>
     <div class="notification is-danger" v-if="error">
       <button class="delete" @click.prevent="dismissError()"></button>
       <p>{{ error }}</p>
@@ -32,11 +37,19 @@
       </div>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="attendance-loading"></loader>
-    <div class="attendance-list" v-if="!loading">
-      <attendance-row v-for="registration in filteredRegistrations"
-                      :key="registration.id"
-                      :registration="registration"
-                      :event="event"></attendance-row>
+    <div v-else>
+      <div class="attendance-list" v-if="filteredRegistrations.length > 0">
+        <attendance-row v-for="registration in filteredRegistrations"
+                        :key="registration.id"
+                        :registration="registration"
+                        :event="event"></attendance-row>
+      </div>
+      <div v-else class="notification">
+        <p>
+          No attendance records match the selected filters. Try selecting a
+          different event, or searching for another scout.
+        </p>
+      </div>
     </div>
   </div>
 </template>
