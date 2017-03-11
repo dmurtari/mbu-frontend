@@ -1,7 +1,7 @@
 <template>
   <div class="attendance-row">
     <h5 class="title is-5">
-      Attendance for {{ scout.fullname }}
+      Attendance Information for {{ scout.fullname }}
     </h5>
     <div>
       <scout-registration :event="event"

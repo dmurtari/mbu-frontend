@@ -23,6 +23,7 @@ import AdminPurchasables from './components/administration/purchasables/List.vue
 import AdminAttendance from './components/administration/attendance/List.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
+import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
 import CoordinatorScouts from './components/coordinators/scouts/List.vue';
 import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
 import CoordinatorAttendance from './components/coordinators/attendance/List.vue';
@@ -79,6 +80,9 @@ export default [
     beforeEnter: requireApproval,
     children: [
       {
+        path: 'home',
+        component: CoordinatorHome
+      }, {
         path: 'scouts',
         component: CoordinatorScouts
       }, {

@@ -11,12 +11,14 @@
         <aside class="menu">
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
+            <router-link to="/coordinator/home"
+                         active-class="is-active">Home</router-link>
             <router-link to="/coordinator/scouts"
                          active-class="is-active">Manage Scouts</router-link>
             <router-link to="/coordinator/registrations"
                          active-class="is-active">Event Registrations</router-link>
             <router-link to="/coordinator/attendance"
-                         active-class="is-active">Troop Attendance</router-link>
+                         active-class="is-active">Event Attendances</router-link>
           </ul>
         </aside>
       </div>

@@ -2,9 +2,9 @@
   <div>
     <h4 class="title is-4">Event Attendances</h4>
     <p>
-      Once your scouts have been assigned classes for an event, their
-      assignments will appear here, along with the actual cost of a scout's
-      registration.
+      This page contains information regarding your troop's attendance for MBU
+      events such as class assignments and purchases for individual scouts,
+      and total amount due for each scout as well as your troop
     </p>
     <div class="notification is-danger" v-if="error">
       <button class="delete" @click.prevent="dismissError()"></button>

@@ -9,7 +9,7 @@
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isCoordinator && isApproved"
-                     to="/coordinator/scouts">Manage Troop</router-link>
+                     to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isAdmin"
                      to="/administration/offerings">Administration</router-link>
@@ -27,10 +27,10 @@
                      active-class="is-active" to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-tablet"
                      v-if="isCoordinator && isApproved"
-                     to="/coordinator">Manage Troop</router-link>
+                     to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-tablet"
                      v-if="isAdmin"
-                     to="/administration">Administration</router-link>
+                     to="/administration/offerings">Administration</router-link>
         <span class="nav-item" v-if="!isAuthenticated">
           <router-link class="button is-primary" to="/login">Login</router-link>
           <router-link class="button is-info is-outlined" to="/signup">Sign Up</router-link>
