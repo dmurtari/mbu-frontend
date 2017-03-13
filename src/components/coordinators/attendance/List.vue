@@ -6,10 +6,6 @@
       events such as class assignments and purchases for individual scouts,
       and total amount due for each scout as well as your troop
     </p>
-    <div class="notification is-danger" v-if="error">
-      <button class="delete" @click.prevent="dismissError()"></button>
-      <p>{{ error }}</p>
-    </div>
     <div class="box attendance-list-filters">
       <div class="columns">
         <div class="column is-6">
@@ -38,7 +34,26 @@
     </div>
     <loader v-if="loading" :color="'lightgray'" class="attendance-loading"></loader>
     <div v-else>
+      <div class="notification is-danger" v-if="error">
+        <button class="delete" @click.prevent="dismissError()"></button>
+        <p>{{ error }}</p>
+      </div>
       <div class="attendance-list" v-if="filteredRegistrations.length > 0">
+        <div class="box">
+          <h5 class="title is-5">
+            Event Overview for {{ event.semester }} {{ event.year }}
+          </h5>
+          <ul>
+            <li>
+              <b>Total Attendance: </b>{{ selectedRegistration.registrations.length }} scouts
+            </li>
+            <li>
+              <b>Total Cost: </b>
+              <span v-if="totalDue">{{ totalDue | currency }}</span>
+              <span v-else>Calculating...</span>
+            </li>
+          </ul>
+        </div>
         <attendance-row v-for="registration in filteredRegistrations"
                         :key="registration.id"
                         :registration="registration"
@@ -56,6 +71,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import axios from 'axios';
+import URLS from 'urls';
 
 import AttendanceRow from './TroopAttendanceRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
@@ -66,12 +83,14 @@ export default {
       eventId: 1,
       error: '',
       loading: false,
-      search: ''
+      search: '',
+      totalDue: null
     }
   },
   computed: {
     ...mapGetters([
       'allEvents',
+      'profile',
       'registrations'
     ]),
     event() {
@@ -82,11 +101,11 @@ export default {
         return {};
       }
 
-      return _.filter(this.selectedRegistration.registrations, (registration) => {
+      return _.orderBy(_.filter(this.selectedRegistration.registrations, (registration) => {
         return registration.scout.fullname.toLowerCase().indexOf(
           this.search.toLowerCase()
         ) > -1;
-      });
+      }), 'scout.lastname');
     },
     selectedRegistration() {
       return _.find(this.registrations, (registrations) => {
@@ -101,14 +120,24 @@ export default {
     setEvent(eventId) {
       this.eventId = eventId;
       this.loading = true;
+      this.totalDue = null;
+
       this.$store.dispatch('getRegistrations', eventId)
         .then(() => {
           this.loading = false;
           this.error = '';
+
+          if (this.selectedRegistration.registrations.length > 0) {
+            return axios.get(URLS.USERS_URL + this.profile.id + '/events/' + eventId + '/cost')
+              .then((response) => {
+                this.totalDue = response.data.cost;
+                this.error = '';
+              });
+          }
         })
         .catch(() => {
           this.loading = false;
-          this.error = 'Failed to get registrations for this event';
+          this.error = 'Failed to get registration information for this event';
         });
     }
   },
@@ -120,6 +149,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+  .notification {
+    margin-top: 1rem;
+  }
+
   .attendance-list-filters {
     margin-top: 2em;
   }
@@ -129,9 +162,5 @@ export default {
     width: 5em;
     display: block;
     margin: auto;
-  }
-
-  .attendance-list {
-    margin-top: 2em;
   }
 </style>

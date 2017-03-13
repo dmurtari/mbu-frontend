@@ -2,9 +2,8 @@
   <div class="container">
     <h3 class="title is-3">Troop Administration</h3>
     <h5 class="subtitle is-5">
-      Manage scouts in your troop. Add and edit existing scouts, register
-      scouts for Merit Badge University events, and view their completion
-      records.
+      From here, you can access all of the functionality that you will need to
+      register scouts and view records for Merit Badge University events.
     </h5>
     <div class="columns">
       <div class="column is-narrow sidebar">
