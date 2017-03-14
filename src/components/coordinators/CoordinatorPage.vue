@@ -8,10 +8,13 @@
     <div class="columns">
       <div class="column is-narrow sidebar">
         <aside class="menu">
-          <p class="menu-label">Pick a task</p>
+          <p class="menu-label">Navigation</p>
           <ul class="menu-list">
             <router-link to="/coordinator/home"
-                         active-class="is-active">Home</router-link>
+                        active-class="is-active">Home</router-link>
+          </ul>
+          <p class="menu-label">Pick a task</p>
+          <ul class="menu-list">
             <router-link to="/coordinator/scouts"
                          active-class="is-active">Manage Scouts</router-link>
             <router-link to="/coordinator/registrations"

@@ -48,7 +48,7 @@
               <b>Total Attendance: </b>{{ selectedRegistration.registrations.length }} scouts
             </li>
             <li>
-              <b>Total Cost: </b>
+              <b>Total Due: </b>
               <span v-if="totalDue">{{ totalDue | currency }}</span>
               <span v-else>Calculating...</span>
             </li>
