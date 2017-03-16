@@ -64,14 +64,19 @@ export default [
           }
         ]
       }, {
-        path: 'users/approval',
-        component: AdminApproval
+        path: 'scouts',
+        component: {
+          render (component) { return component('router-view') }
+        },
+        children: [
+          {
+            path: 'assignments',
+            component: AdminAttendance
+          }
+        ]
       }, {
         path: 'purchasables',
         component: AdminPurchasables
-      }, {
-        path: 'attendances',
-        component: AdminAttendance
       }
     ]
   }, {

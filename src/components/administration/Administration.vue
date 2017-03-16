@@ -26,10 +26,17 @@
               </ul>
             </li>
           </ul>
+          <ul class="menu-list">
+            <li>
+              <a @click="toggleScoutMenu()">Scouts</a>
+              <ul v-if="showScoutMenu">
+                <router-link to="/administration/scouts/assignments"
+                             active-class="is-active">Assignments</router-link>
+              </ul>
+            </li>
+          </ul>
           <p class="menu-label">Event Specific</p>
           <ul class="menu-list">
-            <router-link to="/administration/attendances"
-                         active-class="is-active">Assignments</router-link>
             <router-link to="/administration/offerings"
                          active-class="is-active">Offerings</router-link>
             <router-link to="/administration/purchasables"
@@ -54,6 +61,7 @@ export default {
     return {
       error: '',
       loading: false,
+      showScoutMenu: _.startsWith(this.$route.path, '/administration/scouts'),
       showUserMenu: _.startsWith(this.$route.path, '/administration/users')
     };
   },
@@ -64,6 +72,9 @@ export default {
     ])
   },
   methods: {
+    toggleScoutMenu() {
+      this.showScoutMenu = !this.showScoutMenu;
+    },
     toggleUserMenu() {
       this.showUserMenu = !this.showUserMenu;
     }
