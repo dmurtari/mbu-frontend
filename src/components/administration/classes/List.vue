@@ -61,6 +61,16 @@ export default {
     },
     setEvent(eventId) {
       this.eventId = eventId;
+      this.loading = true;
+      this.$store.dispatch('getClasses', eventId)
+        .then(() => {
+          this.loading = false;
+          this.error = '';
+        })
+        .catch(() => {
+          this.loading = false;
+          this.error = 'Failed to get classes for this event';
+        });
     }
   },
   components: {

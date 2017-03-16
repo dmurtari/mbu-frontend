@@ -12,6 +12,9 @@ export const DELETE_BADGE = 'badges/DELETE';
 export const GET_BADGES = 'badges/GET';
 export const UPDATE_BADGE = 'badges/UPDATE';
 
+// Classes
+export const SET_CLASSES = 'classes/SET';
+
 // Events
 export const ADD_EVENT = 'events/ADD';
 export const DELETE_EVENT = 'events/DELETE';
