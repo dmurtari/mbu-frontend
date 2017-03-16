@@ -16,11 +16,13 @@ import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
 import Administration from './components/administration/Administration.vue';
-import AdminOfferings from'./components/administration/offerings/List.vue';
+import AdministrationHome from './components/administration/AdministrationHome.vue'
+import AdminOfferings from './components/administration/offerings/List.vue';
 import AdminUsers from './components/administration/users/List.vue';
 import AdminApproval from './components/administration/users/AwaitingApproval.vue';
 import AdminPurchasables from './components/administration/purchasables/List.vue';
 import AdminAttendance from './components/administration/attendance/List.vue';
+import AdminClasses from './components/administration/classes/List.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
@@ -42,8 +44,8 @@ export default [
     beforeEnter: requireApproval,
     children: [
       {
-        path: 'offerings',
-        component: AdminOfferings
+        path: 'home',
+        component: AdministrationHome
       }, {
         path: 'users',
         beforeEnter(to, from, next) {
@@ -52,7 +54,7 @@ export default [
             .catch(() => next({ path: '/administration' }));
         },
         component: {
-          render (component) { return component('router-view') }
+          render(component) { return component('router-view') }
         },
         children: [
           {
@@ -66,7 +68,7 @@ export default [
       }, {
         path: 'scouts',
         component: {
-          render (component) { return component('router-view') }
+          render(component) { return component('router-view') }
         },
         children: [
           {
@@ -75,8 +77,22 @@ export default [
           }
         ]
       }, {
-        path: 'purchasables',
-        component: AdminPurchasables
+        path: 'events',
+        component: {
+          render(component) { return component('router-view') }
+        },
+        children: [
+          {
+            path: 'purchasables',
+            component: AdminPurchasables
+          }, {
+            path: 'classes',
+            component: AdminClasses
+          }, {
+            path: 'offerings',
+            component: AdminOfferings
+          },
+        ]
       }
     ]
   }, {
@@ -131,7 +147,7 @@ export default [
   }
 ];
 
-function requireApproval (to, from, next) {
+function requireApproval(to, from, next) {
   if (store.getters.isApproved === undefined) {
     store.dispatch('getProfile')
       .then(() => {

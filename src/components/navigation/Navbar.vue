@@ -12,7 +12,7 @@
                      to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isAdmin"
-                     to="/administration/offerings">Administration</router-link>
+                     to="/administration/home">Administration</router-link>
       </div>
       <span class="nav-toggle" @click.prevent="toggleDropdown()">
         <span></span>
@@ -30,7 +30,7 @@
                      to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-tablet"
                      v-if="isAdmin"
-                     to="/administration/offerings">Administration</router-link>
+                     to="/administration/home">Administration</router-link>
         <span class="nav-item" v-if="!isAuthenticated">
           <router-link class="button is-primary" to="/login">Login</router-link>
           <router-link class="button is-info is-outlined" to="/signup">Sign Up</router-link>
