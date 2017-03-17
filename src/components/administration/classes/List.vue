@@ -4,14 +4,9 @@
       Classes
     </h4>
     <p>
-
+      These are the classes for an event based off of the badges that are being
+      offered at an event and the scouts that are assigned for each period.
     </p>
-    <div class="notification is-danger" v-if="error">
-      <button class="delete" @click.prevent="dismissError()"></button>
-      <p>
-        {{ error }}
-      </p>
-    </div>
     <div class="box class-list-filters">
       <div class="columns">
         <div class="column is-6">
@@ -25,6 +20,12 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="notification is-danger" v-if="error">
+      <button class="delete" @click.prevent="dismissError()"></button>
+      <p>
+        {{ error }}
+      </p>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="class-loading"></loader>
     <div class="class-list"
@@ -49,11 +50,19 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'allEvents'
+      'allEvents',
+      'eventClasses'
     ]),
     event() {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
+    classes() {
+      let event =  _.find(this.eventClasses, { eventId: this.eventId }) || {};
+      return event.classes;
+    },
+    orderedClasses() {
+      return _.orderBy(this.classes, 'badge.name');
+    }
   },
   methods: {
     dismissError() {

@@ -7,7 +7,11 @@ const state = {
   eventClasses: []
 };
 
-const getters = {};
+const getters = {
+  eventClasses(state) {
+    return state.eventClasses;
+  }
+};
 
 const mutations = {
   [types.SET_CLASSES] (state, details) {
