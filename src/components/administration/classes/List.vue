@@ -19,6 +19,18 @@
             </div>
           </div>
         </div>
+        <div class="column is-6">
+          <div class="search-container control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="class-list-find">Search:</label>
+            </div>
+            <div class="control has-addons">
+              <input class="input is-expanded"
+                     id="class-list-find"
+                     v-model="search"></input>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="notification is-danger" v-if="error">
@@ -32,7 +44,7 @@
          v-if="!loading">
     </div>
     <div>
-      <class-row v-for="offeredClass in orderedClasses"
+      <class-row v-for="offeredClass in filteredClass"
                  :key="offeredClass.offering_id"
                  :badge="offeredClass.badge.name"
                  :assignees="offeredClass.assignees"
@@ -55,6 +67,7 @@ export default {
       error: '',
       eventId: 1,
       loading: false,
+      search: ''
     };
   },
   computed: {
@@ -71,6 +84,11 @@ export default {
     },
     orderedClasses() {
       return _.orderBy(this.classes, 'badge.name');
+    },
+    filteredClass() {
+      return _.filter(this.orderedClasses, (classObject) => {
+        return classObject.badge.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
     }
   },
   methods: {
