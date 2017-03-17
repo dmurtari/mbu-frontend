@@ -1,6 +1,7 @@
 import * as types from '../mutation-types';
 import URLS from '../../urls';
 
+import Vue from 'vue';
 import axios from 'axios';
 
 const state = {
@@ -15,10 +16,12 @@ const getters = {
 
 const mutations = {
   [types.SET_CLASSES] (state, details) {
-    if (_.find(state.eventClasses, { eventId: details.eventId})) {
-      return;
-    } else {
+    let index = _.findIndex(state.eventClasses, { eventId: details.eventId });
+
+    if (index < 0) {
       state.eventClasses.push(details);
+    } else {
+      Vue.set(state.eventClasses[index], 'classes', details.classes);
     }
   }
 };
@@ -35,7 +38,7 @@ const actions = {
           });
           resolve();
         })
-        .catch((reject) => {
+        .catch((err) => {
           console.error('Failed to get classes for event', eventId, err);
           reject();
         });
