@@ -11,7 +11,7 @@
           <i v-else class="fa fa-plus"></i>
         </span>
       </button>
-      <div v-if="expanded">
+      <div v-if="expanded" class="info class-detail">
         <p>
           {{ duration }} {{ duration === 1 ? 'period' : 'periods '}} long
         </p>
@@ -22,17 +22,21 @@
       </div>
     </div>
     <div v-for="n in 3" class="column auto">
-      <div v-if="scoutsForPeriod(n).length > 0">
-        <b>
-          Period {{ n }}:
+      <div>
+        <b :class="{ 'is-light': scoutsForPeriod(n) < 1 }">
+          Period {{ n }}
         </b>
-        {{ scoutsForPeriod(n).length }}
-        {{ scoutsForPeriod(n).length === 1 ? 'scout' : 'scouts' }}
-        <ul v-if="expanded">
-          <li v-for="scout in scoutsForPeriod(n)">
-            Troop {{ scout.troop }} {{ scout.fullname }}
-          </li>
-        </ul>
+        <span v-if="scoutsForPeriod(n).length > 0" >
+          <span class="info">
+            ({{ scoutsForPeriod(n).length }}
+            {{ scoutsForPeriod(n).length === 1 ? 'scout' : 'scouts' }})
+          </span>
+          <ul v-if="expanded" class="attendee-list">
+            <li v-for="scout in scoutsForPeriod(n)">
+              ({{ scout.troop }}) {{ scout.fullname }}
+            </li>
+          </ul>
+        </span>
       </div>
     </div>
     <div class="column is-1 is-hidden-mobile">
@@ -113,5 +117,13 @@ export default {
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid lightgray;
+  }
+
+  b.is-light {
+    color: lightgray;
+  }
+
+  .info {
+    color: #888;
   }
 </style>
