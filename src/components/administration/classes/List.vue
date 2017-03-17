@@ -31,6 +31,14 @@
     <div class="class-list"
          v-if="!loading">
     </div>
+    <div>
+      <class-row v-for="offeredClass in orderedClasses"
+                 :key="offeredClass.offering_id"
+                 :badge="offeredClass.badge.name"
+                 :assignees="offeredClass.assignees"
+                 :duration="offeredClass.duration"
+                 :periods="offeredClass.periods"></class-row>
+    </div>
   </div>
 </template>
 
@@ -39,6 +47,7 @@
 import { mapGetters } from 'vuex';
 
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import ClassRow from './ClassRow.vue';
 
 export default {
   data() {
@@ -83,6 +92,7 @@ export default {
     }
   },
   components: {
+    ClassRow,
     EventsDropdown
   }
 }
