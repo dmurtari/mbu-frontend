@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="title is-4">Manage Event Registrations</h4>
+    <h4 class="title is-4">Manage Class Assignments</h4>
     <p>
       Use this page to manage scouts that are attending an event. You can view
       merit badges that scouts have requested, and assign scouts to merit badges.
@@ -11,8 +11,8 @@
       </p>
     </div>
     <div class="box registration-list-filters">
-      <div class="columns">
-        <div class="column is-6">
+      <div class="columns is-multiline">
+        <div class="column is-6 is-4-desktop">
           <div class="control is-horizontal">
             <div class="control-label">
               <label class="label">For&nbsp;Event:</label>
@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        <div class="column is-6">
+        <div class="column is-6 is-4-desktop">
           <div class="control is-horizontal">
             <div class="control-label">
               <label class="label">For&nbsp;Troop:</label>
@@ -37,6 +37,18 @@
                   </option>
                 </select>
               </span>
+            </div>
+          </div>
+        </div>
+        <div class="column is-6 is-4-desktop">
+          <div class="search-container control is-horizontal">
+            <div class="control-label">
+              <label class="label" for="scout-list-find">Name:</label>
+            </div>
+            <div class="control">
+              <input class="input is-expanded"
+                     id="scout-list-find"
+                     v-model="search"></input>
             </div>
           </div>
         </div>
@@ -67,6 +79,7 @@ export default {
     return {
       error: '',
       loading: false,
+      search: '',
       selectedEventId: 0,
       troopFilter: null
     };
@@ -84,13 +97,19 @@ export default {
         return {};
       }
 
+      let registrations;
+
       if (!this.troopFilter) {
-        return this.selectedRegistration.registrations;
+        registrations = this.selectedRegistration.registrations;
       } else {
-        return _.filter(this.selectedRegistration.registrations, (registration) => {
+        registrations = _.filter(this.selectedRegistration.registrations, (registration) => {
           return registration.scout.troop === this.troopFilter;
         });
       }
+
+      return _.filter(registrations, (registration) => {
+        return registration.scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+      });
     },
     noRegistrations() {
       return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
