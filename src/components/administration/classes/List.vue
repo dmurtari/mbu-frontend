@@ -5,7 +5,12 @@
     </h4>
     <p>
       These are the classes for an event based off of the badges that are being
-      offered at an event and the scouts that are assigned for each period.
+      offered at an event and the scouts that are assigned to each period.
+      <b>This page is for viewing scout assignments only</b>; to edit badges
+      that are offered for an event, use the <router-link
+      to="/administration/events/offerings">offerings page</router-link>.
+      To change a scout's badge assignments, use the <router-link
+      to="/administration/scouts/assignments">assignments page</router-link>.
     </p>
     <div class="box class-list-filters">
       <div class="columns">
@@ -22,7 +27,7 @@
         <div class="column is-6">
           <div class="search-container control is-horizontal">
             <div class="control-label">
-              <label class="label" for="class-list-find">Search:</label>
+              <label class="label" for="class-list-find">Badge:</label>
             </div>
             <div class="control has-addons">
               <input class="input is-expanded"

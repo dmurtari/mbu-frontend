@@ -2,8 +2,7 @@
   <div class="container">
     <h3 class="title is-3">Site Administration</h3>
     <h5 class="subtitle is-5">
-      Manage and make changes to all merit badge events, such as badges offered
-      at events, as well as users of this website.
+      Manage users, edit scouts and events, and view event details.
     </h5>
     <div class="columns">
       <div class="column is-3">
@@ -62,14 +61,19 @@
                 </span>
               </a>
               <ul v-if="showEventMenu">
+                <router-link to="/administration/events/all"
+                             active-class="is-active">All Events</router-link>
                 <router-link to="/administration/events/offerings"
                              active-class="is-active">Offerings</router-link>
                 <router-link to="/administration/events/purchasables"
                              active-class="is-active">Purchasables</router-link>
-                <router-link to="/administration/events/classes"
-                             active-class="is-active">Classes</router-link>
               </ul>
             </li>
+          </ul>
+          <p class="menu-label">View Details</p>
+          <ul class="menu-list">
+            <router-link to="/administration/classes"
+                          active-class="is-active">Classes</router-link>
           </ul>
         </aside>
       </div>
@@ -109,6 +113,18 @@ export default {
     },
     toggleUserMenu() {
       this.showUserMenu = !this.showUserMenu;
+    }
+  },
+  watch: {
+    $route() {
+      let path = this.$route.path;
+      if (_.startsWith(path, '/administration/events')) {
+        this.showEventMenu = true;
+      } else if (_.startsWith(path, '/administration/scouts')) {
+        this.showScoutMenu = true;
+      } else if (_.startsWith(path, '/administration/users')) {
+        this.showUserMenu = true;
+      }
     }
   }
 }

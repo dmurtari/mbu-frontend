@@ -83,16 +83,19 @@ export default [
         },
         children: [
           {
+            path: 'all',
+            component: EventList
+          }, {
             path: 'purchasables',
             component: AdminPurchasables
-          }, {
-            path: 'classes',
-            component: AdminClasses
           }, {
             path: 'offerings',
             component: AdminOfferings
           },
         ]
+      }, {
+        path: 'classes',
+        component: AdminClasses
       }
     ]
   }, {
