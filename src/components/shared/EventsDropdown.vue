@@ -3,6 +3,8 @@
     <select id="event-offering-select"
             @change="emitEvent()"
             v-model="selectedEvent">
+      <option v-if="showAll"
+              :value="null">All Events</option>
       <option v-for="option in readableEvents"
               :key="option.id"
               :value="option.id">
@@ -17,6 +19,12 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  props: {
+    showAll: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       loading: true,
@@ -43,22 +51,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('getEvents')
-      .then(() => {
-        return this.$store.dispatch('getCurrentEvent');
-      })
-      .then(() => {
-        this.selectedEvent = this.currentEvent.id;
-        this.emitEvent();
-      })
-      .catch(() => {
-        if (this.orderedEvents.length > 0) {
-          this.loading = false;
-          this.$emit('select', this.orderedEvents[0].id);
-        } else {
-          this.$emit('select', '');
-        }
-      });
+    this.selectedEvent = this.currentEvent.id;
+    this.emitEvent();
   }
 }
 </script>

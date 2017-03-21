@@ -26,6 +26,15 @@ export const router = new VueRouter({
   base: __dirname
 });
 
+router.beforeEach((to, from, next) => {
+  Promise.all([
+    store.dispatch('getEvents'),
+    store.dispatch('getCurrentEvent')
+  ])
+    .then(() => next())
+    .catch(()=> next(false));
+});
+
 new Vue({
   router,
   store,
