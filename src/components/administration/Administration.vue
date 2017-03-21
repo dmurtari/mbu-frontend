@@ -46,6 +46,8 @@
                 </span>
               </a>
               <ul v-if="showScoutMenu">
+                <router-link to="/administration/scouts/all"
+                             active-class="is-active">All Scouts</router-link>
                 <router-link to="/administration/scouts/assignments"
                              active-class="is-active">Assignments</router-link>
               </ul>

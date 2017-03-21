@@ -23,6 +23,7 @@ import AdminApproval from './components/administration/users/AwaitingApproval.vu
 import AdminPurchasables from './components/administration/purchasables/List.vue';
 import AdminAttendance from './components/administration/attendance/List.vue';
 import AdminClasses from './components/administration/classes/List.vue';
+import AdminScouts from './components/administration/scouts/List.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
@@ -72,6 +73,9 @@ export default [
         },
         children: [
           {
+            path: 'all',
+            component: AdminScouts,
+          }, {
             path: 'assignments',
             component: AdminAttendance
           }
