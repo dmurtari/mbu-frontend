@@ -13,7 +13,7 @@
     </div>
     <div class="box scout-list-filters">
       <div class="columns is-multiline">
-        <div class="column is-6 is-4-desktop">
+        <div class="column is-6">
           <div class="control is-horizontal">
             <div class="control-label">
               <label class="label">Registered:</label>
@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-        <div class="column is-6 is-4-desktop">
+        <div class="column is-6">
           <div class="control is-horizontal">
             <div class="control-label">
               <label class="label">Troop:</label>
@@ -42,7 +42,7 @@
             </div>
           </div>
         </div>
-        <div class="column is-6 is-4-desktop">
+        <div class="column is-6">
           <div class="search-container control is-horizontal">
             <div class="control-label">
               <label class="label" for="scout-list-find">Name:</label>
@@ -54,18 +54,42 @@
             </div>
           </div>
         </div>
+        <div class="column is-6">
+          <button class="button is-pulled-right"
+                  @click.prevent="reset()">Reset Filters</button>
+        </div>
       </div>
     </div>
     <table class="table is-striped">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Troop</th>
+          <th @click="sort('firstname')">
+            First Name
+            <div class="icon" v-if="order === 'firstname'">
+              <span v-if="sortAscending" class="fa fa-sort-alpha-asc"></span>
+              <span v-else class="fa fa-sort-alpha-desc"></span>
+            </div>
+          </th>
+          <th @click="sort('lastname')">
+            Last Name
+            <div class="icon" v-if="order === 'lastname'">
+              <span v-if="sortAscending" class="fa fa-sort-alpha-asc"></span>
+              <span v-else class="fa fa-sort-alpha-desc"></span>
+            </div>
+          </th>
+          <th @click="sort('troop')">
+            Troop
+            <div class="icon" v-if="order === 'troop'">
+              <span v-if="sortAscending" class="fa fa-sort-numeric-asc"></span>
+              <span v-else class="fa fa-sort-numeric-desc"></span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="scout in filteredScouts">
-          <td>{{ scout.fullname }}</td>
+          <td>{{ scout.firstname }}</td>
+          <td>{{ scout.lastname }}</td>
           <td>{{ scout.troop }}</td>
         </tr>
       </tbody>
@@ -86,6 +110,8 @@ export default {
       eventsFilter: null,
       scouts: [],
       search: '',
+      order: 'troop',
+      sortAscending: true,
       troopFilter: null
     };
   },
@@ -105,9 +131,13 @@ export default {
         });
       }
 
-      return _.filter(scouts, (scout) => {
+      scouts = _.filter(scouts, (scout) => {
         return scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
+
+      let sortOrder = this.sortAscending ? 'asc' : 'desc';
+
+      return _.orderBy(scouts, this.order, sortOrder);
     },
     troops() {
       if (!this.scouts) {
@@ -123,6 +153,21 @@ export default {
     },
     pickEvent(eventId) {
       this.eventsFilter = eventId;
+    },
+    reset() {
+      this.eventsFilter = null;
+      this.troopFilter = null;
+      this.search = '';
+      this.sortAscending = true;
+      this.order = 'troop';
+    },
+    sort(order) {
+      if (order === this.order) {
+        this.sortAscending = !this.sortAscending;
+      } else {
+        this.order = order;
+        this.sortAscending = true;
+      }
     }
   },
   mounted() {
