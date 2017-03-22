@@ -2,11 +2,12 @@
   <div>
     <h4 class="title is-4">All Scouts</h4>
     <p>
-      This is a list of all scouts that have ever been registered for MBU
-      Online.
+      This is a list of all scouts that have ever been registered for MBU Online.
     </p>
-    <div class="notification is-danger" v-if="error">
-      <button class="delete" @click.prevent="dismissError()"></button>
+    <div class="notification is-danger"
+         v-if="error">
+      <button class="delete"
+              @click.prevent="dismissError()"></button>
       <p>
         {{ error }}
       </p>
@@ -31,21 +32,22 @@
             </div>
             <div class="control">
               <span class="input-group select">
-                <select class="input"
-                        v-model="troopFilter">
-                  <option :value="null">All Troops</option>
-                  <option v-for="troop in troops" :value="troop" :key="troop">
-                    {{ troop }}
-                  </option>
-                </select>
-              </span>
+                    <select class="input"
+                            v-model="troopFilter">
+                      <option :value="null">All Troops</option>
+                      <option v-for="troop in troops" :value="troop" :key="troop">
+                        {{ troop }}
+                      </option>
+                    </select>
+                  </span>
             </div>
           </div>
         </div>
         <div class="column is-6">
           <div class="search-container control is-horizontal">
             <div class="control-label">
-              <label class="label" for="scout-list-find">Name:</label>
+              <label class="label"
+                     for="scout-list-find">Name:</label>
             </div>
             <div class="control">
               <input class="input is-expanded"
@@ -60,40 +62,68 @@
         </div>
       </div>
     </div>
-    <table class="table is-striped">
+    <table class="table is-striped"
+           v-if="filteredScouts.length > 0">
       <thead>
         <tr>
-          <th @click="sort('firstname')">
+          <th @click="sort('firstname')"
+              class="sortable"
+              :class="{ 'sorted-column': order === 'firstname' }">
             First Name
-            <div class="icon" v-if="order === 'firstname'">
-              <span v-if="sortAscending" class="fa fa-sort-alpha-asc"></span>
-              <span v-else class="fa fa-sort-alpha-desc"></span>
+            <div class="icon"
+                 v-if="order === 'firstname'">
+              <span v-if="sortAscending"
+                    class="fa fa-sort-alpha-asc"></span>
+              <span v-else
+                    class="fa fa-sort-alpha-desc"></span>
             </div>
           </th>
-          <th @click="sort('lastname')">
+          <th @click="sort('lastname')"
+              class="sortable"
+              :class="{ 'sorted-column': order === 'lastname' }">
             Last Name
-            <div class="icon" v-if="order === 'lastname'">
-              <span v-if="sortAscending" class="fa fa-sort-alpha-asc"></span>
-              <span v-else class="fa fa-sort-alpha-desc"></span>
+            <div class="icon"
+                 v-if="order === 'lastname'">
+              <span v-if="sortAscending"
+                    class="fa fa-sort-alpha-asc"></span>
+              <span v-else
+                    class="fa fa-sort-alpha-desc"></span>
             </div>
           </th>
-          <th @click="sort('troop')">
+          <th @click="sort('troop')"
+              class="sortable"
+              :class="{ 'sorted-column': order === 'troop' }">
             Troop
-            <div class="icon" v-if="order === 'troop'">
-              <span v-if="sortAscending" class="fa fa-sort-numeric-asc"></span>
-              <span v-else class="fa fa-sort-numeric-desc"></span>
+            <div class="icon"
+                 v-if="order === 'troop'">
+              <span v-if="sortAscending"
+                    class="fa fa-sort-numeric-asc"></span>
+              <span v-else
+                    class="fa fa-sort-numeric-desc"></span>
             </div>
           </th>
+          <th>Coordinator</th>
+          <th colspan="1"></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="scout in filteredScouts">
-          <td>{{ scout.firstname }}</td>
-          <td>{{ scout.lastname }}</td>
-          <td>{{ scout.troop }}</td>
-        </tr>
+        <scout-row v-for="scout in filteredScouts"
+                   :key="scout.scout_id"
+                   :firstname="scout.firstname"
+                   :lastname="scout.firstname"
+                   :troop="scout.troop"
+                   :registration="scout.registrations"
+                   :user="scout.user">
+        </scout-row>
       </tbody>
     </table>
+    <div class="notification" v-else>
+      <p>
+        There are no scouts that match the criteria you specified. Change the
+        filters you have selected, or <a href="#" @click="reset()">reset all
+        of the filters</a>.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -102,6 +132,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import URLS from 'urls';
+import ScoutRow from './ScoutRow.vue';
 
 export default {
   data() {
@@ -183,6 +214,9 @@ export default {
         this.loading = false
         this.error = 'Failed to retrieve scouts. Please refresh and try again.';
       });
+  },
+  components: {
+    ScoutRow
   }
 }
 </script>
@@ -195,6 +229,19 @@ export default {
 
   table {
     margin-top: 2rem;
+    table-layout: fixed;
+
+    .icon {
+      font-size: 16px;
+    }
+
+    .sorted-column {
+      background: #EEE;
+    }
+
+    th.sortable:hover {
+      background: #EEE;
+    }
   }
 
   .scout-list-filters {
