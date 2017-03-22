@@ -51,7 +51,12 @@ export default {
     }
   },
   mounted() {
-    this.selectedEvent = this.currentEvent.id;
+    if (this.showAll) {
+      this.selectedEvent = null;
+    } else {
+      this.selectedEvent = this.currentEvent.id;
+    }
+
     this.emitEvent();
   }
 }
