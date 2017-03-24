@@ -24,6 +24,7 @@ import AdminPurchasables from './components/administration/purchasables/List.vue
 import AdminAttendance from './components/administration/attendance/List.vue';
 import AdminClasses from './components/administration/classes/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
+import ScoutDetails from './components/administration/scouts/ScoutDetail.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
@@ -78,6 +79,9 @@ export default [
           }, {
             path: 'assignments',
             component: AdminAttendance
+          }, {
+            path: ':id',
+            component: ScoutDetails
           }
         ]
       }, {

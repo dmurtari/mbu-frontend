@@ -109,6 +109,7 @@
       <tbody>
         <scout-row v-for="scout in filteredScouts"
                    :key="scout.scout_id"
+                   :id="scout.scout_id"
                    :firstname="scout.firstname"
                    :lastname="scout.firstname"
                    :troop="scout.troop"
@@ -206,7 +207,6 @@ export default {
     axios.get(URLS.SCOUTS_URL)
       .then((response) => {
         this.loading = false;
-        console.log(response);
         this.scouts = response.data;
         this.error = '';
       })

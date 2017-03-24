@@ -6,7 +6,7 @@
     <td>{{ user.fullname }}</td>
     <td>
       <span class="is-pulled-right">
-        <router-link to="/administration/scouts/">Details</router-link>
+        <router-link :to="'/administration/scouts/' + id">Details</router-link>
       </span>
     </td>
   </tr>
@@ -15,6 +15,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     firstname: {
       type: String,
       required: true
