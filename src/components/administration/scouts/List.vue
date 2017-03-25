@@ -32,14 +32,14 @@
             </div>
             <div class="control">
               <span class="input-group select">
-                    <select class="input"
-                            v-model="troopFilter">
-                      <option :value="null">All Troops</option>
-                      <option v-for="troop in troops" :value="troop" :key="troop">
-                        {{ troop }}
-                      </option>
-                    </select>
-                  </span>
+                      <select class="input"
+                              v-model="troopFilter">
+                        <option :value="null">All Troops</option>
+                        <option v-for="troop in troops" :value="troop" :key="troop">
+                          {{ troop }}
+                        </option>
+                      </select>
+                    </span>
             </div>
           </div>
         </div>
@@ -111,18 +111,19 @@
                    :key="scout.scout_id"
                    :id="scout.scout_id"
                    :firstname="scout.firstname"
-                   :lastname="scout.firstname"
+                   :lastname="scout.lastname"
                    :troop="scout.troop"
                    :registration="scout.registrations"
                    :user="scout.user">
         </scout-row>
       </tbody>
     </table>
-    <div class="notification" v-else>
+    <div class="notification"
+         v-else>
       <p>
-        There are no scouts that match the criteria you specified. Change the
-        filters you have selected, or <a href="#" @click="reset()">reset all
-        of the filters</a>.
+        There are no scouts that match the criteria you specified. Change the filters you have selected, or <a href="#"
+           @click="reset()">reset all
+          of the filters</a>.
       </p>
     </div>
   </div>
