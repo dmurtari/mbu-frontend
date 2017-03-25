@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import ScoutRegistration from '../../scouts/ScoutRegistration.vue';
-import RegistrationMappers from '../../../mixins/RegistrationMappers';
+import ScoutRegistration from './ScoutRegistration.vue';
+import RegistrationMappers from '../../mixins/RegistrationMappers';
 
 
 export default {

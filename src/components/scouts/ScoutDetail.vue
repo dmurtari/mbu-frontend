@@ -2,12 +2,12 @@
   <div class="container">
     <div v-if="!loading">
       <div class="section">
-        <h2 class="title is-2">{{ scout.fullname }}</h2>
-        <h4 class="subtitle is-4"> Troop {{ scout.troop }}</h4>
+        <h4 class="title is-4">{{ scout.fullname }}</h4>
+        <h5 class="subtitle is-5"> Troop {{ scout.troop }}</h5>
       </div>
       <div class="section columns">
         <div class="column is-6">
-          <h4 class="title is-4">Scout Information</h4>
+          <h5 class="title is-5">Scout Information</h5>
           <ul>
             <li><b>First Name: </b>{{ scout.firstname }}</li>
             <li><b>Last Name: </b>{{ scout.lastname }}</li>
@@ -19,7 +19,7 @@
         </div>
         <div class="column is-6"
              v-if="scout.user">
-          <h4 class="title is-4">Coordinator Information</h4>
+          <h5 class="title is-5">Coordinator Information</h5>
           <ul>
             <li><b>Name: </b>{{ scout.user.fullname }}</li>
             <li><b>Email: </b>{{ scout.user.email }}</li>
@@ -30,9 +30,9 @@
         </div>
       </div>
       <div class="section">
-        <h4 class="title is-4">Registration Information</h4>
+        <h5 class="title is-5">Registration Information</h5>
         <div v-if="registrations.length > 0">
-          <registration-container v-for="registration in registrations"
+          <registration-container v-for="registration in orderedRegistrations"
                                   :key="registration.id"
                                   :event="eventForId(registration.event_id)"
                                   :registration="registration"
@@ -73,7 +73,10 @@ export default {
   computed: {
     ...mapGetters([
       'allEvents'
-    ])
+    ]),
+    orderedRegistrations() {
+      return _.orderBy(this.registrations, 'created_at');
+    }
   },
   mounted() {
     this.loading = true;
@@ -147,6 +150,6 @@ export default {
 
   .registration {
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   }
 </style>
