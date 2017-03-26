@@ -17,14 +17,9 @@
 const listRegex = /.*all\/?$/
 
 export default {
-  data() {
-    return {
-      isList: false
-    };
-  },
-  watch: {
-    $route() {
-      this.isList = listRegex.test(this.$route.path);
+  computed: {
+    isList() {
+      return listRegex.test(this.$route.path);
     }
   }
 }
