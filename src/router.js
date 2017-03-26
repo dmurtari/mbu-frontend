@@ -24,6 +24,7 @@ import AdminPurchasables from './components/administration/purchasables/List.vue
 import AdminAttendance from './components/administration/attendance/List.vue';
 import AdminClasses from './components/administration/classes/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
+import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
 
@@ -75,14 +76,20 @@ export default [
         },
         children: [
           {
-            path: 'all',
-            component: AdminScouts,
+            path: 'list',
+            component: ScoutContainer,
+            children: [
+              {
+                path: 'all',
+                component: AdminScouts,
+              }, {
+                path: ':id',
+                component: ScoutDetails
+              }
+            ]
           }, {
             path: 'assignments',
             component: AdminAttendance
-          }, {
-            path: ':id',
-            component: ScoutDetails
           }
         ]
       }, {

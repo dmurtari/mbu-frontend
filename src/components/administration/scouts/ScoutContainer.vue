@@ -1,0 +1,31 @@
+<template>
+  <div>
+    <h4 v-if="isList"
+        class="title is-4">All Scouts</h4>
+    <h4 v-else
+        class="title is-4">
+      <router-link to="/administration/scouts/list/all">
+        All Scouts
+      </router-link>
+      /&nbspScout Detail
+    </h4>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+const listRegex = /.*all\/?$/
+
+export default {
+  data() {
+    return {
+      isList: false
+    };
+  },
+  watch: {
+    $route() {
+      this.isList = listRegex.test(this.$route.path);
+    }
+  }
+}
+</script>

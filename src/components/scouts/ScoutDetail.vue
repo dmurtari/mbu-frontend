@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="!loading">
       <div class="section">
-        <h4 class="title is-4">{{ scout.fullname }}</h4>
+        <h3 class="title is-3">{{ scout.fullname }}</h3>
         <h5 class="subtitle is-5"> Troop {{ scout.troop }}</h5>
       </div>
       <div class="section columns">
@@ -33,6 +33,7 @@
         <h5 class="title is-5">Registration Information</h5>
         <div v-if="registrations.length > 0">
           <registration-container v-for="registration in orderedRegistrations"
+                                  :scout="scout"
                                   :key="registration.id"
                                   :event="eventForId(registration.event_id)"
                                   :registration="registration"
@@ -80,7 +81,11 @@ export default {
   },
   mounted() {
     this.loading = true;
-    axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
+    axios.get(URLS.SCOUTS_URL + this.$route.params.id)
+      .then((response) => {
+        this.scout = response.data;
+        return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
+      })
       .then((response) => {
         this.loading = false;
         this.registrations = response.data;
@@ -98,6 +103,7 @@ export default {
   },
   watch: {
     $route() {
+      this.loading = true;
       axios.get(URLS.SCOUTS_URL + this.$route.params.id)
         .then((response) => {
           this.scout = response.data;
@@ -113,21 +119,6 @@ export default {
           this.error = 'Failed to get registrations for this scout.';
         });
     }
-  },
-  beforeRouteEnter(to, from, next) {
-    axios.get(URLS.SCOUTS_URL + to.params.id)
-      .then((response) => {
-        return next(vm => {
-          vm.scout = response.data;
-          vm.error = '';
-        });
-      })
-      .catch(() => {
-        return next(vm => {
-          vm.loading = false;
-          vm.error = 'Failed to get details for this scout. Please refresh and try again';
-        });
-      });
   },
   components: {
     RegistrationContainer
@@ -146,6 +137,8 @@ export default {
   .section {
     padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
   }
 
   .registration {

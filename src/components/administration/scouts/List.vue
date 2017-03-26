@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4 class="title is-4">All Scouts</h4>
     <p>
       This is a list of all scouts that have ever been registered for MBU Online.
     </p>
@@ -126,6 +125,7 @@
           of the filters</a>.
       </p>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 

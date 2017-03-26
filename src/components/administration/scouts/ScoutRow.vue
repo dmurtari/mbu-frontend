@@ -6,7 +6,7 @@
     <td>{{ user.fullname }}</td>
     <td>
       <span class="is-pulled-right">
-        <router-link :to="'/administration/scouts/' + id">Details</router-link>
+        <router-link :to="'/administration/scouts/list/' + id">Details</router-link>
       </span>
     </td>
   </tr>

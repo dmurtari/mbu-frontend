@@ -2,8 +2,8 @@
   <div class="container">
     <h3 class="title is-3">Site Administration</h3>
     <h5 class="subtitle is-5">
-      Manage users, edit scouts and events, and view event details.
-    </h5>
+            Manage users, edit scouts and events, and view event details.
+          </h5>
     <div class="columns">
       <div class="column is-3">
         <aside class="menu">
@@ -16,12 +16,12 @@
           <ul class="menu-list">
             <li>
               <a @click="toggleUserMenu()">
-                Users
-                <span class="toggle-icons is-pulled-right">
-                  <span v-if="showUserMenu" class="fa fa-chevron-circle-up"></span>
-                  <span v-else class="fa fa-chevron-circle-down"></span>
-                </span>
-              </a>
+                      Users
+                      <span class="toggle-icons is-pulled-right">
+                        <span v-if="showUserMenu" class="fa fa-chevron-circle-up"></span>
+                        <span v-else class="fa fa-chevron-circle-down"></span>
+                      </span>
+                    </a>
               <ul v-if="showUserMenu">
                 <router-link to="/administration/users/current"
                              active-class="is-active">Current Users</router-link>
@@ -30,8 +30,8 @@
                   Need Approval&nbsp;
                   <span class="tag is-pulled-right is-small"
                         :class="{ 'is-black': unapprovedUsers.length > 0 }">
-                    {{ unapprovedUsers.length }}
-                  </span>
+                          {{ unapprovedUsers.length }}
+                        </span>
                 </router-link>
               </ul>
             </li>
@@ -39,14 +39,14 @@
           <ul class="menu-list">
             <li>
               <a @click="toggleScoutMenu()">
-                Scouts
-                <span class="toggle-icons is-pulled-right">
-                  <span v-if="showScoutMenu" class="fa fa-chevron-circle-up"></span>
-                  <span v-else class="fa fa-chevron-circle-down"></span>
-                </span>
-              </a>
+                  Scouts
+                  <span class="toggle-icons is-pulled-right">
+                    <span v-if="showScoutMenu" class="fa fa-chevron-circle-up"></span>
+                    <span v-else class="fa fa-chevron-circle-down"></span>
+                  </span>
+                </a>
               <ul v-if="showScoutMenu">
-                <router-link to="/administration/scouts/all"
+                <router-link to="/administration/scouts/list/all"
                              active-class="is-active">All Scouts</router-link>
                 <router-link to="/administration/scouts/assignments"
                              active-class="is-active">Assignments</router-link>
@@ -56,12 +56,12 @@
           <ul class="menu-list">
             <li>
               <a @click="toggleEventMenu()">
-                Events
-                <span class="toggle-icons is-pulled-right">
-                  <span v-if="showEventMenu" class="fa fa-chevron-circle-up"></span>
-                  <span v-else class="fa fa-chevron-circle-down"></span>
-                </span>
-              </a>
+                    Events
+                    <span class="toggle-icons is-pulled-right">
+                      <span v-if="showEventMenu" class="fa fa-chevron-circle-up"></span>
+                      <span v-else class="fa fa-chevron-circle-down"></span>
+                    </span>
+                  </a>
               <ul v-if="showEventMenu">
                 <router-link to="/administration/events/all"
                              active-class="is-active">All Events</router-link>
@@ -75,7 +75,7 @@
           <p class="menu-label">View Details</p>
           <ul class="menu-list">
             <router-link to="/administration/classes"
-                          active-class="is-active">Classes</router-link>
+                         active-class="is-active">Classes</router-link>
           </ul>
         </aside>
       </div>
