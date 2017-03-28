@@ -31,14 +31,16 @@
             </div>
             <div class="control">
               <span class="input-group select">
-                      <select class="input"
-                              v-model="troopFilter">
-                        <option :value="null">All Troops</option>
-                        <option v-for="troop in troops" :value="troop" :key="troop">
-                          {{ troop }}
-                        </option>
-                      </select>
-                    </span>
+                <select class="input"
+                        v-model="troopFilter">
+                  <option :value="null">All Troops</option>
+                  <option v-for="troop in troops"
+                          :value="troop"
+                          :key="troop">
+                    {{ troop }}
+                  </option>
+                </select>
+              </span>
             </div>
           </div>
         </div>
@@ -56,73 +58,113 @@
           </div>
         </div>
         <div class="column is-6">
-          <button class="button is-pulled-right"
+          <button class="button is-pulled-right is-hidden-mobile"
+                  @click.prevent="reset()">Reset Filters</button>
+          <button class="button is-hidden-tablet"
                   @click.prevent="reset()">Reset Filters</button>
         </div>
       </div>
     </div>
-    <table class="table is-striped"
-           v-if="filteredScouts.length > 0">
-      <thead>
-        <tr>
-          <th @click="sort('firstname')"
-              class="sortable"
-              :class="{ 'sorted-column': order === 'firstname' }">
-            First Name
-            <div class="icon"
-                 v-if="order === 'firstname'">
-              <span v-if="sortAscending"
-                    class="fa fa-sort-alpha-asc"></span>
-              <span v-else
-                    class="fa fa-sort-alpha-desc"></span>
-            </div>
-          </th>
-          <th @click="sort('lastname')"
-              class="sortable"
-              :class="{ 'sorted-column': order === 'lastname' }">
-            Last Name
-            <div class="icon"
-                 v-if="order === 'lastname'">
-              <span v-if="sortAscending"
-                    class="fa fa-sort-alpha-asc"></span>
-              <span v-else
-                    class="fa fa-sort-alpha-desc"></span>
-            </div>
-          </th>
-          <th @click="sort('troop')"
-              class="sortable"
-              :class="{ 'sorted-column': order === 'troop' }">
-            Troop
-            <div class="icon"
-                 v-if="order === 'troop'">
-              <span v-if="sortAscending"
-                    class="fa fa-sort-numeric-asc"></span>
-              <span v-else
-                    class="fa fa-sort-numeric-desc"></span>
-            </div>
-          </th>
-          <th>Coordinator</th>
-          <th colspan="1"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <scout-row v-for="scout in filteredScouts"
-                   :key="scout.scout_id"
-                   :id="scout.scout_id"
-                   :firstname="scout.firstname"
-                   :lastname="scout.lastname"
-                   :troop="scout.troop"
-                   :registration="scout.registrations"
-                   :user="scout.user">
-        </scout-row>
-      </tbody>
-    </table>
+    <div v-if="filteredScouts.length > 0">
+      <nav class="pagination">
+        <paginate-links for="scouts"
+                        :limit="3"
+                        :show-step-links="true"
+                        class="pagination-list"
+                        :step-links="{
+                          next: 'Next Page',
+                          prev: 'Previous Page'
+                        }"
+                        :classes="{
+                          'li.number > a, li.ellipses > a': 'pagination-link',
+                          'li.left-arrow > a': 'pagination-previous',
+                          'li.right-arrow > a': 'pagination-next'
+                        }">
+        </paginate-links>
+      </nav>
+      <paginate name="scouts"
+                :list="filteredScouts"
+                :per="5"
+                tag="table"
+                class="table is-striped"
+                v-if="filteredScouts.length > 0">
+        <thead>
+          <tr>
+            <th @click="sort('firstname')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'firstname' }">
+              First Name
+              <div class="icon"
+                   v-if="order === 'firstname'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-alpha-asc"></span>
+                <span v-else
+                      class="fa fa-sort-alpha-desc"></span>
+              </div>
+            </th>
+            <th @click="sort('lastname')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'lastname' }">
+              Last Name
+              <div class="icon"
+                   v-if="order === 'lastname'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-alpha-asc"></span>
+                <span v-else
+                      class="fa fa-sort-alpha-desc"></span>
+              </div>
+            </th>
+            <th @click="sort('troop')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'troop' }">
+              Troop
+              <div class="icon"
+                   v-if="order === 'troop'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-numeric-asc"></span>
+                <span v-else
+                      class="fa fa-sort-numeric-desc"></span>
+              </div>
+            </th>
+            <th>Coordinator</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <scout-row v-for="scout in paginated('scouts')"
+                     :key="scout.scout_id"
+                     :id="scout.scout_id"
+                     :firstname="scout.firstname"
+                     :lastname="scout.lastname"
+                     :troop="scout.troop"
+                     :registration="scout.registrations"
+                     :user="scout.user">
+          </scout-row>
+        </tbody>
+      </paginate>
+      <nav class="pagination">
+        <paginate-links for="scouts"
+                        :limit="3"
+                        :show-step-links="true"
+                        class="pagination-list"
+                        :step-links="{
+                          next: 'Next Page',
+                          prev: 'Previous Page'
+                        }"
+                        :classes="{
+                          'li.number > a, li.ellipses > a': 'pagination-link',
+                          'li.left-arrow > a': 'pagination-previous',
+                          'li.right-arrow > a': 'pagination-next'
+                        }">
+        </paginate-links>
+      </nav>
+    </div>
     <div class="notification"
          v-else>
       <p>
         There are no scouts that match the criteria you specified. Change the filters you have selected, or <a href="#"
-           @click="reset()">reset all
-          of the filters</a>.
+            @click="reset()">reset all
+        of the filters</a>.
       </p>
     </div>
     <router-view></router-view>
@@ -144,6 +186,7 @@ export default {
       scouts: [],
       search: '',
       order: 'troop',
+      paginate: ['scouts'],
       sortAscending: true,
       troopFilter: null
     };
