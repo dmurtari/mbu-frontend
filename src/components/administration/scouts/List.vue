@@ -66,36 +66,17 @@
       </div>
     </div>
     <div v-if="filteredScouts.length > 0">
-      <nav class="pagination">
-        <paginate-links for="scouts"
-                        :limit="3"
-                        :show-step-links="true"
-                        class="pagination-list"
-                        :step-links="{
-                          next: 'Next Page',
-                          prev: 'Previous Page'
-                        }"
-                        :classes="{
-                          'li.number > a, li.ellipses > a': 'pagination-link',
-                          'li.left-arrow > a': 'pagination-previous',
-                          'li.right-arrow > a': 'pagination-next'
-                        }">
-        </paginate-links>
-      </nav>
-      <paginate name="scouts"
-                :list="filteredScouts"
-                :per="5"
-                tag="table"
-                class="table is-striped"
-                v-if="filteredScouts.length > 0">
-        <thead>
+      <paginated-table :target="'scouts'"
+                       :contents="filteredScouts"
+                       :showLinks="true">
+        <thead slot="header">
           <tr>
             <th @click="sort('firstname')"
                 class="sortable"
                 :class="{ 'sorted-column': order === 'firstname' }">
               First Name
               <div class="icon"
-                   v-if="order === 'firstname'">
+                  v-if="order === 'firstname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
@@ -107,7 +88,7 @@
                 :class="{ 'sorted-column': order === 'lastname' }">
               Last Name
               <div class="icon"
-                   v-if="order === 'lastname'">
+                  v-if="order === 'lastname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
@@ -119,7 +100,7 @@
                 :class="{ 'sorted-column': order === 'troop' }">
               Troop
               <div class="icon"
-                   v-if="order === 'troop'">
+                  v-if="order === 'troop'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-numeric-asc"></span>
                 <span v-else
@@ -130,34 +111,16 @@
             <th colspan="1"></th>
           </tr>
         </thead>
-        <tbody>
-          <scout-row v-for="scout in paginated('scouts')"
-                     :key="scout.scout_id"
-                     :id="scout.scout_id"
-                     :firstname="scout.firstname"
-                     :lastname="scout.lastname"
-                     :troop="scout.troop"
-                     :registration="scout.registrations"
-                     :user="scout.user">
+        <template slot="row" scope="props">
+          <scout-row :id="props.item.scout_id"
+                     :firstname="props.item.firstname"
+                     :lastname="props.item.lastname"
+                     :troop="props.item.troop"
+                     :registration="props.item.registrations"
+                     :user="props.item.user">
           </scout-row>
-        </tbody>
-      </paginate>
-      <nav class="pagination">
-        <paginate-links for="scouts"
-                        :limit="3"
-                        :show-step-links="true"
-                        class="pagination-list"
-                        :step-links="{
-                          next: 'Next Page',
-                          prev: 'Previous Page'
-                        }"
-                        :classes="{
-                          'li.number > a, li.ellipses > a': 'pagination-link',
-                          'li.left-arrow > a': 'pagination-previous',
-                          'li.right-arrow > a': 'pagination-next'
-                        }">
-        </paginate-links>
-      </nav>
+        </template>
+      </paginated-table>
     </div>
     <div class="notification"
          v-else>
@@ -186,7 +149,6 @@ export default {
       scouts: [],
       search: '',
       order: 'troop',
-      paginate: ['scouts'],
       sortAscending: true,
       troopFilter: null
     };
@@ -269,23 +231,6 @@ export default {
   .notification {
     margin-top: 1rem;
     margin-bottom: 1rem;
-  }
-
-  table {
-    margin-top: 2rem;
-    table-layout: fixed;
-
-    .icon {
-      font-size: 16px;
-    }
-
-    .sorted-column {
-      background: #EEE;
-    }
-
-    th.sortable:hover {
-      background: #EEE;
-    }
   }
 
   .scout-list-filters {
