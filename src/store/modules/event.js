@@ -7,7 +7,8 @@ import URLS from '../../urls';
 
 const state = {
   events: [],
-  currentEvent: {}
+  currentEvent: {},
+  defaultSelectedId: null
 };
 
 const mutations = {
@@ -40,6 +41,9 @@ const mutations = {
   [types.SET_PURCHASABLES] (state, details) {
     let event = _.find(state.events, { id: details.eventId });
     Vue.set(event, 'purchasables', details.purchasables);
+  },
+  [types.SET_SELECTED] (state, selectedId) {
+    state.defaultSelectedId = selectedId;
   },
   [types.UPDATE_EVENT] (state, event) {
     let index = _.indexOf(state.events, { id: event.id });
@@ -83,6 +87,9 @@ const getters = {
       return [];
     }
     return event.offerings;
+  },
+  selectedEventId(state) {
+    return state.defaultSelectedId;
   }
 };
 
@@ -202,6 +209,10 @@ const actions = {
           reject();
         })
     });
+  },
+  setSelectedId({ commit }, eventId) {
+    commit(types.SET_SELECTED, eventId);
+    return;
   },
   saveCurrentEvent({ commit }, eventId) {
     return new Promise((resolve, reject) => {

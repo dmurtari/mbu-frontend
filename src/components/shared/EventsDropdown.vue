@@ -34,7 +34,8 @@ export default {
   computed: {
     ...mapGetters([
       'orderedEvents',
-      'currentEvent'
+      'currentEvent',
+      'selectedEventId'
     ]),
     readableEvents() {
       return _.map(this.orderedEvents, (event) => {
@@ -47,12 +48,15 @@ export default {
   },
   methods: {
     emitEvent() {
+      this.$store.dispatch('setSelectedId', this.selectedEvent);
       this.$emit('select', this.selectedEvent);
     }
   },
   mounted() {
     if (this.showAll) {
       this.selectedEvent = null;
+    } else if (this.selectedEventId) {
+      this.selectedEvent = this.selectedEventId;
     } else {
       this.selectedEvent = this.currentEvent.id;
     }

@@ -68,6 +68,7 @@
     <div v-if="filteredScouts.length > 0">
       <paginated-table :target="'scouts'"
                        :contents="filteredScouts"
+                       :per="20"
                        :showLinks="true">
         <thead slot="header">
           <tr>

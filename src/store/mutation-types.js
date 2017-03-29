@@ -20,6 +20,7 @@ export const ADD_EVENT = 'events/ADD';
 export const DELETE_EVENT = 'events/DELETE';
 export const GET_EVENTS = 'events/GET';
 export const SET_CURRENT = 'events/SET_CURRENT';
+export const SET_SELECTED = 'events/SET_SELECTED';
 export const UPDATE_EVENT = 'events/UPDATE';
 
 // Offerings
