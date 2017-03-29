@@ -15,18 +15,6 @@
                         'li.right-arrow > a': 'pagination-next'
                       }">
       </paginate-links>
-      <span class="control has-addons is-pulled-right">
-        <p class="control">
-          <input class="input"
-                type="text"
-                placeholder="Find a repository">
-        </p>
-        <p class="control">
-          <a class="button is-info">
-            Search
-          </a>
-        </p>
-      </span>
     </nav>
     <paginate :name="target"
               :list="contents"
