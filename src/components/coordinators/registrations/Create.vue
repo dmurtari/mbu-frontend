@@ -15,7 +15,7 @@
         preferences.
       </p>
       <template v-for="(preference, index) in preferences">
-        <div class="column is-6 is-4-widescreen">
+        <div class="column field is-6 is-4-widescreen">
           <label class="label"
             :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
@@ -45,17 +45,23 @@
         </div>
       </template>
       <div class="column is-12">
-        <button class="button is-primary"
-                :disabled="$v.$invalid"
-                :class="{ 'is-disabled is-loading': creating }"
-                @click="registerScout()">
-          Register Scout
-        </button>
-        <button class="button"
-                :class="{ 'is-disabled': creating }"
-                @click="cancel()">
-          Cancel
-        </button>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary"
+                    :disabled="$v.$invalid"
+                    :class="{ 'is-disabled is-loading': creating }"
+                    @click="registerScout()">
+              Register Scout
+            </button>
+          </div>
+          <div class="control">
+            <button class="button"
+                    :class="{ 'is-disabled': creating }"
+                    @click="cancel()">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

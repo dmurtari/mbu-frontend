@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="column is-half is-offset-one-quarter">
+    <div class="column is-three-quarters is-offset-2">
       <h1 class="title">Login</h1>
       <h3 class="subtitle">Welcome back to MBU Online!</h3>
       <div class="notification is-warning" v-if="error">
@@ -15,15 +15,17 @@
         </p>
       </div>
       <form>
-        <div class="control">
+        <div class="field">
           <label class="label" for="login-email">Email</label>
-          <input type="email"
-                class="input"
-                id="login-email"
-                placeholder="Enter your email"
-                :class="{ 'is-danger': $v.credentials.email.$error }"
-                @blur="$v.credentials.email.$touch"
-                v-model="credentials.email">
+          <div class="control">
+            <input type="email"
+                   class="input is-expanded"
+                   id="login-email"
+                   placeholder="Enter your email"
+                   :class="{ 'is-danger': $v.credentials.email.$error }"
+                   @blur="$v.credentials.email.$touch"
+                   v-model="credentials.email">
+          </div>
           <span v-if="$v.credentials.email.$error">
             <span class="help is-danger" v-if="!$v.credentials.email.email">
               Email address is invalid
@@ -33,28 +35,37 @@
             </span>
           </span>
         </div>
-        <div class="control">
+        <div class="field">
           <label class="label" for="login-password">Password</label>
-          <input type="password"
-                class="input"
-                id="login-password"
-                placeholder="Password"
-                :class="{ 'is-danger': $v.credentials.password.$error }"
-                @blur="$v.credentials.password.$touch"
-                v-model="credentials.password">
+          <div class="control">
+            <input type="password"
+                   class="input is-expanded"
+                   id="login-password"
+                   placeholder="Password"
+                   :class="{ 'is-danger': $v.credentials.password.$error }"
+                   @blur="$v.credentials.password.$touch"
+                   v-model="credentials.password">
+          </div>
           <span class="help is-danger"
                 v-if="!$v.credentials.password.required && $v.credentials.password.$error">
             Password is required
           </span>
         </div>
         <br>
-        <div class="control">
-          <button class="button is-primary"
-                  :disabled="$v.credentials.$invalid"
-                  @click.prevent="submit()">Login</button>
-          <button class="button is-info is-outlined"
-                  @click.prevent="signup()">Create an Account</button>
-          <router-link class="button is-link is-pulled-right" to="/reset">Forgot your password?</router-link>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary"
+                    :disabled="$v.credentials.$invalid"
+                    @click.prevent="submit()">Login</button>
+          </div>
+          <div class="control">
+            <button class="button is-info is-outlined"
+                    @click.prevent="signup()">Create an Account</button>
+          </div>
+          <div class="control">
+            <router-link class="button is-link is-pulled-right"
+                        to="/reset">Forgot your password?</router-link>
+          </div>
         </div>
         <br>
       </form>

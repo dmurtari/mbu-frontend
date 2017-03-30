@@ -16,58 +16,70 @@
       </p>
     </div>
     <div class="columns is-mobile" v-if="availableItems.length > 0">
-      <div class="control column is-3-mobile is-5-tablet">
+      <div class="field column is-3-mobile is-5-tablet">
         <label class="label" for="purchasable-item-select">Item</label>
-        <span class="select">
-          <select id="purchasable-item-select"
-                  class="input"
-                  v-model="itemToPurchase.purchasable">
-            <option v-for="purchasable in availableItems"
-                    :value="purchasable"
-                    :key="purchasable.id">
-              {{ purchasable.item }} ({{ purchasable.price | currency }})
-            </option>
-          </select>
-        </span>
+        <div class="control">
+          <span class="select">
+            <select id="purchasable-item-select"
+                    class="input"
+                    v-model="itemToPurchase.purchasable">
+              <option v-for="purchasable in availableItems"
+                      :value="purchasable"
+                      :key="purchasable.id">
+                {{ purchasable.item }} ({{ purchasable.price | currency }})
+              </option>
+            </select>
+          </span>
+        </div>
       </div>
-      <div class="control column is-3-mobile is-2-tablet">
+      <div class="field column is-3-mobile is-2-tablet">
         <label class="label" for="purchasable-item-quantity">Quantity</label>
-        <input type="number"
-               class="input"
-               id="purchasable-item-quantity"
-               :class="{ 'is-danger': $v.itemToPurchase.quantity.$error && itemToPurchase.purchasable }"
-               @blur="$v.itemToPurchase.quantity.$touch"
-               v-model="itemToPurchase.quantity">
+        <div class="control">
+          <input type="number"
+                 class="input"
+                 id="purchasable-item-quantity"
+                 :class="{ 'is-danger': $v.itemToPurchase.quantity.$error && itemToPurchase.purchasable }"
+                 @blur="$v.itemToPurchase.quantity.$touch"
+                 v-model="itemToPurchase.quantity">
+        </div>
         <span class="help is-danger"
               v-if="$v.itemToPurchase.quantity.$error && itemToPurchase.purchasable">
           Please enter a number greater than 0
         </span>
       </div>
-      <div class="control column is-3-mobile is-2-tablet">
+      <div class="field column is-3-mobile is-2-tablet">
         <label class="label" for="purchasable-item-size">Size</label>
-        <span class="select">
-          <select type="select"
-                  class="input"
-                  :class="{ 'is-disabled': !itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size }"
-                  v-model="itemToPurchase.size">
-            <option v-for="size in sizes" :value="size.value">
-              {{ size.text }}
-            </option>
-          </select>
-        </span>
+        <div class="control">
+          <span class="select">
+            <select type="select"
+                    class="input"
+                    :class="{ 'is-disabled': !itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size }"
+                    v-model="itemToPurchase.size">
+              <option v-for="size in sizes" :value="size.value">
+                {{ size.text }}
+              </option>
+            </select>
+          </span>
+        </div>
       </div>
       <div class="column auto">
         <label class="label">&nbsp;</label>
-        <button class="button is-primary"
-                :class="{ 'is-disabled is-loading': creating }"
-                @click="purchaseItem()">
-          <span class="fa fa-check"></span>
-        </button>
-        <button class="button is-light"
-                :class="{ 'is-disabled': creating }"
-                @click="clearItem()">
-          <span class="fa fa-times"></span>
-        </button>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary"
+                    :class="{ 'is-disabled is-loading': creating }"
+                    @click="purchaseItem()">
+              <span class="fa fa-check"></span>
+            </button>
+          </div>
+          <div class="control">
+            <button class="button is-light"
+                    :class="{ 'is-disabled': creating }"
+                    @click="clearItem()">
+              <span class="fa fa-times"></span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="notification" v-else>

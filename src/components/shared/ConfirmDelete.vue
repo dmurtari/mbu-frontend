@@ -1,26 +1,34 @@
 <template>
   <div>
-    <div class="control">
+    <div class="field">
       <label class="label" for="delete-confirm">
         <slot name="header"></slot>
       </label>
       <div class="notification is-danger" v-if="error">
         <p>{{ error }}</p>
       </div>
-      <input type="text"
-             :placeholder="placeholder"
-             class="input"
-             id="delete-confirm"
-             v-model="enteredText">
+      <div class="control">
+        <input type="text"
+               :placeholder="placeholder"
+               class="input"
+               id="delete-confirm"
+               v-model="enteredText">
+      </div>
       <span class="help">
         <slot name="help-text"></slot>
       </span>
     </div>
-    <button class="button"
-            @click.prevent="cancel()">{{ cancelText }}</button>
-    <button class="button is-danger"
-            :disabled="enteredText != matchText"
-            @click.prevent="confirmDelete()">{{ confirmText }}</button>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button"
+                @click.prevent="cancel()">{{ cancelText }}</button>
+      </div>
+      <div class="control">
+        <button class="button is-danger"
+                :disabled="enteredText != matchText"
+                @click.prevent="confirmDelete()">{{ confirmText }}</button>
+      </div>
+    </div>
   </div>
 </template>
 

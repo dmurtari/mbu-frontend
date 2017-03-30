@@ -14,99 +14,119 @@
     </div>
     <form>
       <div class="columns is-multiline">
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-year">Year</label>
-          <masked-input mask="9999"
-                        placeholder="yyyy"
-                        id="event-create-year"
-                        :class="{ 'is-danger': $v.event.year.$error }"
-                        @blur="$v.event.year.$touch"
-                        v-model="event.year"></masked-input>
+          <div class="control">
+            <masked-input mask="9999"
+                          placeholder="yyyy"
+                          id="event-create-year"
+                          :class="{ 'is-danger': $v.event.year.$error }"
+                          @blur="$v.event.year.$touch"
+                          v-model="event.year"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.event.year.$error">
             Please enter a valid year
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-semester">Semester</label>
-          <span class="select">
-            <select id="event-create-semester"
-                    class="input"
-                    :class="{ 'is-danger': $v.event.semester.$error }"
-                    @blur="$v.event.semester.$touch"
-                    v-model="event.semester">
-              <option v-for="semester in semesters"
-                      :value="semester.value"
-                      :key="semester.value">
-                {{ semester.text }}
-              </option>
-            </select>
-          </span>
+          <div class="control">
+            <span class="select">
+              <select id="event-create-semester"
+                      class="input"
+                      :class="{ 'is-danger': $v.event.semester.$error }"
+                      @blur="$v.event.semester.$touch"
+                      v-model="event.semester">
+                <option v-for="semester in semesters"
+                        :value="semester.value"
+                        :key="semester.value">
+                  {{ semester.text }}
+                </option>
+              </select>
+            </span>
+          </div>
           <span class="help is-danger" v-if="$v.event.semester.$error">
             Please pick a semester for this event
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-price">Registration Fee</label>
-          <masked-input mask="99.99"
-                        placeholder="00.00"
-                        :class="{ 'is-danger': $v.event.price.$error }"
-                        @blur="$v.event.price.$touch"
-                        id="event-create-price"
-                        v-model="event.price"></masked-input>
+          <div class="control">
+            <masked-input mask="99.99"
+                          placeholder="00.00"
+                          :class="{ 'is-danger': $v.event.price.$error }"
+                          @blur="$v.event.price.$touch"
+                          id="event-create-price"
+                          v-model="event.price"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.event.price.$error">
             Please enter the price of the event (or 00.00)
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-date">Date</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-create-date"
-                        :class="{ 'is-danger': $v.event.date.$error }"
-                        @blur="$v.event.date.$touch"
-                        v-model="event.date"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-create-date"
+                          :class="{ 'is-danger': $v.event.date.$error }"
+                          @blur="$v.event.date.$touch"
+                          v-model="event.date"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.event.date.$error">
             Please enter a valid date for this event
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-open">Registration Opens</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-create-open"
-                        :class="{ 'is-danger': $v.event.registration_open.$error }"
-                        @blur="$v.event.registration_open.$touch"
-                        v-model="event.registration_open"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-create-open"
+                          :class="{ 'is-danger': $v.event.registration_open.$error }"
+                          @blur="$v.event.registration_open.$touch"
+                          v-model="event.registration_open"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.event.registration_open.$error">
             Please enter a valid date for registration opening, before the day
             of the event
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="event-create-close">Registration Closes</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-create-close"
-                        :class="{ 'is-danger': $v.event.registration_close.$error }"
-                        @blur="$v.event.registration_close.$touch"
-                        v-model="event.registration_close"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-create-close"
+                          :class="{ 'is-danger': $v.event.registration_close.$error }"
+                          @blur="$v.event.registration_close.$touch"
+                          v-model="event.registration_close"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.event.registration_close.$error">
             Please enter a valid date for registration closing, between
             registration opening and the event day
           </span>
         </div>
-        <div class="control column is-12">
-          <label class="checkbox">
-            <input v-model="current" type="checkbox"> Mark this as the current event
-          </label>
+        <div class="field column is-12">
+          <div class="control">
+            <label class="checkbox">
+              <input v-model="current" type="checkbox"> Mark this as the current event
+            </label>
+          </div>
         </div>
       </div>
-      <button class="button is-primary"
-              :disabled="$v.$invalid"
-              :class="{ 'is-loading is-disabled': creating }"
-              @click.prevent="createEvent()">Create Event</button>
-      <button class="button"
-              @click.prevent="clearAndClose()">Cancel</button>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary"
+                  :disabled="$v.$invalid"
+                  :class="{ 'is-loading is-disabled': creating }"
+                  @click.prevent="createEvent()">Create Event</button>
+        </div>
+        <div class="control">
+          <button class="button"
+                  @click.prevent="clearAndClose()">Cancel</button>
+        </div>
+      </div>
     </form>
   </div>
 </template>

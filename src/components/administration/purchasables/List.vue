@@ -18,12 +18,16 @@
     <div class="box purchasable-list-filters">
       <div class="columns">
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label">For&nbsp;Event:</label>
             </div>
-            <div class="control">
-              <events-dropdown @select="pickEvent($event)"></events-dropdown>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <events-dropdown @select="pickEvent($event)"></events-dropdown>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -20,56 +20,64 @@
     </ul>
     <form class="form">
       <div class="columns">
-        <div v-for="n in 3" class="control column is-4">
+        <div v-for="n in 3" class="field column is-4">
           <label class="label" for="period-1-assignment">Period {{ n }}:</label>
-          <span class="input-group select">
-            <select class="input"
-                    :id="'period-' + n + '-assignment'"
-                    @change="maybeRespondToDuration($event.target.value, n)"
-                    v-model="assignments[n - 1]">
-              <option :value="null">No Assignment</option>
-              <option disabled></option>
-              <optgroup label="Preferences">
-                <option v-for="preference in preferences"
-                        :key="preference.offering_id"
-                        :value="preference.offering_id"
-                        :disabled="!offered(preference.offering_id, n)">
-                  {{ preference.badge.name }}
-                  <span v-if="preference.price !== '0.00'">
-                    ({{ preference.price | currency }})
-                  </span>
-                  <span v-if="preference.duration > 1">
-                    ({{ preference.duration }} periods)
-                  </span>
-                </option>
-              </optgroup>
-              <option disabled></option>
-              <optgroup label="All Offerings">
-                <option v-for="offering in sortedOfferings"
-                        :key="offering.details.id"
-                        :value="offering.details.id"
-                        :disabled="!offered(offering.details.id, n)">
-                  {{ offering.name }}
-                  <span v-if="offering.details.price !== '0.00'">
-                    ({{ offering.details.price | currency }})
-                  </span>
-                  <span v-if="offering.details.duration > 1">
-                    ({{ offering.details.duration }} periods)
-                  </span>
-                </option>
-              </optgroup>
-            </select>
-          </span>
+          <div class="control">
+            <span class="input-group select">
+              <select class="input"
+                      :id="'period-' + n + '-assignment'"
+                      @change="maybeRespondToDuration($event.target.value, n)"
+                      v-model="assignments[n - 1]">
+                <option :value="null">No Assignment</option>
+                <option disabled></option>
+                <optgroup label="Preferences">
+                  <option v-for="preference in preferences"
+                          :key="preference.offering_id"
+                          :value="preference.offering_id"
+                          :disabled="!offered(preference.offering_id, n)">
+                    {{ preference.badge.name }}
+                    <span v-if="preference.price !== '0.00'">
+                      ({{ preference.price | currency }})
+                    </span>
+                    <span v-if="preference.duration > 1">
+                      ({{ preference.duration }} periods)
+                    </span>
+                  </option>
+                </optgroup>
+                <option disabled></option>
+                <optgroup label="All Offerings">
+                  <option v-for="offering in sortedOfferings"
+                          :key="offering.details.id"
+                          :value="offering.details.id"
+                          :disabled="!offered(offering.details.id, n)">
+                    {{ offering.name }}
+                    <span v-if="offering.details.price !== '0.00'">
+                      ({{ offering.details.price | currency }})
+                    </span>
+                    <span v-if="offering.details.duration > 1">
+                      ({{ offering.details.duration }} periods)
+                    </span>
+                  </option>
+                </optgroup>
+              </select>
+            </span>
+          </div>
         </div>
       </div>
     </form>
     </form>
-    <button class="button is-primary"
-            :class=" {' is-disabled is-loading': saving }"
-            @click="setAssignments()">Save Assignments</button>
-    <button class="button"
-            :class=" {'is-disabled': saving }"
-            @click="$emit('done')">Cancel</button>
+    <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-primary"
+              :class=" {' is-disabled is-loading': saving }"
+              @click="setAssignments()">Save Assignments</button>
+    </div>
+    <div class="control">
+      <button class="button"
+              :class=" {'is-disabled': saving }"
+              @click="$emit('done')">Cancel</button>
+    </div>
+    </div>
 
   </div>
 </template>

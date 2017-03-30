@@ -14,7 +14,7 @@
     <br>
     <div v-if="!showDeleteConfirmation" class="columns is-multiline">
       <template v-for="(preference, index) in preferences">
-        <div class="column is-6 is-4-widescreen">
+        <div class="column field is-6 is-4-widescreen">
           <label class="label"
                   :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
@@ -58,15 +58,23 @@
         </p>
       </div>
       <div class="column is-12">
-        <button class="button is-primary"
-                :disabled="$v.$invalid"
-                :class="{ 'is-disabled is-loading': saving }"
-                @click="save()">Save Changes</button>
-        <button class="button"
-                :class="{ 'is-disabled': saving }"
-                @click="cancel()">Cancel</button>
-        <button class="button is-danger is-pulled-right"
-                @click.prevent="toggleDeleteConfirmation()">Unregister</button>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary"
+                    :disabled="$v.$invalid"
+                    :class="{ 'is-disabled is-loading': saving }"
+                    @click="save()">Save Changes</button>
+          </div>
+          <div class="control">
+            <button class="button"
+                    :class="{ 'is-disabled': saving }"
+                    @click="cancel()">Cancel</button>
+          </div>
+          <div class="control is-pulled-right">
+            <button class="button is-danger"
+                    @click.prevent="toggleDeleteConfirmation()">Unregister</button>
+          </div>
+        </div>
       </div>
     </div>
     <confirm-delete v-if="showDeleteConfirmation"

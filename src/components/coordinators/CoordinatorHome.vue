@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="section">
       <h4 class="title is-4">
         Welcome to the Coordinator Home for MBU Online!

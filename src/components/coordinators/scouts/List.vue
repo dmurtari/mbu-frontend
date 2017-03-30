@@ -18,31 +18,41 @@
     <div class="box scout-list-filters">
       <div class="columns">
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label" for="scout-list-sort-filter">Sort&nbsp;by:</label>
             </div>
-            <span class="select">
-              <select id="scout-list-sort-filter"
-                      v-model="sortBy">
-                <option v-for="option in orders"
-                        :value="option.value"
-                        :key="option.value">
-                  {{ option.text }}
-                </option>
-              </select>
-            </span>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <span class="select">
+                    <select id="scout-list-sort-filter"
+                            v-model="sortBy">
+                      <option v-for="option in orders"
+                              :value="option.value"
+                              :key="option.value">
+                        {{ option.text }}
+                      </option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="column is-6">
-          <div class="search-container control is-horizontal">
-            <div class="control-label">
+          <div class="search-container field is-horizontal">
+            <div class="field-label">
               <label class="label" for="scout-list-find">Search:</label>
             </div>
-            <div class="control has-addons">
-              <input class="input is-expanded"
-                    id="scout-list-find"
-                    v-model="search"></input>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input"
+                         id="scout-list-find"
+                         v-model="search"></input>
+                </div>
+              </div>
             </div>
           </div>
         </div>

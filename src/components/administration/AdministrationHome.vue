@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="section">
       <h4 class="title is-4">Get Started With MBU Online</h4>
       <p>

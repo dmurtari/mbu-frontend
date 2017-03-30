@@ -13,65 +13,77 @@
     </div>
     <form class="form" v-if="!removing">
       <div class="columns multiline">
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="offering-periods">Periods:</label>
-          <input type="text"
-                 class="input"
-                 id="offering-periods"
-                 v-model.lazy="editablePeriods"
-                 :class="{ 'is-danger': $v.offering.periods.$error }"
-                  @blur="$v.offering.periods.$touch"
-                 placeholder="Periods">
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   id="offering-periods"
+                   v-model.lazy="editablePeriods"
+                   :class="{ 'is-danger': $v.offering.periods.$error }"
+                   @blur="$v.offering.periods.$touch"
+                   placeholder="Periods">
+          </div>
           <span class="help is-danger" v-if="$v.offering.periods.$error">
             Enter the periods this badge will be offered (separated by commas)
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="offering-duration">Duration:</label>
-          <span class="input-group select duration-select">
-            <select class="input"
-                    id="offering-duration"
-                    :class="{ 'is-danger': $v.offering.duration.$error }"
-                    @blur="$v.offering.duration.$touch"
-                    v-model="offering.duration">
-              <option value="1">1 period</option>
-              <option value="2">2 periods</option>
-              <option value="3">3 periods</option>
-            </select>
-          </span>
+          <div class="control">
+            <span class="input-group select duration-select">
+              <select class="input"
+                      id="offering-duration"
+                      :class="{ 'is-danger': $v.offering.duration.$error }"
+                      @blur="$v.offering.duration.$touch"
+                      v-model="offering.duration">
+                <option value="1">1 period</option>
+                <option value="2">2 periods</option>
+                <option value="3">3 periods</option>
+              </select>
+            </span>
+          </div>
           <span class="help is-danger" v-if="$v.offering.duration.$error">
             Pick the duration of this class
           </span>
         </div>
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="offering-price">Price:</label>
-          <input type="number"
-                 class="input"
-                 id="offering-price"
-                 v-model="offering.price"
-                 :class="{ 'is-danger': $v.offering.price.$error }"
-                 @blur="$v.offering.price.$touch"
-                 placeholder="Price">
+          <div class="control">
+            <input type="number"
+                   class="input"
+                   id="offering-price"
+                   v-model="offering.price"
+                   :class="{ 'is-danger': $v.offering.price.$error }"
+                   @blur="$v.offering.price.$touch"
+                   placeholder="Price">
+          </div>
           <span class="help is-danger" v-if="$v.offering.price.$error">
             Enter the price of this class
           </span>
         </div>
       </div>
-      <div class="control">
-        <button class="button is-primary"
-                :disabled="$v.$invalid"
-                :class="{ 'is-loading is-disabled': saving }"
-                @click.prevent="saveOffering()">
-          Save Offering
-        </button>
-        <button class="button is-light"
-                @click.prevent="toggleEdit()">
-          Cancel Changes
-        </button>
-        <button class="button is-danger is-pulled-right"
-                @click.prevent="toggleRemove()">
-          Remove
-        </button>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary"
+                  :disabled="$v.$invalid"
+                  :class="{ 'is-loading is-disabled': saving }"
+                  @click.prevent="saveOffering()">
+            Save Offering
+          </button>
+        </div>
+        <div class="control">
+          <button class="button is-light"
+                  @click.prevent="toggleEdit()">
+            Cancel Changes
+          </button>
+        </div>
+        <div class="control is-pulled-right">
+          <button class="button is-danger"
+                  @click.prevent="toggleRemove()">
+            Remove
+          </button>
+        </div>
       </div>
     </form>
     <confirm-delete v-if="removing"

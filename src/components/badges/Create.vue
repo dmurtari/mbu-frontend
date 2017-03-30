@@ -15,43 +15,53 @@
     </div>
     <form>
       <div class="columns is-multiline">
-        <div class="control column is-4">
+        <div class="field column is-4">
           <label class="label" for="badge-create-name">Name</label>
-          <input type="text"
-                 class="input"
-                 id="badge-create-name"
-                 placeholder="New Badge"
-                 @blur="$v.badge.name.$touch"
-                 :class="{ 'is-danger': $v.badge.name.$error }"
-                 v-model="badge.name">
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   id="badge-create-name"
+                   placeholder="New Badge"
+                   @blur="$v.badge.name.$touch"
+                   :class="{ 'is-danger': $v.badge.name.$error }"
+                   v-model="badge.name">
+          </div>
           <span class="help is-danger" v-if="$v.badge.name.$error">
             The name of the merit badge is required
           </span>
         </div>
-        <div class="control column is-8">
+        <div class="field column is-8">
           <label class="label" for="badge-create-notes">Notes</label>
-          <input type="text"
-                 class="input"
-                 id="badge-create-notes"
-                 placeholder="Notes about this badge"
-                 v-model="badge.notes">
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   id="badge-create-notes"
+                   placeholder="Notes about this badge"
+                   v-model="badge.notes">
+          </div>
         </div>
-        <div class="control column is-12">
+        <div class="field column is-12">
           <label class="label" for="badge-create-description">Description</label>
-          <textarea class="textarea"
-                    id="badge-create-description"
-                    rows="5"
-                    placeholder="Description of this badge"
-                    v-model="badge.description"></textarea>
+          <div class="control">
+            <textarea class="textarea"
+                      id="badge-create-description"
+                      rows="5"
+                      placeholder="Description of this badge"
+                      v-model="badge.description"></textarea>
+          </div>
         </div>
       </div>
-      <div>
-        <button class="button is-primary"
-                :disabled="$v.$invalid"
-                :class="{ 'is-loading is-disabled': creating }"
-                @click.prevent="createBadge()">Create Badge</button>
-        <button class="button"
-                @click.prevent="clearAndClose()">Cancel</button>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary"
+                  :disabled="$v.$invalid"
+                  :class="{ 'is-loading is-disabled': creating }"
+                  @click.prevent="createBadge()">Create Badge</button>
+        </div>
+        <div class="control">
+          <button class="button"
+                  @click.prevent="clearAndClose()">Cancel</button>
+        </div>
       </div>
     </form>
   </div>

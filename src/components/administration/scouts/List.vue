@@ -14,54 +14,67 @@
     <div class="box scout-list-filters">
       <div class="columns is-multiline">
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label">Registered:</label>
             </div>
-            <div class="control">
-              <events-dropdown :showAll="true"
-                               @select="pickEvent($event)"></events-dropdown>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <events-dropdown @select="pickEvent($event)"></events-dropdown>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label">Troop:</label>
             </div>
-            <div class="control">
-              <span class="input-group select">
-                <select class="input"
-                        v-model="troopFilter">
-                  <option :value="null">All Troops</option>
-                  <option v-for="troop in troops"
-                          :value="troop"
-                          :key="troop">
-                    {{ troop }}
-                  </option>
-                </select>
-              </span>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <span class="input-group select">
+                    <select class="input"
+                            v-model="troopFilter">
+                      <option :value="null">All Troops</option>
+                      <option v-for="troop in troops"
+                              :value="troop"
+                              :key="troop">
+                        {{ troop }}
+                      </option>
+                    </select>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="column is-6">
-          <div class="search-container control is-horizontal">
-            <div class="control-label">
+          <div class="search-container field is-horizontal">
+            <div class="field-label">
               <label class="label"
                      for="scout-list-find">Name:</label>
             </div>
-            <div class="control">
-              <input class="input is-expanded"
-                     id="scout-list-find"
-                     v-model="search"></input>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input class="input is-expanded"
+                        id="scout-list-find"
+                        v-model="search"></input>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="column is-6">
-          <button class="button is-pulled-right is-hidden-mobile"
-                  @click.prevent="reset()">Reset Filters</button>
-          <button class="button is-hidden-tablet"
-                  @click.prevent="reset()">Reset Filters</button>
+          <div class="field is-grouped">
+            <div class="control is-pulled-right">
+              <button class="button is-pulled-right"
+                      @click.prevent="reset()">Reset Filters</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

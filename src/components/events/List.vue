@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h3 class="title is-3">All Events ({{ totalEvents }} Total)
       <button class="button is-primary"
               v-if="isAdmin"

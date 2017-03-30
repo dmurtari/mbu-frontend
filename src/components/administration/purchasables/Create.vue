@@ -13,59 +13,71 @@
     </div>
     <form>
       <div class="columns is-multiline">
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="purchasable-create-item">Item Name</label>
-          <input type="text"
-                 class="input"
-                 id="purchasable-create-item"
-                 placeholder="New Item"
-                 :class="{ 'is-danger': $v.purchasable.item.$error }"
-                 @blur="$v.purchasable.item.$touch"
-                 v-model="purchasable.item">
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   id="purchasable-create-item"
+                   placeholder="New Item"
+                   :class="{ 'is-danger': $v.purchasable.item.$error }"
+                   @blur="$v.purchasable.item.$touch"
+                   v-model="purchasable.item">
+          </div>
           <span class="help is-danger" v-if="$v.purchasable.item.$error">
             Please enter the name of the item
           </span>
         </div>
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="purchasable-create-price">Price</label>
-          <input type="text"
-                 class="input"
-                 placeholder="10.00"
-                 id="purchasable-create-price"
-                 :class="{ 'is-danger': $v.purchasable.price.$error }"
-                 @blur="$v.purchasable.price.$touch"
-                 v-model="purchasable.price">
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   placeholder="10.00"
+                   id="purchasable-create-price"
+                   :class="{ 'is-danger': $v.purchasable.price.$error }"
+                   @blur="$v.purchasable.price.$touch"
+                   v-model="purchasable.price">
+          </div>
           <span class="help is-danger" v-if="$v.purchasable.price.$error">
             Please enter the price of the item
           </span>
         </div>
-        <div class="control column is-12">
+        <div class="field column is-12">
           <label class="label" for="purchasable-create-description">Description</label>
-          <textarea class="textarea"
-                    id="purchasable-create-description"
-                    rows="2"
-                    placeholder="Description of this item"
-                    v-model="purchasable.description"></textarea>
+          <div class="control">
+            <textarea class="textarea"
+                      id="purchasable-create-description"
+                      rows="2"
+                      placeholder="Description of this item"
+                      v-model="purchasable.description"></textarea>
+          </div>
         </div>
-        <div class="control column is-6">
-          <label class="checkbox">
-            <input v-model="hasAgeRestriction" type="checkbox"> This item is age restricted
-          </label>
+        <div class="field column is-6">
+          <div class="control">
+            <label class="checkbox">
+              <input v-model="hasAgeRestriction" type="checkbox"> This item is age restricted
+            </label>
+          </div>
         </div>
-        <div class="control column is-6">
-          <label class="checkbox">
-            <input v-model="purchasable.has_size" type="checkbox"> Allow scouts to select a size
-          </label>
+        <div class="field column is-6">
+          <div class="control">
+            <label class="checkbox">
+              <input v-model="purchasable.has_size" type="checkbox"> Allow scouts to select a size
+            </label>
+          </div>
         </div>
         <template v-if="hasAgeRestriction">
-          <div class="control column is-6">
+          <div class="field column is-6">
             <label class="label" for="purchasable-min-age">Minimum Age (If Any)</label>
-            <input type="number"
-                   class="input"
-                   id="purchasable-min-age"
-                   :class="{ 'is-danger': $v.purchasable.minimum_age.$error }"
-                   @blur="$v.purchasable.minimum_age.$touch"
-                   v-model="purchasable.minimum_age">
+            <div class="control">
+              <input type="number"
+                     class="input"
+                     id="purchasable-min-age"
+                     :class="{ 'is-danger': $v.purchasable.minimum_age.$error }"
+                     @blur="$v.purchasable.minimum_age.$touch"
+                     v-model="purchasable.minimum_age">
+            </div>
             <span class="help is-danger" v-if="!$v.purchasable.minimum_age.number">
               Minimum age must be a number
             </span>
@@ -73,14 +85,16 @@
               Minimum age must be less than maximum age
             </span>
           </div>
-          <div class="control column is-6">
+          <div class="field column is-6">
             <label class="label" for="purchasable-max-age">Maximum Age (If Any)</label>
-            <input type="number"
-                   class="input"
-                   id="purchasable-max-age"
-                   :class="{ 'is-danger': $v.purchasable.maximum_age.$error }"
-                   @blur="$v.purchasable.maximum_age.$touch"
-                   v-model="purchasable.maximum_age">
+            <div class="control">
+              <input type="number"
+                     class="input"
+                     id="purchasable-max-age"
+                     :class="{ 'is-danger': $v.purchasable.maximum_age.$error }"
+                     @blur="$v.purchasable.maximum_age.$touch"
+                     v-model="purchasable.maximum_age">
+            </div>
             <span class="help is-danger" v-if="!$v.purchasable.maximum_age.number">
               Maximum age must be a number
             </span>
@@ -90,12 +104,18 @@
           </div>
         </template>
       </div>
-      <button class="button is-primary"
-              :disabled="$v.$invalid"
-              :class="{ 'is-loading is-disabled': creating }"
-              @click.prevent="createPurchasable()">Create Item</button>
-      <button class="button"
-              @click.prevent="close()">Cancel</button>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary"
+                  :disabled="$v.$invalid"
+                  :class="{ 'is-loading is-disabled': creating }"
+                  @click.prevent="createPurchasable()">Create Item</button>
+        </div>
+        <div class="control">
+          <button class="button"
+                  @click.prevent="close()">Cancel</button>
+        </div>
+      </div>
     </form>
   </div>
 </template>

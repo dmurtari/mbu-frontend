@@ -7,16 +7,18 @@
       <p class="subtitle">
         Enter the new password you would like to use to login to your account.
       </p>
-      <div class="control">
+      <div class="field">
         <label class="label" for="reset-password">
           New password
         </label>
-        <input type="password"
-               class="input"
-               id="reset-password"
-               @blur="$v.password.$touch"
-               :class="{ 'is-danger': $v.password.$error }"
-               v-model="password" required>
+        <div class="control">
+          <input type="password"
+                 class="input"
+                 id="reset-password"
+                 @blur="$v.password.$touch"
+                 :class="{ 'is-danger': $v.password.$error }"
+                 v-model="password" required>
+        </div>
         <span v-if="$v.password.$error">
           <span class="help is-danger" v-if="!$v.password.minLength">
             Password must be at least 8 characters long
@@ -26,39 +28,41 @@
           </span>
         </span>
       </div>
-      <div class="control">
+      <div class="field">
         <label class="label" for="reset-confirm">
           Confirm your password
         </label>
-        <div class="col-sm-9">
+        <div class="control">
           <input type="password"
-                 class="input"
-                 id="reset-confirm"
-                 @blur="$v.passwordConfirmation.$touch"
-                 :class="{ 'is-danger': $v.passwordConfirmation.$error }"
-                 v-model="passwordConfirmation" required>
-          <span v-if="$v.passwordConfirmation.$error">
-            <span class="help is-danger" v-if="!$v.passwordConfirmation.sameAs">
-              Passwords do not match
-            </span>
-            <span class="help is-danger" v-if="!$v.passwordConfirmation.required">
-              Please confirm your new password
-            </span>
-          </span>
+                  class="input"
+                  id="reset-confirm"
+                  @blur="$v.passwordConfirmation.$touch"
+                  :class="{ 'is-danger': $v.passwordConfirmation.$error }"
+                  v-model="passwordConfirmation" required>
         </div>
+        <span v-if="$v.passwordConfirmation.$error">
+          <span class="help is-danger" v-if="!$v.passwordConfirmation.sameAs">
+            Passwords do not match
+          </span>
+          <span class="help is-danger" v-if="!$v.passwordConfirmation.required">
+            Please confirm your new password
+          </span>
+        </span>
       </div>
-      <button class="button is-primary"
-              :class="{ 'is-disabled is-loading': sending }"
-              :disabled="$v.$invalid"
-              @click.prevent="resetPassword()">
-        Set Password
-      </button>
-      <button class="button"
-              :class="{ 'is-disabled is-loading': sending }"
-              v-if="showCancel"
-              @click.prevent="cancel()">
-        Cancel
-      </button>
+      <div class="field is-grouped">
+        <button class="button is-primary"
+                :class="{ 'is-disabled is-loading': sending }"
+                :disabled="$v.$invalid"
+                @click.prevent="resetPassword()">
+          Set Password
+        </button>
+        <button class="button"
+                :class="{ 'is-disabled is-loading': sending }"
+                v-if="showCancel"
+                @click.prevent="cancel()">
+          Cancel
+        </button>
+      </div>
     </form>
   </div>
 </template>

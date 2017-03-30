@@ -18,32 +18,40 @@
     <div class="box offering-list-filters">
       <div class="columns">
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label">For&nbsp;Event:</label>
             </div>
-            <div class="control">
-              <events-dropdown @select="pickEvent($event)"></events-dropdown>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <events-dropdown @select="pickEvent($event)"></events-dropdown>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label" for="offering-list-offered-filter">Filter&nbsp;by:</label>
             </div>
-            <div class="control">
-              <span class="select">
-                <select class="form-control"
-                        id="offering-list-offered-filter"
-                        v-model="offeredFilter">
-                  <option v-for="option in offeredFilters"
-                          :key="option.value"
-                          :value="option.value">
-                    {{ option.text }}
-                  </option>
-                </select>
-              </span>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <span class="select">
+                    <select class="form-control"
+                            id="offering-list-offered-filter"
+                            v-model="offeredFilter">
+                      <option v-for="option in offeredFilters"
+                              :key="option.value"
+                              :value="option.value">
+                        {{ option.text }}
+                      </option>
+                    </select>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

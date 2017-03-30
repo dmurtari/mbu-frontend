@@ -7,70 +7,86 @@
     </div>
     <form  v-if="!showDeleteConfirmation">
       <div class="columns is-multiline">
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="event-edit-price">Registration Fee</label>
-          <masked-input mask="99.99"
-                        placeholder="00.00"
-                        id="event-edit-price"
-                        :class="{ 'is-danger': $v.eventUpdate.price.$error }"
-                        @blur="$v.eventUpdate.price.$touch"
-                        v-model="eventUpdate.price"></masked-input>
+          <div class="control">
+            <masked-input mask="99.99"
+                          placeholder="00.00"
+                          id="event-edit-price"
+                          :class="{ 'is-danger': $v.eventUpdate.price.$error }"
+                          @blur="$v.eventUpdate.price.$touch"
+                          v-model="eventUpdate.price"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.eventUpdate.price.$error">
             Please enter the price of the event (or 00.00)
           </span>
         </div>
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="event-edit-date">Date</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-edit-date"
-                        :class="{ 'is-danger': $v.eventUpdate.date.$error }"
-                        @blur="$v.eventUpdate.date.$touch"
-                        v-model="eventUpdate.date"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-edit-date"
+                          :class="{ 'is-danger': $v.eventUpdate.date.$error }"
+                          @blur="$v.eventUpdate.date.$touch"
+                          v-model="eventUpdate.date"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.eventUpdate.date.$error">
             Please enter a valid date for this event
           </span>
         </div>
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="event-edit-open">Registration Opens</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-edit-open"
-                        :class="{ 'is-danger': $v.eventUpdate.registration_open.$error }"
-                        @blur="$v.eventUpdate.registration_open.$touch"
-                        v-model="eventUpdate.registration_open"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-edit-open"
+                          :class="{ 'is-danger': $v.eventUpdate.registration_open.$error }"
+                          @blur="$v.eventUpdate.registration_open.$touch"
+                          v-model="eventUpdate.registration_open"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.eventUpdate.registration_open.$error">
             Please enter a valid date for registration opening, before the day
             of the event
           </span>
         </div>
-        <div class="control column is-6">
+        <div class="field column is-6">
           <label class="label" for="event-edit-close">Registration Closes</label>
-          <masked-input mask="99/99/9999"
-                        placeholder="mm/dd/yyyy"
-                        id="event-create-close"
-                        :class="{ 'is-danger': $v.eventUpdate.registration_close.$error }"
-                        @blur="$v.eventUpdate.registration_close.$touch"
-                        v-model="eventUpdate.registration_close"></masked-input>
+          <div class="control">
+            <masked-input mask="99/99/9999"
+                          placeholder="mm/dd/yyyy"
+                          id="event-create-close"
+                          :class="{ 'is-danger': $v.eventUpdate.registration_close.$error }"
+                          @blur="$v.eventUpdate.registration_close.$touch"
+                          v-model="eventUpdate.registration_close"></masked-input>
+          </div>
           <span class="help is-danger" v-if="$v.eventUpdate.registration_close.$error">
-            Please enter a valid date for registration closing, between 
+            Please enter a valid date for registration closing, between
             registration opening and the event day
           </span>
         </div>
       </div>
-      <div>
+      <div class="field is-grouped">
+        <div class="control">
         <button class="button is-primary"
                 :disabled="$v.$invalid"
                 :class="{ 'is-disabled is-loading': saving }"
                 @click.prevent="updateEvent()">Update Event</button>
-        <button class="button is-default" 
-                @click.prevent="close()">Cancel</button>
-        <button class="button is-link"
-                :class="{ 'is-disabled is-loading': settingCurrent }"
-                @click.prevent="setAsCurrent()">Set as the Current Event</button>
-        <button class="button is-danger is-pulled-right"
-                @click.prevent="showDeleteConfirm()">Delete Event</button>
-      </div>   
+        </div>
+        <div class="control">
+          <button class="button is-default"
+                  @click.prevent="close()">Cancel</button>
+        </div>
+        <div class="control">
+          <button class="button is-link"
+                  :class="{ 'is-disabled is-loading': settingCurrent }"
+                  @click.prevent="setAsCurrent()">Set as the Current Event</button>
+        </div>
+        <div class="control is-pulled-right">
+          <button class="button is-danger is-pulled-right"
+                  @click.prevent="showDeleteConfirm()">Delete Event</button>
+        </div>
+      </div>
     </form>
     <confirm-delete v-if="showDeleteConfirmation"
                     class="container-fluid"
@@ -84,7 +100,7 @@
       </span>
       <span slot="help-text">
         Enter the semester and year to confirm deletion. <b>This action cannot
-        be undone, and will also remove all data associated with this event, 
+        be undone, and will also remove all data associated with this event,
         including registrations and completion records.</b>
       </span>
     </confirm-delete>
@@ -186,9 +202,9 @@ export default {
   },
   mounted() {
     this.eventUpdate.date = moment(this.event.date).format(dateFormat);
-    this.eventUpdate.registration_open = 
+    this.eventUpdate.registration_open =
       moment(this.event.registration_open).format(dateFormat);
-    this.eventUpdate.registration_close = 
+    this.eventUpdate.registration_close =
       moment(this.event.registration_close).format(dateFormat);
     this.eventUpdate.price = this.event.price;
   },

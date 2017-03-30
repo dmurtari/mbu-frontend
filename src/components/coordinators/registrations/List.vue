@@ -13,33 +13,41 @@
     <div class="box registration-list-filters">
       <div class="columns">
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label">For&nbsp;Event:</label>
             </div>
-            <div class="control">
-              <events-dropdown @select="setEvent($event)"></events-dropdown>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <events-dropdown @select="setEvent($event)"></events-dropdown>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="column is-6">
-          <div class="control is-horizontal">
-            <div class="control-label">
+          <div class="field is-horizontal">
+            <div class="field-label">
               <label class="label" for="registered-list-filters">Filter&nbsp;by:</label>
             </div>
-            <div class="control">
-              <span class="select">
-                <select class="form-control"
-                        id="registered-list-filters"
-                        :disabled="!isCurrentEvent"
-                        v-model="registrationFilter">
-                  <option v-for="option in registrationFilters"
-                          :value="option.value"
-                          :key="option.value">
-                    {{ option.text }}
-                  </option>
-                </select>
-              </span>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <span class="select">
+                    <select class="form-control"
+                            id="registered-list-filters"
+                            :disabled="!isCurrentEvent"
+                            v-model="registrationFilter">
+                      <option v-for="option in registrationFilters"
+                              :value="option.value"
+                              :key="option.value">
+                        {{ option.text }}
+                      </option>
+                    </select>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
