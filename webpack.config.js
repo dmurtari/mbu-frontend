@@ -36,9 +36,8 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
-        exclude: /node_modules/
+        test: /\.(scss|sass)$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

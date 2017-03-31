@@ -43,7 +43,7 @@
     "mocha": "^3.2.0",
     "node-sass": "^4.3.0",
     "phantomjs": "^2.1.7",
-    "sass-loader": "^4.1.1",
+    "sass-loader": "^6.0.1",
     "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
