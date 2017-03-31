@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h3 class="title is-3">Site Administration</h3>
     <h5 class="subtitle is-5">
             Manage users, edit scouts and events, and view event details.

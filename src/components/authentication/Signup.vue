@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="column is-8 is-offset-2">
       <h1 class="title">Create Your Account</h1>
       <h3 class="subtitle">

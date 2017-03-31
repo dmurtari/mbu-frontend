@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="column is-6 is-offset-3">
       <h1 class="title">Reset your password</h1>
       <router-view></router-view>

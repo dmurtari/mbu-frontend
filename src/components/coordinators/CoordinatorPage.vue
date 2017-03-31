@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h3 class="title is-3">Troop Administration</h3>
     <h5 class="subtitle is-5">
       From here, you can access all of the functionality that you will need to

@@ -1,7 +1,7 @@
 <template>
   <section class="hero is-large">
     <div class="hero-body">
-      <div class="container">
+      <div>
         <h1 class="title">
           Oops...
         </h1>

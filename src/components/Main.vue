@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     Welcome to MBU Online
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="column is-three-quarters is-offset-2">
       <h1 class="title">Login</h1>
       <h3 class="subtitle">Welcome back to MBU Online!</h3>

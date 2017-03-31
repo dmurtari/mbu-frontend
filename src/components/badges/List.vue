@@ -1,15 +1,12 @@
 <template>
-  <div class="container">
+  <div>
     <h3 class="title is-3">All Badges ({{ totalBadges }} Total)
-      <button class="button is-primary"
-              v-if="isAdmin"
-              @click="toggleAdd()">
-        <span v-if="!displayAddBadge"
-              class="fa fa-plus"></span>
-        <span v-if="displayAddBadge"
-              class="fa fa-minus"></span>
-      </button>
     </h3>
+    <button class="button is-primary"
+            v-if="isAdmin && !displayAddBadge"
+            @click="toggleAdd()">
+      Add a Badge
+    </button>
     <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
     <div class="badge-list">
       <badge v-for="badge in badges" :badge="badge" :key="badge.id"></badge>

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h3 class="title is-3">All Events ({{ totalEvents }} Total)
-      <button class="button is-primary"
-              v-if="isAdmin"
-              @click="toggleAdd()">
-        <span v-if="!displayAddEvent"
-              class="fa fa-plus"></span>
-        <span v-if="displayAddEvent"
-              class="fa fa-minus"></span>
-      </button>
-    </h3>
+    <slot name="title">
+      <h3 class="title is-3">
+        All Events ({{ totalEvents }} Total)
+      </h3>
+    </slot>
+    <button class="button is-primary"
+            v-if="isAdmin && !displayAddEvent"
+            @click="toggleAdd()">
+      Add an Event
+    </button>
     <event-create @close="toggleAdd()" v-show="displayAddEvent"></event-create>
     <div class="event-list">
       <event v-for="event in orderedEvents"
