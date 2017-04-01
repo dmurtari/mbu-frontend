@@ -2,6 +2,7 @@
   "name": "mbu-frontend",
   "description": "Frontend for MBU Online",
   "author": "Domenic Murtari <domenic.murtari@gmail.com>",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
