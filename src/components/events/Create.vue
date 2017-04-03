@@ -112,6 +112,8 @@
             <label class="checkbox">
               <input v-model="current" type="checkbox"> Mark this as the current event
             </label>
+            <help-tag text="The current event is the event that scoutmasters will
+                            be able to register their scouts for."></help-tag>
           </div>
         </div>
       </div>
