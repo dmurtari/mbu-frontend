@@ -27,10 +27,10 @@
           Period {{ n }}
         </b>
         <span v-if="scoutsForPeriod(n).length > 0" >
-          <span class="info">
-            ({{ scoutsForPeriod(n).length }}
-            {{ scoutsForPeriod(n).length === 1 ? 'scout' : 'scouts' }})
-          </span>
+          <p class="info">
+            {{ scoutsForPeriod(n).length }}
+            {{ scoutsForPeriod(n).length === 1 ? 'scout' : 'scouts' }}
+          </p>
           <ul v-if="expanded" class="attendee-list">
             <li v-for="scout in scoutsForPeriod(n)">
               ({{ scout.troop }}) {{ scout.fullname }}

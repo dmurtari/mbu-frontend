@@ -30,19 +30,27 @@
         </div>
       </div>
       <div class="section">
-        <h5 class="title is-5">Registration Information</h5>
-        <div v-if="registrations.length > 0">
-          <registration-container v-for="registration in orderedRegistrations"
-                                  :scout="scout"
-                                  :key="registration.id"
-                                  :event="eventForId(registration.event_id)"
-                                  :registration="registration"
-                                  class="registration">
-          </registration-container>
+        <div v-if="loadingRegistrations">
+          <loader v-if="loading"
+                  :color="'lightgray'"
+                  class="loader-centered"></loader>
         </div>
-        <div v-else
-             class="notification">
-          This scout has not registered for any events.
+        <div v-else>
+          <h5 class="title is-5">Registration Information</h5>
+          <div v-if="registrations.length > 0">
+            <registration-container v-for="registration in orderedRegistrations"
+                                    :scout="scout"
+                                    :key="registration.id"
+                                    :event="eventForId(registration.event_id)"
+                                    :registration="registration"
+                                    @done="reloadRegistrations()"
+                                    class="registration">
+            </registration-container>
+          </div>
+          <div v-else
+              class="notification">
+            This scout has not registered for any events.
+          </div>
         </div>
       </div>
     </div>
@@ -66,6 +74,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingRegistrations: false,
       error: '',
       scout: {},
       registrations: {}
@@ -99,25 +108,37 @@ export default {
   methods: {
     eventForId(eventId) {
       return _.find(this.allEvents, { 'id': eventId });
-    }
-  },
-  watch: {
-    $route() {
+    },
+    reload() {
       this.loading = true;
       axios.get(URLS.SCOUTS_URL + this.$route.params.id)
         .then((response) => {
           this.scout = response.data;
-          return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
-        })
-        .then((response) => {
           this.loading = false;
+          this.error = '';
+          this.reloadRegistrations();
+        })
+        .catch(() => {
+          this.loading = false;
+          this.error = 'Failed to get details for this scout.';
+        });
+    },
+    reloadRegistrations() {
+      return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
+        .then((response) => {
+          this.loadingRegistrations = false;
           this.registrations = response.data;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
+          this.loadingRegistrations = false;
           this.error = 'Failed to get registrations for this scout.';
-        });
+        })
+    }
+  },
+  watch: {
+    $route() {
+      this.reload();
     }
   },
   components: {
