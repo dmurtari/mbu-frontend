@@ -12,8 +12,8 @@
       </p>
     </div>
     <form class="form" v-if="!removing">
-      <div class="columns multiline">
-        <div class="field column is-4">
+      <div class="columns is-multiline">
+        <div class="field column is-4 is-2-widescreen">
           <label class="label" for="offering-periods">Periods:</label>
           <div class="control">
             <input type="text"
@@ -24,11 +24,16 @@
                    @blur="$v.offering.periods.$touch"
                    placeholder="Periods">
           </div>
-          <span class="help is-danger" v-if="$v.offering.periods.$error">
-            Enter the periods this badge will be offered (separated by commas)
+          <span v-if="$v.offering.periods.$error" class="help is-danger">
+            <span v-if="!$v.offering.periods.required">
+              Enter the periods this badge will be offered (separated by commas)
+            </span>
+            <span v-if="$v.offering.periods.$each.$error">
+              Periods must be 1, 2, or 3
+            </span>
           </span>
         </div>
-        <div class="field column is-4">
+        <div class="field column is-4 is-2-widescreen">
           <label class="label" for="offering-duration">Duration:</label>
           <div class="control">
             <span class="input-group select duration-select">
@@ -47,7 +52,7 @@
             Pick the duration of this class
           </span>
         </div>
-        <div class="field column is-4">
+        <div class="field column is-4 is-2-widescreen">
           <label class="label" for="offering-price">Price:</label>
           <div class="control">
             <input type="number"
@@ -61,6 +66,18 @@
           <span class="help is-danger" v-if="$v.offering.price.$error">
             Enter the price of this class
           </span>
+        </div>
+        <div class="field column is-12 is-6-widescreen">
+          <label class="label" for="offering-requirements">Requirements:</label>
+          <div class="control">
+            <input type="text"
+                   class="input"
+                   id="offering-requirements"
+                   v-model="offering.requirements"
+                   :class=" { 'is-danger': $v.offering.requirements.$error }"
+                   @blur="$v.offering.requirements.$touch"
+                   placeholder="1, 2, 3a, 4">
+          </div>
         </div>
       </div>
       <div class="field is-grouped">
@@ -124,7 +141,8 @@ export default {
       offering: {
         periods: [],
         duration: 1,
-        price: '0.00'
+        price: '0.00',
+        requirements: []
       },
       invalidPeriodsError: '',
       removing: false,
@@ -205,9 +223,10 @@ export default {
   },
   validations: {
     offering: {
-      periods: { required }, //, $each: { between: between(1, 3) } },
+      periods: { required, $each: { between: between(1, 3) } },
       duration: { required },
-      price: { required }
+      price: { required },
+      requirements: { required }
     }
   }
 }
