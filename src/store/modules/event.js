@@ -46,7 +46,7 @@ const mutations = {
     state.defaultSelectedId = selectedId;
   },
   [types.UPDATE_EVENT] (state, event) {
-    let index = _.indexOf(state.events, { id: event.id });
+    let index = _.findIndex(state.events, { id: event.id });
     state.events.splice(index, 1, event);
   },
   [types.UPDATE_OFFERING] (state, offering) {
