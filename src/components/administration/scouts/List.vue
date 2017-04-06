@@ -90,7 +90,7 @@
                 :class="{ 'sorted-column': order === 'firstname' }">
               First Name
               <div class="icon"
-                  v-if="order === 'firstname'">
+                   v-if="order === 'firstname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
@@ -102,7 +102,7 @@
                 :class="{ 'sorted-column': order === 'lastname' }">
               Last Name
               <div class="icon"
-                  v-if="order === 'lastname'">
+                   v-if="order === 'lastname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
@@ -114,7 +114,7 @@
                 :class="{ 'sorted-column': order === 'troop' }">
               Troop
               <div class="icon"
-                  v-if="order === 'troop'">
+                   v-if="order === 'troop'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-numeric-asc"></span>
                 <span v-else

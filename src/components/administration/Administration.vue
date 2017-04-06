@@ -141,8 +141,4 @@ export default {
     position: relative;
     display: inline-block;
   }
-
-  .toggle-icons {
-    margin-top: 4px;
-  }
 </style>

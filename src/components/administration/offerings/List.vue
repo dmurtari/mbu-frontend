@@ -115,7 +115,8 @@ export default {
           name: badge.name,
           periods: offering.periods,
           duration: offering.duration,
-          price: offering.price
+          price: offering.price,
+          requirements: offering.requirements
         };
       });
     }

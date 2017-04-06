@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h5 class="title is-5">Editing {{ badge.name }}</h5>
+    <h5 class="title is-5"
+        v-if="creating">Create Offering for {{ badge.name }}</h5>
+    <h5 class="title is-5"
+        v-else>Editing {{ badge.name }}</h5>
     <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
@@ -73,11 +76,20 @@
             <input type="text"
                    class="input"
                    id="offering-requirements"
-                   v-model="offering.requirements"
+                   v-model.lazy="editableRequirements"
                    :class=" { 'is-danger': $v.offering.requirements.$error }"
                    @blur="$v.offering.requirements.$touch"
                    placeholder="1, 2, 3a, 4">
           </div>
+          <span class="help is-danger" v-if="$v.offering.requirements.$error">
+            <span v-if="!$v.offering.requirements.required">
+              Please specify the requirements that will be covered
+            </span>
+            <span v-if="$v.offering.requirements.$each.$error">
+              Requirements can be a combination of numbers and letters, and must
+              be separated by commas (e.g. 1, 2a, 3b, 4).
+            </span>
+          </span>
         </div>
       </div>
       <div class="field is-grouped">
@@ -95,7 +107,8 @@
             Cancel Changes
           </button>
         </div>
-        <div class="control is-pulled-right">
+        <div class="control is-pulled-right"
+             v-if="!creating">
           <button class="button is-danger"
                   @click.prevent="toggleRemove()">
             Remove
@@ -124,7 +137,7 @@
 </template>
 
 <script>
-import { required, between } from 'vuelidate/lib/validators';
+import { required, between, alphaNum, numeric } from 'vuelidate/lib/validators';
 
 export default {
   props: {
@@ -134,15 +147,19 @@ export default {
     },
     eventId: {
       required: true
+    },
+    creating: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       offering: {
-        periods: [],
-        duration: 1,
-        price: '0.00',
-        requirements: []
+        periods: this.badge.periods || [],
+        duration: this.badge.duration || 1,
+        price: this.badge.price || '0.00',
+        requirements: this.badge.requirements || []
       },
       invalidPeriodsError: '',
       removing: false,
@@ -158,6 +175,16 @@ export default {
       set(newPeriods) {
         this.offering.periods = _.without(_.map(_.split(newPeriods, ',', 3), (period) => {
           return Number(_.trim(period));
+        }), null, 0);
+      }
+    },
+    editableRequirements: {
+      get() {
+        return _.join(_.sortBy(this.offering.requirements), ', ');
+      },
+      set(newRequirements) {
+        this.offering.requirements = _.without(_.map(_.split(newRequirements, ','), (requirement) => {
+          return String(_.trim(requirement));
         }), null, 0);
       }
     },
@@ -200,33 +227,48 @@ export default {
       }
 
       this.saving = true;
-      this.$store.dispatch('updateOffering', {
-        eventId: this.eventId,
-        badgeId: this.badge.badge_id,
-        offering: this.offering
-      })
-        .then(() => {
-          this.error = '';
-          this.saving = false;
-          this.toggleEdit();
+      if (this.creating) {
+        let offering = {
+          badge_id: this.badge.badge_id,
+          offering: this.offering
+        };
+
+        this.$store.dispatch('createOffering', {
+          eventId: this.eventId,
+          details: offering
         })
-        .catch(() => {
-          this.saving = false;
-          this.error = 'Failed to save badge. Please try again.';
+          .then((response) => {
+            this.error = '';
+            this.saving = false;
+            this.toggleEdit();
+          })
+          .catch((err) => {
+            this.error = 'Couldn\'t create offering. Please refresh and try again';
+          });
+      } else {
+        this.$store.dispatch('updateOffering', {
+          eventId: this.eventId,
+          badgeId: this.badge.badge_id,
+          offering: this.offering
         })
+          .then(() => {
+            this.error = '';
+            this.saving = false;
+            this.toggleEdit();
+          })
+          .catch(() => {
+            this.saving = false;
+            this.error = 'Failed to save badge. Please try again.';
+          });
+      }
     }
-  },
-  mounted() {
-    this.offering.periods = this.badge.periods;
-    this.offering.duration = this.badge.duration;
-    this.offering.price = this.badge.price;
   },
   validations: {
     offering: {
-      periods: { required, $each: { between: between(1, 3) } },
+      periods: { required, $each: { numeric, between: between(1, 3) } },
       duration: { required },
       price: { required },
-      requirements: { required }
+      requirements: { required, $each: { alphaNum } }
     }
   }
 }

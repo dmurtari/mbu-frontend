@@ -4,21 +4,14 @@
       <edit-offering class="column auto"
                      :badge="badge"
                      :eventId="eventId"
-                     @cancel="toggleEdit()"></edit-offering>
+                     :creating="creating"
+                     @cancel="cancelEdit()"></edit-offering>
     </template>
     <template v-if="!shouldShowEdit">
-      <b class="column is-2-tablet is-3-desktop">{{ badge.name }}</b>
-      <template v-if="offered">
-        <div class="column is-4-tablet is-3-desktop offering-detail">
-          <b>Periods offered: </b>{{ periods }}
-        </div>
-        <div class="column is-3-tablet is-3-desktop offering-detail">
-          <b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}
-        </div>
-        <div class="column is-2-tablet is-2-desktop offering-detail">
-          <b>Price: </b>{{ offeringPrice }}
-        </div>
-        <div class="column is-1" v-if="isAdmin">
+      <div class="column is-11">
+        <h5 class="title is-5">{{ badge.name }}</h5>
+      </div>
+      <div class="column is-1" v-if="isAdmin && offered">
           <button class="button is-white offering-detail is-hidden-mobile"
                   @click="toggleEdit()">
             <span class="fa fa-edit" aria-label="Edit"></span>
@@ -28,13 +21,29 @@
             Edit Offering
           </button>
         </div>
+      <template v-if="offered">
+        <div class="column is-4 offering-detail">
+          <b>Periods offered: </b>{{ periods }}
+        </div>
+        <div class="column is-4 offering-detail">
+          <b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}
+        </div>
+        <div class="column is-4 offering-detail">
+          <b>Price: </b>{{ offeringPrice }}
+        </div>
+        <div class="column is-6 offering-detail">
+          <b>Requirements: </b>{{ requirements }}
+        </div>
       </template>
-      <button v-if="!offered"
-              class="button is-success"
-              :class="{ 'is-disabled is-loading': creating }"
-              @click="createOffering">
-        Offer this Badge
-      </button>
+      <div class="field" v-if="!offered">
+        <div class="control">
+          <button class="button is-success"
+                  :class="{ 'is-disabled is-loading': creating }"
+                  @click="createOffering()">
+            Offer this Badge
+          </button>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -78,8 +87,15 @@ export default {
     periods() {
       return _.join(_.sortBy(this.badge.periods), ', ');
     },
+    requirements() {
+      if (this.badge.requirements.length < 1) {
+        return 'None listed';
+      } else {
+        return _.join(_.sortBy(this.badge.requirements), ', ');
+      }
+    },
     shouldShowEdit() {
-      return this.editing && this.offered;
+      return this.editing || this.creating;
     }
   },
   watch: {
@@ -90,27 +106,10 @@ export default {
   methods: {
     createOffering() {
       this.creating = true;
-
-      let offering = {
-        badge_id: this.badge.badge_id,
-        offering: {
-          duration: 1,
-          periods: [1, 2, 3]
-        }
-      };
-
-      this.$store.dispatch('createOffering', {
-        eventId: this.eventId,
-        details: offering
-      })
-        .then((response) => {
-          this.error = '';
-          this.editing = true;
-          this.creating = false;
-        })
-        .catch((err) => {
-          this.error = 'Couldn\'t create offering. Please refresh and try again';
-        })
+    },
+    cancelEdit() {
+      this.creating = false;
+      this.editing = false;
     },
     toggleEdit() {
       this.editing = !this.editing;
