@@ -23,5 +23,8 @@ export default function(Vue) {
   });
   Vue.filter('currency', (number) => {
     return numeral(number).format('$0,0.00');
-  })
+  });
+  Vue.filter('commaSeparated', (value) => {
+    return _.join(value, ', ');
+  });
 }
