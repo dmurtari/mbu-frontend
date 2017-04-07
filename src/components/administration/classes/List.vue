@@ -57,12 +57,12 @@
          v-if="!loading">
     </div>
     <div>
-      <class-row v-for="offeredClass in filteredClass"
-                 :key="offeredClass.offering_id"
-                 :badge="offeredClass.badge.name"
-                 :assignees="offeredClass.assignees"
-                 :duration="offeredClass.duration"
-                 :periods="offeredClass.periods"></class-row>
+      <row-container v-for="offeredClass in filteredClass"
+                     :key="offeredClass.offering_id"
+                     :badge="offeredClass.badge.name"
+                     :assignees="offeredClass.assignees"
+                     :duration="offeredClass.duration"
+                     :periods="offeredClass.periods"></row-container>
     </div>
   </div>
 </template>
@@ -72,7 +72,7 @@
 import { mapGetters } from 'vuex';
 
 import EventsDropdown from '../../shared/EventsDropdown.vue';
-import ClassRow from './ClassRow.vue';
+import RowContainer from './RowContainer.vue';
 
 export default {
   data() {
@@ -123,7 +123,7 @@ export default {
     }
   },
   components: {
-    ClassRow,
+    RowContainer,
     EventsDropdown
   }
 }
