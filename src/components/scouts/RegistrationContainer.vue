@@ -21,7 +21,7 @@
                           :event="event"
                           :preferences="registrationPreferences"
                           :purchases="registrationPurchases"
-                          :assignments="registrationAssignments">
+                          :assignments="assignmentList">
       </scout-registration>
     </div>
     <div v-else>

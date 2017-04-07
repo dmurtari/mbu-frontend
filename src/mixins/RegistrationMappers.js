@@ -31,7 +31,8 @@ export default {
       return _.map(_.omitBy(this.assignmentList, _.isNil), (assignment) => {
         return {
           name: assignment.badge.name,
-          price: assignment.price
+          price: assignment.price,
+          periods: assignment.details.periods
         }
       });
     },

@@ -37,7 +37,7 @@
       </template>
       <div class="field" v-if="!offered">
         <div class="control">
-          <button class="button is-success"
+          <button class="button is-success create-button"
                   :class="{ 'is-disabled is-loading': creating }"
                   @click="createOffering()">
             Offer this Badge
@@ -133,5 +133,10 @@ export default {
     padding-top: .5em;
     padding-bottom: .5em;
     white-space: nowrap;
+  }
+
+  .create-button {
+    margin-left: 1rem;
+    margin-top: 1rem;
   }
 </style>

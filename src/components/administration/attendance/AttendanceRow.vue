@@ -12,7 +12,7 @@
       <scout-registration :event="event"
                           :preferences="registrationPreferences"
                           :purchases="registrationPurchases"
-                          :assignments="registrationAssignments">
+                          :assignments="assignmentList">
         <p slot="assignment-notification">
           {{ scout.fullname }} has not yet been assigned any merit badges for
           MBU {{ event.semester }} {{ event.year }}.

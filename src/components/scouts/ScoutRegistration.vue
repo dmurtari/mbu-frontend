@@ -65,7 +65,7 @@
             Period {{ index + 1 }}:
             <span v-if="!assignment">Unassigned</span>
             <span v-else>
-              {{ assignment.name }}
+              {{ assignment.badge.name }}
               <span v-if="assignment.price !== '0.00'">
                 ({{ assignment.price | currency }})
               </span>
@@ -120,6 +120,10 @@ export default {
     },
     assignmentCosts() {
       return _.reduce(this.assignments, (sum, assignment) => {
+        if (!assignment) {
+          return sum;
+        }
+
         return sum + Number(assignment.price);
       }, 0);
     },
@@ -136,7 +140,7 @@ export default {
       return _.reduce(this.purchases, (sum, purchase) => {
         return sum + (Number(purchase.price) * Number(purchase.quantity));
       }, 0);
-    },
+    }
   }
 }
 </script>
