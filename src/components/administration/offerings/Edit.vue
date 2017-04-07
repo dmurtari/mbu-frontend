@@ -17,7 +17,7 @@
     <form class="form" v-if="!removing">
       <div class="columns is-multiline">
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-periods">Periods:</label>
+          <label class="label" for="offering-periods">Offered Periods:</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -37,7 +37,7 @@
           </span>
         </div>
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-duration">Duration:</label>
+          <label class="label" for="offering-duration">Duration of Class:</label>
           <div class="control">
             <span class="input-group select duration-select">
               <select class="input"
@@ -56,7 +56,12 @@
           </span>
         </div>
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-price">Price:</label>
+          <label class="label" for="offering-price">
+            Price:
+            <help-tag text="Any additional cost that the scout will need to pay
+                            to attend this class, in addition to the event fee">
+            </help-tag>
+          </label>
           <div class="control">
             <input type="number"
                    class="input"
@@ -71,7 +76,11 @@
           </span>
         </div>
         <div class="field column is-12 is-6-widescreen">
-          <label class="label" for="offering-requirements">Requirements:</label>
+          <label class="label" for="offering-requirements">
+            Requirements:
+            <help-tag text="A list of requirements that will be covered during
+                            class."></help-tag>
+          </label>
           <div class="control">
             <input type="text"
                    class="input"
