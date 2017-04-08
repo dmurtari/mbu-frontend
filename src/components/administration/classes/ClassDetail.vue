@@ -19,11 +19,16 @@
 </template>
 
 <script>
-import GenericRow from './GenericRow.vue';
+import ScoutsForClass from './ScoutsForCLass';
 import Attendees from './Attendees.vue';
 
 export default {
-  extends: GenericRow,
+  props: {
+    offeringId: {
+      type: Number,
+      required: true
+    }
+  },
   methods: {
     emitCollapse() {
       this.$emit('collapse')
@@ -31,6 +36,9 @@ export default {
   },
   components: {
     Attendees
-  }
+  },
+  mixins: [
+    ScoutsForClass
+  ]
 }
 </script>

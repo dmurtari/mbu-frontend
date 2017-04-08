@@ -56,14 +56,27 @@
     <div class="class-list"
          v-if="!loading">
     </div>
-    <div>
-      <row-container v-for="offeredClass in filteredClass"
-                     :key="offeredClass.offering_id"
-                     :badge="offeredClass.badge.name"
-                     :assignees="offeredClass.assignees"
-                     :duration="offeredClass.duration"
-                     :periods="offeredClass.periods"></row-container>
-    </div>
+    <table class="table is-striped">
+      <thead>
+        <tr>
+          <th>Badge</th>
+          <th>Duration</th>
+          <th>Total</th>
+          <th>Period 1</th>
+          <th>Period 2</th>
+          <th>Period 3</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <attendance-row v-for="offeredClass in filteredClass"
+                        :key="offeredClass.offering_id"
+                        :id="offeredClass.offering_id"
+                        :badge="offeredClass.badge.name"
+                        :scouts="offeredClass.assignees"
+                        :duration="offeredClass.duration"></attendance-row>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -71,8 +84,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import EventsDropdown from '../../shared/EventsDropdown.vue';
-import RowContainer from './RowContainer.vue';
+import AttendanceRow from './AttendanceRow.vue';
 
 export default {
   data() {
@@ -123,8 +135,7 @@ export default {
     }
   },
   components: {
-    RowContainer,
-    EventsDropdown
+    AttendanceRow
   }
 }
 </script>
