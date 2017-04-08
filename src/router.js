@@ -26,6 +26,8 @@ import AdminClasses from './components/administration/classes/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
 import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
+import ClassContainer from './components/administration/classes/ClassContainer.vue';
+import ClassDetail from './components/administration/classes/ClassDetail.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
 
@@ -90,7 +92,7 @@ export default [
             ]
           }, {
             path: 'assignments',
-            component: AdminAttendance
+            component: AdminAttendance,
           }
         ]
       }, {
@@ -112,7 +114,17 @@ export default [
         ]
       }, {
         path: 'classes',
-        component: AdminClasses
+        component: ClassContainer,
+        children: [
+          {
+            path: 'all',
+            component: AdminClasses
+          }, {
+            path: ':id',
+            component: ClassDetail,
+            props: true
+          }
+        ]
       }
     ]
   }, {
