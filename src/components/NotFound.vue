@@ -7,9 +7,20 @@
         </h1>
         <h2 class="subtitle">
           The page you entered cannot be found.
-          <router-link to="/">Return home?</router-link>
+          <a href="#" @click="back()">Go back</a> or
+          <router-link to="/">return home?</router-link>
         </h2>
       </div>
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  methods: {
+    back() {
+      window.history.back();
+    }
+  }
+}
+</script>
