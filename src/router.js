@@ -122,7 +122,7 @@ export default [
           }, {
             path: ':id',
             component: ClassDetail,
-            props: true
+            props: (route) => ({ offeringId: Number(route.params.id) })
           }
         ]
       }
