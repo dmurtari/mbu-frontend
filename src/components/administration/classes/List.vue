@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h4 class="title is-4">
-      Classes
-    </h4>
     <p>
       These are the classes for an event based off of the badges that are being
       offered at an event and the scouts that are assigned to each period.
@@ -72,6 +69,7 @@
         <attendance-row v-for="offeredClass in filteredClass"
                         :key="offeredClass.offering_id"
                         :id="offeredClass.offering_id"
+                        :eventId="eventId"
                         :badge="offeredClass.badge.name"
                         :scouts="offeredClass.assignees"
                         :duration="offeredClass.duration"></attendance-row>

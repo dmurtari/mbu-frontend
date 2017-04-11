@@ -33,7 +33,7 @@ const actions = {
         .then((response) => {
           console.log('Received classes', response.data);
           commit(types.SET_CLASSES, {
-            eventId: eventId,
+            eventId: Number(eventId),
             classes: response.data
           });
           resolve();

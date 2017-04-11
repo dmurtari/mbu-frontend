@@ -27,7 +27,6 @@ export default {
   data() {
     return {
       badge: '',
-      eventId: 0,
       error: ''
     };
   },
@@ -44,6 +43,10 @@ export default {
     offeringId: {
       type: Number,
       required: true
+    },
+    eventId: {
+      type: Number,
+      required: true
     }
   },
   methods: {
@@ -51,14 +54,12 @@ export default {
       this.error = '';
     },
     refreshDetails() {
-      _.forEach(this.eventClasses, (eventClass) => {
-        _.forEach(eventClass.classes, (availableClass) => {
-          if (availableClass.offering_id === this.offeringId) {
-            this.assignees = availableClass.assignees;
-            this.badge = availableClass.badge.name;
-            this.eventId = eventClass.eventId;
-          }
-        });
+      let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
+      _.forEach(event.classes, (availableClass) => {
+        if (availableClass.offering_id === this.offeringId) {
+          this.assignees = availableClass.assignees;
+          this.badge = availableClass.badge.name;
+        }
       });
     }
   },
@@ -82,6 +83,15 @@ export default {
   },
   mixins: [
     ScoutsForClass
-  ]
+  ],
+  beforeRouteEnter(to, from, next) {
+    if (store.getters.eventClasses.length < 1) {
+      store.dispatch('getClasses', to.params.eventId)
+        .then(() => next() )
+        .catch(() => next(false) );
+    } else {
+      next();
+    }
+  }
 }
 </script>

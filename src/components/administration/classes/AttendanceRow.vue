@@ -9,7 +9,7 @@
       </span>
     </td>
     <td>
-      <router-link :to="'/administration/classes/' + id">
+      <router-link :to="'/administration/classes/' + eventId + '/' + id">
         Details
       </router-link>
     </td>
@@ -22,6 +22,10 @@ import ScoutsForClass from './ScoutsForClass';
 export default {
   props: {
     id: {
+      type: Number,
+      required: true
+    },
+    eventId: {
       type: Number,
       required: true
     },

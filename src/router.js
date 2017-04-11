@@ -120,9 +120,14 @@ export default [
             path: 'all',
             component: AdminClasses
           }, {
-            path: ':id',
+            path: ':eventId/:id',
             component: ClassDetail,
-            props: (route) => ({ offeringId: Number(route.params.id) })
+            props(route) {
+              return {
+                offeringId: Number(route.params.id),
+                eventId: Number(route.params.eventId)
+              }
+            }
           }
         ]
       }
