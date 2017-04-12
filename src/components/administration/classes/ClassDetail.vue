@@ -6,9 +6,10 @@
     </div>
     <div v-else>
       <attendees v-for="n in 3"
-                :key="n"
-                :period="n"
-                :scouts="scoutsForPeriod(n)"></attendees>
+                 :key="n"
+                 :period="n"
+                 :requirements="offering.requirements"
+                 :scouts="scoutsForPeriod(n)"></attendees>
     </div>
   </div>
 </template>
@@ -24,7 +25,8 @@ export default {
   data() {
     return {
       badge: '',
-      error: ''
+      error: '',
+      offering: {}
     };
   },
   computed: {
@@ -54,6 +56,7 @@ export default {
       let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
       _.forEach(event.classes, (availableClass) => {
         if (availableClass.offering_id === this.offeringId) {
+          this.offering = availableClass;
           this.assignees = availableClass.assignees;
           this.badge = availableClass.badge.name;
         }
