@@ -7,9 +7,9 @@
       <router-link to="/administration/classes/all">
         All Classes
       </router-link>
-      /&nbspClass Detail
+      /&nbsp{{ title }}
     </h4>
-    <router-view></router-view>
+    <router-view @title="setTitle($event)"></router-view>
   </div>
 </template>
 
@@ -17,9 +17,19 @@
 const listRegex = /.*all\/?$/
 
 export default {
+  data() {
+    return {
+      title: 'Class Details'
+    };
+  },
   computed: {
     isList() {
       return listRegex.test(this.$route.path);
+    }
+  },
+  methods: {
+    setTitle(title) {
+      this.title = title;
     }
   }
 }

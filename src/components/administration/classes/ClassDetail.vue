@@ -5,9 +5,6 @@
       <p>{{ error }}</p>
     </div>
     <div v-else>
-      <h4 class="title is-4">
-        {{ badge }} ({{ event.semester }} {{ event.year }})
-      </h4>
       <attendees v-for="n in 3"
                 :key="n"
                 :period="n"
@@ -61,6 +58,8 @@ export default {
           this.badge = availableClass.badge.name;
         }
       });
+
+      this.$emit('title', this.badge + ' (' + this.event.semester + ' ' + this.event.year + ')');
     }
   },
   mounted() {
