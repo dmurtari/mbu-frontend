@@ -1,30 +1,25 @@
 <template>
   <div class="attendee-container">
-    <h5 class="title is-5">
-      Attendees for Period {{ period }}
-      <span v-if="scouts.length > 0">
-        ({{ scouts.length }})
-      </span>
-      <div class="is-pulled-right"
-           v-if="scouts.length > 0">
-        <button class="titlebar-button button is-light"
-                @click="toggleEdit()">
-          Edit Completions
-        </button>
-      </div>
-    </h5>
-    <completions-edit v-if="editing"
-                      :scouts="scouts"
-                      :period="period"
-                      :requirements="requirements"
-                      @done="toggleEdit()"></completions-edit>
-    <div v-else>
+    <div v-if="!editing">
+      <h5 class="title is-5">
+        Attendees for Period {{ period }}
+        <span v-if="scouts.length > 0">
+          ({{ scouts.length }})
+        </span>
+        <div class="is-pulled-right"
+            v-if="scouts.length > 0">
+          <button class="titlebar-button button is-light"
+                  @click="toggleEdit()">
+            Edit Completions
+          </button>
+        </div>
+      </h5>
       <div v-if="scouts.length < 1"
-           class="notification">
+            class="notification">
         There are no scouts attending this period.
       </div>
       <table v-else
-             class="table is-striped">
+              class="table is-striped">
         <thead>
           <tr>
             <th>Full Name</th>
@@ -41,6 +36,16 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-else>
+      <h5 class="title is-5">
+        Editing Completions for Period {{ period }}
+      </h5>
+      <completions-edit v-if="editing"
+                        :scouts="scouts"
+                        :period="period"
+                        :requirements="requirements"
+                        @done="toggleEdit()"></completions-edit>
     </div>
   </div>
 </template>
