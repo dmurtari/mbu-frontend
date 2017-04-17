@@ -4,14 +4,17 @@
       <thead>
         <tr>
           <th>Scout</th>
-          <th v-for="requirement in requirements">
-            {{ requirement }}
-          </th>
+          <th>Troop</th>
+          <th>Completed Requirements</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="scout in scouts">
           <td>{{ scout.fullname }}</td>
+          <td>{{ scout.troop }}</td>
+          <td>
+            <input class="input">
+          </td>
         </tr>
       </tbody>
     </table>
