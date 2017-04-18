@@ -9,6 +9,7 @@
                  :key="n"
                  :period="n"
                  :requirements="offering.requirements"
+                 :offeringId="offeringId"
                  :scouts="scoutsForPeriod(n)"></attendees>
     </div>
   </div>

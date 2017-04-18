@@ -46,6 +46,10 @@ export default {
       type: Array,
       default: () => []
     },
+    offeringId: {
+      type: Number,
+      required: true
+    }
   },
   methods: {
     save() {

@@ -45,6 +45,7 @@
                         :scouts="scouts"
                         :period="period"
                         :requirements="requirements"
+                        :offeringId="offeringId"
                         @done="toggleEdit()"></completions-edit>
     </div>
   </div>
@@ -67,7 +68,11 @@ export default {
     },
     requirements: {
       type: Array,
-      defailt: () => []
+      default: () => []
+    },
+    offeringId: {
+      type: Number,
+      required: true
     }
   },
   data() {

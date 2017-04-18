@@ -12,6 +12,8 @@ export default {
           scout: assignee.scout
         };
 
+        scout.scout.registrationId = assignee.registration_id;
+        scout.scout.scoutId = assignee.scout_id;
         scout.scout.completions = assignee.assignment.completions;
         return scout;
       });
