@@ -13,7 +13,12 @@
           <td>{{ scout.fullname }}</td>
           <td>{{ scout.troop }}</td>
           <td>
-            <input class="input">
+            <input class="input"
+                   v-model="completions[scout.scoutId]"
+                   :id="'completion-scout-' + scout.scoutId"
+                   aria-labelledby="Completions"
+                   type="text"
+                   placeholder="1, 2, 3, ...">
           </td>
         </tr>
       </tbody>
@@ -32,6 +37,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   props: {
     period: {
@@ -51,6 +58,16 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      completions: {},
+      error: '',
+      saving: false
+    };
+  },
+  computed: {
+
+  },
   methods: {
     save() {
       this.$emit('done');
@@ -58,6 +75,11 @@ export default {
     cancel() {
       this.$emit('done');
     }
+  },
+  mounted() {
+    _.forEach(this.scouts, (scout) => {
+      this.completions[scout.scoutId] = _.join(scout.completions, ', ');
+    });
   }
 }
 </script>
