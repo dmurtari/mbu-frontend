@@ -37,6 +37,9 @@
 </template>
 
 <script>
+import URLS from 'urls';
+
+import axios from 'axios';
 import _ from 'lodash';
 
 export default {
@@ -65,12 +68,23 @@ export default {
       saving: false
     };
   },
-  computed: {
-
-  },
   methods: {
     save() {
-      this.$emit('done');
+      Promise.all(_.map(this.completions, (completion, scoutId) => {
+        let scout = _.find(this.scouts, [ 'scoutId', Number(scoutId) ]);
+        let completions = _.without(_.map(_.split(completion, ','), (completion) => {
+          return Number(_.trim(completion));
+        }), null, 0);
+
+        return axios.put(URLS.SCOUTS_URL + scoutId + '/registrations/' +
+          scout.registrationId + '/assignments/' + this.offeringId, {
+            completions: completions
+          });
+      }))
+        .then(() => {
+          console.log('Finished updating')
+        })
+
     },
     cancel() {
       this.$emit('done');
