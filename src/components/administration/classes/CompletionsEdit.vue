@@ -16,6 +16,7 @@
             <input class="input"
                    v-model="completions[scout.scoutId]"
                    :id="'completion-scout-' + scout.scoutId"
+                   :class="{ 'is-disabled': saving }"
                    aria-labelledby="Completions"
                    type="text"
                    placeholder="1, 2, 3, ...">
@@ -26,10 +27,12 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary"
+                :class="{ 'is-loading is-disabled': saving }"
                 @click.prevent="save()">Save Completions</button>
       </div>
       <div class="control">
         <button class="button"
+                :class="{ 'is-disabled': saving }"
                 @click.prevent="cancel()">Cancel</button>
       </div>
     </div>
@@ -39,6 +42,7 @@
 <script>
 import URLS from 'urls';
 
+import Vue from 'vue';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -70,6 +74,7 @@ export default {
   },
   methods: {
     save() {
+      this.saving = true;
       Promise.all(_.map(this.completions, (completion, scoutId) => {
         let scout = _.find(this.scouts, [ 'scoutId', Number(scoutId) ]);
         let completions = _.without(_.map(_.split(completion, ','), (completion) => {
@@ -82,8 +87,14 @@ export default {
           });
       }))
         .then(() => {
-          console.log('Finished updating')
+          this.saving = false;
+          this.error = '';
+          this.$emit('done');
         })
+        .catch(() => {
+          this.saving = false;
+          this.error = 'Failed to save records. Please refresh and try again.';
+        });
 
     },
     cancel() {
@@ -92,7 +103,7 @@ export default {
   },
   mounted() {
     _.forEach(this.scouts, (scout) => {
-      this.completions[scout.scoutId] = _.join(scout.completions, ', ');
+      Vue.set(this.completions, scout.scoutId, _.join(scout.completions, ', '));
     });
   }
 }
