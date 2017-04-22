@@ -183,7 +183,12 @@ export default {
       },
       set(newPeriods) {
         this.offering.periods = _.without(_.map(_.split(newPeriods, ',', 3), (period) => {
-          return Number(_.trim(period));
+          let number = Number(_.trim(period));
+          if (isNaN(number)) {
+            return null;
+          } else {
+            return number;
+          }
         }), null, 0);
       }
     },
