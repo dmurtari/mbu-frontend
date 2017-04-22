@@ -113,7 +113,7 @@ export default {
   },
   beforeMount() {
     _.forEach(this.scouts, (scout) => {
-      Vue.set(this.completions, scout.scoutId, _.join(scout.completions, ', '));
+      Vue.set(this.completions, scout.scoutId, _.join(_.orderBy(scout.completions), ', '));
     });
   },
   validations: {
