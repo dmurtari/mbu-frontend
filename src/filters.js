@@ -27,4 +27,7 @@ export default function(Vue) {
   Vue.filter('commaSeparated', (value) => {
     return _.join(value, ', ');
   });
+  Vue.filter('ordered', (value) => {
+    return _.orderBy(value);
+  })
 }

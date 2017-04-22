@@ -87,7 +87,7 @@ export default {
       this.saving = true;
       Promise.all(_.map(this.completions, (completion, scoutId) => {
         let scout = _.find(this.scouts, [ 'scoutId', Number(scoutId) ]);
-        let completions = _.without(_.map(_.split(completion, ','), (completion) => {
+        let completions = _.without(_.map(_.orderBy(_.split(completion, ',')), (completion) => {
           return Number(_.trim(completion));
         }), null, 0);
 

@@ -32,7 +32,7 @@
               :key="scout.id">
             <td>{{ scout.fullname }}</td>
             <td>{{ scout.troop }}</td>
-            <td>{{ scout.completions | commaSeparated }}</td>
+            <td>{{ scout.completions | ordered | commaSeparated }}</td>
           </tr>
         </tbody>
       </table>
@@ -82,6 +82,10 @@ export default {
   },
   methods: {
     toggleEdit() {
+      if (this.editing) {
+        this.$emit('triggerRefresh');
+      }
+
       this.editing = !this.editing;
     }
   },

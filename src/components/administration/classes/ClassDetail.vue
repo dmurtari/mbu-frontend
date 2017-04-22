@@ -16,7 +16,8 @@
                  :period="n"
                  :requirements="offering.requirements"
                  :offeringId="offeringId"
-                 :scouts="scoutsForPeriod(n)"></attendees>
+                 :scouts="scoutsForPeriod(n)"
+                 @triggerRefresh="triggerRefresh()"></attendees>
     </div>
   </div>
 </template>
@@ -73,11 +74,21 @@ export default {
       });
 
       this.$emit('title', this.badge + ' (' + this.event.semester + ' ' + this.event.year + ')');
+    },
+    triggerRefresh() {
+      this.$store.dispatch('getClasses', this.eventId)
+        .then(() => {
+          this.refreshDetails()
+          this.error = '';
+        })
+        .catch(() => {
+          this.error = 'Unable to load class details.';
+        });
     }
   },
   mounted() {
     if (this.eventClasses.length < 1) {
-      this.$store.dispatch('getClasses')
+      this.$store.dispatch('getClasses', this.eventId)
         .then(() => {
           this.refreshDetails()
           this.error = '';
