@@ -9,6 +9,10 @@ describe.only('The comma separated validator', () => {
     expect(commaSeparated('1a, 2, a')).to.be.true;
   });
 
+  it('should accept ending with a comma', () => {
+    expect(commaSeparated('1,2,3,')).to.be.true;
+  })
+
   it('should fail for other punctuation', () => {
     expect(commaSeparated('1.2.3')).to.be.false;
     expect(commaSeparated('1,2.3')).to.be.false;

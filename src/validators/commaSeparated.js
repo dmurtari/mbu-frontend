@@ -6,7 +6,7 @@ export default value => {
   }
 
   let entries = _.split(value, ',');
-  let regex = /^[0-9A-Za-z]+$/;
+  let regex = /^[0-9A-Za-z]*$/;
 
   return _.reduce(entries, (result, entry) => {
     return result && regex.test(_.trim(entry))
