@@ -16,10 +16,18 @@
             <input class="input"
                    v-model="completions[scout.scoutId]"
                    :id="'completion-scout-' + scout.scoutId"
-                   :class="{ 'is-disabled': saving }"
+                   :class="{
+                     'is-disabled': saving,
+                     'is-danger': $v.completions.$each[scout.scoutId].$invalid
+                   }"
                    aria-labelledby="Completions"
                    type="text"
+                   @blur="$v.completions.$each[scout.scoutId].$touch"
                    placeholder="1, 2, 3, ...">
+            <span class="help is-danger"
+                  v-if="$v.completions.$each[scout.scoutId].$invalid">
+              Completions must be a comma separated list of letters and/or numbers.
+            </span>
           </td>
         </tr>
       </tbody>
@@ -27,7 +35,7 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary"
-                :class="{ 'is-loading is-disabled': saving }"
+                :class="{ 'is-loading is-disabled': saving, 'is-disabled': $v.$invalid }"
                 @click.prevent="save()">Save Completions</button>
       </div>
       <div class="control">
@@ -45,6 +53,8 @@ import URLS from 'urls';
 import Vue from 'vue';
 import axios from 'axios';
 import _ from 'lodash';
+
+import { commaSeparated } from 'validators';
 
 export default {
   props: {
@@ -101,10 +111,15 @@ export default {
       this.$emit('done');
     }
   },
-  mounted() {
+  beforeMount() {
     _.forEach(this.scouts, (scout) => {
       Vue.set(this.completions, scout.scoutId, _.join(scout.completions, ', '));
     });
+  },
+  validations: {
+    completions: {
+      $each: { commaSeparated }
+    }
   }
 }
 </script>
