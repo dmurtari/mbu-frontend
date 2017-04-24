@@ -1,6 +1,11 @@
 <template>
   <div>
     <table class="table">
+      <colgroup>
+        <col style="width: 25%">
+        <col style="width: 10%">
+        <col style="width: 65%">
+      </colgroup>
       <thead>
         <tr>
           <th>Scout</th>
