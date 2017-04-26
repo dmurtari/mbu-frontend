@@ -7,7 +7,7 @@
       <scout-registration :event="event"
                           :preferences="registrationPreferences"
                           :purchases="registrationPurchases"
-                          :assignments="registrationAssignments"
+                          :assignments="assignmentList"
                           :showProjectedCost="false"
                           :showPreferences="false">
         <p slot="assignment-notification">

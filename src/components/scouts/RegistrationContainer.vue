@@ -24,11 +24,9 @@
                           :assignments="assignmentList">
       </scout-registration>
     </div>
-    <div v-else>
-      <loader v-if="loading"
-              :color="'lightgray'"
-              class="loader-centered"></loader>
-    </div>
+    <loader v-else
+            :color="'lightgray'"
+            class="loader-centered"></loader>
   </div>
 </template>
 
