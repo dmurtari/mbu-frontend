@@ -15,7 +15,7 @@
       <div class="columns is-multiline">
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label">Registered:</label>
             </div>
             <div class="field-body">
@@ -29,7 +29,7 @@
         </div>
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label">Troop:</label>
             </div>
             <div class="field-body">
@@ -53,7 +53,7 @@
         </div>
         <div class="column is-6">
           <div class="search-container field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label"
                      for="scout-list-find">Name:</label>
             </div>

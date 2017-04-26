@@ -32,8 +32,14 @@
                      v-if="isAdmin"
                      to="/administration/home">Administration</router-link>
         <span class="nav-item" v-if="!isAuthenticated">
-          <router-link class="button is-primary" to="/login">Login</router-link>
-          <router-link class="button is-info is-outlined" to="/signup">Sign Up</router-link>
+          <div class="field is-grouped">
+            <div class="control">
+              <router-link class="button is-primary" to="/login">Login</router-link>
+            </div>
+            <div class="control">
+              <router-link class="button is-info is-outlined" to="/signup">Sign Up</router-link>
+            </div>
+          </div>
         </span>
         <router-link class="nav-item" v-if="isAuthenticated" to="/profile">
           Profile

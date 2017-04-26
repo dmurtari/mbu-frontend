@@ -19,7 +19,7 @@
       <div class="columns">
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label" for="scout-list-sort-filter">Sort&nbsp;by:</label>
             </div>
             <div class="field-body">
@@ -42,7 +42,7 @@
         </div>
         <div class="column is-6">
           <div class="search-container field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label" for="scout-list-find">Search:</label>
             </div>
             <div class="field-body">

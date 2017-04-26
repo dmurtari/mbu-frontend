@@ -10,7 +10,7 @@
       <div class="columns">
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label" for="user-list-role-filter">Role:</label>
             </div>
             <div class="field-body">
@@ -33,7 +33,7 @@
         </div>
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label" for="user-list-find">Search:</label>
             </div>
             <div class="field-body">

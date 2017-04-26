@@ -19,7 +19,7 @@
       <div class="columns">
         <div class="column is-6">
           <div class="field is-horizontal">
-            <div class="field-label">
+            <div class="field-label is-normal">
               <label class="label">For&nbsp;Event:</label>
             </div>
             <div class="field-body">
