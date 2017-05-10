@@ -57,8 +57,10 @@ export default {
       this.selectedEvent = null;
     } else if (this.selectedEventId) {
       this.selectedEvent = this.selectedEventId;
-    } else {
+    } else if (this.currentEvent.length > 0) {
       this.selectedEvent = this.currentEvent.id;
+    } else {
+      this.selectedEvent = this.orderedEvents[0].id;
     }
 
     this.emitEvent();

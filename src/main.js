@@ -27,6 +27,10 @@ export const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem('token')) {
+    return next();
+  }
+
   Promise.all([
     store.dispatch('getEvents'),
     store.dispatch('getCurrentEvent')
