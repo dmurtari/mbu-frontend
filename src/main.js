@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import Vuelidate from 'vuelidate';
 import VuePaginate from 'vue-paginate'
@@ -14,7 +13,6 @@ import filters from './filters'
 
 import './assets/sass/main.scss';
 
-Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
 Vue.use(VuePaginate)
