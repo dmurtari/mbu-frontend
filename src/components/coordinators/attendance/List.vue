@@ -61,6 +61,7 @@
               <span v-else>Calculating...</span>
             </li>
           </ul>
+          <troop-stats :event="this.event"></troop-stats>
         </div>
         <attendance-row v-for="registration in filteredRegistrations"
                         :key="registration.id"
@@ -84,6 +85,7 @@ import URLS from 'urls';
 
 import AttendanceRow from './TroopAttendanceRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import TroopStats from '../../stats/TroopStats.vue';
 
 export default {
   data() {
@@ -151,7 +153,8 @@ export default {
   },
   components: {
     AttendanceRow,
-    EventsDropdown
+    EventsDropdown,
+    TroopStats
   }
 }
 </script>
