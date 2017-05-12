@@ -51,16 +51,6 @@
           <h5 class="title is-5">
             Event Overview for {{ event.semester }} {{ event.year }}
           </h5>
-          <ul>
-            <li>
-              <b>Total Attendance: </b>{{ selectedRegistration.registrations.length }} scouts
-            </li>
-            <li>
-              <b>Total Due: </b>
-              <span v-if="totalDue">{{ totalDue | currency }}</span>
-              <span v-else>Calculating...</span>
-            </li>
-          </ul>
           <troop-stats :event="this.event"></troop-stats>
         </div>
         <attendance-row v-for="registration in filteredRegistrations"
@@ -80,8 +70,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import axios from 'axios';
-import URLS from 'urls';
 
 import AttendanceRow from './TroopAttendanceRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
@@ -94,13 +82,11 @@ export default {
       error: '',
       loading: false,
       search: '',
-      totalDue: null
     }
   },
   computed: {
     ...mapGetters([
       'allEvents',
-      'profile',
       'registrations'
     ]),
     event() {
@@ -136,14 +122,6 @@ export default {
         .then(() => {
           this.loading = false;
           this.error = '';
-
-          if (this.selectedRegistration.registrations.length > 0) {
-            return axios.get(URLS.USERS_URL + this.profile.id + '/events/' + eventId + '/cost')
-              .then((response) => {
-                this.totalDue = response.data.cost;
-                this.error = '';
-              });
-          }
         })
         .catch(() => {
           this.loading = false;
