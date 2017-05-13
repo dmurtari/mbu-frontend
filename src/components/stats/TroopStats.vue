@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li>
-        <b>Total Attendance: </b>{{ selectedRegistration.registrations.length }} scouts
+        <b>Total Attendance: </b>{{ registrations.length }} scouts
       </li>
       <br>
       <li>
@@ -13,8 +13,8 @@
       <li>
         <b>Event Registration Fees</b>
         <span>
-          {{ selectedRegistration.registrations.length * Number(event.price) | currency }}
-          ({{ selectedRegistration.registrations.length }} &times;
+          {{ registrations.length * Number(event.price) | currency }}
+          ({{ registrations.length }} &times;
            {{ event.price | currency }})
         </span>
       </li>
@@ -42,6 +42,10 @@ export default {
     event: {
       type: Object,
       required: true
+    },
+    registrations: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -53,14 +57,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'registrations',
       'profile'
-    ]),
-    selectedRegistration () {
-      return _.find(this.registrations, (registration) => {
-        return registration.eventId === this.event.id;
-      });
-    }
+    ])
   },
   methods: {
     subcost (property) {
@@ -68,7 +66,7 @@ export default {
         return 0;
       }
 
-      return _.reduce(this.selectedRegistration.registrations, (sum, registration) => {
+      return _.reduce(this.registrations, (sum, registration) => {
         return sum += _.reduce(registration[property], (subsum, property) => {
           return subsum += Number(property.price) * (Number(property.details.quantity) || 1);
         }, 0);
@@ -76,23 +74,17 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('getRegistrations', this.event.id)
-      .then(() => {
-        this.loading = false;
-        this.error = '';
-
-        if (this.selectedRegistration.registrations.length > 0) {
-          return axios.get(URLS.USERS_URL + this.profile.id + '/events/' + this.event.id + '/cost')
-            .then((response) => {
-              this.totalDue = response.data.cost;
-              this.error = '';
-            });
-        }
-      })
-      .catch(() => {
-        this.loading = false;
-        this.error = 'Failed to get the necessary information for statistics.';
-      })
+    if (this.registrations.length > 0) {
+      return axios.get(URLS.USERS_URL + this.profile.id + '/events/' + this.event.id + '/cost')
+        .then((response) => {
+          this.totalDue = response.data.cost;
+          this.error = '';
+        })
+        .catch(() => {
+          this.loading = false;
+          this.error = 'Failed to get the necessary information for statistics.';
+        })
+    }
   }
 }
 </script>

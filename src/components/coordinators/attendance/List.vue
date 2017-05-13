@@ -51,7 +51,8 @@
           <h5 class="title is-5">
             Event Overview for {{ event.semester }} {{ event.year }}
           </h5>
-          <troop-stats :event="this.event"></troop-stats>
+          <troop-stats :event="this.event"
+                       :registrations="this.selectedRegistration.registrations"></troop-stats>
         </div>
         <attendance-row v-for="registration in filteredRegistrations"
                         :key="registration.id"
