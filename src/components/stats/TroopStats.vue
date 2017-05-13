@@ -26,6 +26,7 @@
         <b>Purchase Costs:</b>
         <span>{{ subcost('purchases') | currency }}</span>
       </li>
+      <purchased-items :registrations="registrations"></purchased-items>
     </ul>
   </div>
 </template>
@@ -36,6 +37,8 @@ import axios from 'axios';
 import URLS from 'urls';
 
 import { mapGetters } from 'vuex';
+
+import PurchasedItems from './PurchasedItems.vue';
 
 export default {
   props: {
@@ -85,6 +88,9 @@ export default {
           this.error = 'Failed to get the necessary information for statistics.';
         })
     }
+  },
+  components: {
+    PurchasedItems
   }
 }
 </script>
