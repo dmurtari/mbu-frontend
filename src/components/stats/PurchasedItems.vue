@@ -1,7 +1,6 @@
 <template>
   <div>
     Purchase Details:
-
   </div>
 </template>
 
@@ -24,16 +23,15 @@ export default {
         .value();
     },
     groupedPurchases () {
-      let groupedItems = this.purchases;
+      let groupedItems = _.cloneDeep(this.purchases);
 
       _.forEach(this.purchases, (items, key) => {
         if (items[0].has_size) {
-          var result = _.chain(items)
+          let result = _.chain(items)
             .groupBy('details.size')
-            .toPairs()
-            .map(pair => _.zipObject(['size', 'items'], pair))
             .value();
           groupedItems[key] = result;
+          groupedItems[key]['hasSize'] = true;
         }
       });
 
