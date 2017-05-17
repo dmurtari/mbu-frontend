@@ -26,7 +26,8 @@
         <b>Purchase Costs:</b>
         <span>{{ subcost('purchases') | currency }}</span>
       </li>
-      <purchased-items :registrations="registrations"></purchased-items>
+      <purchased-items :registrations="registrations"
+                       class="purchased-items"></purchased-items>
     </ul>
   </div>
 </template>
@@ -94,3 +95,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.purchased-items {
+  padding-left: 1rem;
+}
+</style>

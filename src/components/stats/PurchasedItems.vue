@@ -1,20 +1,19 @@
 <template>
   <div>
-    Purchase Details:
     <ul>
       <li v-for="(purchases, item) in groupedPurchases" :key="item">
         <span v-if="purchases.hasSize">
-          {{ item }}
-          <ul>
+          <b>{{ item }}:</b>
+          <ul class="subtotal">
             <li v-for="(items, size) in purchases.items" :key="size">
-              {{ size | capitalize }}
+              <b>{{ size | capitalize }}</b>
               ({{ totalQuantity(items) }} &times; {{ items[0].price | currency }} =
                {{ totalDue(items) | currency }})
             </li>
           </ul>
         </span>
         <span v-else>
-          {{ item }}
+          <b>{{ item }}</b>
           ({{ totalQuantity(purchases) }} &times; {{ purchases[0].price | currency }} =
           {{ totalDue(purchases) | currency }})
         </span>
@@ -75,3 +74,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.subtotal {
+  padding-left: 1rem;
+}
+</style>
