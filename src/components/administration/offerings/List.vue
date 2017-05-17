@@ -145,7 +145,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .offering-list-filters {
     margin-top: 2em;
   }

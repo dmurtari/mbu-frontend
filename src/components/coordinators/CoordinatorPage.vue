@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .sidebar {
     padding-right: 2rem;
     min-width: 17rem;

@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .badge-row {
     padding-top: 1em;
     padding-bottom: 1em;

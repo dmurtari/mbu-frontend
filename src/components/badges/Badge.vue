@@ -8,7 +8,7 @@
       </button>
     </h4>
     <badge-detail v-if="!displayEditBadge" :badge="badge"></badge-detail>
-    <badge-edit v-if="displayEditBadge" 
+    <badge-edit v-if="displayEditBadge"
                 :badge="badge"
                 @close="toggleEdit()"></badge-edit>
   </div>
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .edit-button {
     margin-top: -.5em;
     margin-right: -.5em;

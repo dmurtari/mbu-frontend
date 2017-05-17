@@ -168,7 +168,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .registration-row {
     padding: 2rem 1rem;
     border-bottom: 1px lightgray solid;

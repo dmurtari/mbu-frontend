@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .attendee-container {
     padding-top: 2rem;
     padding-bottom: 1rem;

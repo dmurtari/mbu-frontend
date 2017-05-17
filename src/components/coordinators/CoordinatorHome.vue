@@ -118,7 +118,7 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .faq-navigation {
     margin: 1rem 2rem 3rem 2rem;
   }

@@ -333,7 +333,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 .column .columns {
     margin-bottom: -0.75rem;
 }

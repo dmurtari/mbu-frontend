@@ -238,7 +238,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style scoped lang="scss">
   .panel-heading {
     display: flex;
     justify-content: space-between;

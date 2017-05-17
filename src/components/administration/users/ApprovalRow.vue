@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .details-list {
     list-style: none;
     padding-left: 0;

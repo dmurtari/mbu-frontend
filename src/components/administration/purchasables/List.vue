@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .purchasable-list-filters {
     margin-top: 2em;
   }

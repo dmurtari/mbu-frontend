@@ -223,7 +223,7 @@ export default {
 }
 </script>
 
-<style class="sass" scoped>
+<style class="scss" scoped>
   .delete-button {
     cursor: pointer;
   }

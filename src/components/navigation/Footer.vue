@@ -15,7 +15,7 @@
   </footer>
 </template>
 
-<style lang="sass">
+<style lang="scss">
   html {
     position: relative;
     min-height: 100%;

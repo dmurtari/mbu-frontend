@@ -103,7 +103,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 .user-list-filters {
   margin-top: 2em;
 }

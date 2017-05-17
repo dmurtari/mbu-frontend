@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .purchasable-item {
     padding-bottom: 1rem;
   }

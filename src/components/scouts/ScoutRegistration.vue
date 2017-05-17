@@ -145,7 +145,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .itemized-list {
     padding-top: .5rem;
     padding-left: 1rem;

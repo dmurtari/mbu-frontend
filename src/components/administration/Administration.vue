@@ -132,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   span.tag {
     margin-top: -2px;
   }

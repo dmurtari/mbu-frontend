@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 .event-list {
   margin-top: 2em;
 }

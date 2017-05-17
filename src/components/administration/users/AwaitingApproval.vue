@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   table, div.notification {
     margin-top: 1rem;
   }

@@ -67,7 +67,7 @@
   </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .section {
     margin-top: 2rem;
     margin-bottom: 4rem;

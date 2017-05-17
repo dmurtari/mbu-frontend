@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .scout-details-loading {
     display: block;
     margin: auto;

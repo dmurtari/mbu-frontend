@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .class-list-filters {
     margin-top: 2em;
   }

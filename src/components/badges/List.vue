@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
 .badge-list {
   margin-top: 2em;
 }

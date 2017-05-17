@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .edit-button {
     margin-top: -.5em;
     margin-right: -.5em;

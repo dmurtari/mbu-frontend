@@ -288,7 +288,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 .submit-group {
   margin-top: 25px;
 }

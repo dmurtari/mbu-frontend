@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="scss">
   table.paginated-table {
     margin-top: 2rem;
     table-layout: fixed;

@@ -165,7 +165,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .registration-list-filters {
     margin-top: 2em;
   }
