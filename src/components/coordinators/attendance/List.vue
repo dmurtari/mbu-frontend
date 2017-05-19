@@ -54,6 +54,7 @@
           <troop-stats :event="this.event"
                        :registrations="this.selectedRegistration.registrations"></troop-stats>
         </div>
+        <registration-table :registrations="this.selectedRegistration.registrations"></registration-table>
         <attendance-row v-for="registration in filteredRegistrations"
                         :key="registration.id"
                         :registration="registration"
@@ -74,6 +75,7 @@ import { mapGetters } from 'vuex';
 
 import AttendanceRow from './TroopAttendanceRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
+import RegistrationTable from '../../stats/RegistrationTable.vue';
 import TroopStats from '../../stats/TroopStats.vue';
 
 export default {
@@ -133,7 +135,8 @@ export default {
   components: {
     AttendanceRow,
     EventsDropdown,
-    TroopStats
+    TroopStats,
+    RegistrationTable
   }
 }
 </script>
