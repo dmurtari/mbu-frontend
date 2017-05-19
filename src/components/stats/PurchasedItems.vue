@@ -1,21 +1,29 @@
 <template>
   <div>
     <ul>
-      <li v-for="(purchases, item) in groupedPurchases" :key="item">
+      <li v-for="(purchases, item) in groupedPurchases"
+          :key="item">
         <span v-if="purchases.hasSize">
           <b>{{ item }}:</b>
           <ul class="subtotal">
-            <li v-for="(items, size) in purchases.items" :key="size">
-              <b>{{ size | capitalize }}</b>
-              ({{ totalQuantity(items) }} &times; {{ items[0].price | currency }} =
-               {{ totalDue(items) | currency }})
+            <li v-for="size in sizes"
+                :key="size">
+              <b class="uppercase">{{ size }}:</b>
+              <span v-if="purchases.items[size]">
+                {{ totalDue(purchases.items[size]) | currency }}
+                ({{ totalQuantity(purchases.items[size]) }} &times;
+                {{ purchases.items[size][0].price | currency }})
+              </span>
+              <span v-else>
+                No purchases
+              </span>
             </li>
           </ul>
         </span>
         <span v-else>
-          <b>{{ item }}</b>
-          ({{ totalQuantity(purchases) }} &times; {{ purchases[0].price | currency }} =
-          {{ totalDue(purchases) | currency }})
+          <b>{{ item }}:</b>
+          {{ totalDue(purchases) | currency }}
+          ({{ totalQuantity(purchases) }} &times; {{ purchases[0].price | currency }})
         </span>
       </li>
     </ul>
@@ -31,6 +39,11 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data () {
+    return {
+      sizes: ['xs', 's', 'm', 'l', 'xl']
+    };
   },
   computed: {
     purchases () {
