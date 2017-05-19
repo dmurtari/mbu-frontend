@@ -19,7 +19,7 @@
         </span>
       </li>
       <li>
-        <b>Class Costs:</b>
+        <b>Merit Badge Fees:</b>
         <span>{{ subcost('assignments') | currency }}</span>
       </li>
       <li>
