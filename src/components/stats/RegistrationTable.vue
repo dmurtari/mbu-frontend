@@ -1,5 +1,5 @@
 <template>
-  <table class="table is-striped">
+  <table class="table">
     <thead>
       <tr>
         <th>Scout</th>

@@ -54,11 +54,24 @@
           <troop-stats :event="this.event"
                        :registrations="this.selectedRegistration.registrations"></troop-stats>
         </div>
-        <registration-table :registrations="this.selectedRegistration.registrations"></registration-table>
-        <attendance-row v-for="registration in filteredRegistrations"
-                        :key="registration.id"
-                        :registration="registration"
-                        :event="event"></attendance-row>
+        <div class="tabs is-centered">
+          <ul>
+            <li :class="{ 'is-active': view === 'table' }">
+              <a @click="setView('table')">Table View</a>
+            </li>
+            <li :class="{ 'is-active': view === 'detail' }">
+              <a @click="setView('detail')">Detail View</a>
+            </li>
+          </ul>
+        </div>
+        <registration-table v-if="view === 'table'"
+                            :registrations="this.selectedRegistration.registrations"></registration-table>
+        <div v-if="view === 'detail'">
+          <attendance-row v-for="registration in filteredRegistrations"
+                          :key="registration.id"
+                          :registration="registration"
+                          :event="event"></attendance-row>
+        </div>
       </div>
       <div v-else class="notification">
         <p>
@@ -85,6 +98,7 @@ export default {
       error: '',
       loading: false,
       search: '',
+      view: 'table'
     }
   },
   computed: {
@@ -130,6 +144,9 @@ export default {
           this.loading = false;
           this.error = 'Failed to get registration information for this event';
         });
+    },
+    setView(view) {
+      this.view = view;
     }
   },
   components: {
