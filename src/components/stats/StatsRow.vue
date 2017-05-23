@@ -17,6 +17,9 @@
         </li>
       </ul>
     </td>
+    <td v-if="event">
+      {{ totalDue | currency }}
+    </td>
   </tr>
 </template>
 
@@ -25,14 +28,32 @@ import _ from 'lodash';
 
 export default {
   props: {
+    event: {
+      type: Object
+    },
     registration: {
       type: Object,
       required: true
     }
   },
   computed: {
-    purchases () {
-      return
+    assignmentCosts() {
+      return _.reduce(this.registration.assignments, (sum, assignment) => {
+        if (!assignment) {
+          return sum;
+        }
+
+        return sum + Number(assignment.price);
+      }, 0);
+    },
+    purchaseCosts() {
+      return _.reduce(this.registration.purchases, (sum, purchase) => {
+        return sum + (Number(purchase.price) * Number(purchase.details.quantity));
+      }, 0);
+    },
+    totalDue () {
+      return Number(this.event.price) + Number(this.assignmentCosts)
+             + Number(this.purchaseCosts);;
     }
   },
   methods: {

@@ -8,11 +8,13 @@
         <th>Period 2</th>
         <th>Period 3</th>
         <th>Purchases</th>
+        <th v-if="event">Total Due</th>
       </tr>
     </thead>
     <tbody>
       <stats-row v-for="registration in registrations"
                  :key="registration.id"
+                 :event="event"
                  :registration="registration"></stats-row>
     </tbody>
   </table>
@@ -23,6 +25,9 @@ import StatsRow from './StatsRow.vue';
 
 export default {
   props: {
+    event: {
+      type: Object
+    },
     registrations: {
       type: Array,
       required: true

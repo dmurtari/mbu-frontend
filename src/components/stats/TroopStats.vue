@@ -4,12 +4,12 @@
       <li>
         <b>Total Attendance: </b>{{ registrations.length }} scouts
       </li>
-      <br>
       <li>
         <b>Total Due: </b>
         <span v-if="totalDue">{{ totalDue | currency }}</span>
         <span v-else>Calculating...</span>
       </li>
+      <br>
       <li>
         <b>Event Registration Fees</b>
         <span>

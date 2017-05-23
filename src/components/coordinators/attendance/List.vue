@@ -65,6 +65,7 @@
           </ul>
         </div>
         <registration-table v-if="view === 'table'"
+                            :event="this.event"
                             :registrations="this.selectedRegistration.registrations"></registration-table>
         <div v-if="view === 'detail'">
           <attendance-row v-for="registration in filteredRegistrations"
