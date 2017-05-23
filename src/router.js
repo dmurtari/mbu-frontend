@@ -30,12 +30,15 @@ import ClassContainer from './components/administration/classes/ClassContainer.v
 import ClassDetail from './components/administration/classes/ClassDetail.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
+import AttendanceDetails from './components/coordinators/attendance/DetailView.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
 import CoordinatorScouts from './components/coordinators/scouts/List.vue';
 import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
 import CoordinatorAttendance from './components/coordinators/attendance/List.vue';
+
+import RegistrationTable from './components/stats/RegistrationTable.vue';
 
 export default [
   {
@@ -148,7 +151,16 @@ export default [
         component: CoordinatorRegistration
       }, {
         path: 'attendance',
-        component: CoordinatorAttendance
+        component: CoordinatorAttendance,
+        children: [
+          {
+            path: 'detail',
+            component: AttendanceDetails
+          }, {
+            path: 'list',
+            component: RegistrationTable
+          }
+        ]
       }
     ]
   }, {

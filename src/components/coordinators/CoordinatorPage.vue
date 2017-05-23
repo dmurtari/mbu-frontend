@@ -19,7 +19,7 @@
                          active-class="is-active">Manage Scouts</router-link>
             <router-link to="/coordinator/registrations"
                          active-class="is-active">Event Registrations</router-link>
-            <router-link to="/coordinator/attendance"
+            <router-link to="/coordinator/attendance/list"
                          active-class="is-active">Event Attendances</router-link>
           </ul>
         </aside>

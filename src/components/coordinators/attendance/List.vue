@@ -41,7 +41,7 @@
       </div>
     </div>
     <loader v-if="loading" :color="'lightgray'" class="loader-centered"></loader>
-    <div v-else>
+    <div v-else id="printable-attendance">
       <div class="notification is-danger" v-if="error">
         <button class="delete" @click.prevent="dismissError()"></button>
         <p>{{ error }}</p>
@@ -56,23 +56,18 @@
         </div>
         <div class="tabs is-centered">
           <ul>
-            <li :class="{ 'is-active': view === 'table' }">
-              <a @click="setView('table')">Table View</a>
+            <li>
+              <router-link to="/coordinator/attendance/list"
+                           active-class="is-active">List View</router-link>
             </li>
-            <li :class="{ 'is-active': view === 'detail' }">
-              <a @click="setView('detail')">Detail View</a>
+            <li>
+              <router-link to="/coordinator/attendance/detail"
+                           active-class="is-active">Detail View</router-link>
             </li>
           </ul>
         </div>
-        <registration-table v-if="view === 'table'"
-                            :event="this.event"
-                            :registrations="filteredRegistrations"></registration-table>
-        <div v-if="view === 'detail'">
-          <attendance-row v-for="registration in filteredRegistrations"
-                          :key="registration.id"
-                          :registration="registration"
-                          :event="event"></attendance-row>
-        </div>
+        <router-view :event="this.event"
+                     :registrations="this.selectedRegistration.registrations"></router-view>
       </div>
       <div v-else class="notification">
         <p>
@@ -87,7 +82,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import AttendanceRow from './TroopAttendanceRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
 import RegistrationTable from '../../stats/RegistrationTable.vue';
 import TroopStats from '../../stats/TroopStats.vue';
@@ -151,10 +145,8 @@ export default {
     }
   },
   components: {
-    AttendanceRow,
     EventsDropdown,
-    TroopStats,
-    RegistrationTable
+    TroopStats
   }
 }
 </script>
