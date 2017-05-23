@@ -3,8 +3,8 @@
     <h4 class="title is-4">Event Attendances</h4>
     <p>
       This page contains information regarding your troop's attendance for MBU
-      events such as class assignments and purchases for individual scouts,
-      and total amount due for each scout as well as your troop
+       events such as class assignments and purchases for individual scouts, and
+       total amount due for each scout as well as your troop
     </p>
     <div class="box attendance-list-filters">
       <div class="columns">
@@ -25,14 +25,15 @@
         <div class="column is-6">
           <div class="search-container field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label" for="attendance-list-find">By&nbsp;Scout:</label>
+              <label class="label"
+                     for="attendance-list-find">By&nbsp;Scout:</label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <input class="input"
-                        id="attndance-list-find"
-                        v-model="search"></input>
+                         id="attndance-list-find"
+                         v-model="search"></input>
                 </div>
               </div>
             </div>
@@ -40,16 +41,32 @@
         </div>
       </div>
     </div>
-    <loader v-if="loading" :color="'lightgray'" class="loader-centered"></loader>
-    <div v-else id="printable-attendance">
-      <div class="notification is-danger" v-if="error">
-        <button class="delete" @click.prevent="dismissError()"></button>
+    <loader v-if="loading"
+            :color="'lightgray'"
+            class="loader-centered"></loader>
+    <div v-else
+         id="printable-attendance">
+      <div class="notification is-danger"
+           v-if="error">
+        <button class="delete"
+                @click.prevent="dismissError()"></button>
         <p>{{ error }}</p>
       </div>
-      <div class="attendance-list" v-if="filteredRegistrations.length > 0">
+      <div class="attendance-list"
+           v-if="filteredRegistrations.length > 0">
         <div class="box">
           <h5 class="title is-5">
             Event Overview for {{ event.semester }} {{ event.year }}
+            <div class="is-pulled-right">
+              <button class="button has-icon"
+                      v-if="!printing"
+                      @click="print()">
+                <!--<span class="icon">
+                    <i class="fa fa-print"></i>
+                  </span>-->
+                Print
+              </button>
+            </div>
           </h5>
           <troop-stats :event="this.event"
                        :registrations="this.selectedRegistration.registrations"></troop-stats>
@@ -69,7 +86,8 @@
         <router-view :event="this.event"
                      :registrations="this.selectedRegistration.registrations"></router-view>
       </div>
-      <div v-else class="notification">
+      <div v-else
+           class="notification">
         <p>
           No attendance records match the selected filters. Try selecting a
           different event, or searching for another scout.
@@ -87,13 +105,13 @@ import RegistrationTable from '../../stats/RegistrationTable.vue';
 import TroopStats from '../../stats/TroopStats.vue';
 
 export default {
-  data() {
+  data () {
     return {
       eventId: 1,
       error: '',
       loading: false,
       search: '',
-      view: 'table'
+      printing: false
     }
   },
   computed: {
@@ -101,10 +119,10 @@ export default {
       'allEvents',
       'registrations'
     ]),
-    event() {
+    event () {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
-    filteredRegistrations() {
+    filteredRegistrations () {
       if (!this.selectedRegistration) {
         return {};
       }
@@ -115,17 +133,23 @@ export default {
         ) > -1;
       }), 'scout.lastname');
     },
-    selectedRegistration() {
+    selectedRegistration () {
       return _.find(this.registrations, (registrations) => {
         return registrations.eventId === this.eventId;
       });
     }
   },
   methods: {
-    dismissError() {
+    dismissError () {
       this.error = '';
     },
-    setEvent(eventId) {
+    print () {
+      this.printing = true;
+      document.getElementById('printable');
+      alert('Print');
+      this.printing = false;
+    },
+    setEvent (eventId) {
       this.eventId = eventId;
       this.loading = true;
       this.totalDue = null;
@@ -140,7 +164,7 @@ export default {
           this.error = 'Failed to get registration information for this event';
         });
     },
-    setView(view) {
+    setView (view) {
       this.view = view;
     }
   },
@@ -152,18 +176,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .notification {
-    margin-top: 1rem;
-  }
+.notification {
+  margin-top: 1rem;
+}
 
-  .attendance-list-filters {
-    margin-top: 2em;
-  }
+.attendance-list-filters {
+  margin-top: 2em;
+}
 
-  .attendances-loading {
-    margin-top: 5em;
-    width: 5em;
-    display: block;
-    margin: auto;
-  }
+.attendances-loading {
+  margin-top: 5em;
+  width: 5em;
+  display: block;
+  margin: auto;
+}
 </style>
