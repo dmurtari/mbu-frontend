@@ -152,6 +152,13 @@ export default [
       }, {
         path: 'attendance',
         component: CoordinatorAttendance,
+        beforeEnter: (to, from, next) => {
+          if (to.fullPath === '/coordinator/attendance') {
+            next('attendance/list');
+          } else {
+            next();
+          }
+        },
         children: [
           {
             path: 'detail',

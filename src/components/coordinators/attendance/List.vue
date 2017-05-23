@@ -3,8 +3,8 @@
     <h4 class="title is-4">Event Attendances</h4>
     <p>
       This page contains information regarding your troop's attendance for MBU
-       events such as class assignments and purchases for individual scouts, and
-       total amount due for each scout as well as your troop
+      events such as class assignments and purchases for individual scouts, and
+      total amount due for each scout as well as your troop
     </p>
     <div class="box attendance-list-filters">
       <div class="columns">
@@ -45,7 +45,7 @@
             :color="'lightgray'"
             class="loader-centered"></loader>
     <div v-else
-         id="printable-attendance">
+         class="printable">
       <div class="notification is-danger"
            v-if="error">
         <button class="delete"
@@ -62,8 +62,8 @@
                       v-if="!printing"
                       @click="print()">
                 <!--<span class="icon">
-                    <i class="fa fa-print"></i>
-                  </span>-->
+                      <i class="fa fa-print"></i>
+                    </span>-->
                 Print
               </button>
             </div>
@@ -73,14 +73,16 @@
         </div>
         <div class="tabs is-centered">
           <ul>
-            <li>
-              <router-link to="/coordinator/attendance/list"
-                           active-class="is-active">List View</router-link>
-            </li>
-            <li>
-              <router-link to="/coordinator/attendance/detail"
-                           active-class="is-active">Detail View</router-link>
-            </li>
+            <router-link to="/coordinator/attendance/list"
+                         tag="li"
+                         active-class="is-active">
+              <a>List View</a>
+            </router-link>
+            <router-link to="/coordinator/attendance/detail"
+                         tag="li"
+                         active-class="is-active">
+              <a>Detail View</a>
+            </router-link>
           </ul>
         </div>
         <router-view :event="this.event"
@@ -144,10 +146,7 @@ export default {
       this.error = '';
     },
     print () {
-      this.printing = true;
-      document.getElementById('printable');
-      alert('Print');
-      this.printing = false;
+      window.print();
     },
     setEvent (eventId) {
       this.eventId = eventId;
@@ -189,5 +188,15 @@ export default {
   width: 5em;
   display: block;
   margin: auto;
+}
+
+@media print {
+  * {
+    display: none !important;
+  }
+
+  .printable {
+    display: block !important;
+  }
 }
 </style>
