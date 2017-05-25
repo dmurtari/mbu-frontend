@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
     store.dispatch('getCurrentEvent')
   ])
     .then(() => next())
-    .catch(()=> next(false));
+    .catch(() => next(false));
 });
 
 new Vue({
