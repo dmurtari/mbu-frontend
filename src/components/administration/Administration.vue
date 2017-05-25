@@ -134,6 +134,14 @@ export default {
         this.showUserMenu = true;
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('getUsers')
+      .then(() => {
+        if (this.unapprovedUsers.length > 0) {
+          this.showUserMenu = true;
+        }
+      });
   }
 }
 </script>
