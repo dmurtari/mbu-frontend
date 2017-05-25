@@ -81,7 +81,9 @@
           <p class="menu-label">View Details</p>
           <ul class="menu-list">
             <router-link to="/administration/classes/all"
-                         active-class="is-active">Classes</router-link>
+                         active-class="is-active">Overview of Classes</router-link>
+            <router-link to="/administration/stats"
+                         active-class="is-active">Statistics</router-link>
           </ul>
         </aside>
       </div>

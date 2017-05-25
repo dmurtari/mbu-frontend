@@ -25,6 +25,7 @@ import AdminAttendance from './components/administration/attendance/List.vue';
 import AdminClasses from './components/administration/classes/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
+import AdminStats from './components/administration/stats/StatsView.vue';
 import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
 import ClassContainer from './components/administration/classes/ClassContainer.vue';
 import ClassDetail from './components/administration/classes/ClassDetail.vue';
@@ -133,6 +134,9 @@ export default [
             }
           }
         ]
+      }, {
+        path: 'stats',
+        component: AdminStats
       }
     ]
   }, {
