@@ -53,8 +53,8 @@
           <span class="select">
             <select type="select"
                     class="input"
-                    :class="{ 'is-disabled': !itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size }"
-                    v-model="itemToPurchase.size">
+                    v-model="itemToPurchase.size"
+                    :disabled="!itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size">
               <option v-for="size in sizes" :value="size.value">
                 {{ size.text }}
               </option>
@@ -67,14 +67,15 @@
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-primary"
-                    :class="{ 'is-disabled is-loading': creating }"
+                    :class="{ 'is-loading': creating }"
+                    :disabled="creating || $v.$invalid"
                     @click="purchaseItem()">
               <span class="fa fa-check"></span>
             </button>
           </div>
           <div class="control">
             <button class="button is-light"
-                    :class="{ 'is-disabled': creating }"
+                    :disabled="creating"
                     @click="clearItem()">
               <span class="fa fa-times"></span>
             </button>
