@@ -2,12 +2,17 @@
   <div>
     <ul>
       <li>
-        <b>Total Attendance: </b>{{ registrations.length }} scouts
-      </li>
-      <li>
-        <b>Total Due: </b>
+        <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }}:</b>
         <span v-if="totalDue">{{ totalDue | currency }}</span>
         <span v-else>Calculating...</span>
+      </li>
+      <br>
+      <li>
+        <b>Scouts Shown: </b>{{ registrations.length }} scouts
+      </li>
+      <li>
+        <b>Total for Scouts Shown:</b>
+        <span>{{ subtotal | currency }}</span>
       </li>
       <br>
       <li>
@@ -62,7 +67,14 @@ export default {
   computed: {
     ...mapGetters([
       'profile'
-    ])
+    ]),
+    isCoordinator () {
+      return this.profile.role === "coordinator";
+    },
+    subtotal () {
+      return this.subcost('assignments') + this.subcost('purchases') +
+        this.registrations.length * Number(this.event.price);
+    }
   },
   methods: {
     subcost (property) {
@@ -79,9 +91,13 @@ export default {
   },
   mounted () {
     if (this.registrations.length > 0) {
-      return axios.get(URLS.USERS_URL + this.profile.id + '/events/' + this.event.id + '/cost')
+      let requestURL = this.isCoordinator ?
+        URLS.USERS_URL + this.profile.id + '/events/' + this.event.id + '/cost' :
+        URLS.EVENTS_URL + this.event.id + '/income';
+
+      return axios.get(requestURL)
         .then((response) => {
-          this.totalDue = response.data.cost;
+          this.totalDue = this.isCoordinator ? response.data.cost : response.data.income;
           this.error = '';
         })
         .catch(() => {
