@@ -31,7 +31,7 @@ import ClassContainer from './components/administration/classes/ClassContainer.v
 import ClassDetail from './components/administration/classes/ClassDetail.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
-import AttendanceDetails from './components/coordinators/attendance/DetailView.vue';
+import AttendanceDetails from './components/stats/DetailView.vue';
 
 import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
 import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
@@ -136,7 +136,23 @@ export default [
         ]
       }, {
         path: 'stats',
-        component: AdminStats
+        component: AdminStats,
+        beforeEnter: (to, from, next) => {
+          if (to.fullPath === '/administration/stats') {
+            next('stats/list');
+          } else {
+            next();
+          }
+        },
+        children: [
+          {
+            path: 'detail',
+            component: AttendanceDetails
+          }, {
+            path: 'list',
+            component: RegistrationTable
+          }
+        ]
       }
     ]
   }, {
