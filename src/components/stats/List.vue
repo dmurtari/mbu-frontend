@@ -76,13 +76,13 @@
           <h5 class="title is-5">
             Event Overview for {{ event.semester }} {{ event.year }}
             <div class="is-pulled-right">
-              <button class="button has-icon"
+              <button class="button"
                       v-if="!printing"
                       @click="print()">
-                <!--<span class="icon">
-                          <i class="fa fa-print"></i>
-                        </span>-->
-                Print
+                <span class="icon is-small">
+                  <i class="fa fa-print"></i>
+                </span>
+                <span>Print</span>
               </button>
             </div>
           </h5>
