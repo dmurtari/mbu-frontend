@@ -234,14 +234,4 @@ export default {
   display: block;
   margin: auto;
 }
-
-@media print {
-  * {
-    display: none !important;
-  }
-
-  .printable {
-    display: block !important;
-  }
-}
 </style>
