@@ -63,7 +63,7 @@
             :color="'lightgray'"
             class="loader-centered"></loader>
     <div v-else
-         class="printable">
+         id="printable">
       <div class="notification is-danger"
            v-if="error">
         <button class="delete"
@@ -72,11 +72,11 @@
       </div>
       <div class="attendance-list"
            v-if="filteredRegistrations.length > 0">
-        <div class="box">
+        <div class="box stats-container">
           <h5 class="title is-5">
             Event Overview for {{ event.semester }} {{ event.year }}
             <div class="is-pulled-right">
-              <button class="button"
+              <button class="button print-hidden"
                       v-if="!printing"
                       @click="print()">
                 <span class="icon is-small">
@@ -89,7 +89,7 @@
           <troop-stats :event="this.event"
                        :registrations="this.selectedRegistration.registrations"></troop-stats>
         </div>
-        <div class="tabs is-centered">
+        <div class="tabs is-centered print-hidden">
           <ul>
             <router-link :to="listLink"
                          tag="li"
@@ -103,8 +103,10 @@
             </router-link>
           </ul>
         </div>
-        <router-view :event="this.event"
-                     :registrations="this.selectedRegistration.registrations"></router-view>
+        <div class="print-break-before">
+          <router-view :event="this.event"
+                      :registrations="this.selectedRegistration.registrations"></router-view>
+        </div>
       </div>
       <div v-else
            class="notification">
@@ -233,5 +235,9 @@ export default {
   width: 5em;
   display: block;
   margin: auto;
+}
+
+.print-break-before {
+  break-before: page !important;
 }
 </style>

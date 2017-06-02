@@ -34,3 +34,31 @@ span.select {
 .uppercase {
   text-transform: uppercase;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+    width: initial !important;
+    float: none !important;
+  }
+
+  #printable, #printable * {
+    visibility: visible;
+  }
+
+  .print-hidden, .print-hidden * {
+    visibility: hidden !important;
+  }
+
+  .print-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  #printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
