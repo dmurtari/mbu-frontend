@@ -34,10 +34,6 @@ const mutations = {
 
 const actions = {
   getRegistrations({ commit, state, rootState }, eventId) {
-    if (_.find(state.registrations, { eventId: eventId })) {
-      console.log('Registration exists');
-      return;
-    }
     let getURL;
 
     if (rootState.authentication.profile.role === 'coordinator') {
