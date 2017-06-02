@@ -87,7 +87,7 @@
             </div>
           </h5>
           <troop-stats :event="this.event"
-                       :registrations="this.selectedRegistration.registrations"></troop-stats>
+                       :registrations="this.filteredRegistrations"></troop-stats>
         </div>
         <div class="tabs is-centered print-hidden">
           <ul>
@@ -105,7 +105,7 @@
         </div>
         <div class="print-break-before">
           <router-view :event="this.event"
-                      :registrations="this.selectedRegistration.registrations"></router-view>
+                      :registrations="this.filteredRegistrations"></router-view>
         </div>
       </div>
       <div v-else

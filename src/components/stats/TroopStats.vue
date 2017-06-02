@@ -2,16 +2,20 @@
   <div>
     <ul>
       <li>
-        <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }}:</b>
+        <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }} (all scouts):</b>
         <span v-if="totalDue">{{ totalDue | currency }}</span>
         <span v-else>Calculating...</span>
       </li>
       <br>
       <li>
-        <b>Scouts Shown: </b>{{ registrations.length }} scouts
+        <b>Showing Information for: </b>
+        {{ registrations.length }} {{ registrations.length == 1 ? 'scout' : 'scouts'}}
       </li>
       <li>
-        <b>Total for Scouts Shown:</b>
+        <b>
+          Total for {{ registrations.length }}
+          {{ registrations.length == 1 ? 'scout' : 'scouts'}} shown:
+        </b>
         <span>{{ subtotal | currency }}</span>
       </li>
       <br>
