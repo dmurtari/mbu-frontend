@@ -42,6 +42,11 @@ export default {
       default: () => []
     }
   },
+  watch: {
+    scouts() {
+      this.assignees = this.scouts;
+    }
+  },
   mounted() {
     this.assignees = this.scouts;
   },
