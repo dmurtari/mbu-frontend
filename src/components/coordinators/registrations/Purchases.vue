@@ -85,8 +85,13 @@
     </div>
     <div class="notification" v-else>
       <p>
-        There are no items listed as available for purchase at this event yet.
-        Please check back later.
+        <span v-if="existingPurchases.length > 0">
+          This scout has already purchased all items availabe at this event.
+        </span>
+        <span v-else>
+          There are no items listed as available for purchase at this event.
+          Please check back later.
+        </span>
       </p>
     </div>
     <div v-if="existingPurchases.length > 0">
@@ -156,8 +161,7 @@ export default {
     },
     availableItems() {
       return _.filter(this.orderedPurchasables, (purchasable) => {
-        return purchasable.has_size ||
-              !_.find(this.existingPurchases, { 'id': purchasable.id });
+        return !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
     },
     shouldShowPurchases() {
