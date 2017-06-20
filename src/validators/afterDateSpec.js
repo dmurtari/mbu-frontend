@@ -1,4 +1,4 @@
-import afterDate from '../../../src/validators/afterDate';
+import afterDate from './afterDate';
 
 describe('The before date validator', () => {
   const parentVm = {
@@ -8,7 +8,7 @@ describe('The before date validator', () => {
   const formatParentVm = {
     date: '01/17'
   }
-  
+
   it('should determine if a date is after another date', () => {
     expect(afterDate('date')('01/20/2001', parentVm)).to.be.true;
     expect(afterDate('date')('01/11/2003', parentVm)).to.be.true;

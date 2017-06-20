@@ -1,4 +1,4 @@
-import betweenDate from '../../../src/validators/betweenDate';
+import betweenDate from './betweenDate';
 
 describe('The between date validator', () => {
   const parentVm = {

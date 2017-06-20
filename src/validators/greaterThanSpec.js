@@ -1,4 +1,4 @@
-import greaterThan from '../../../src/validators/greaterThan';
+import greaterThan from './greaterThan';
 
 describe('The less than validator', () => {
   const parentVm = {

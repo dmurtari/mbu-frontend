@@ -2,9 +2,9 @@ module.exports = function (config) {
   config.set({
     browsers: ['PhantomJS'],
     frameworks: ['mocha', 'sinon', 'chai'],
-    files: ['**/*Spec.js'],
+    files: ['./src/**/*Spec.js'],
     preprocessors: {
-      '**/*.js': ['webpack']
+      './src/**/*.js': ['webpack']
     },
     webpack: {
       module: {

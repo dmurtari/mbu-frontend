@@ -1,4 +1,4 @@
-import number from '../../../src/validators/number';
+import number from './number';
 
 describe('The number validator', () => {
   it('should pass for a number', () => {

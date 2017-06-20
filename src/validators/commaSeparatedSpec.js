@@ -1,6 +1,6 @@
-import commaSeparated from '../../../src/validators/commaSeparated';
+import commaSeparated from './commaSeparated';
 
-describe.only('The comma separated validator', () => {
+describe('The comma separated validator', () => {
   it('should validate a comma separated list', () => {
     expect(commaSeparated('1, 2, 3')).to.be.true;
     expect(commaSeparated('1,2,3')).to.be.true;

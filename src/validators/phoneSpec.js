@@ -1,4 +1,4 @@
-import phone from '../../../src/validators/phone';
+import phone from './phone';
 
 describe('The phone validator', () => {
   it('should validate a formatted phone number', () => {

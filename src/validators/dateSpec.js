@@ -1,4 +1,4 @@
-import date from '../../../src/validators/date';
+import date from './date';
 
 describe('The date validator', () => {
   it('should validate a date', () => {
