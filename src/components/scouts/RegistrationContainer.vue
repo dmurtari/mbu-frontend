@@ -37,12 +37,6 @@ import RegistrationMappers from '../../mixins/RegistrationMappers';
 
 
 export default {
-  props: {
-    scout: {
-      type: Object,
-      required: true
-    }
-  },
   data() {
     return {
       editing: false,

@@ -119,7 +119,7 @@ export default {
              + Number(this.purchaseCosts);
     },
     assignmentCosts() {
-      return _.reduce(this.assignments, (sum, assignment) => {
+      return _.reduce(_.uniqBy(this.assignments, 'offering_id'), (sum, assignment) => {
         if (!assignment) {
           return sum;
         }
