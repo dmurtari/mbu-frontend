@@ -30,6 +30,10 @@
                    v-model="credentials.email">
           </div>
           <span v-if="$v.credentials.email.$error">
+            <span class="help is-danger" v-if="!$v.credentials.email.isUnique">
+              An account already exists with the email address you specified.
+              <router-link to="/reset">Forgot your password?</router-link>
+            </span>
             <span class="help is-danger" v-if="!$v.credentials.email.email">
               The email address you entered is invalid
             </span>
@@ -309,7 +313,17 @@ export default {
   },
   validations: {
     credentials: {
-      email: { required, email },
+      email: {
+        required,
+        email,
+        isUnique (value) {
+          if (value === '') return true
+          return new Promise((resolve, reject) => {
+            this.$store.dispatch('checkEmail', value)
+              .then((value) => resolve(!value));
+          })
+        }
+      },
       password: { required, minLength: minLength(8) },
       passwordConfirmation: { required, sameAs: sameAs('password') },
       firstname: { required },

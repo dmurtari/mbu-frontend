@@ -59,6 +59,19 @@ const mutations = {
 };
 
 const actions = {
+  checkEmail({ commit }, email) {
+    return new Promise((resolve, reject) => {
+      axios.get(URLS.USERS_URL + 'exists/' + email)
+        .then((response) => {
+          console.log('Got response', response.data.exists);
+          resolve(response.data.exists);
+        })
+        .catch((err) => {
+          console.error('Failed to check for user', err);
+          reject();
+        });
+    });
+  },
   deleteAccount({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.USERS_URL + id)
@@ -68,7 +81,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to delete account');
+          console.error('Failed to delete account');
           reject();
         })
     });
@@ -86,7 +99,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to authenticate JWT');
+          console.error('Failed to authenticate JWT');
           localStorage.removeItem('token');
           reject();
         });
@@ -101,7 +114,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to login user');
+          console.error('Failed to login user');
           reject(err.response.data.message);
         });
     });
@@ -115,7 +128,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to create user');
+          console.error('Failed to create user');
           reject(err.response.data.message);
         });
     });
@@ -133,7 +146,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to send reset email');
+          console.error('Failed to send reset email');
           reject();
         });
     });
@@ -146,7 +159,7 @@ const actions = {
           resolve()
         })
         .catch((err) => {
-          console.log('Failed to reset password');
+          console.error('Failed to reset password', err.response.data);
           reject(err.response.data.message);
         });
     });
@@ -166,7 +179,7 @@ const actions = {
           resolve();
         })
         .catch((err) => {
-          console.log('Failed to update profile');
+          console.error('Failed to update profile');
           reject(err.response.data.message);
         })
     });
