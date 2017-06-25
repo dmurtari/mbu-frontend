@@ -55,6 +55,7 @@
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-primary"
+                    :class="{ 'is-loading is-disabled': loading }"
                     :disabled="$v.credentials.$invalid"
                     @click.prevent="submit()">Login</button>
           </div>
@@ -83,7 +84,8 @@ export default {
         email: '',
         password: ''
       },
-      error: false
+      error: false,
+      loading: false
     }
   },
   methods: {
@@ -97,8 +99,10 @@ export default {
         password: this.credentials.password,
       }
 
+      this.loading = true;
       this.$store.dispatch('login', credentials)
         .then(() => {
+          this.loading = false;
           this.error = false;
           this.$router.push('/');
         })
