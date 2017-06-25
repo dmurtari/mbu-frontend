@@ -20,7 +20,7 @@
       No badges are listed as available at this event.
       <span v-if="isAdmin">
         Offer badges for this event at the
-        <router-link to="/administration/offerings">offerings page</router-link>.
+        <router-link to="/administration/events/offerings">offerings page</router-link>.
       </span>
       <span v-if="!isAdmin">
         Please check with the event coordinators if you feel this is not correct.
@@ -47,7 +47,7 @@
       No items are available for purchase at this event.
       <span v-if="isAdmin">
         Add items for purchase at the
-        <router-link to="/administration/purchasables">purchasables page</router-link>.
+        <router-link to="/administration/events/purchasables">purchasables page</router-link>.
       </span>
     </div>
   </div>
