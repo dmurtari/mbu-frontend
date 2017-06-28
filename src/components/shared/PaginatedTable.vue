@@ -1,18 +1,18 @@
 <template>
   <div>
-    <nav class="pagination">
+    <nav class="pagination is-centered">
       <paginate-links :for="target"
                       :limit="limit"
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next Page',
-                        prev: 'Previous Page'
+                        next: 'Next',
+                        prev: 'Previous'
                       }"
                       :classes="{
                         'li.number > a, li.ellipses > a': 'pagination-link',
-                        'li.left-arrow > a': 'pagination-previous',
-                        'li.right-arrow > a': 'pagination-next'
+                        'li.left-arrow': 'pagination-previous',
+                        'li.right-arrow': 'pagination-next'
                       }">
       </paginate-links>
     </nav>
@@ -24,24 +24,24 @@
       <slot name="header"></slot>
       <tbody>
         <slot name="row"
-              v-for="item in paginated(target)"
+              v-for="(item, index) in paginated(target)"
               :item="item">
         </slot>
       </tbody>
     </paginate>
-    <nav class="pagination">
+    <nav class="pagination is-centered">
       <paginate-links :for="target"
                       :limit="limit"
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next Page',
-                        prev: 'Previous Page'
+                        next: 'Next',
+                        prev: 'Previous'
                       }"
                       :classes="{
                         'li.number > a, li.ellipses > a': 'pagination-link',
-                        'li.left-arrow > a': 'pagination-previous',
-                        'li.right-arrow > a': 'pagination-next'
+                        'li.left-arrow': 'pagination-previous',
+                        'li.right-arrow': 'pagination-next'
                       }">
       </paginate-links>
     </nav>
@@ -126,6 +126,10 @@ export default {
       margin-left: 0rem;
       width: auto;
       font-size: 1rem;
+    }
+
+    .pagination-previous {
+      order: 0 !important;
     }
 
     li.active {

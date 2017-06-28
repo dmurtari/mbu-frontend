@@ -61,8 +61,8 @@
               <div class="field">
                 <div class="control">
                   <input class="input is-expanded"
-                        id="scout-list-find"
-                        v-model="search"></input>
+                         id="scout-list-find"
+                         v-model="search"></input>
                 </div>
               </div>
             </div>
@@ -89,43 +89,44 @@
                 class="sortable"
                 :class="{ 'sorted-column': order === 'firstname' }">
               First Name
-              <div class="icon"
-                   v-if="order === 'firstname'">
+              <span class="icon is-small"
+                    v-if="order === 'firstname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
                       class="fa fa-sort-alpha-desc"></span>
-              </div>
+              </span>
             </th>
             <th @click="sort('lastname')"
                 class="sortable"
                 :class="{ 'sorted-column': order === 'lastname' }">
               Last Name
-              <div class="icon"
-                   v-if="order === 'lastname'">
+              <span class="icon is-small"
+                    v-if="order === 'lastname'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-alpha-asc"></span>
                 <span v-else
                       class="fa fa-sort-alpha-desc"></span>
-              </div>
+              </span>
             </th>
             <th @click="sort('troop')"
                 class="sortable"
                 :class="{ 'sorted-column': order === 'troop' }">
               Troop
-              <div class="icon"
-                   v-if="order === 'troop'">
+              <span class="icon is-small"
+                    v-if="order === 'troop'">
                 <span v-if="sortAscending"
                       class="fa fa-sort-numeric-asc"></span>
                 <span v-else
                       class="fa fa-sort-numeric-desc"></span>
-              </div>
+              </span>
             </th>
             <th>Coordinator</th>
             <th colspan="1"></th>
           </tr>
         </thead>
-        <template slot="row" scope="props">
+        <template slot="row"
+                  scope="props">
           <scout-row :id="props.item.scout_id"
                      :firstname="props.item.firstname"
                      :lastname="props.item.lastname"
@@ -139,9 +140,10 @@
     <div class="notification"
          v-else>
       <p>
-        There are no scouts that match the criteria you specified. Change the filters you have selected, or <a href="#"
-            @click="reset()">reset all
-        of the filters</a>.
+        There are no scouts that match the criteria you specified. Change the
+        filters you have selected, or
+        <a href="#"
+           @click="reset()">reset all of the filters</a>.
       </p>
     </div>
     <router-view></router-view>
@@ -156,7 +158,7 @@ import URLS from 'urls';
 import ScoutRow from './ScoutRow.vue';
 
 export default {
-  data() {
+  data () {
     return {
       error: '',
       eventsFilter: null,
@@ -168,7 +170,7 @@ export default {
     };
   },
   computed: {
-    filteredScouts() {
+    filteredScouts () {
       let scouts = this.scouts;
 
       if (this.troopFilter) {
@@ -191,7 +193,7 @@ export default {
 
       return _.orderBy(scouts, this.order, sortOrder);
     },
-    troops() {
+    troops () {
       if (!this.scouts) {
         return [];
       }
@@ -200,20 +202,20 @@ export default {
     }
   },
   methods: {
-    dismissError() {
+    dismissError () {
       this.error = '';
     },
-    pickEvent(eventId) {
+    pickEvent (eventId) {
       this.eventsFilter = eventId;
     },
-    reset() {
+    reset () {
       this.eventsFilter = null;
       this.troopFilter = null;
       this.search = '';
       this.sortAscending = true;
       this.order = 'troop';
     },
-    sort(order) {
+    sort (order) {
       if (order === this.order) {
         this.sortAscending = !this.sortAscending;
       } else {
@@ -222,7 +224,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.loading = true;
     axios.get(URLS.SCOUTS_URL)
       .then((response) => {
@@ -242,12 +244,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .notification {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+.notification {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
-  .scout-list-filters {
-    margin-top: 2rem;
-  }
+.scout-list-filters {
+  margin-top: 2rem;
+}
 </style>
