@@ -13,14 +13,16 @@
                         'li.number > a, li.ellipses > a': 'pagination-link',
                         'li.left-arrow': 'pagination-previous',
                         'li.right-arrow': 'pagination-next'
-                      }">
+                      }"
+                      @change="pageChanged">
       </paginate-links>
     </nav>
     <paginate :name="target"
               :list="contents"
               :per="per"
               tag="table"
-              class="table is-striped paginated-table">
+              class="table is-striped paginated-table"
+              ref="paginator">
       <slot name="header"></slot>
       <tbody>
         <slot name="row"
@@ -42,7 +44,8 @@
                         'li.number > a, li.ellipses > a': 'pagination-link',
                         'li.left-arrow': 'pagination-previous',
                         'li.right-arrow': 'pagination-next'
-                      }">
+                      }"
+                      @change="pageChanged">
       </paginate-links>
     </nav>
   </div>
@@ -65,7 +68,7 @@ export default {
     },
     per: {
       type: Number,
-      default: 2,
+      default: 20,
     },
     showLinks: {
       type: Boolean,
@@ -76,6 +79,18 @@ export default {
     return {
       paginate: [this.target]
     };
+  },
+  methods: {
+    pageChanged(toPage) {
+      this.$router.replace({
+        query: { page: toPage }
+      });
+    }
+  },
+  mounted() {
+    if (this.$route.query.page) {
+      this.$refs.paginator.goToPage(this.$route.query.page);
+    }
   }
 }
 </script>
@@ -123,7 +138,6 @@ export default {
     }
 
     .pagination-next, .pagination-previous{
-      margin-left: 0rem;
       width: auto;
       font-size: 1rem;
     }
