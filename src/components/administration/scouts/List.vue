@@ -11,73 +11,10 @@
         {{ error }}
       </p>
     </div>
-    <div class="box scout-list-filters">
-      <div class="columns is-multiline">
-        <div class="column is-6">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Registered:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <events-dropdown @select="pickEvent($event)"></events-dropdown>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Troop:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <span class="input-group select">
-                    <select class="input"
-                            v-model="troopFilter">
-                      <option :value="null">All Troops</option>
-                      <option v-for="troop in troops"
-                              :value="troop"
-                              :key="troop">
-                        {{ troop }}
-                      </option>
-                    </select>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="search-container field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label"
-                     for="scout-list-find">Name:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input class="input is-expanded"
-                         id="scout-list-find"
-                         v-model="search"></input>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="field is-grouped">
-            <div class="control is-pulled-right">
-              <button class="button is-pulled-right"
-                      @click.prevent="reset()">Reset Filters</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <filter-box :troopFilter.sync="troopFilter"
+                :eventId.sync="eventsFilter"
+                :search.sync="search"
+                :troops="troops"></filter-box>
     <div v-if="filteredScouts.length > 0">
       <paginated-table :target="'scouts'"
                        :contents="filteredScouts"
@@ -156,6 +93,7 @@ import _ from 'lodash';
 
 import URLS from 'urls';
 import ScoutRow from './ScoutRow.vue';
+import FilterBox from 'components/shared/FilterBox.vue';
 
 export default {
   data () {
@@ -209,7 +147,6 @@ export default {
       this.eventsFilter = eventId;
     },
     reset () {
-      this.eventsFilter = null;
       this.troopFilter = null;
       this.search = '';
       this.sortAscending = true;
@@ -238,6 +175,7 @@ export default {
       });
   },
   components: {
+    FilterBox,
     ScoutRow
   }
 }
