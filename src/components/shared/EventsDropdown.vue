@@ -25,7 +25,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       loading: true,
       selectedEvent: ''
@@ -37,7 +37,7 @@ export default {
       'currentEvent',
       'selectedEventId'
     ]),
-    readableEvents() {
+    readableEvents () {
       return _.map(this.orderedEvents, (event) => {
         return {
           id: event.id,
@@ -47,13 +47,15 @@ export default {
     }
   },
   methods: {
-    emitEvent() {
+    emitEvent () {
       this.$store.dispatch('setSelectedId', this.selectedEvent);
       this.$emit('select', this.selectedEvent);
     }
   },
-  mounted() {
-    if (this.showAll) {
+  mounted () {
+    if (this.$route.query.eventId) {
+      this.selectedEvent = Number(this.$route.query.eventId);
+    } else if (this.showAll) {
       this.selectedEvent = null;
     } else if (this.selectedEventId) {
       this.selectedEvent = this.selectedEventId;
