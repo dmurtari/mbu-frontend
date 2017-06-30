@@ -2,61 +2,39 @@
   <div class="box filters">
     <div class="columns is-multiline">
       <div class="column is-6">
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Registered:</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <events-dropdown @select="pickEvent($event)"></events-dropdown>
-              </div>
-            </div>
-          </div>
-        </div>
+        <horizontal-field>
+          <span slot="field-label">Registered:</span>
+          <events-dropdown slot="field-contents"
+                           @select="updateQuery('eventId', Number($event))"></events-dropdown>
+        </horizontal-field>
       </div>
       <div class="column is-6">
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Troop:</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <span class="input-group select">
-                  <select class="input"
-                          v-model="troopFilterProp"
-                          @change="troopSelected($event.target.value)">
-                    <option :value="null">All Troops</option>
-                    <option v-for="troop in troops"
-                            :value="troop"
-                            :key="troop">
-                      {{ troop }}
-                    </option>
-                  </select>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <horizontal-field>
+          <span slot="field-label">Troop:</span>
+          <span class="input-group select"
+                slot="field-contents">
+            <select class="input"
+                    v-model="troopProp"
+                    @change="updateQuery('troop', $event.target.value ? Number($event.target.value) : null)">
+              <option :value="null">All Troops</option>
+              <option v-for="troop in troops"
+                      :value="troop"
+                      :key="troop">
+                {{ troop }}
+              </option>
+            </select>
+          </span>
+        </horizontal-field>
       </div>
       <div class="column is-6">
-        <div class="search-container field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label"
-                   for="scout-list-find">Name:</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <input class="input is-expanded"
-                       id="scout-list-find"
-                       v-model="searchProp"
-                       @input="searchEntered($event.target.value)"></input>
-              </div>
-            </div>
-          </div>
-        </div>
+        <horizontal-field>
+          <span slot="field-label">Name:</span>
+          <input class="input is-expanded"
+                 slot="field-contents"
+                 id="scout-list-find"
+                 v-model="searchProp"
+                 @input="updateQuery('search', $event.target.value)"></input>
+        </horizontal-field>
       </div>
       <div class="column is-6">
         <div class="field is-grouped">
@@ -72,73 +50,73 @@
 
 <script>
 import _ from 'lodash';
+import HorizontalField from './HorizontalField.vue';
 
 export default {
   props: {
     eventId: Number,
-    troopFilter: Number,
+    troop: Number,
     search: String,
     troops: Array
   },
   data () {
     return {
       eventIdProp: this.eventId,
-      troopFilterProp: this.troopFilter,
+      troopProp: this.troop,
       searchProp: this.search,
     };
   },
   methods: {
-    troopSelected (troop) {
-      let query = _.clone(this.$route.query);
-      query.troop = troop;
+    reset () {
+      this.eventIdProp = null;
+      this.troopProp = null;
+      this.searchProp = null;
 
-      this.$router.replace({
-        query: query
-      });
-
-      this.$emit('update:troopFilter',
-        troop ? Number(troop) : null
-      );
+      this.updateQuery('troop', null);
+      this.updateQuery('eventId', null);
+      this.updateQuery('search', '');
     },
-    pickEvent (eventId) {
-      let query = _.clone(this.$route.query);
-      query.event = eventId;
-
-      this.$router.replace({
-        query: query
-      });
-
-      this.$router.replace({
-        query: query
-      });
-
-      this.$emit('update:eventId', Number(eventId));
+    sendUpdate (field, value) {
+      this.$emit('update:' + field, value);
     },
-    searchEntered (search) {
+    updateQuery (field, value) {
       let query = _.clone(this.$route.query);
-      query.search = search;
+      query[field] = value;
 
       this.$router.replace({
         query: query
       });
 
-      this.$emit('update:search', search)
+      this.sendUpdate(field, value);
+    }
+  },
+  watch: {
+    troopProp (newVal, oldVal) {
+      if (newVal === undefined) {
+        this.troopProp = oldVal;
+      }
     }
   },
   mounted () {
     let query = this.$route.query;
 
     if (query.troop) {
-      this.troopSelected(query.troop)
+      this.troopProp = query.troop;
+      this.sendUpdate('troop', Number(query.troop));
     }
 
-    if (query.event) {
-      this.pickEvent(query.event)
+    if (query.eventId) {
+      this.eventIdProp = query.eventId;
+      this.sendUpdate('eventId', Number(query.eventId));
     }
 
     if (query.search) {
-      this.searchEntered(query.search);
+      this.searchProp = query.search;
+      this.sendUpdate('search', query.search);
     }
+  },
+  components: {
+    HorizontalField
   }
 }
 </script>

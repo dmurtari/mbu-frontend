@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   props: {
     target: {
@@ -82,8 +84,11 @@ export default {
   },
   methods: {
     pageChanged(toPage) {
+      let query = _.clone(this.$route.query);
+      query.page = toPage;
+
       this.$router.replace({
-        query: { page: toPage }
+        query: query
       });
     }
   },
@@ -137,9 +142,13 @@ export default {
       }
     }
 
-    .pagination-next, .pagination-previous{
+    .pagination-next, .pagination-previous {
       width: auto;
       font-size: 1rem;
+
+      .pagination-link {
+        border: none;
+      }
     }
 
     .pagination-previous {
