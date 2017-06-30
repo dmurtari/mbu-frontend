@@ -11,10 +11,11 @@
         {{ error }}
       </p>
     </div>
-    <filter-box :troopFilter.sync="troopFilter"
+    <filter-box :troop.sync="troopFilter"
                 :eventId.sync="eventsFilter"
                 :search.sync="search"
-                :troops="troops"></filter-box>
+                :troops="troops"
+                class="scout-list-filters"></filter-box>
     <div v-if="filteredScouts.length > 0">
       <paginated-table :target="'scouts'"
                        :contents="filteredScouts"
