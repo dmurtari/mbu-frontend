@@ -78,10 +78,7 @@
     <div class="notification"
          v-else>
       <p>
-        There are no scouts that match the criteria you specified. Change the
-        filters you have selected, or
-        <a href="#"
-           @click="reset()">reset all of the filters</a>.
+        There are no scouts that match the criteria you specified.
       </p>
     </div>
     <router-view></router-view>

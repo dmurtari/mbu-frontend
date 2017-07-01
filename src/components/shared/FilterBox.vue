@@ -93,6 +93,12 @@ export default {
       if (newVal === undefined) {
         this.troopProp = oldVal;
       }
+    },
+    troops () {
+      if (!_.includes(this.troops, this.troopProp)) {
+        this.troopProp = null;
+        this.updateQuery('troop', null);
+      }
     }
   },
   mounted () {
