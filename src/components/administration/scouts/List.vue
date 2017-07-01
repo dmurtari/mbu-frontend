@@ -144,15 +144,6 @@ export default {
     dismissError () {
       this.error = '';
     },
-    pickEvent (eventId) {
-      this.eventsFilter = eventId;
-    },
-    reset () {
-      this.troopFilter = null;
-      this.search = '';
-      this.sortAscending = true;
-      this.order = 'troop';
-    },
     sort (order) {
       if (order === this.order) {
         this.sortAscending = !this.sortAscending;

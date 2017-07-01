@@ -5,89 +5,47 @@
       Use this page to manage scouts that are attending an event. You can view
       merit badges that scouts have requested, and assign scouts to merit badges.
     </p>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
-    <div class="box registration-list-filters">
-      <div class="columns is-multiline">
-        <div class="column is-6 is-4-widescreen">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">For&nbsp;Event:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <events-dropdown @select="pickEvent($event)"></events-dropdown>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6 is-4-widescreen">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">For&nbsp;Troop:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <span class="input-group select">
-                    <select class="input"
-                            v-model="troopFilter">
-                      <option :value="null">All Troops</option>
-                      <option v-for="troop in troops" :value="troop" :key="troop">
-                        {{ troop }}
-                      </option>
-                    </select>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6 is-4-widescreen">
-          <div class="search-container field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label" for="scout-list-find">Name:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input class="input is-expanded"
-                        id="scout-list-find"
-                        v-model="search"></input>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <filter-box :troop.sync="troopFilter"
+                :eventId.sync="selectedEventId"
+                :search.sync="search"
+                :troops="troops"
+                class="scout-list-filters"></filter-box>
+    <loader v-if="loading"
+            :color="'lightgray'"
+            class="registrations-loading"></loader>
+    <div class="registration-list"
+         v-if="!loading">
+      <div v-if="filteredRegistrations.length > 0">
+        <attendance-row v-for="registration in filteredRegistrations"
+                        :key="registration.id"
+                        :registration="registration"
+                        :event="event"></attendance-row>
       </div>
-    </div>
-    <loader v-if="loading" :color="'lightgray'" class="registrations-loading"></loader>
-    <div class="registration-list" v-if="!loading">
-      <attendance-row v-for="registration in filteredRegistrations"
-                      :key="registration.id"
-                      :registration="registration"
-                      :event="event"></attendance-row>
-      <div class="notification" v-if="noRegistrations">
-        No scouts are currently registered for this event.
+      <div class="notification"
+           v-else>
+        <p>
+          There are no scouts that match the criteria you specified.
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EventsDropdown from '../../shared/EventsDropdown.vue';
 import AttendanceRow from './AttendanceRow.vue';
+import FilterBox from 'components/shared/FilterBox.vue';
 
 import { mapGetters } from 'vuex';
 import _ from 'lodash'
 
 export default {
-  data() {
+  data () {
     return {
       error: '',
       loading: false,
@@ -101,10 +59,10 @@ export default {
       'registrations',
       'allEvents'
     ]),
-    event() {
+    event () {
       return _.find(this.allEvents, { 'id': this.selectedEventId });
     },
-    filteredRegistrations() {
+    filteredRegistrations () {
       if (!this.selectedRegistration) {
         return {};
       }
@@ -123,15 +81,15 @@ export default {
         return registration.scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
     },
-    noRegistrations() {
+    noRegistrations () {
       return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
     },
-    selectedRegistration() {
+    selectedRegistration () {
       return _.find(this.registrations, (registrations) => {
         return registrations.eventId === this.selectedEventId;
       });
     },
-    troops() {
+    troops () {
       if (!this.selectedRegistration) {
         return [];
       }
@@ -139,10 +97,10 @@ export default {
       return _.uniq(_.map(this.selectedRegistration.registrations, ('scout.troop')));
     }
   },
-  methods: {
-    pickEvent(eventId) {
-      this.selectedEventId = eventId;
+  watch: {
+    selectedEventId (eventId) {
       this.loading = true;
+      this.troopFilter = null;
       this.$store.dispatch('getRegistrations', eventId)
         .then(() => {
           this.loading = false;
@@ -155,25 +113,25 @@ export default {
     }
   },
   components: {
-    EventsDropdown,
+    FilterBox,
     AttendanceRow
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .registration-list-filters {
-    margin-top: 2em;
-  }
+.registration-list-filters {
+  margin-top: 2em;
+}
 
-  .registrations-loading {
-    margin-top: 5em;
-    width: 5em;
-    display: block;
-    margin: auto;
-  }
+.registrations-loading {
+  margin-top: 5em;
+  width: 5em;
+  display: block;
+  margin: auto;
+}
 
-  .registration-list {
-    margin-top: 2em;
-  }
+.registration-list {
+  margin-top: 2em;
+}
 </style>

@@ -68,12 +68,10 @@ export default {
   },
   methods: {
     reset () {
-      this.eventIdProp = null;
       this.troopProp = null;
       this.searchProp = null;
 
       this.updateQuery('troop', null);
-      this.updateQuery('eventId', null);
       this.updateQuery('search', '');
     },
     sendUpdate (field, value) {
