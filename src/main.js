@@ -31,6 +31,10 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+
   Promise.all([
     store.dispatch('getEvents'),
     store.dispatch('getCurrentEvent')
