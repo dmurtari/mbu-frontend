@@ -2,19 +2,29 @@
   <nav class="nav has-shadow">
     <div class="container">
       <div class="nav-left">
-        <router-link class="nav-item brand" to="/">MBU Online</router-link>
+        <router-link class="nav-item brand"
+                     to="/">MBU Online</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
-                     active-class="is-active" to="/badges">Badges</router-link>
+                     active-class="is-active"
+                     to="/badges">Badges</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
-                     active-class="is-active" to="/events">Events</router-link>
+                     active-class="is-active"
+                     to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isCoordinator && isApproved"
+                     active-class="is-active"
                      to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
+                     v-if="isTeacher && isApproved"
+                     active-class="is-active"
+                     to="/teacher/home">Instructor Tasks</router-link>
+        <router-link class="nav-item is-hidden-mobile is-tab"
                      v-if="isAdmin"
+                     active-class="is-active"
                      to="/administration/home">Administration</router-link>
       </div>
-      <span class="nav-toggle" @click.prevent="toggleDropdown()">
+      <span class="nav-toggle"
+            @click.prevent="toggleDropdown()">
         <span></span>
         <span></span>
         <span></span>
@@ -22,30 +32,44 @@
       <div class="nav-right nav-menu"
            :class="{ 'is-active': dropdownActive }">
         <router-link class="nav-item is-hidden-tablet"
-                     active-class="is-active" to="/badges">Badges</router-link>
+                     active-class="is-active"
+                     to="/badges">Badges</router-link>
         <router-link class="nav-item is-hidden-tablet"
-                     active-class="is-active" to="/events">Events</router-link>
+                     active-class="is-active"
+                     to="/events">Events</router-link>
         <router-link class="nav-item is-hidden-tablet"
                      v-if="isCoordinator && isApproved"
                      to="/coordinator/home">Manage Troop</router-link>
         <router-link class="nav-item is-hidden-tablet"
+                     v-if="isTeacher && isApproved"
+                     active-class="is-active"
+                     to="/teacher/home">Instructor Tasks</router-link>
+        <router-link class="nav-item is-hidden-tablet"
                      v-if="isAdmin"
                      to="/administration/home">Administration</router-link>
-        <span class="nav-item" v-if="!isAuthenticated">
+        <span class="nav-item"
+              v-if="!isAuthenticated">
           <div class="field is-grouped">
             <div class="control">
-              <router-link class="button is-primary" to="/login">Login</router-link>
+              <router-link class="button is-primary"
+                           to="/login">Login</router-link>
             </div>
             <div class="control">
-              <router-link class="button is-info is-outlined" to="/signup">Sign Up</router-link>
+              <router-link class="button is-info is-outlined"
+                           to="/signup">Sign Up</router-link>
             </div>
           </div>
         </span>
-        <router-link class="nav-item" v-if="isAuthenticated" to="/profile">
+        <router-link class="nav-item"
+                     v-if="isAuthenticated"
+                     to="/profile">
           Profile
         </router-link>
-        <span class="nav-item" v-if="isAuthenticated">
-          <a href="#" class="button" @click.prevent="logout()">Logout</a>
+        <span class="nav-item"
+              v-if="isAuthenticated">
+          <a href="#"
+             class="button"
+             @click.prevent="logout()">Logout</a>
         </span>
       </div>
     </div>
@@ -58,7 +82,7 @@ import { mapGetters } from 'vuex';
 import Login from '../authentication/Login.vue';
 
 export default {
-  data() {
+  data () {
     return {
       dropdownActive: false
     };
@@ -69,15 +93,16 @@ export default {
       'isAdmin',
       'isAuthenticated',
       'isApproved',
-      'isCoordinator'
+      'isCoordinator',
+      'isTeacher'
     ])
   },
   methods: {
-    logout() {
+    logout () {
       this.$store.dispatch('logout');
       this.$router.push('/');
     },
-    toggleDropdown() {
+    toggleDropdown () {
       this.dropdownActive = !this.dropdownActive;
     }
   },
@@ -94,7 +119,5 @@ export default {
   padding-top: .5em;
 }
 
-.brand {
-
-}
+.brand {}
 </style>

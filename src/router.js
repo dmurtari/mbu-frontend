@@ -39,6 +39,9 @@ import CoordinatorScouts from './components/coordinators/scouts/List.vue';
 import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
 import CoordinatorAttendance from './components/coordinators/attendance/List.vue';
 
+import TeacherPage from './components/teachers/TeacherPage.vue';
+import TeacherHome from './components/teachers/TeacherHome.vue';
+
 import RegistrationTable from './components/stats/RegistrationTable.vue';
 
 export default [
@@ -207,6 +210,17 @@ export default [
             meta: { title: 'MBU Online | Attendance' }
           }
         ]
+      }
+    ]
+  }, {
+    path: '/teacher',
+    component: TeacherPage,
+    beforeEnter: requireApproval,
+    children: [
+      {
+        path: 'home',
+        component: TeacherHome,
+        meta: { title: 'MBU Online | Instructor Home' }
       }
     ]
   }, {
