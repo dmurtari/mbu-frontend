@@ -155,8 +155,8 @@ export default [
         component: AdminStats,
         meta: { title: 'MBU Online | Statistics' },
         beforeEnter: (to, from, next) => {
-          if (to.fullPath === '/administration/stats') {
-            next('stats/list');
+          if (to.fullPath === '/administration/stats' || to.fullPath === '/administration/stats/') {
+            next('/administration/stats/list');
           } else {
             next();
           }
@@ -221,6 +221,52 @@ export default [
         path: 'home',
         component: TeacherHome,
         meta: { title: 'MBU Online | Instructor Home' }
+      }, {
+        path: 'stats',
+        component: AdminStats,
+        meta: { title: 'MBU Online | Statistics' },
+        beforeEnter: (to, from, next) => {
+          if (to.fullPath === '/teacher/stats' || to.fullPath === '/teacher/stats/') {
+            next('/teacher/stats/list');
+          } else {
+            next();
+          }
+        },
+        children: [
+          {
+            path: 'detail',
+            component: AttendanceDetails,
+          }, {
+            path: 'list',
+            component: RegistrationTable
+          }
+        ]
+      }, {
+        path: 'scouts',
+        component: {
+          render(component) { return component('router-view') }
+        },
+        children: [
+          {
+            path: 'list',
+            component: ScoutContainer,
+            children: [
+              {
+                path: 'all',
+                component: AdminScouts,
+                meta: { title: 'MBU Online | All Scouts' }
+              }, {
+                path: ':id',
+                component: ScoutDetails,
+                meta: { title: 'MBU Online | Scout Detail' }
+              }
+            ]
+          }, {
+            path: 'assignments',
+            component: AdminAttendance,
+            meta: { title: 'MBU Online | Assignments' }
+          }
+        ]
       }
     ]
   }, {

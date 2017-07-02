@@ -4,8 +4,8 @@
     <p>
       This page summarizes event information.
     </p>
-    <stats-list list-link="/administration/stats/list"
-                detail-link="/administration/stats/detail"></stats-list>
+    <stats-list list-link="list"
+                detail-link="detail"></stats-list>
   </div>
 </template>
 
