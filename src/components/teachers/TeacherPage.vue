@@ -16,8 +16,8 @@
           <ul class="menu-list">
             <router-link to="/teacher/stats"
                          active-class="is-active">Event Statistics</router-link>
-            <router-link to="/teacher/scouts"
-                         active-class="is-active">Scout Assignments</router-link>
+            <router-link to="/teacher/classes/all"
+                         active-class="is-active">Class Information</router-link>
           </ul>
         </aside>
       </div>

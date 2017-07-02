@@ -242,29 +242,23 @@ export default [
           }
         ]
       }, {
-        path: 'scouts',
-        component: {
-          render(component) { return component('router-view') }
-        },
+        path: 'classes',
+        component: ClassContainer,
         children: [
           {
-            path: 'list',
-            component: ScoutContainer,
-            children: [
-              {
-                path: 'all',
-                component: AdminScouts,
-                meta: { title: 'MBU Online | All Scouts' }
-              }, {
-                path: ':id',
-                component: ScoutDetails,
-                meta: { title: 'MBU Online | Scout Detail' }
-              }
-            ]
+            path: 'all',
+            component: AdminClasses,
+            meta: { title: 'MBU Online | All Classes' }
           }, {
-            path: 'assignments',
-            component: AdminAttendance,
-            meta: { title: 'MBU Online | Assignments' }
+            path: ':eventId/:id',
+            component: ClassDetail,
+            meta: { title: 'MBU Online | Class Detail' },
+            props(route) {
+              return {
+                offeringId: Number(route.params.id),
+                eventId: Number(route.params.eventId)
+              }
+            }
           }
         ]
       }
