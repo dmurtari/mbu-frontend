@@ -3,11 +3,13 @@
     <p>
       These are the classes for an event based off of the badges that are being
       offered at an event and the scouts that are assigned to each period.
-      <b>This page is for viewing scout assignments only</b>; to edit badges
+      <b>This page is for viewing scout assignments only</b>
+      <span v-if="isAdmin"> to edit badges
       that are offered for an event, use the <router-link
       to="/administration/events/offerings">offerings page</router-link>.
       To change a scout's badge assignments, use the <router-link
       to="/administration/scouts/assignments">assignments page</router-link>.
+      </span>
     </p>
     <div class="box class-list-filters">
       <div class="columns">
@@ -96,7 +98,8 @@ export default {
   computed: {
     ...mapGetters([
       'allEvents',
-      'eventClasses'
+      'eventClasses',
+      'isAdmin'
     ]),
     event() {
       return _.find(this.allEvents, { 'id': this.eventId });

@@ -1,12 +1,14 @@
 <template>
   <div>
     <ul>
-      <li>
-        <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }} (all scouts):</b>
-        <span v-if="totalDue">{{ totalDue | currency }}</span>
-        <span v-else>Calculating...</span>
-      </li>
-      <br>
+      <span v-if="!isTeacher">
+        <li>
+          <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }} (all scouts):</b>
+          <span v-if="totalDue">{{ totalDue | currency }}</span>
+          <span v-else>Calculating...</span>
+        </li>
+        <br>
+      </span>
       <li>
         <b>Showing Information for: </b>
         {{ registrations.length }} {{ registrations.length == 1 ? 'scout' : 'scouts'}}
@@ -70,7 +72,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'profile'
+      'profile',
+      'isTeacher'
     ]),
     isCoordinator () {
       return this.profile.role === "coordinator";
@@ -94,7 +97,7 @@ export default {
     }
   },
   mounted () {
-    if (this.registrations.length > 0) {
+    if (this.registrations.length > 0 && !this.isTeacher) {
       let requestURL = this.isCoordinator ?
         URLS.USERS_URL + this.profile.id + '/events/' + this.event.id + '/cost' :
         URLS.EVENTS_URL + this.event.id + '/income';
