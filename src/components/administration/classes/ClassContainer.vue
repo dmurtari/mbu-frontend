@@ -4,7 +4,7 @@
         class="title is-4">All Classes</h4>
     <h4 v-else
         class="title is-4">
-      <router-link to="/administration/classes/all">
+      <router-link to="../all">
         All Classes
       </router-link>
       /&nbsp{{ title }}

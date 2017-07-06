@@ -9,7 +9,7 @@
       </span>
     </td>
     <td>
-      <router-link :to="'/administration/classes/' + eventId + '/' + id">
+      <router-link :to="eventId + '/' + id">
         Details
       </router-link>
     </td>
