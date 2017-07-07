@@ -261,6 +261,10 @@ export default [
             }
           }
         ]
+      }, {
+        path: 'assignments',
+        component: AdminAttendance,
+        meta: { title: 'MBU Online | Assignments' }
       }
     ]
   }, {
@@ -327,25 +331,25 @@ function requireApproval(to, from, next) {
 function requireRole(role) {
   return function (to, from, next) {
     if (store.getters.role === undefined) {
-    store.dispatch('getProfile')
-      .then(() => {
-        if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
-          next();
-        } else {
-          console.warn('Role is not allowed access to this resource');
+      store.dispatch('getProfile')
+        .then(() => {
+          if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
+            next();
+          } else {
+            console.warn('Role is not allowed access to this resource');
+            next(false);
+          }
+        })
+        .catch(() => {
           next(false);
-        }
-      })
-      .catch(() => {
-        next(false);
-      });
-  } else {
-    if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
-      next();
+        });
     } else {
-      console.warn('Role is not allowed access to this resource');
-      next(false);
+      if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
+        next();
+      } else {
+        console.warn('Role is not allowed access to this resource');
+        next(false);
+      }
     }
-  }
   }
 }

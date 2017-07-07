@@ -14,6 +14,8 @@
           </ul>
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
+            <router-link to="/teacher/assignments"
+                         active-class="is-active">Scout Assignments</router-link>
             <router-link to="/teacher/stats"
                          active-class="is-active">Event Statistics</router-link>
             <router-link to="/teacher/classes/all"
