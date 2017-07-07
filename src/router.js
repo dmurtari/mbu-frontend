@@ -57,7 +57,7 @@ export default [
   }, {
     path: '/administration',
     component: Administration,
-    beforeEnter: requireApproval,
+    beforeEnter: requireRole('admin'),
     children: [
       {
         path: 'home',
@@ -175,7 +175,7 @@ export default [
   }, {
     path: '/coordinator',
     component: CoordinatorPage,
-    beforeEnter: requireApproval,
+    beforeEnter: requireRole('coordinator'),
     children: [
       {
         path: 'home',
@@ -215,7 +215,7 @@ export default [
   }, {
     path: '/teacher',
     component: TeacherPage,
-    beforeEnter: requireApproval,
+    beforeEnter: requireRole('teacher'),
     children: [
       {
         path: 'home',
@@ -321,5 +321,31 @@ function requireApproval(to, from, next) {
     } else {
       next();
     }
+  }
+}
+
+function requireRole(role) {
+  return function (to, from, next) {
+    if (store.getters.role === undefined) {
+    store.dispatch('getProfile')
+      .then(() => {
+        if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
+          next();
+        } else {
+          console.warn('Role is not allowed access to this resource');
+          next(false);
+        }
+      })
+      .catch(() => {
+        next(false);
+      });
+  } else {
+    if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
+      next();
+    } else {
+      console.warn('Role is not allowed access to this resource');
+      next(false);
+    }
+  }
   }
 }

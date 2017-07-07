@@ -13,6 +13,9 @@ const getters = {
   profile(state) {
     return state.profile;
   },
+  role(state) {
+    return state.profile.role;
+  },
   isAuthenticated(state) {
     return state.isAuthenticated;
   },

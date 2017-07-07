@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.registration-list-filters {
+.scout-list-filters {
   margin-top: 2em;
 }
 
