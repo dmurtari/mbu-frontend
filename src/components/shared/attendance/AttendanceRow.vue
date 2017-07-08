@@ -37,8 +37,8 @@
 import _ from 'lodash';
 
 import AssignmentEdit from './AssignmentEdit.vue';
-import ScoutRegistration from '../../scouts/ScoutRegistration.vue';
-import RegistrationMappers from '../../../mixins/RegistrationMappers';
+import ScoutRegistration from 'components/scouts/ScoutRegistration.vue';
+import RegistrationMappers from 'mixins/RegistrationMappers';
 
 export default {
   data() {

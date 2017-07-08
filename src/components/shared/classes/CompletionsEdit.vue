@@ -14,7 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="scout in scouts">
+        <tr v-for="scout in scouts"
+            :key="scout.scoutId">
           <td>{{ scout.fullname }}</td>
           <td>{{ scout.troop }}</td>
           <td>
@@ -22,9 +23,9 @@
                    v-model="completions[scout.scoutId]"
                    :id="'completion-scout-' + scout.scoutId"
                    :class="{
-                     'is-disabled': saving,
-                     'is-danger': $v.completions.$each[scout.scoutId].$invalid
-                   }"
+                       'is-disabled': saving,
+                       'is-danger': $v.completions.$each[scout.scoutId].$invalid
+                     }"
                    aria-labelledby="Completions"
                    type="text"
                    @blur="$v.completions.$each[scout.scoutId].$touch"
@@ -80,7 +81,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       completions: {},
       error: '',
@@ -88,10 +89,10 @@ export default {
     };
   },
   methods: {
-    save() {
+    save () {
       this.saving = true;
       Promise.all(_.map(this.completions, (completion, scoutId) => {
-        let scout = _.find(this.scouts, [ 'scoutId', Number(scoutId) ]);
+        let scout = _.find(this.scouts, ['scoutId', Number(scoutId)]);
         let completions = _.without(_.map(_.orderBy(_.split(completion, ',')), (completion) => {
           return Number(_.trim(completion));
         }), null, 0);
@@ -112,11 +113,11 @@ export default {
         });
 
     },
-    cancel() {
+    cancel () {
       this.$emit('done');
     }
   },
-  beforeMount() {
+  beforeMount () {
     _.forEach(this.scouts, (scout) => {
       Vue.set(this.completions, scout.scoutId, _.join(_.orderBy(scout.completions), ', '));
     });

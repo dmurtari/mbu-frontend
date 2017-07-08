@@ -15,14 +15,15 @@ import ResetForm from './components/authentication/ResetForm.vue';
 import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
+import ClassList from './components/shared/classes/List.vue';
+import AttendanceList from './components/shared/attendance/List.vue';
+
 import Administration from './components/administration/Administration.vue';
 import AdministrationHome from './components/administration/AdministrationHome.vue'
 import AdminOfferings from './components/administration/offerings/List.vue';
 import AdminUsers from './components/administration/users/List.vue';
 import AdminApproval from './components/administration/users/AwaitingApproval.vue';
 import AdminPurchasables from './components/administration/purchasables/List.vue';
-import AdminAttendance from './components/administration/attendance/List.vue';
-import AdminClasses from './components/administration/classes/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
 import AdminStats from './components/administration/stats/StatsView.vue';
@@ -107,7 +108,7 @@ export default [
             ]
           }, {
             path: 'assignments',
-            component: AdminAttendance,
+            component: AttendanceList,
             meta: { title: 'MBU Online | Assignments' }
           }
         ]
@@ -137,7 +138,7 @@ export default [
         children: [
           {
             path: 'all',
-            component: AdminClasses,
+            component: ClassList,
             meta: { title: 'MBU Online | All Classes' }
           }, {
             path: ':eventId/:id',
@@ -248,7 +249,7 @@ export default [
         children: [
           {
             path: 'all',
-            component: AdminClasses,
+            component: ClassList,
             meta: { title: 'MBU Online | All Classes' }
           }, {
             path: ':eventId/:id',
@@ -264,7 +265,7 @@ export default [
         ]
       }, {
         path: 'assignments',
-        component: AdminAttendance,
+        component: AttendanceList,
         meta: { title: 'MBU Online | Assignments' }
       }
     ]

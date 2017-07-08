@@ -3,7 +3,8 @@
     <td>{{ badge }}</td>
     <td>{{ duration }}</td>
     <td>{{ assignees.length }}</td>
-    <td v-for="n in 3">
+    <td v-for="n in 3"
+        :key="n">
       <span :class="{ 'is-light': scoutsForPeriod(n).length < 1 }">
         {{ scoutsForPeriod(n).length }}
       </span>
@@ -43,11 +44,11 @@ export default {
     }
   },
   watch: {
-    scouts() {
+    scouts () {
       this.assignees = this.scouts;
     }
   },
-  mounted() {
+  mounted () {
     this.assignees = this.scouts;
   },
   mixins: [
@@ -57,7 +58,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  span.is-light {
-    color: lightgray;
-  }
+span.is-light {
+  color: lightgray;
+}
 </style>
