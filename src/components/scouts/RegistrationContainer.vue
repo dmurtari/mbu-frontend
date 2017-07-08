@@ -32,8 +32,8 @@
 
 <script>
 import ScoutRegistration from './ScoutRegistration.vue';
-import AssignmentEdit from '../administration/attendance/AssignmentEdit.vue';
-import RegistrationMappers from '../../mixins/RegistrationMappers';
+import AssignmentEdit from 'components/shared/attendance/AssignmentEdit.vue';
+import RegistrationMappers from 'mixins/RegistrationMappers';
 
 
 export default {

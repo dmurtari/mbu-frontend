@@ -16,6 +16,8 @@ import Login from './components/authentication/Login.vue';
 import Signup from './components/authentication/Signup.vue';
 
 import ClassList from './components/shared/classes/List.vue';
+import ClassDetail from './components/shared/classes/ClassDetail.vue';
+import ClassContainer from './components/shared/classes/ClassContainer.vue';
 import AttendanceList from './components/shared/attendance/List.vue';
 
 import Administration from './components/administration/Administration.vue';
@@ -28,8 +30,6 @@ import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
 import AdminStats from './components/administration/stats/StatsView.vue';
 import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
-import ClassContainer from './components/administration/classes/ClassContainer.vue';
-import ClassDetail from './components/administration/classes/ClassDetail.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
 import AttendanceDetails from './components/stats/DetailView.vue';
