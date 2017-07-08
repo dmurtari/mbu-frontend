@@ -41,6 +41,7 @@ import CoordinatorAttendance from './components/coordinators/attendance/List.vue
 
 import TeacherPage from './components/teachers/TeacherPage.vue';
 import TeacherHome from './components/teachers/TeacherHome.vue';
+import TeacherStats from './components/teachers/stats/TeacherStats.vue';
 
 import RegistrationTable from './components/stats/RegistrationTable.vue';
 
@@ -152,7 +153,7 @@ export default [
         ]
       }, {
         path: 'stats',
-        component: AdminStats,
+        component: TeacherStats,
         meta: { title: 'MBU Online | Statistics' },
         beforeEnter: (to, from, next) => {
           if (to.fullPath === '/administration/stats' || to.fullPath === '/administration/stats/') {

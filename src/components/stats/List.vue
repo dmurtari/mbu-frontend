@@ -103,10 +103,10 @@
             </router-link>
           </ul>
         </div>
-        <div class="print-break-before">
-          <router-view :event="this.event"
-                      :registrations="this.filteredRegistrations"></router-view>
+        <div id="print-break-before">
         </div>
+        <router-view :event="this.event"
+                     :registrations="this.filteredRegistrations"></router-view>
       </div>
       <div v-else
            class="notification">
@@ -237,7 +237,7 @@ export default {
   margin: auto;
 }
 
-.print-break-before {
-  break-before: page !important;
+#print-break-before {
+  break-before: always !important;
 }
 </style>
