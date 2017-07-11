@@ -8,15 +8,16 @@
                 data-balloon-pos="left"
                 @click.prevent="toggleEditing()"
                 v-if="!editing">
-          <span class="fa fa-edit" aria-label="Edit Assignments"></span>
+          <span class="fa fa-edit"
+                aria-label="Edit Assignments"></span>
         </button>
       </h5>
       <assignment-edit v-if="editing"
-                      :scout="scout"
-                      :event="event"
-                      :preferences="registration.preferences"
-                      :registration="registration"
-                      @done="toggleEditing()"></assignment-edit>
+                       :scout="scout"
+                       :event="event"
+                       :preferences="registration.preferences"
+                       :registration="registration"
+                       @done="toggleEditing()"></assignment-edit>
       <scout-registration v-else
                           :event="event"
                           :preferences="registrationPreferences"
@@ -37,7 +38,7 @@ import RegistrationMappers from 'mixins/RegistrationMappers';
 
 
 export default {
-  data() {
+  data () {
     return {
       editing: false,
       error: '',
@@ -45,7 +46,7 @@ export default {
     };
   },
   methods: {
-    toggleEditing() {
+    toggleEditing () {
       this.editing = !this.editing;
 
       if (!this.editing) {
@@ -60,7 +61,7 @@ export default {
   mixins: [
     RegistrationMappers
   ],
-  mounted() {
+  mounted () {
     this.loading = true;
     this.$store.dispatch('getRegistrations', this.event.id)
       .then(() => {
@@ -76,8 +77,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .edit-button {
-    margin-top: -.5em;
-    margin-right: -.5em;
-  }
+.edit-button {
+  margin-top: -.5em;
+  margin-right: -.5em;
+}
 </style>

@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="field">
-      <label class="label" for="delete-confirm">
+      <label class="label"
+             for="delete-confirm">
         <slot name="header"></slot>
       </label>
-      <div class="notification is-danger" v-if="error">
+      <div class="notification is-danger"
+           v-if="error">
         <p>{{ error }}</p>
       </div>
       <div class="control">
@@ -49,14 +51,14 @@ export default {
       default: 'Confirm Deletion'
     }
   },
-  data() {
+  data () {
     return {
       enteredText: '',
       error: ''
     }
   },
   methods: {
-    confirmDelete() {
+    confirmDelete () {
       if (this.enteredText === this.matchText) {
         this.error = '';
         this.$emit('deleteSuccess');
@@ -64,7 +66,7 @@ export default {
         this.error = 'The text you entered doesn\'t match the required text.'
       }
     },
-    cancel() {
+    cancel () {
       this.error = '';
       this.$emit('close');
     }

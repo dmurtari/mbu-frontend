@@ -34,7 +34,7 @@ export default {
     }
   },
   methods: {
-    updateValue(value) {
+    updateValue (value) {
       this.$emit('input', $(this.$refs.input).val());
     }
   }

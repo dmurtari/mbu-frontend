@@ -1,14 +1,18 @@
 <template>
   <span class="dropdown">
-    <a href="#" class="dropdown-toggle"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <a href="#"
+       class="dropdown-toggle"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="true">
       {{ title[displayKey] }}
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-      <li v-for="object in objects" :key="object">
+      <li v-for="object in objects"
+          :key="object">
         <a href="#"
-          @click="selected(object)">{{ object[displayKey] }}</a>
+           @click="selected(object)">{{ object[displayKey] }}</a>
       </li>
     </ul>
   </span>
@@ -27,18 +31,18 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       title: ''
     };
   },
   methods: {
-    selected(object) {
+    selected (object) {
       this.title = object;
       this.$emit('select', object.id);
     }
   },
-  mounted() {
+  mounted () {
     this.title = this.initial || this.objects[0];
   }
 }

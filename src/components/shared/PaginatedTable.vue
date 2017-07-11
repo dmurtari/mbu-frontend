@@ -6,14 +6,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next',
-                        prev: 'Previous'
-                      }"
+                          next: 'Next',
+                          prev: 'Previous'
+                        }"
                       :classes="{
-                        'li.number > a, li.ellipses > a': 'pagination-link',
-                        'li.left-arrow': 'pagination-previous',
-                        'li.right-arrow': 'pagination-next'
-                      }"
+                          'li.number > a, li.ellipses > a': 'pagination-link',
+                          'li.left-arrow': 'pagination-previous',
+                          'li.right-arrow': 'pagination-next'
+                        }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -37,14 +37,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next',
-                        prev: 'Previous'
-                      }"
+                          next: 'Next',
+                          prev: 'Previous'
+                        }"
                       :classes="{
-                        'li.number > a, li.ellipses > a': 'pagination-link',
-                        'li.left-arrow': 'pagination-previous',
-                        'li.right-arrow': 'pagination-next'
-                      }"
+                          'li.number > a, li.ellipses > a': 'pagination-link',
+                          'li.left-arrow': 'pagination-previous',
+                          'li.right-arrow': 'pagination-next'
+                        }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -77,13 +77,13 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       paginate: [this.target]
     };
   },
   methods: {
-    pageChanged(toPage) {
+    pageChanged (toPage) {
       let query = _.clone(this.$route.query);
       query.page = toPage;
 
@@ -92,7 +92,7 @@ export default {
       });
     }
   },
-  mounted() {
+  mounted () {
     if (this.$route.query.page) {
       this.$refs.paginator.goToPage(this.$route.query.page);
     }
@@ -101,67 +101,68 @@ export default {
 </script>
 
 <style lang="scss">
-  table.paginated-table {
-    margin-top: 2rem;
-    table-layout: fixed;
+table.paginated-table {
+  margin-top: 2rem;
+  table-layout: fixed;
 
-    .icon {
-      font-size: 16px;
-    }
-
-    .sorted-column {
-      background: #EEE;
-    }
-
-    th.sortable:hover {
-      background: #EEE;
-    }
+  .icon {
+    font-size: 16px;
   }
 
-  .pagination-list {
-    li.number {
-      background-color: white;
-      border-radius: 0px;
-      margin-right: 0rem;
-      min-width: 0em;
-      padding: 0rem;
+  .sorted-column {
+    background: #EEE;
+  }
 
-      a {
-        font-size: 1rem;
-      }
-    }
+  th.sortable:hover {
+    background: #EEE;
+  }
+}
 
-    .disabled {
-      background: #dbdbdb;
-      opacity: 0.5;
-      pointer-events: none;
+.pagination-list {
+  li.number {
+    background-color: white;
+    border-radius: 0px;
+    margin-right: 0rem;
+    min-width: 0em;
+    padding: 0rem;
 
-      a {
-        color: #7a7a7a;
-        font-size: 1rem;
-      }
-    }
-
-    .pagination-next, .pagination-previous {
-      width: auto;
+    a {
       font-size: 1rem;
-
-      .pagination-link {
-        border: none;
-      }
-    }
-
-    .pagination-previous {
-      order: 0 !important;
-    }
-
-    li.active {
-      a {
-        font-size: 1rem;
-        background-color: #00d1b2;
-        border-color: #00d1b2;
-        color: white;
-      }
     }
   }
+
+  .disabled {
+    background: #dbdbdb;
+    opacity: 0.5;
+    pointer-events: none;
+
+    a {
+      color: #7a7a7a;
+      font-size: 1rem;
+    }
+  }
+
+  .pagination-next,
+  .pagination-previous {
+    width: auto;
+    font-size: 1rem;
+
+    .pagination-link {
+      border: none;
+    }
+  }
+
+  .pagination-previous {
+    order: 0 !important;
+  }
+
+  li.active {
+    a {
+      font-size: 1rem;
+      background-color: #00d1b2;
+      border-color: #00d1b2;
+      color: white;
+    }
+  }
+}
 </style>
