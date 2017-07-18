@@ -11,6 +11,8 @@ import components from './components';
 import filters from './filters';
 
 import './assets/sass/main.scss';
+import '../node_modules/balloon-css/balloon.min.css';
+import './assets/js/jasny-bootstrap.min.js';
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
