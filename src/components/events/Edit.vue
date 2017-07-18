@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="alert alert-danger" v-if="error">
+    <div class="notification is-danger" v-if="error">
       <p>
         {{ error }}
       </p>

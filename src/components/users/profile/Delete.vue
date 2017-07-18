@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <h4 class="title is-4">Delete Your Account</h4>
-    <div class="alert alert-danger" v-if="error">
+    <div class="notification is-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
     <confirm-delete :match-text="this.firstname + ' ' + this.lastname"

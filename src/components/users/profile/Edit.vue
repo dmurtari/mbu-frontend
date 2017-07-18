@@ -2,7 +2,7 @@
   <div class="section">
     <h4 class="title is-4">Edit Your Information</h4>
     <form class="columns is-multiline">
-      <div class="alert alert-danger" v-if="error">
+      <div class="notification is-danger" v-if="error">
         {{ error }}
       </div>
       <div class="field column is-6">
