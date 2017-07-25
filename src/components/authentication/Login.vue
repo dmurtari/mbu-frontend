@@ -107,6 +107,7 @@ export default {
           this.$router.push('/');
         })
         .catch((err) => {
+          this.loading = false;
           this.error = true;
         });
     },
