@@ -53,6 +53,10 @@ export default {
     }
   },
   mounted () {
+    if (this.orderedEvents.length < 1) {
+      return;
+    }
+
     if (this.$route.query.eventId) {
       this.selectedEvent = Number(this.$route.query.eventId);
     } else if (this.showAll) {

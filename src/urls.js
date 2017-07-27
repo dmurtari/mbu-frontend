@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV || 'development';
-const API_URL = env === 'development' ? 'http://localhost:3000/api/' : 'api/'
+const API_URL = env === 'development' ? 'http://localhost:3000/api/' : '/api/'
 
 export default {
   API_URL: API_URL,
