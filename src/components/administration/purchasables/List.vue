@@ -33,18 +33,26 @@
         </div>
       </div>
     </div>
-    <button class="button is-primary"
-            v-if="!showCreate"
-            @click="toggleCreate()">Add a New Item</button>
-    <create-purchasable v-if="showCreate"
-                        @close="toggleCreate()"
-                        :eventId="eventId"></create-purchasable>
-    <loader v-if="loading" :color="'lightgray'" class="purchasables-loading"></loader>
-    <div class="purchasable-list" v-if="!loading">
-      <purchasable v-for="purchasable in purchasables"
-                  :key="purchasable.id"
-                  :purchasable="purchasable"
-                  :eventId="eventId"></purchasable>
+    <div class="notification"
+         v-if="eventId === ''">
+      Please pick an event to add offerings to. You can also
+      <router-link to="/administration/events/all">add an event</router-link>
+      if you haven't added any events already.
+    </div>
+    <div v-else>
+      <button class="button is-primary"
+              v-if="!showCreate"
+              @click="toggleCreate()">Add a New Item</button>
+      <create-purchasable v-if="showCreate"
+                          @close="toggleCreate()"
+                          :eventId="eventId"></create-purchasable>
+      <loader v-if="loading" :color="'lightgray'" class="purchasables-loading"></loader>
+      <div class="purchasable-list" v-if="!loading">
+        <purchasable v-for="purchasable in purchasables"
+                    :key="purchasable.id"
+                    :purchasable="purchasable"
+                    :eventId="eventId"></purchasable>
+      </div>
     </div>
   </div>
 </template>

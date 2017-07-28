@@ -7,9 +7,28 @@
             @click="toggleAdd()">
       Add a Badge
     </button>
-    <badge-create @close="toggleAdd()" v-show="displayAddBadge"></badge-create>
+    <badge-create @close="toggleAdd()"
+                  v-show="displayAddBadge"></badge-create>
     <div class="badge-list">
-      <badge v-for="badge in badges" :badge="badge" :key="badge.id"></badge>
+      <span v-if="badges.length < 1">
+        <div class="notification">
+          <p>
+            No badges have been added yet.
+            <span v-if="isAdmin">
+              <br>
+              You will not be able to create any merit badge offerings for an
+              event until you add badges.
+              <a @click.prevent="toggleAdd()"
+                 v-if="!displayAddBadge">
+                Add the first badge?
+              </a>
+            </span>
+          </p>
+        </div>
+      </span>
+      <badge v-for="badge in badges"
+             :badge="badge"
+             :key="badge.id"></badge>
     </div>
   </div>
 </template>
@@ -21,7 +40,7 @@ import Badge from './Badge.vue';
 import BadgeCreate from './Create.vue';
 
 export default {
-  data() {
+  data () {
     return {
       displayAddBadge: false
     };
@@ -31,12 +50,12 @@ export default {
       'isAdmin',
       'badges'
     ]),
-    totalBadges() {
+    totalBadges () {
       return this.badges.length;
     }
   },
   methods: {
-    toggleAdd() {
+    toggleAdd () {
       this.displayAddBadge = !this.displayAddBadge;
     }
   },
@@ -44,7 +63,7 @@ export default {
     'badge': Badge,
     'badge-create': BadgeCreate
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('getBadges');
   }
 }

@@ -2,7 +2,8 @@
   <span class="select">
     <select id="event-offering-select"
             @change="emitEvent()"
-            v-model="selectedEvent">
+            v-model="selectedEvent"
+            :disabled="orderedEvents.length < 1">
       <option v-if="showAll"
               :value="null">All Events</option>
       <option v-for="option in readableEvents"

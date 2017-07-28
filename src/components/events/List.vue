@@ -10,12 +10,30 @@
             @click="toggleAdd()">
       Add an Event
     </button>
-    <event-create @close="toggleAdd()" v-show="displayAddEvent"></event-create>
+    <event-create @close="toggleAdd()"
+                  v-show="displayAddEvent"></event-create>
     <div class="event-list">
+      <span v-if="orderedEvents.length < 1">
+        <div class="notification">
+          <p>
+            No events have been added yet.
+            <div v-if="isAdmin">
+              <br>
+              Scoutmasters will not be able to register any scouts for events
+              until you create an event (make sure to mark it as the current
+              semester's event)
+              <a @click.prevent="toggleAdd()"
+                 v-if="!displayAddEvent">
+                Add the first event?
+              </a>
+            </div>
+          </p>
+        </div>
+      </span>
       <event v-for="event in orderedEvents"
-            :event="event"
-            :key="event.id"
-            :currentEvent="event.id === currentEvent.id"></event>
+             :event="event"
+             :key="event.id"
+             :currentEvent="event.id === currentEvent.id"></event>
     </div>
   </div>
 </template>
@@ -27,7 +45,7 @@ import Event from './Event.vue'
 import EventCreate from './Create.vue';
 
 export default {
-  data() {
+  data () {
     return {
       displayAddEvent: false
     }
@@ -38,15 +56,15 @@ export default {
       'currentEvent',
       'isAdmin'
     ]),
-    totalEvents() {
+    totalEvents () {
       return this.orderedEvents.length;
     }
   },
   methods: {
-    isAuthorized() {
+    isAuthorized () {
       return this.profile.role === 'admin'
     },
-    toggleAdd() {
+    toggleAdd () {
       this.displayAddEvent = !this.displayAddEvent;
     }
   },
@@ -54,7 +72,7 @@ export default {
     'event': Event,
     'event-create': EventCreate
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('getEvents');
     this.$store.dispatch('getCurrentEvent');
   }

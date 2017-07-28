@@ -56,32 +56,39 @@
     <loader v-if="loading" :color="'lightgray'" class="registration-loading"></loader>
     <div class="registration-list"
          v-if="!loading">
-      <div class="notification" v-if="!isCurrentEvent">
-        <p>
-          The event you have selected is not the current MBU. You can view
-          registration information for scouts that were registered for the
-          {{ readableEvent }} event, but you can not add or modify registrations.
-        </p>
+      <div v-if="!event"
+           class="notification">
+        An event must be selected to be able to register scouts. <span v-if="allEvents.length < 1">
+        No events have been added yet, please check back later</span>
       </div>
-      <div class="notification" v-if="filteredScouts.length < 1">
-        <p>
-          No registrations exist for scouts from your troop for {{ readableEvent }}.
-        </p>
+      <div v-else>
+        <div class="notification" v-if="!isCurrentEvent">
+          <p>
+            The event you have selected is not the current MBU. You can view
+            registration information for scouts that were registered for the
+            {{ readableEvent }} event, but you can not add or modify registrations.
+          </p>
+        </div>
+        <div class="notification" v-if="filteredScouts.length < 1">
+          <p>
+            No registrations exist for scouts from your troop for {{ readableEvent }}.
+          </p>
+        </div>
+        <div class="notification" v-if="isCurrentEvent">
+          You can register scouts for the {{ readableEvent }} MBU and modify
+          existing registrations during the time period that registration is open
+          ({{ event.registration_open | shortDate}} - {{ event.registration_close | shortDate}}).
+          <b>Additions and modifications to registrations cannot be made outside
+          of these dates</b> so be sure to make any changes before registration
+          closes.
+        </div>
+        <registration-row v-for="scout in filteredScouts"
+                          :key="scout.id"
+                          :event="event"
+                          :registrationOpen="registrationOpen"
+                          :eventId="eventId"
+                          :scout="scout"></registration-row>
       </div>
-      <div class="notification" v-if="isCurrentEvent">
-        You can register scouts for the {{ readableEvent }} MBU and modify
-        existing registrations during the time period that registration is open
-        ({{ event.registration_open | shortDate}} - {{ event.registration_close | shortDate}}).
-        <b>Additions and modifications to registrations cannot be made outside
-        of these dates</b> so be sure to make any changes before registration
-        closes.
-      </div>
-      <registration-row v-for="scout in filteredScouts"
-                        :key="scout.id"
-                        :event="event"
-                        :registrationOpen="registrationOpen"
-                        :eventId="eventId"
-                        :scout="scout"></registration-row>
     </div>
   </div>
 </template>

@@ -4,13 +4,14 @@
       Manage Merit Badge Offerings
     </h4>
     <p>
-      Use this page to create, edit, and remove badge offerings for different events.
-      These badges are what Scoutmasters will see as being offered for an event.
-      Add badges and edit details such which periods each badge will be offered,
-      how many class periods each badge will take to teach, and how much scouts
-      need to pay to attend class for a badge.
+      Use this page to create, edit, and remove badge offerings for different
+      events. These badges are what Scoutmasters will see as being offered for
+      an event. Add badges and edit details such which periods each badge will
+      be offered, how many class periods each badge will take to teach, and how
+       much scouts need to pay to attend class for a badge.
     </p>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -34,7 +35,8 @@
         <div class="column is-6">
           <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label" for="offering-list-offered-filter">Filter&nbsp;by:</label>
+              <label class="label"
+                     for="offering-list-offered-filter">Filter&nbsp;by:</label>
             </div>
             <div class="field-body">
               <div class="field">
@@ -57,13 +59,22 @@
         </div>
       </div>
     </div>
-    <loader v-if="loading" :color="'lightgray'" class="offering-loading"></loader>
+    <loader v-if="loading"
+            :color="'lightgray'"
+            class="offering-loading"></loader>
     <div class="offering-list"
          v-if="!loading">
-      <badge-row v-for="badge in filteredOfferings"
-                :key="badge.id"
-                :eventId="eventId"
-                :badge="badge"></badge-row>
+      <div class="notification" v-if="eventId === ''">
+        Please pick an event to add offerings to. You can also
+        <router-link to="/administration/events/all">add an event</router-link>
+        if you haven't added any events already.
+      </div>
+      <div v-else>
+        <badge-row v-for="badge in filteredOfferings"
+                  :key="badge.id"
+                  :eventId="eventId"
+                  :badge="badge"></badge-row>
+      </div>
     </div>
   </div>
 </template>
@@ -75,14 +86,14 @@ import BadgeRow from './BadgeRow.vue';
 import EventsDropdown from '../../shared/EventsDropdown.vue';
 
 export default {
-  data() {
+  data () {
     return {
       eventId: '',
       offeredFilter: 'all',
       offeredFilters: [
         { text: 'All', value: 'all' },
         { text: 'Offered badges', value: 'offered' },
-        { text: 'Unoffered badges', value: 'unoffered'}
+        { text: 'Unoffered badges', value: 'unoffered' }
       ],
       error: '',
       loading: false
@@ -92,7 +103,7 @@ export default {
     ...mapGetters([
       'badgeIdsAndNames'
     ]),
-    filteredOfferings() {
+    filteredOfferings () {
       if (this.offeredFilter === 'offered') {
         return _.filter(this.offeringList, (offering) => {
           return !_.isEmpty(offering.periods);
@@ -105,7 +116,7 @@ export default {
         return this.offeringList;
       }
     },
-    offeringList() {
+    offeringList () {
       // Combines offerings for an event with other badges not offered at that event
       let offerings = _.map(this.$store.getters.offeringsForEvent(this.eventId), 'details');
       return _.map(this.badgeIdsAndNames, (badge) => {
@@ -122,11 +133,11 @@ export default {
     }
   },
   methods: {
-    pickEvent(eventId) {
+    pickEvent (eventId) {
       this.eventId = eventId;
     }
   },
-  mounted() {
+  mounted () {
     this.loading = true;
     this.$store.dispatch('getBadges')
       .then(() => {
@@ -146,14 +157,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .offering-list-filters {
-    margin-top: 2em;
-  }
+.offering-list-filters {
+  margin-top: 2em;
+}
 
-  .offering-loading {
-    margin-top: 5em;
-    width: 5em;
-    display: block;
-    margin: auto;
-  }
+.offering-loading {
+  margin-top: 5em;
+  width: 5em;
+  display: block;
+  margin: auto;
+}
 </style>
