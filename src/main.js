@@ -35,12 +35,7 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
   }
 
-  Promise.all([
-    store.dispatch('getEvents'),
-    store.dispatch('getCurrentEvent')
-  ])
-    .then(() => next())
-    .catch(() => next(false));
+  return next();
 });
 
 new Vue({
