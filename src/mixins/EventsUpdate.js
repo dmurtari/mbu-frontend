@@ -1,6 +1,3 @@
-import ClosableError from 'components/shared/ClosableError.vue';
-import SpinnerPage from 'components/shared/SpinnerPage.vue';
-
 export default {
   data() {
     return {
@@ -22,9 +19,5 @@ export default {
         this.eventLoading = false;
         this.eventLoadError = 'Failed to fetch event data. Please refresh to try again.';
       });
-  },
-  components: {
-    ClosableError,
-    SpinnerPage
   }
 }

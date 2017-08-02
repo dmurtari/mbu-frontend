@@ -4,6 +4,8 @@ import EventsDropdown from './components/shared/EventsDropdown.vue';
 import InlineDropdown from './components/shared/InlineDropdown.vue';
 import PaginatedTable from './components/shared/PaginatedTable.vue';
 import HelpTag from './components/shared/HelpTag.vue';
+import SpinnerPage from './components/shared/SpinnerPage.vue';
+import ClosableError from './components/shared/ClosableError.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default function(Vue) {
@@ -14,4 +16,6 @@ export default function(Vue) {
   Vue.component('paginated-table', PaginatedTable);
   Vue.component('help-tag', HelpTag);
   Vue.component('loader', PulseLoader);
+  Vue.component('spinner-page', SpinnerPage);
+  Vue.component('closable-error', ClosableError);
 }

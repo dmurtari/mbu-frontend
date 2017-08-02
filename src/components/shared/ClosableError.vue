@@ -4,7 +4,7 @@
     <button class="delete"
             @click="dismiss"></button>
     <slot>
-      An error occured. Please refresh the page to try again.
+      An error occured. Please refresh the page to try again, or come back later.
     </slot>
   </div>
 </template>
