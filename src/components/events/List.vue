@@ -21,12 +21,11 @@
             <p>
               No events have been added yet.
               <div v-if="isAdmin">
-                <br>
-                Scoutmasters will not be able to register any scouts for events
-                until you create an event (make sure to mark it as the current
-                semester's event)
+                <br> Scoutmasters will not be able to register any scouts for events until
+                you create an event (make sure to mark it as the current semester's
+                event)
                 <a @click.prevent="toggleAdd()"
-                  v-if="!displayAddEvent">
+                   v-if="!displayAddEvent">
                   Add the first event?
                 </a>
               </div>
@@ -34,9 +33,9 @@
           </div>
         </span>
         <event v-for="event in orderedEvents"
-              :event="event"
-              :key="event.id"
-              :currentEvent="event.id === currentEvent.id"></event>
+               :event="event"
+               :key="event.id"
+               :currentEvent="event.id === currentEvent.id"></event>
       </div>
     </div>
   </div>

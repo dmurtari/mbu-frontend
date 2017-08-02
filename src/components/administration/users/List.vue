@@ -11,7 +11,8 @@
         <div class="column is-6">
           <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label" for="user-list-role-filter">Role:</label>
+              <label class="label"
+                     for="user-list-role-filter">Role:</label>
             </div>
             <div class="field-body">
               <div class="field">
@@ -34,14 +35,15 @@
         <div class="column is-6">
           <div class="field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label" for="user-list-find">Search:</label>
+              <label class="label"
+                     for="user-list-find">Search:</label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control">
                   <input class="input"
-                        id="user-list-find"
-                        v-model="search"></input>
+                         id="user-list-find"
+                         v-model="search"></input>
                 </div>
               </div>
             </div>
@@ -50,7 +52,7 @@
       </div>
     </div>
     <general-table v-if="selectedRole === 'all' || selectedRole === 'admin'"
-                  :users="usersToDisplay"></general-table>
+                   :users="usersToDisplay"></general-table>
     <coordinators-table v-if="selectedRole === 'coordinator'"
                         :coordinators="usersToDisplay"></coordinators-table>
   </div>
@@ -64,7 +66,7 @@ import GeneralList from './GeneralList.vue';
 import CoordinatorList from './CoordinatorList.vue';
 
 export default {
-  data() {
+  data () {
     return {
       selectedRole: 'all',
       search: '',
@@ -81,7 +83,7 @@ export default {
     ...mapGetters([
       'users',
     ]),
-    usersInRole() {
+    usersInRole () {
       if (this.selectedRole === 'all') {
         return this.users;
       } else {
@@ -90,7 +92,7 @@ export default {
         });
       }
     },
-    usersToDisplay() {
+    usersToDisplay () {
       return _.filter(this.usersInRole, (user) => {
         return user.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });

@@ -3,85 +3,81 @@
     <p>
       This is a list of all scouts that have ever been registered for MBU Online.
     </p>
-    <div class="notification is-danger"
-         v-if="error">
-      <button class="delete"
-              @click.prevent="dismissError()"></button>
-      <p>
-        {{ error }}
-      </p>
+    <closable-error v-if="error || eventLoadError"></closable-error>
+    <spinner-page v-if="loading || eventLoading"></spinner-page>
+    <div v-else>
+      <filter-box :troop.sync="troopFilter"
+                  :eventId.sync="eventsFilter"
+                  :search.sync="search"
+                  :troops="troops"
+                  class="scout-list-filters"></filter-box>
+      <div v-if="filteredScouts.length > 0">
+        <paginated-table :target="'scouts'"
+                         :contents="filteredScouts"
+                         :per="20"
+                         :showLinks="true">
+          <thead slot="header">
+            <tr>
+              <th @click="sort('firstname')"
+                  class="sortable"
+                  :class="{ 'sorted-column': order === 'firstname' }">
+                First Name
+                <span class="icon is-small"
+                      v-if="order === 'firstname'">
+                  <span v-if="sortAscending"
+                        class="fa fa-sort-alpha-asc"></span>
+                  <span v-else
+                        class="fa fa-sort-alpha-desc"></span>
+                </span>
+              </th>
+              <th @click="sort('lastname')"
+                  class="sortable"
+                  :class="{ 'sorted-column': order === 'lastname' }">
+                Last Name
+                <span class="icon is-small"
+                      v-if="order === 'lastname'">
+                  <span v-if="sortAscending"
+                        class="fa fa-sort-alpha-asc"></span>
+                  <span v-else
+                        class="fa fa-sort-alpha-desc"></span>
+                </span>
+              </th>
+              <th @click="sort('troop')"
+                  class="sortable"
+                  :class="{ 'sorted-column': order === 'troop' }">
+                Troop
+                <span class="icon is-small"
+                      v-if="order === 'troop'">
+                  <span v-if="sortAscending"
+                        class="fa fa-sort-numeric-asc"></span>
+                  <span v-else
+                        class="fa fa-sort-numeric-desc"></span>
+                </span>
+              </th>
+              <th>Coordinator</th>
+              <th colspan="1"></th>
+            </tr>
+          </thead>
+          <template slot="row"
+                    scope="props">
+            <scout-row :id="props.item.scout_id"
+                       :firstname="props.item.firstname"
+                       :lastname="props.item.lastname"
+                       :troop="props.item.troop"
+                       :registration="props.item.registrations"
+                       :user="props.item.user">
+            </scout-row>
+          </template>
+        </paginated-table>
+      </div>
+      <div class="notification"
+           v-else>
+        <p>
+          There are no scouts that match the criteria you specified.
+        </p>
+      </div>
+      <router-view></router-view>
     </div>
-    <filter-box :troop.sync="troopFilter"
-                :eventId.sync="eventsFilter"
-                :search.sync="search"
-                :troops="troops"
-                class="scout-list-filters"></filter-box>
-    <div v-if="filteredScouts.length > 0">
-      <paginated-table :target="'scouts'"
-                       :contents="filteredScouts"
-                       :per="20"
-                       :showLinks="true">
-        <thead slot="header">
-          <tr>
-            <th @click="sort('firstname')"
-                class="sortable"
-                :class="{ 'sorted-column': order === 'firstname' }">
-              First Name
-              <span class="icon is-small"
-                    v-if="order === 'firstname'">
-                <span v-if="sortAscending"
-                      class="fa fa-sort-alpha-asc"></span>
-                <span v-else
-                      class="fa fa-sort-alpha-desc"></span>
-              </span>
-            </th>
-            <th @click="sort('lastname')"
-                class="sortable"
-                :class="{ 'sorted-column': order === 'lastname' }">
-              Last Name
-              <span class="icon is-small"
-                    v-if="order === 'lastname'">
-                <span v-if="sortAscending"
-                      class="fa fa-sort-alpha-asc"></span>
-                <span v-else
-                      class="fa fa-sort-alpha-desc"></span>
-              </span>
-            </th>
-            <th @click="sort('troop')"
-                class="sortable"
-                :class="{ 'sorted-column': order === 'troop' }">
-              Troop
-              <span class="icon is-small"
-                    v-if="order === 'troop'">
-                <span v-if="sortAscending"
-                      class="fa fa-sort-numeric-asc"></span>
-                <span v-else
-                      class="fa fa-sort-numeric-desc"></span>
-              </span>
-            </th>
-            <th>Coordinator</th>
-            <th colspan="1"></th>
-          </tr>
-        </thead>
-        <template slot="row"
-                  scope="props">
-          <scout-row :id="props.item.scout_id"
-                     :firstname="props.item.firstname"
-                     :lastname="props.item.lastname"
-                     :troop="props.item.troop"
-                     :registration="props.item.registrations"
-                     :user="props.item.user">
-          </scout-row>
-        </template>
-      </paginated-table>
-    </div>
-    <div class="notification"
-         v-else>
-      <p>
-        There are no scouts that match the criteria you specified.
-      </p>
-    </div>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -92,12 +88,14 @@ import _ from 'lodash';
 import URLS from 'urls';
 import ScoutRow from './ScoutRow.vue';
 import FilterBox from 'components/shared/FilterBox.vue';
+import EventsUpdate from 'mixins/EventsUpdate';
 
 export default {
   data () {
     return {
       error: '',
       eventsFilter: null,
+      loading: false,
       scouts: [],
       search: '',
       order: 'troop',
@@ -150,7 +148,7 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.loading = true;
     axios.get(URLS.SCOUTS_URL)
       .then((response) => {
@@ -166,7 +164,10 @@ export default {
   components: {
     FilterBox,
     ScoutRow
-  }
+  },
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 

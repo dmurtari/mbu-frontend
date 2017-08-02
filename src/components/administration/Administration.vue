@@ -4,7 +4,10 @@
     <h5 class="subtitle is-5">
       Manage users, edit scouts and events, and view event details.
     </h5>
-    <div class="columns">
+    <closable-error v-if="error">{{ error }}</closable-error>
+    <spinner-page v-if="loading"></spinner-page>
+    <div v-else
+         class="columns">
       <div class="column is-narrow sidebar">
         <aside class="menu">
           <p class="menu-label">Navigation</p>
@@ -137,13 +140,21 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
+    this.loading = true;
     this.$store.dispatch('getUsers')
       .then(() => {
         if (this.unapprovedUsers.length > 0) {
           this.showUserMenu = true;
         }
-      });
+
+        this.loading = false;
+        this.error = '';
+      })
+      .catch(() => {
+        this.loading = false;
+        this.error = 'Failed to load users. Please refresh or try later.';
+      })
   }
 }
 </script>
