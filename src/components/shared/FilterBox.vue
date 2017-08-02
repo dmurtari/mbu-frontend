@@ -79,7 +79,12 @@ export default {
     },
     updateQuery (field, value) {
       let query = _.clone(this.$route.query);
-      query[field] = value;
+
+      if (value === null) {
+        delete query[field];
+      } else {
+        query[field] = value;
+      }
 
       this.$router.replace({
         query: query
