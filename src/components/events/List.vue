@@ -5,41 +5,46 @@
         All Events ({{ totalEvents }} Total)
       </h3>
     </slot>
-    <button class="button is-primary"
-            v-if="isAdmin && !displayAddEvent"
-            @click="toggleAdd()">
-      Add an Event
-    </button>
-    <event-create @close="toggleAdd()"
-                  v-show="displayAddEvent"></event-create>
-    <div class="event-list">
-      <span v-if="orderedEvents.length < 1">
-        <div class="notification">
-          <p>
-            No events have been added yet.
-            <div v-if="isAdmin">
-              <br>
-              Scoutmasters will not be able to register any scouts for events
-              until you create an event (make sure to mark it as the current
-              semester's event)
-              <a @click.prevent="toggleAdd()"
-                 v-if="!displayAddEvent">
-                Add the first event?
-              </a>
-            </div>
-          </p>
-        </div>
-      </span>
-      <event v-for="event in orderedEvents"
-             :event="event"
-             :key="event.id"
-             :currentEvent="event.id === currentEvent.id"></event>
+    <closable-error v-if="eventLoadError"></closable-error>
+    <spinner-page v-if="eventLoading"></spinner-page>
+    <div v-else>
+      <button class="button is-primary"
+              v-if="isAdmin && !displayAddEvent"
+              @click="toggleAdd()">
+        Add an Event
+      </button>
+      <event-create @close="toggleAdd()"
+                    v-show="displayAddEvent"></event-create>
+      <div class="event-list">
+        <span v-if="orderedEvents.length < 1">
+          <div class="notification">
+            <p>
+              No events have been added yet.
+              <div v-if="isAdmin">
+                <br>
+                Scoutmasters will not be able to register any scouts for events
+                until you create an event (make sure to mark it as the current
+                semester's event)
+                <a @click.prevent="toggleAdd()"
+                  v-if="!displayAddEvent">
+                  Add the first event?
+                </a>
+              </div>
+            </p>
+          </div>
+        </span>
+        <event v-for="event in orderedEvents"
+              :event="event"
+              :key="event.id"
+              :currentEvent="event.id === currentEvent.id"></event>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import EventsUpdate from 'mixins/EventsUpdate';
 
 import Event from './Event.vue'
 import EventCreate from './Create.vue';
@@ -72,10 +77,9 @@ export default {
     'event': Event,
     'event-create': EventCreate
   },
-  mounted () {
-    this.$store.dispatch('getEvents');
-    this.$store.dispatch('getCurrentEvent');
-  }
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 
