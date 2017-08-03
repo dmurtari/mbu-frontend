@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="notification is-danger" v-if="error">
-      <button class="delete" @click="clearError()"></button>
-      <p>{{ error }}</p>
-    </div>
+    <closable-error v-if="error"
+                    @dismissed="clearError()">{{ error }}</closable-error>
+    <spinner-page v-if="loading"></spinner-page>
     <div v-else>
       <span v-if="offering.requirements && offering.requirements.length > 0">
-        Requirements are: <b>{{ readableRequirements }}</b>
+        Requirements are:
+        <b>{{ readableRequirements }}</b>
       </span>
       <span v-else>
         Requirements are not available.
@@ -30,8 +30,9 @@ import ScoutsForClass from './ScoutsForClass';
 import Attendees from './Attendees.vue';
 
 export default {
-  data() {
+  data () {
     return {
+      loading: false,
       badge: '',
       error: '',
       offering: {}
@@ -42,10 +43,10 @@ export default {
       'allEvents',
       'eventClasses'
     ]),
-    event() {
+    event () {
       return _.find(this.allEvents, { id: this.eventId }) || {};
     },
-    readableRequirements() {
+    readableRequirements () {
       return _.join(_.orderBy(this.offering.requirements), ', ');
     }
   },
@@ -60,10 +61,10 @@ export default {
     }
   },
   methods: {
-    clearError() {
+    clearError () {
       this.error = '';
     },
-    refreshDetails() {
+    refreshDetails () {
       let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
       _.forEach(event.classes, (availableClass) => {
         if (availableClass.offering_id === this.offeringId) {
@@ -75,27 +76,23 @@ export default {
 
       this.$emit('title', this.badge + ' (' + this.event.semester + ' ' + this.event.year + ')');
     },
-    triggerRefresh() {
+    triggerRefresh () {
+      this.loading = true
       this.$store.dispatch('getClasses', this.eventId)
         .then(() => {
           this.refreshDetails()
+          this.loading = false;
           this.error = '';
         })
         .catch(() => {
+          this.loading = false;
           this.error = 'Unable to load class details.';
         });
     }
   },
-  mounted() {
+  created () {
     if (this.eventClasses.length < 1) {
-      this.$store.dispatch('getClasses', this.eventId)
-        .then(() => {
-          this.refreshDetails()
-          this.error = '';
-        })
-        .catch(() => {
-          this.error = 'Unable to load class details.';
-        });
+      this.triggerRefresh();
     } else {
       this.refreshDetails();
     }
@@ -107,11 +104,11 @@ export default {
   mixins: [
     ScoutsForClass
   ],
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter (to, from, next) {
     if (store.getters.eventClasses.length < 1) {
       store.dispatch('getClasses', to.params.eventId)
-        .then(() => next() )
-        .catch(() => next(false) );
+        .then(() => next())
+        .catch(() => next(false));
     } else {
       next();
     }

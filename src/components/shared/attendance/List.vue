@@ -2,36 +2,33 @@
   <div>
     <h4 class="title is-4">Manage Class Assignments</h4>
     <p>
-      Use this page to manage scouts that are attending an event. You can view
-      merit badges that scouts have requested, and assign scouts to merit badges.
+      Use this page to manage scouts that are attending an event. You can view merit badges
+      that scouts have requested, and assign scouts to merit badges.
     </p>
-    <div class="notification is-danger"
-         v-if="error">
-      <p>
-        {{ error }}
-      </p>
-    </div>
-    <filter-box :troop.sync="troopFilter"
-                :eventId.sync="selectedEventId"
-                :search.sync="search"
-                :troops="troops"
-                class="scout-list-filters"></filter-box>
-    <loader v-if="loading"
-            :color="'lightgray'"
-            class="registrations-loading"></loader>
-    <div class="registration-list"
-         v-if="!loading">
-      <div v-if="filteredRegistrations.length > 0">
-        <attendance-row v-for="registration in filteredRegistrations"
-                        :key="registration.id"
-                        :registration="registration"
-                        :event="event"></attendance-row>
-      </div>
-      <div class="notification"
+    <closable-error v-if="eventLoadError"></closable-error>
+    <spinner-page v-if="eventLoading"></spinner-page>
+    <div v-else>
+      <filter-box :troop.sync="troopFilter"
+                  :eventId.sync="selectedEventId"
+                  :search.sync="search"
+                  :troops="troops"
+                  class="scout-list-filters"></filter-box>
+      <spinner-page v-if="loading"></spinner-page>
+      <div class="registration-list"
            v-else>
-        <p>
-          There are no scouts that match the criteria you specified.
-        </p>
+        <closable-error v-if="error">{{ error }}</closable-error>
+        <div v-if="filteredRegistrations.length > 0">
+          <attendance-row v-for="registration in filteredRegistrations"
+                          :key="registration.id"
+                          :registration="registration"
+                          :event="event"></attendance-row>
+        </div>
+        <div class="notification"
+             v-else>
+          <p>
+            There are no scouts that match the criteria you specified.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -40,6 +37,7 @@
 <script>
 import AttendanceRow from './AttendanceRow.vue';
 import FilterBox from 'components/shared/FilterBox.vue';
+import EventsUpdate from 'mixins/EventsUpdate';
 
 import { mapGetters } from 'vuex';
 import _ from 'lodash'
@@ -115,7 +113,10 @@ export default {
   components: {
     FilterBox,
     AttendanceRow
-  }
+  },
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 

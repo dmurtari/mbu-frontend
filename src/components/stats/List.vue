@@ -1,119 +1,62 @@
 <template>
   <div>
-    <div class="box attendance-list-filters">
-      <div class="columns is-multiline">
-        <div class="column is-6 is-4-widescreen">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">For&nbsp;Event:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <events-dropdown @select="setEvent($event)"></events-dropdown>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6 is-4-widescreen">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">For&nbsp;Troop:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <span class="input-group select">
-                    <select class="input"
-                            v-model="troopFilter">
-                      <option :value="null">All Troops</option>
-                      <option v-for="troop in troops"
-                              :value="troop"
-                              :key="troop">
-                        {{ troop }}
-                      </option>
-                    </select>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-6 is-4-widescreen">
-          <div class="search-container field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label"
-                     for="attendance-list-find">By&nbsp;Scout:</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input class="input"
-                         id="attndance-list-find"
-                         v-model="search"></input>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <loader v-if="loading"
-            :color="'lightgray'"
-            class="loader-centered"></loader>
-    <div v-else
-         id="printable">
-      <div class="notification is-danger"
-           v-if="error">
-        <button class="delete"
-                @click.prevent="dismissError()"></button>
-        <p>{{ error }}</p>
-      </div>
-      <div class="attendance-list"
-           v-if="filteredRegistrations.length > 0">
-        <div class="box stats-container">
-          <h5 class="title is-5">
-            Event Overview for {{ event.semester }} {{ event.year }}
-            <div class="is-pulled-right">
-              <button class="button print-hidden"
-                      v-if="!printing"
-                      @click="print()">
-                <span class="icon is-small">
-                  <i class="fa fa-print"></i>
-                </span>
-                <span>Print</span>
-              </button>
-            </div>
-          </h5>
-          <troop-stats :event="this.event"
-                       :registrations="this.filteredRegistrations"></troop-stats>
-        </div>
-        <div class="tabs is-centered print-hidden">
-          <ul>
-            <router-link :to="listLink"
-                         tag="li"
-                         active-class="is-active">
-              <a>List View</a>
-            </router-link>
-            <router-link :to="detailLink"
-                         tag="li"
-                         active-class="is-active">
-              <a>Detail View</a>
-            </router-link>
-          </ul>
-        </div>
-        <div id="print-break-before">
-        </div>
-        <router-view :event="this.event"
-                     :registrations="this.filteredRegistrations"></router-view>
-      </div>
+    <spinner-page v-if="eventLoading"></spinner-page>
+    <div v-else>
+      <filter-box :troop.sync="troopFilter"
+                  :eventId.sync="eventId"
+                  :search.sync="search"
+                  :troops="troops"
+                  class="attendance-list-filters"></filter-box>
+      <closable-error v-if="error"
+                      @dismissed="dismissError()">{{ error }}</closable-error>
+      <spinner-page v-if="loading"></spinner-page>
       <div v-else
-           class="notification">
-        <p>
-          No attendance records match the selected filters. Try selecting a
-          different event, or searching for another scout.
-        </p>
+           id="printable">
+        <div class="attendance-list"
+             v-if="filteredRegistrations.length > 0">
+          <div class="box stats-container">
+            <h5 class="title is-5">
+              Event Overview for {{ event.semester }} {{ event.year }}
+              <div class="is-pulled-right">
+                <button class="button print-hidden"
+                        v-if="!printing"
+                        @click="print()">
+                  <span class="icon is-small">
+                    <i class="fa fa-print"></i>
+                  </span>
+                  <span>Print</span>
+                </button>
+              </div>
+            </h5>
+            <troop-stats :event="this.event"
+                         :registrations="this.filteredRegistrations"></troop-stats>
+          </div>
+          <div class="tabs is-centered print-hidden">
+            <ul>
+              <router-link :to="listLink"
+                           tag="li"
+                           active-class="is-active">
+                <a>List View</a>
+              </router-link>
+              <router-link :to="detailLink"
+                           tag="li"
+                           active-class="is-active">
+                <a>Detail View</a>
+              </router-link>
+            </ul>
+          </div>
+          <div id="print-break-before">
+          </div>
+          <router-view :event="this.event"
+                       :registrations="this.filteredRegistrations"></router-view>
+        </div>
+        <div v-else
+             class="notification">
+          <p>
+            No attendance records match the selected filters. Try selecting a different event,
+            or searching for another scout.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -122,9 +65,9 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import EventsDropdown from '../shared/EventsDropdown.vue';
-import RegistrationTable from './RegistrationTable.vue';
+import EventsUpdate from 'mixins/EventsUpdate';
 import TroopStats from './TroopStats.vue';
+import FilterBox from 'components/shared/FilterBox.vue';
 
 export default {
   props: {
@@ -194,13 +137,14 @@ export default {
     },
     print () {
       window.print();
-    },
-    setEvent (eventId) {
-      this.eventId = eventId;
+    }
+  },
+  watch: {
+    eventId () {
       this.loading = true;
       this.totalDue = null;
 
-      this.$store.dispatch('getRegistrations', eventId)
+      this.$store.dispatch('getRegistrations', this.eventId)
         .then(() => {
           this.loading = false;
           this.error = '';
@@ -209,15 +153,15 @@ export default {
           this.loading = false;
           this.error = 'Failed to get registration information for this event';
         });
-    },
-    setView (view) {
-      this.view = view;
     }
   },
   components: {
-    EventsDropdown,
+    FilterBox,
     TroopStats
-  }
+  },
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 

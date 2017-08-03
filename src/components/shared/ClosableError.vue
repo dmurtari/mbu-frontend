@@ -19,6 +19,7 @@ export default {
   methods: {
     dismiss () {
       this.dismissed = true;
+      this.$emit('dismissed');
     }
   }
 }

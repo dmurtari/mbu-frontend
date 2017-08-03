@@ -1,14 +1,12 @@
 <template>
   <div>
     <p>
-      These are the classes for an event based off of the badges that are being
-      offered at an event and the scouts that are assigned to each period.
+      These are the classes for an event based off of the badges that are being offered
+      at an event and the scouts that are assigned to each period.
       <b>This page is for viewing scout assignments only</b>
-      <span v-if="isAdmin"> to edit badges
-      that are offered for an event, use the <router-link
-      to="/administration/events/offerings">offerings page</router-link>.
-      To change a scout's badge assignments, use the <router-link
-      to="/administration/scouts/assignments">assignments page</router-link>.
+      <span v-if="isAdmin"> to edit badges that are offered for an event, use the
+        <router-link to="/administration/events/offerings">offerings page</router-link>. To change a scout's badge assignments, use the
+        <router-link to="/administration/scouts/assignments">assignments page</router-link>.
       </span>
     </p>
     <div class="box class-list-filters">
@@ -30,14 +28,15 @@
         <div class="column is-6">
           <div class="search-container field is-horizontal">
             <div class="field-label is-normal">
-              <label class="label" for="class-list-find">Badge:</label>
+              <label class="label"
+                     for="class-list-find">Badge:</label>
             </div>
             <div class="field-body">
               <div class="field">
                 <div class="control ">
                   <input class="input is-expanded"
-                        id="class-list-find"
-                        v-model="search"></input>
+                         id="class-list-find"
+                         v-model="search"></input>
                 </div>
               </div>
             </div>
@@ -45,17 +44,11 @@
         </div>
       </div>
     </div>
-    <div class="notification is-danger" v-if="error">
-      <button class="delete" @click.prevent="dismissError()"></button>
-      <p>
-        {{ error }}
-      </p>
-    </div>
-    <loader v-if="loading" :color="'lightgray'" class="class-loading"></loader>
-    <div class="class-list"
-         v-if="!loading">
-    </div>
-    <table class="table is-striped">
+    <closable-error v-if="error"
+                    @dismissed="dismissError()">{{ error }}</closable-error>
+    <spinner-page v-if="loading"></spinner-page>
+    <table v-else
+           class="table is-striped">
       <thead>
         <tr>
           <th>Badge</th>
@@ -87,7 +80,7 @@ import { mapGetters } from 'vuex';
 import AttendanceRow from './AttendanceRow.vue';
 
 export default {
-  data() {
+  data () {
     return {
       error: '',
       eventId: 1,
@@ -101,27 +94,27 @@ export default {
       'eventClasses',
       'isAdmin'
     ]),
-    event() {
+    event () {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
-    classes() {
-      let event =  _.find(this.eventClasses, { eventId: this.eventId }) || {};
+    classes () {
+      let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
       return event.classes;
     },
-    orderedClasses() {
+    orderedClasses () {
       return _.orderBy(this.classes, 'badge.name');
     },
-    filteredClass() {
+    filteredClass () {
       return _.filter(this.orderedClasses, (classObject) => {
         return classObject.badge.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
     }
   },
   methods: {
-    dismissError() {
+    dismissError () {
       this.error = '';
     },
-    setEvent(eventId) {
+    setEvent (eventId) {
       this.eventId = eventId;
       this.loading = true;
       this.$store.dispatch('getClasses', eventId)
@@ -142,14 +135,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .class-list-filters {
-    margin-top: 2em;
-  }
+.class-list-filters {
+  margin-top: 2em;
+}
 
-  .class-loading {
-    margin-top: 5em;
-    width: 5em;
-    display: block;
-    margin: auto;
-  }
+.class-loading {
+  margin-top: 5em;
+  width: 5em;
+  display: block;
+  margin: auto;
+}
 </style>

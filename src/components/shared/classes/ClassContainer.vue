@@ -9,28 +9,36 @@
       </router-link>
       /&nbsp{{ title }}
     </h4>
-    <router-view @title="setTitle($event)"></router-view>
+    <closable-error v-if="eventLoadError"></closable-error>
+    <spinner-page v-if="eventLoading"></spinner-page>
+    <router-view v-else
+                 @title="setTitle($event)"></router-view>
   </div>
 </template>
 
 <script>
+import EventsUpdate from 'mixins/EventsUpdate';
+
 const listRegex = /.*all\/?$/
 
 export default {
-  data() {
+  data () {
     return {
       title: 'Class Details'
     };
   },
   computed: {
-    isList() {
+    isList () {
       return listRegex.test(this.$route.path);
     }
   },
   methods: {
-    setTitle(title) {
+    setTitle (title) {
       this.title = title;
     }
-  }
+  },
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>

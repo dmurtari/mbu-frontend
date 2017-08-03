@@ -154,7 +154,7 @@ export default [
         ]
       }, {
         path: 'stats',
-        component: TeacherStats,
+        component: AdminStats,
         meta: { title: 'MBU Online | Statistics' },
         beforeEnter: (to, from, next) => {
           if (to.fullPath === '/administration/stats' || to.fullPath === '/administration/stats/') {
