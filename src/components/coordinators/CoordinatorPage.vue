@@ -49,4 +49,8 @@ export default {
   padding-right: 2rem;
   min-width: 17rem;
 }
+
+.subtitle {
+  padding-top: 1rem;
+}
 </style>
