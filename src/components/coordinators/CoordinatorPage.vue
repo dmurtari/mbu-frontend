@@ -2,16 +2,19 @@
   <div>
     <h3 class="title is-3">Troop Administration</h3>
     <h5 class="subtitle is-5">
-      From here, you can access all of the functionality that you will need to
-      register scouts and view records for Merit Badge University events.
+      From here, you can access all of the functionality that you will need to register
+      scouts and view records for Merit Badge University events.
     </h5>
-    <div class="columns">
+    <closable-error v-if="eventLoadError"></closable-error>
+    <spinner-page v-if="eventLoading"></spinner-page>
+    <div v-else
+         class="columns">
       <div class="column is-narrow sidebar">
         <aside class="menu">
           <p class="menu-label">Navigation</p>
           <ul class="menu-list">
             <router-link to="/coordinator/home"
-                        active-class="is-active">Home</router-link>
+                         active-class="is-active">Home</router-link>
           </ul>
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
@@ -25,9 +28,6 @@
         </aside>
       </div>
       <div class="column auto">
-        <div class="notification is-danger" v-if="error">
-          <p>{{ error }}</p>
-        </div>
         <router-view></router-view>
       </div>
     </div>
@@ -35,42 +35,18 @@
 </template>
 
 <script>
-import store from '../../store'
+import EventsUpdate from 'mixins/EventsUpdate';
 
 export default {
-  data() {
-    return {
-      error: '',
-      loading: true
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    store.dispatch('getProfile')
-      .then(() => {
-        return Promise.all([
-          store.dispatch('getScouts', store.state.authentication.profile.id),
-          store.dispatch('getEvents'),
-          store.dispatch('getBadges')
-        ])
-      })
-      .then(() => {
-        next(vm => {
-          vm.loading = false;
-        });
-      })
-      .catch(() => {
-        next(vm => {
-          vm.loading = false;
-          vm.error = 'Unable to fetch data from server. Please try again.';
-        })
-      })
-  }
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 
 <style lang="scss" scoped>
-  .sidebar {
-    padding-right: 2rem;
-    min-width: 17rem;
-  }
+.sidebar {
+  padding-right: 2rem;
+  min-width: 17rem;
+}
 </style>
