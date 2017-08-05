@@ -38,6 +38,8 @@
                     {{ unapprovedUsers.length }}
                   </span>
                 </router-link>
+                <router-link to="/administration/users/admins"
+                             active-class="is-active">Administrators</router-link>
               </ul>
             </li>
           </ul>

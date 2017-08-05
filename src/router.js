@@ -30,6 +30,7 @@ import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
 import AdminStats from './components/administration/stats/StatsView.vue';
 import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
+import ListAdmins from './components/administration/users/admins/AdminUsersContainer.vue';
 
 import ScoutDetails from './components/scouts/ScoutDetail.vue';
 import AttendanceDetails from './components/stats/DetailView.vue';
@@ -84,6 +85,10 @@ export default [
             path: 'approval',
             component: AdminApproval,
             meta: { title: 'MBU Online | Users Needing Approval' }
+          }, {
+            path: 'admins',
+            component: ListAdmins,
+            meta: { title: 'MBU Online | Administrative Users' }
           }
         ]
       }, {
