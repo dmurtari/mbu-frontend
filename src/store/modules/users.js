@@ -9,6 +9,11 @@ const state = {
 };
 
 const getters = {
+  admins(state) {
+    return _.filter(state.users, (user) => {
+      return user.role === 'admin';
+    });
+  },
   users(state) {
     return state.users;
   },
@@ -20,19 +25,19 @@ const getters = {
 };
 
 const mutations = {
-  [types.APPROVE_USER] (state, userId) {
+  [types.APPROVE_USER](state, userId) {
     let user = _.find(state.users, (user) => {
       return user.id === userId;
     });
 
     user.approved = true;
   },
-  [types.DELETE_USER] (state, userId) {
+  [types.DELETE_USER](state, userId) {
     state.users = _.filter(state.users, (user) => {
       return user.id !== userId;
     });
   },
-  [types.GET_USERS] (state, users) {
+  [types.GET_USERS](state, users) {
     state.users = users;
   }
 };
