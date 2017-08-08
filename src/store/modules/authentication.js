@@ -40,7 +40,7 @@ const getters = {
 };
 
 const mutations = {
-  [types.LOGIN] (state, response) {
+  [types.LOGIN](state, response) {
     state.profile = response.profile;
     state.isAuthenticated = true;
     if (response.token) {
@@ -48,13 +48,13 @@ const mutations = {
       axios.defaults.headers.common['Authorization'] = response.token;
     }
   },
-  [types.LOGOUT] (state) {
+  [types.LOGOUT](state) {
     state.profile = {};
     state.isAuthenticated = false;
     localStorage.removeItem('token');
     axios.defaults.headers.common['Authorization'] = '';
   },
-  [types.PROFILE] (state, profile) {
+  [types.PROFILE](state, profile) {
     state.profile = profile;
     state.isAuthenticated = true;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
@@ -72,6 +72,19 @@ const actions = {
         .catch((err) => {
           console.error('Failed to check for user', err);
           reject();
+        });
+    });
+  },
+  createAccount({ commit }, credentials) {
+    return new Promise((resolve, reject) => {
+      axios.post(URLS.SIGNUP_URL, credentials)
+        .then((response) => {
+          console.log('Successfully created user');
+          resolve(response.data.profile.id);
+        })
+        .catch((err) => {
+          console.error('Failed to create user');
+          reject(err.response.data.message);
         });
     });
   },
@@ -94,7 +107,7 @@ const actions = {
       let token = localStorage.getItem('token');
 
       axios.get(URLS.PROFILE_URL, {
-        headers: { 'Authorization': token}
+        headers: { 'Authorization': token }
       })
         .then((response) => {
           console.log('Successfully authenticated from JWT');

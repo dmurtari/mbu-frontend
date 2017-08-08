@@ -2,11 +2,29 @@
   <div class="box">
     <h5 class="title is-5">Create a new Administrative User</h5>
     <div class="notification is-warning">
-      Remember that administrative users will have full access to this website, including
-      creating, editing, and deleting any item (such as events, badges and records).
-      If a user needs to only edit completion records and assignments, they should
-      create a <strong>teacher</strong> account.
+      <div class="content">
+        <p>
+          Remember that administrative users will have full access to this website, including
+          creating, editing, and deleting any item (such as events, badges and records).
+          If a user needs to only edit completion records and assignments, they should
+          create a
+          <strong>teacher</strong> account.
+        </p>
+        <p>
+          After you create the account, the new user should proceed to the login page, enter
+          the email that you used to create the account, and reset their password using
+          the forgot password link.
+        </p>
+      </div>
     </div>
+    <div v-if="showSuccess"
+         class="notification is-info">
+      The user has been successfully created. They will need to go to the login page, and
+      reset their password using the forgot password link before they will be able
+      to access their account.
+    </div>
+    <closable-error v-if="error"
+                    @dismissed="clearError()">{{ error }}</closable-error>
     <form>
       <div class="columns is-multiline">
         <div class="field column is-12">
@@ -74,8 +92,9 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary"
-                  :disabled="$v.$invalid"
-                  :class="{ 'is-loading is-disabled': creating }">
+                  :disabled="$v.$invalid || creating"
+                  :class="{ 'is-loading': creating }"
+                  @click.prevent="createAdmin()">
             Create User</button>
         </div>
         <div class="control">
@@ -89,6 +108,7 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators';
+import crypto from 'crypto';
 
 export default {
   data () {
@@ -99,12 +119,47 @@ export default {
         lastname: ''
       },
       error: '',
-      creating: false
+      creating: false,
+      showSuccess: false
     }
   },
   methods: {
+    clearError () {
+      this.error = '';
+    },
     close () {
+      this.error = '';
+      this.showSuccess = false;
       this.$emit('close');
+    },
+    createAdmin () {
+      this.creating = true;
+      this.showSuccess = false;
+
+      let credentials = {
+        email: this.credentials.email,
+        password: crypto.randomBytes(20).toString('hex'),
+        firstname: this.credentials.firstname,
+        lastname: this.credentials.lastname,
+        role: 'admin',
+        approved: true
+      };
+
+      this.$store.dispatch('createAccount', credentials)
+        .then((userId) => {
+          this.$store.dispatch('approveUser', userId);
+        })
+        .then(() => {
+          this.creating = false;
+          this.error = '';
+          this.showSuccess = true;
+          this.$emit('created');
+          this.close();
+        })
+        .catch(() => {
+          this.creating = false;
+          this.error = 'Error creating this account. Please try again later.';
+        });
     }
   },
   validations: {
