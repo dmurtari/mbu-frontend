@@ -51,10 +51,7 @@
         </div>
       </div>
     </div>
-    <general-table v-if="selectedRole === 'all' || selectedRole === 'admin'"
-                   :users="usersToDisplay"></general-table>
-    <coordinators-table v-if="selectedRole === 'coordinator'"
-                        :coordinators="usersToDisplay"></coordinators-table>
+    <user-list :users="usersToDisplay"></user-list>
   </div>
 </template>
 
@@ -62,8 +59,7 @@
 import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
-import GeneralList from './GeneralList.vue';
-import CoordinatorList from './CoordinatorList.vue';
+import UserList from './UserList.vue';
 
 export default {
   data () {
@@ -99,8 +95,7 @@ export default {
     }
   },
   components: {
-    'general-table': GeneralList,
-    'coordinators-table': CoordinatorList
+    UserList
   }
 }
 </script>
