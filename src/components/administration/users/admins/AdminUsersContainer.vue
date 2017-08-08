@@ -11,31 +11,39 @@
       </p>
       <p>
         <strong>
-          Currently, you must create a new account for administrators manually, and
-          the email address used can not be used with any other account.
+          Currently, you must create a new account for administrators manually, and the email
+          address used can not be used with any other account.
         </strong>
       </p>
     </div>
-    <button class="button is-primary"
-            @click="toggleCreate()"
-            v-if="!createAdmin">Create a new Admin</button>
-    <create-admin-form v-if="createAdmin"
-                       @close="toggleCreate()"></create-admin-form>
-    <general-list class="admins"
-                  :users="admins"></general-list>
+    <closable-error v-if="error"
+                    @dismissed="clearError()">{{ error }}</closable-error>
+    <spinner-page v-if="loading"></spinner-page>
+    <div v-else>
+      <button class="button is-primary"
+              @click="toggleCreate()"
+              v-if="!createAdmin">Create a new Admin</button>
+      <create-admin-form v-if="createAdmin"
+                         @close="toggleCreate()"
+                         @created="refreshUsers()"></create-admin-form>
+      <user-list class="admins"
+                    :users="admins"></user-list>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
-import GeneralList from 'components/administration/users/GeneralList.vue';
+import UserList from 'components/administration/users/UserList.vue';
 import CreateAdminForm from './CreateAdminForm.vue';
 
 export default {
   data () {
     return {
-      createAdmin: false
+      createAdmin: false,
+      error: '',
+      loading: false
     }
   },
   computed: {
@@ -44,13 +52,32 @@ export default {
     ])
   },
   methods: {
+    clearError () {
+      this.error = '';
+    },
     toggleCreate () {
       this.createAdmin = !this.createAdmin;
+    },
+    refreshUsers () {
+      this.loading = true;
+
+      this.$store.dispatch('getUsers')
+        .then(() => {
+          this.loading = false;
+          this.error = '';
+        })
+        .catch(() => {
+          this.loading = false;
+          this.error = 'Failed to get users. Please try again later.';
+        })
     }
+  },
+  created () {
+    this.refreshUsers();
   },
   components: {
     CreateAdminForm,
-    GeneralList
+    UserList
   }
 }
 </script>
