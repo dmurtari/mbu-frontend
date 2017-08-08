@@ -68,11 +68,6 @@ export default [
         meta: { title: 'MBU Online | Administration' }
       }, {
         path: 'users',
-        beforeEnter(to, from, next) {
-          store.dispatch('getUsers')
-            .then(() => next())
-            .catch(() => next({ path: '/administration' }));
-        },
         component: {
           render(component) { return component('router-view') }
         },
