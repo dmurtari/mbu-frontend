@@ -1,20 +1,22 @@
 <template>
-  <table class="table">
-    <thead>
+  <paginated-table :target="'users'"
+                   :contents="users"
+                   :per="20"
+                   :showLinks="true">
+    <thead slot="header">
       <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Details</th>
-        <th></th>
+        <th width="15%">Name</th>
+        <th width="15%">Role</th>
+        <th width="25%">Email</th>
+        <th width="30%">Details</th>
+        <th width="50px"></th>
       </tr>
     </thead>
-    <tbody>
-      <user-row v-for="user in users"
-                :key="user.id"
-                :user="user"></user-row>
-    </tbody>
-  </table>
+    <template slot="row"
+              scope="props">
+      <user-row :user="props.item"></user-row>
+    </template>
+  </paginated-table>
 </template>
 
 
