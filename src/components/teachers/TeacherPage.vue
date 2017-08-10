@@ -9,17 +9,13 @@
         <aside class="menu">
           <p class="menu-label">Navigation</p>
           <ul class="menu-list">
-            <router-link to="/teacher/home"
-                         active-class="is-active">Home</router-link>
+            <router-link to="/teacher/home">Home</router-link>
           </ul>
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
-            <router-link to="/teacher/assignments"
-                         active-class="is-active">Scout Assignments</router-link>
-            <router-link to="/teacher/stats"
-                         active-class="is-active">Event Statistics</router-link>
-            <router-link to="/teacher/classes/all"
-                         active-class="is-active">Class Information</router-link>
+            <router-link to="/teacher/assignments">Scout Assignments</router-link>
+            <router-link to="/teacher/stats">Event Statistics</router-link>
+            <router-link to="/teacher/classes">Class Information</router-link>
           </ul>
         </aside>
       </div>

@@ -23,7 +23,8 @@ filters(Vue);
 
 export const router = new VueRouter({
   mode: 'history',
-  routes: routes
+  routes: routes,
+  linkActiveClass: 'is-active'
 });
 
 router.beforeEach((to, from, next) => {
