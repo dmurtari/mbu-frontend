@@ -61,6 +61,7 @@ export default [
     path: '/administration',
     component: Administration,
     beforeEnter: requireRole('admin'),
+    redirect: '/administration/home',
     children: [
       {
         path: 'home',
@@ -156,13 +157,7 @@ export default [
         path: 'stats',
         component: AdminStats,
         meta: { title: 'MBU Online | Statistics' },
-        beforeEnter: (to, from, next) => {
-          if (to.fullPath === '/administration/stats' || to.fullPath === '/administration/stats/') {
-            next('/administration/stats/list');
-          } else {
-            next();
-          }
-        },
+        redirect: '/administration/stats/list',
         children: [
           {
             path: 'detail',
@@ -178,6 +173,7 @@ export default [
     path: '/coordinator',
     component: CoordinatorPage,
     beforeEnter: requireRole('coordinator'),
+    redirect: '/coordinator/home',
     children: [
       {
         path: 'home',
@@ -218,6 +214,7 @@ export default [
     path: '/teacher',
     component: TeacherPage,
     beforeEnter: requireRole('teacher'),
+    redirect: '/teacher/home',
     children: [
       {
         path: 'home',
@@ -227,13 +224,7 @@ export default [
         path: 'stats',
         component: AdminStats,
         meta: { title: 'MBU Online | Statistics' },
-        beforeEnter: (to, from, next) => {
-          if (to.fullPath === '/teacher/stats' || to.fullPath === '/teacher/stats/') {
-            next('/teacher/stats/list');
-          } else {
-            next();
-          }
-        },
+        redirect: '/teacher/stats/list',
         children: [
           {
             path: 'detail',

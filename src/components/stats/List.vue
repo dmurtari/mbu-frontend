@@ -34,13 +34,11 @@
           <div class="tabs is-centered print-hidden">
             <ul>
               <router-link :to="listLink"
-                           tag="li"
-                           active-class="is-active">
+                           tag="li">
                 <a>List View</a>
               </router-link>
               <router-link :to="detailLink"
-                           tag="li"
-                           active-class="is-active">
+                           tag="li">
                 <a>Detail View</a>
               </router-link>
             </ul>

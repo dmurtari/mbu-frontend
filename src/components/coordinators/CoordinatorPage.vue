@@ -13,17 +13,13 @@
         <aside class="menu">
           <p class="menu-label">Navigation</p>
           <ul class="menu-list">
-            <router-link to="/coordinator/home"
-                         active-class="is-active">Home</router-link>
+            <router-link to="/coordinator/home">Home</router-link>
           </ul>
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
-            <router-link to="/coordinator/scouts"
-                         active-class="is-active">Manage Scouts</router-link>
-            <router-link to="/coordinator/registrations"
-                         active-class="is-active">Event Registrations</router-link>
-            <router-link to="/coordinator/attendance"
-                         active-class="is-active">Event Attendances</router-link>
+            <router-link to="/coordinator/scouts">Manage Scouts</router-link>
+            <router-link to="/coordinator/registrations">Event Registrations</router-link>
+            <router-link to="/coordinator/attendance">Event Attendances</router-link>
           </ul>
         </aside>
       </div>

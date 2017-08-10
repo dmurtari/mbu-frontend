@@ -12,8 +12,7 @@
         <aside class="menu">
           <p class="menu-label">Navigation</p>
           <ul class="menu-list">
-            <router-link to="/administration/home"
-                         active-class="is-active">Home</router-link>
+            <router-link to="/administration/home">Home</router-link>
           </ul>
           <p class="menu-label">Manage</p>
           <ul class="menu-list">
@@ -28,18 +27,15 @@
                 </span>
               </a>
               <ul v-if="showUserMenu">
-                <router-link to="/administration/users/current"
-                             active-class="is-active">Current Users</router-link>
-                <router-link to="/administration/users/approval"
-                             active-class="is-active">
+                <router-link to="/administration/users/current">Current Users</router-link>
+                <router-link to="/administration/users/approval">
                   Need Approval&nbsp;
                   <span class="tag is-pulled-right is-small"
                         :class="{ 'is-black': unapprovedUsers.length > 0 }">
                     {{ unapprovedUsers.length }}
                   </span>
                 </router-link>
-                <router-link to="/administration/users/admins"
-                             active-class="is-active">Administrators</router-link>
+                <router-link to="/administration/users/admins">Administrators</router-link>
               </ul>
             </li>
           </ul>
@@ -55,10 +51,8 @@
                 </span>
               </a>
               <ul v-if="showScoutMenu">
-                <router-link to="/administration/scouts/list/all"
-                             active-class="is-active">All Scouts</router-link>
-                <router-link to="/administration/scouts/assignments"
-                             active-class="is-active">Assignments</router-link>
+                <router-link to="/administration/scouts/list/all">All Scouts</router-link>
+                <router-link to="/administration/scouts/assignments">Assignments</router-link>
               </ul>
             </li>
           </ul>
@@ -74,21 +68,16 @@
                 </span>
               </a>
               <ul v-if="showEventMenu">
-                <router-link to="/administration/events/all"
-                             active-class="is-active">All Events</router-link>
-                <router-link to="/administration/events/offerings"
-                             active-class="is-active">Offerings</router-link>
-                <router-link to="/administration/events/purchasables"
-                             active-class="is-active">Purchasables</router-link>
+                <router-link to="/administration/events/all">All Events</router-link>
+                <router-link to="/administration/events/offerings">Offerings</router-link>
+                <router-link to="/administration/events/purchasables">Purchasables</router-link>
               </ul>
             </li>
           </ul>
           <p class="menu-label">View Details</p>
           <ul class="menu-list">
-            <router-link to="/administration/classes/all"
-                         active-class="is-active">Overview of Classes</router-link>
-            <router-link to="/administration/stats"
-                         active-class="is-active">Statistics</router-link>
+            <router-link to="/administration/classes/all">Overview of Classes</router-link>
+            <router-link to="/administration/stats">Statistics</router-link>
           </ul>
         </aside>
       </div>
