@@ -1,6 +1,7 @@
 <template>
   <div class="registration-row ">
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -9,7 +10,8 @@
       <template v-if="state === 'displaying'">
         <b class="column is-2 is-hidden-mobile">{{ scout.fullname }}</b>
         <h5 class="column is-2 title is-5 is-hidden-tablet">{{ scout.fullname }}</h5>
-        <loader v-if="loading" :color="'lightgray'"></loader>
+        <loader v-if="loading"
+                :color="'lightgray'"></loader>
         <template v-if="registration && !loading">
           <div class="column auto">
             <scout-registration :event="event"
@@ -24,7 +26,8 @@
                     @cancel="toggleState()"
                     data-balloon="Modify Registration"
                     :disabled="!registrationOpen">
-              <span class="fa fa-edit is-hidden-mobile" aria-label="Modify"></span>
+              <span class="fa fa-edit is-hidden-mobile"
+                    aria-label="Modify"></span>
               <span class="is-hidden-tablet">Modify Registration</span>
             </button>
           </div>
@@ -35,22 +38,23 @@
                   @click="toggleState('creating')">
             Register for {{ event.semester + ' ' + event.year }}
           </button>
-          <span class="column auto" v-if="!registrationOpen">
+          <span class="column auto"
+                v-if="!registrationOpen">
             Sorry, registration for this event is closed.
           </span>
         </template>
       </template>
       <create-registration v-if="state === 'creating'"
-                          :scout="scout"
-                          :event="event"
-                          @cancel="toggleState()"
-                          @created="toggleState('purchasing')"></create-registration>
+                           :scout="scout"
+                           :event="event"
+                           @cancel="toggleState()"
+                           @created="toggleState('purchasing')"></create-registration>
       <edit-registration v-if="state === 'editing'"
-                        :scout="scout"
-                        :event="event"
-                        :registration="registration"
-                        @cancel="toggleState()"
-                        @saved="toggleState()"></edit-registration>
+                         :scout="scout"
+                         :event="event"
+                         :registration="registration"
+                         @cancel="toggleState()"
+                         @saved="toggleState()"></edit-registration>
       <template v-if="state === 'purchasing'">
         <purchases :event="event"
                    :purchasables="event.purchasables"
@@ -89,7 +93,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       state: 'displaying',
       loading: false,
@@ -97,10 +101,46 @@ export default {
     };
   },
   watch: {
-    event() {
+    event () {
       this.state = 'displaying';
     },
-    registration() {
+    registration () {
+      this.loadRegistrationInformation();
+    }
+  },
+  computed: {
+    offerings () {
+      return this.event.offerings;
+    },
+    preferences () {
+      return _.map(this.registration.preferences, (preference) => {
+        let offering = _.find(this.offerings, { id: preference.badge_id });
+        return {
+          name: offering.name,
+          price: offering.details.price
+        }
+      });
+    },
+    purchases () {
+      return _.map(this.registration.purchases, (purchase) => {
+        return {
+          price: purchase.price,
+          size: purchase.details.size,
+          item: purchase.item,
+          quantity: purchase.details.quantity,
+          id: purchase.id
+        }
+      });
+    },
+    registration () {
+      return _.find(this.scout.registrations, { 'event_id': this.event.id });
+    }
+  },
+  methods: {
+    toggleState (state = 'displaying') {
+      this.state = state;
+    },
+    loadRegistrationInformation () {
       if (this.registration && this.registration.details) {
         this.loading = true;
         Promise.all([
@@ -120,44 +160,14 @@ export default {
           .catch(() => {
             this.loading = false;
             this.error = 'Failed to load registration details. Please refresh and try again';
-          })
+          });
       } else {
         this.state = 'displaying';
       }
     }
   },
-  computed: {
-    offerings() {
-      return this.event.offerings;
-    },
-    preferences() {
-      return _.map(this.registration.preferences, (preference) => {
-        let offering = _.find(this.offerings, { id: preference.badge_id });
-        return {
-          name: offering.name,
-          price: offering.details.price
-        }
-      });
-    },
-    purchases() {
-      return _.map(this.registration.purchases, (purchase) => {
-        return {
-          price: purchase.price,
-          size: purchase.details.size,
-          item: purchase.item,
-          quantity: purchase.details.quantity,
-          id: purchase.id
-        }
-      });
-    },
-    registration() {
-      return _.find(this.scout.registrations, { 'event_id': this.event.id });
-    }
-  },
-  methods: {
-    toggleState(state = 'displaying') {
-      this.state = state;
-    }
+  created () {
+    this.loadRegistrationInformation();
   },
   components: {
     CreateRegistration,
@@ -169,17 +179,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .registration-row {
-    padding: 2rem 1rem;
-    border-bottom: 1px lightgray solid;
-    align-items: center;
-  }
+.registration-row {
+  padding: 2rem 1rem;
+  border-bottom: 1px lightgray solid;
+  align-items: center;
+}
 
-  .register-button {
-    height: auto;
-  }
+.register-button {
+  height: auto;
+}
 
-  .done-purchasing-button {
-    margin-top: 1em;
-  }
+.done-purchasing-button {
+  margin-top: 1em;
+}
 </style>
