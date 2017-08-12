@@ -1,10 +1,9 @@
 <template>
   <div>
     <p>
-      These are the classes for an event based off of the badges that are being offered
-      at an event and the scouts that are assigned to each period.
-      <b>This page is for viewing scout assignments only</b>
-      <span v-if="isAdmin"> to edit badges that are offered for an event, use the
+      This page shows the number of scouts assigned to each class. You can view the completion
+      records for each scout in a class by clicking the "details" link next to each class.
+      <span v-if="isAdmin"> To edit badges that are offered for an event, use the
         <router-link to="/administration/events/offerings">offerings page</router-link>. To change a scout's badge assignments, use the
         <router-link to="/administration/scouts/assignments">assignments page</router-link>.
       </span>

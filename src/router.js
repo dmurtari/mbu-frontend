@@ -28,7 +28,7 @@ import AdminApproval from './components/administration/users/AwaitingApproval.vu
 import AdminPurchasables from './components/administration/purchasables/List.vue';
 import AdminScouts from './components/administration/scouts/List.vue';
 import AdminEvents from './components/administration/events/EventsContainer.vue';
-import AdminStats from './components/administration/stats/StatsView.vue';
+import AttendanceView from './components/administration/attendance/AttendanceView.vue';
 import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
 import ListAdmins from './components/administration/users/admins/AdminUsersContainer.vue';
 
@@ -109,8 +109,18 @@ export default [
             ]
           }, {
             path: 'assignments',
-            component: AttendanceList,
-            meta: { title: 'MBU Online | Assignments' }
+            component: AttendanceView,
+            meta: { title: 'MBU Online | Assignments' },
+            redirect: '/administration/scouts/assignments/list',
+            children: [
+              {
+                path: 'list',
+                component: RegistrationTable,
+              }, {
+                path: 'detail',
+                component: AttendanceList
+              }
+            ]
           }
         ]
       }, {
@@ -152,20 +162,6 @@ export default [
                 eventId: Number(route.params.eventId)
               }
             }
-          }
-        ]
-      }, {
-        path: 'stats',
-        component: AdminStats,
-        meta: { title: 'MBU Online | Statistics' },
-        redirect: '/administration/stats/list',
-        children: [
-          {
-            path: 'detail',
-            component: AttendanceDetails,
-          }, {
-            path: 'list',
-            component: RegistrationTable
           }
         ]
       }
@@ -223,7 +219,7 @@ export default [
         meta: { title: 'MBU Online | Instructor Home' }
       }, {
         path: 'stats',
-        component: AdminStats,
+        component: AttendanceView,
         meta: { title: 'MBU Online | Statistics' },
         redirect: '/teacher/stats/list',
         children: [
