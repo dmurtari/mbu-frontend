@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="columns">
-      <p class="column is-6" v-if="showProjectedCost">
+      <p class="column is-6"
+         v-if="showProjectedCost">
         <b>Projected Costs: </b>{{ projectedCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
@@ -9,7 +10,8 @@
           <li>Purchases: {{ purchaseCosts | currency }}</li>
         </ul>
       </p>
-      <p class="column is-6" v-if="showActualCost">
+      <p class="column is-6"
+         v-if="showActualCost">
         <b>Actual Costs: </b>{{ actualCost | currency }}
         <ul class="itemized-list">
           <li>Event Fee: {{ event.price | currency }}</li>
@@ -18,11 +20,14 @@
         </ul>
       </p>
     </div>
-    <div class="registration-section" v-if="showPreferences">
+    <div class="registration-section"
+         v-if="showPreferences">
       <b>Merit Badge Preferences:</b>
-      <div class="preference-list" v-if="preferences.length > 0">
+      <div class="preference-list"
+           v-if="preferences.length > 0">
         <ol>
-          <li v-for="preference in preferences" :key="preference.name">
+          <li v-for="preference in preferences"
+              :key="preference.name">
             {{ preference.name }}
             <span v-if="preference.price !== '0.00'">
               ({{ preference.price | currency }})
@@ -30,38 +35,43 @@
           </li>
         </ol>
       </div>
-      <div v-else class="notification">
+      <div v-else
+           class="notification">
         <slot name="preference-notification">
           This scout does not have any preferences listed for this event.
         </slot>
       </div>
     </div>
-    <div v-if="purchases.length > 0" class="registration-section">
+    <div v-if="purchases.length > 0"
+         class="registration-section">
       <b>Purchased Items:</b>
       <ul class="itemized-list">
-        <li v-for="purchase in purchases" :key="purchase.id">
+        <li v-for="purchase in purchases"
+            :key="purchase.id">
           {{ purchase.item }}:
           <span v-if="purchase.size">
             (Size {{ purchase.size | upperCase }})
           </span>
-          {{ purchase.price | currency }} &times; {{ purchase.quantity }} =
-          {{ purchase.price * purchase.quantity | currency }}
+          {{ purchase.price | currency }} &times; {{ purchase.quantity }} = {{ purchase.price
+          * purchase.quantity | currency }}
         </li>
       </ul>
     </div>
-    <div class="registration-section" v-if="showAssignments">
+    <div class="registration-section"
+         v-if="showAssignments">
       <b>Assignments:</b>
-      <div class="attendance-section" v-if="assignments.length < 1">
+      <div class="attendance-section"
+           v-if="assignments.length < 1">
         <div class="notification">
           <slot name="assignment-notification">
-            No Merit Badges have been assigned for MBU {{ event.semester }}
-            {{ event.year }}.
+            No Merit Badges have been assigned for MBU {{ event.semester }} {{ event.year }}.
           </slot>
         </div>
       </div>
       <div v-else>
         <ul class="itemized-list">
-          <li v-for="(assignment, index) in assignments" :key="index">
+          <li v-for="(assignment, index) in assignments"
+              :key="index">
             Period {{ index + 1 }}:
             <span v-if="!assignment">Unassigned</span>
             <span v-else>
@@ -69,6 +79,15 @@
               <span v-if="assignment.price !== '0.00'">
                 ({{ assignment.price | currency }})
               </span>
+              <div class="completions">
+                Completions:
+                <span v-if="assignment.details.completions.length > 0">
+                  {{ assignment.details.completions | ordered | commaSeparated }}
+                </span>
+                <span v-else>
+                  No completions recorded yet
+                </span>
+              </div>
             </span>
           </li>
         </ul>
@@ -114,11 +133,11 @@ export default {
     }
   },
   computed: {
-    actualCost() {
+    actualCost () {
       return Number(this.event.price) + Number(this.assignmentCosts)
-             + Number(this.purchaseCosts);
+        + Number(this.purchaseCosts);
     },
-    assignmentCosts() {
+    assignmentCosts () {
       return _.reduce(_.uniqBy(this.assignments, 'offering_id'), (sum, assignment) => {
         if (!assignment) {
           return sum;
@@ -127,16 +146,16 @@ export default {
         return sum + Number(assignment.price);
       }, 0);
     },
-    preferenceCosts() {
+    preferenceCosts () {
       return _.reduce(this.preferences, (sum, preference) => {
         return sum + Number(preference.price);
       }, 0);
     },
-    projectedCost() {
+    projectedCost () {
       return Number(this.event.price) + Number(this.preferenceCosts)
-             + Number(this.purchaseCosts);
+        + Number(this.purchaseCosts);
     },
-    purchaseCosts() {
+    purchaseCosts () {
       return _.reduce(this.purchases, (sum, purchase) => {
         return sum + (Number(purchase.price) * Number(purchase.quantity));
       }, 0);
@@ -146,23 +165,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .itemized-list {
-    padding-top: .5rem;
-    padding-left: 1rem;
-  }
+.itemized-list {
+  padding-top: .5rem;
+  padding-left: 1rem;
+}
 
-  .preference-list {
-    padding-top: .5rem;
-    padding-left: 2rem;
-    columns: 2;
-    column-gap: 3rem;
-  }
+.preference-list {
+  padding-top: .5rem;
+  padding-left: 2rem;
+  columns: 2;
+  column-gap: 3rem;
+}
 
-  .registration-section {
-    margin-top: 1.5rem;
-  }
+.registration-section {
+  margin-top: 1.5rem;
+}
 
-  .notification {
-    margin-top: 1rem;
-  }
+.notification {
+  margin-top: 1rem;
+}
+
+.completions {
+  padding-left: 2rem;
+}
 </style>
