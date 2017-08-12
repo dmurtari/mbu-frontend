@@ -96,6 +96,7 @@ export default [
           {
             path: 'list',
             component: ScoutContainer,
+            redirect: 'list/all',
             children: [
               {
                 path: 'all',
@@ -187,13 +188,7 @@ export default [
       }, {
         path: 'attendance',
         component: CoordinatorAttendance,
-        beforeEnter: (to, from, next) => {
-          if (to.fullPath === '/coordinator/attendance') {
-            next('attendance/list');
-          } else {
-            next();
-          }
-        },
+        redirect: 'attendance/list',
         children: [
           {
             path: 'detail',

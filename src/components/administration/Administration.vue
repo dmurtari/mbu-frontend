@@ -51,7 +51,7 @@
                 </span>
               </a>
               <ul v-if="showScoutMenu">
-                <router-link to="/administration/scouts/list/all">All Scouts</router-link>
+                <router-link to="/administration/scouts/list">All Scouts</router-link>
                 <router-link to="/administration/scouts/assignments">Assignments</router-link>
               </ul>
             </li>
