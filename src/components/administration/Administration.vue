@@ -71,13 +71,9 @@
                 <router-link to="/administration/events/all">All Events</router-link>
                 <router-link to="/administration/events/offerings">Offerings</router-link>
                 <router-link to="/administration/events/purchasables">Purchasables</router-link>
+                <router-link to="/administration/classes">Classes/Completions</router-link>
               </ul>
             </li>
-          </ul>
-          <p class="menu-label">View Details</p>
-          <ul class="menu-list">
-            <router-link to="/administration/classes">Overview of Classes</router-link>
-            <router-link to="/administration/stats">Statistics</router-link>
           </ul>
         </aside>
       </div>
@@ -97,9 +93,9 @@ export default {
     return {
       error: '',
       loading: false,
-      showEventMenu: _.startsWith(this.$route.path, '/administration/events'),
-      showScoutMenu: _.startsWith(this.$route.path, '/administration/scouts'),
-      showUserMenu: _.startsWith(this.$route.path, '/administration/users')
+      showEventMenu: true,
+      showScoutMenu: true,
+      showUserMenu: true
     };
   },
   computed: {
