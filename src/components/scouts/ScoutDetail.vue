@@ -9,23 +9,34 @@
         <div class="column is-6">
           <h5 class="title is-5">Scout Information</h5>
           <ul>
-            <li><b>First Name: </b>{{ scout.firstname }}</li>
-            <li><b>Last Name: </b>{{ scout.lastname }}</li>
-            <li><b>Birthday: </b>{{ scout.birthday | shortDate }}</li>
-            <li><b>Age: </b>{{ scout.age }}</li>
-            <li><b>Date Added: </b>{{ scout.created_at | shortDate }}</li>
-            <li><b>Notes: </b>{{ scout.notes }}</li>
+            <li>
+              <b>First Name: </b>{{ scout.firstname }}</li>
+            <li>
+              <b>Last Name: </b>{{ scout.lastname }}</li>
+            <li>
+              <b>Birthday: </b>{{ scout.birthday | shortDate }}</li>
+            <li>
+              <b>Age: </b>{{ scout.age }}</li>
+            <li>
+              <b>Date Added: </b>{{ scout.created_at | shortDate }}</li>
+            <li>
+              <b>Notes: </b>{{ scout.notes }}</li>
           </ul>
         </div>
         <div class="column is-6"
              v-if="scout.user">
           <h5 class="title is-5">Coordinator Information</h5>
           <ul>
-            <li><b>Name: </b>{{ scout.user.fullname }}</li>
-            <li><b>Email: </b>{{ scout.user.email }}</li>
-            <li><b>Council: </b>{{ scout.user.details.council }}</li>
-            <li><b>District: </b>{{ scout.user.details.district }}</li>
-            <li><b>Troop: </b>{{ scout.user.details.troop }}</li>
+            <li>
+              <b>Name: </b>{{ scout.user.fullname }}</li>
+            <li>
+              <b>Email: </b>{{ scout.user.email }}</li>
+            <li>
+              <b>Council: </b>{{ scout.user.details.council }}</li>
+            <li>
+              <b>District: </b>{{ scout.user.details.district }}</li>
+            <li>
+              <b>Troop: </b>{{ scout.user.details.troop }}</li>
           </ul>
         </div>
       </div>
@@ -44,7 +55,7 @@
             </registration-container>
           </div>
           <div v-else
-              class="notification">
+               class="notification">
             This scout has not registered for any events.
           </div>
         </div>
@@ -64,7 +75,7 @@ import URLS from 'urls';
 import RegistrationContainer from './RegistrationContainer.vue';
 
 export default {
-  data() {
+  data () {
     return {
       loading: false,
       loadingRegistrations: false,
@@ -77,11 +88,11 @@ export default {
     ...mapGetters([
       'allEvents'
     ]),
-    orderedRegistrations() {
+    orderedRegistrations () {
       return _.orderBy(this.registrations, 'created_at');
     }
   },
-  mounted() {
+  mounted () {
     this.loading = true;
     axios.get(URLS.SCOUTS_URL + this.$route.params.id)
       .then((response) => {
@@ -99,10 +110,10 @@ export default {
       });
   },
   methods: {
-    eventForId(eventId) {
+    eventForId (eventId) {
       return _.find(this.allEvents, { 'id': eventId });
     },
-    reload() {
+    reload () {
       this.loading = true;
       axios.get(URLS.SCOUTS_URL + this.$route.params.id)
         .then((response) => {
@@ -116,7 +127,7 @@ export default {
           this.error = 'Failed to get details for this scout.';
         });
     },
-    reloadRegistrations() {
+    reloadRegistrations () {
       return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
         .then((response) => {
           this.loadingRegistrations = false;
@@ -130,7 +141,7 @@ export default {
     }
   },
   watch: {
-    $route() {
+    $route () {
       this.reload();
     }
   },
@@ -144,22 +155,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .scout-details-loading {
-    display: block;
-    margin: auto;
-    width: 5rem;
-    margin-top: 5rem
-  }
+.scout-details-loading {
+  display: block;
+  margin: auto;
+  width: 5rem;
+  margin-top: 5rem
+}
 
-  .section {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 0rem;
-    padding-right: 0rem;
-  }
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
 
-  .registration {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-  }
+.registration {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
 </style>
