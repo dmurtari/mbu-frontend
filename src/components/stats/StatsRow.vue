@@ -1,17 +1,32 @@
 <template>
   <tr>
-    <td>{{ registration.scout.fullname }}</td>
-    <td>{{ registration.scout.troop }}</td>
-    <td>{{ classForPeriod(1) }}</td>
-    <td>{{ classForPeriod(2) }}</td>
-    <td>{{ classForPeriod(3) }}</td>
+    <td>
+      {{ registration.scout.fullname }}
+    </td>
+    <td>
+      {{ registration.scout.troop }}
+    </td>
+    <td v-for="n in 3"
+        :key="n">
+      <div class="class-name">
+        <strong>{{ classForPeriod(n).badge.name }}</strong>
+      </div>
+      <div class="class-completions">
+        <span v-if="classForPeriod(n).details.completions.length > 0">
+          {{ classForPeriod(n).details.completions | ordered | commaSeparated }}
+        </span>
+        <span v-else>
+          No completion records
+        </span>
+      </div>
+    </td>
     <td>
       <ul class="itemized-list">
         <li v-for="purchase in registration.purchases"
             :key="purchase.purchasable_id">
           {{ purchase.item }}:
-          <span v-if="purchase.size">
-            (Size {{ purchase.details.size | upperCase }})
+          <span v-if="purchase.details.size">
+            ({{ purchase.details.size | upperCase }})
           </span>
           {{ purchase.details.quantity }}
         </li>
@@ -37,7 +52,7 @@ export default {
     }
   },
   computed: {
-    assignmentCosts() {
+    assignmentCosts () {
       return _.reduce(this.registration.assignments, (sum, assignment) => {
         if (!assignment) {
           return sum;
@@ -46,14 +61,14 @@ export default {
         return sum + Number(assignment.price);
       }, 0);
     },
-    purchaseCosts() {
+    purchaseCosts () {
       return _.reduce(this.registration.purchases, (sum, purchase) => {
         return sum + (Number(purchase.price) * Number(purchase.details.quantity));
       }, 0);
     },
     totalDue () {
       return Number(this.event.price) + Number(this.assignmentCosts)
-             + Number(this.purchaseCosts);;
+        + Number(this.purchaseCosts);;
     }
   },
   methods: {
@@ -63,9 +78,9 @@ export default {
       });
 
       if (assignment) {
-        return assignment.badge.name;
+        return assignment;
       } else {
-        return 'No Assignment';
+        return { badge: { name: 'No Assignment' } };
       }
     }
   }
