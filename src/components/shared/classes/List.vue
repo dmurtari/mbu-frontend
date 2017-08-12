@@ -59,6 +59,7 @@
           <th></th>
         </tr>
       </thead>
+
       <tbody>
         <attendance-row v-for="offeredClass in filteredClass"
                         :key="offeredClass.offering_id"

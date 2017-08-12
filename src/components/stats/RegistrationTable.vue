@@ -1,9 +1,12 @@
 <template>
-  <table class="table">
-    <thead>
+  <paginated-table :target="'registrations'"
+                   :contents="registrations"
+                   :per="20"
+                   :showLinks="true">
+    <thead slot="header">
       <tr>
         <th>Scout</th>
-        <th>Troop</th>
+        <th width="70px">Troop</th>
         <th>Period 1</th>
         <th>Period 2</th>
         <th>Period 3</th>
@@ -11,13 +14,12 @@
         <th v-if="event">Total Due</th>
       </tr>
     </thead>
-    <tbody>
-      <stats-row v-for="registration in registrations"
-                 :key="registration.id"
-                 :event="event"
-                 :registration="registration"></stats-row>
-    </tbody>
-  </table>
+    <template slot="row"
+              scope="props">
+      <stats-row :event="event"
+                 :registration="props.item"></stats-row>
+    </template>
+  </paginated-table>
 </template>
 
 <script>
