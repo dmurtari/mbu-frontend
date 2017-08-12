@@ -17,9 +17,9 @@
           </ul>
           <p class="menu-label">Pick a task</p>
           <ul class="menu-list">
-            <router-link to="/coordinator/scouts">Manage Scouts</router-link>
+            <router-link to="/coordinator/scouts">Your Scouts</router-link>
             <router-link to="/coordinator/registrations">Event Registrations</router-link>
-            <router-link to="/coordinator/attendance">Event Attendances</router-link>
+            <router-link to="/coordinator/attendance">Attendance Information</router-link>
           </ul>
         </aside>
       </div>
