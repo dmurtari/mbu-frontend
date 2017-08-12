@@ -61,7 +61,7 @@ export default [
     path: '/administration',
     component: Administration,
     beforeEnter: requireRole('admin'),
-    redirect: '/administration/home',
+    redirect: 'administration/home',
     children: [
       {
         path: 'home',
@@ -112,7 +112,7 @@ export default [
             path: 'assignments',
             component: AttendanceView,
             meta: { title: 'MBU Online | Assignments' },
-            redirect: '/administration/scouts/assignments/list',
+            redirect: 'assignments/list',
             children: [
               {
                 path: 'list',
@@ -147,7 +147,7 @@ export default [
       }, {
         path: 'classes',
         component: ClassContainer,
-        redirect: '/administration/classes/all',
+        redirect: 'classes/all',
         children: [
           {
             path: 'all',
@@ -171,7 +171,7 @@ export default [
     path: '/coordinator',
     component: CoordinatorPage,
     beforeEnter: requireRole('coordinator'),
-    redirect: '/coordinator/home',
+    redirect: 'coordinator/home',
     children: [
       {
         path: 'home',
@@ -213,14 +213,14 @@ export default [
         component: TeacherHome,
         meta: { title: 'MBU Online | Instructor Home' }
       }, {
-        path: 'stats',
+        path: 'assignments',
         component: AttendanceView,
         meta: { title: 'MBU Online | Statistics' },
-        redirect: '/teacher/stats/list',
+        redirect: 'assignments/list',
         children: [
           {
             path: 'detail',
-            component: AttendanceDetails,
+            component: AttendanceList,
           }, {
             path: 'list',
             component: RegistrationTable
@@ -229,7 +229,7 @@ export default [
       }, {
         path: 'classes',
         component: ClassContainer,
-        redirect: '/teacher/classes/all',
+        redirect: 'classes/all',
         children: [
           {
             path: 'all',
