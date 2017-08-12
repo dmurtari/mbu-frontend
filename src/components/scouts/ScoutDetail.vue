@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!loading">
+    <div v-if="!loading && !eventLoading">
       <div class="section">
         <h3 class="title is-3">{{ scout.fullname }}</h3>
         <h5 class="subtitle is-5"> Troop {{ scout.troop }}</h5>
@@ -30,11 +30,7 @@
         </div>
       </div>
       <div class="section">
-        <div v-if="loadingRegistrations">
-          <loader v-if="loading"
-                  :color="'lightgray'"
-                  class="loader-centered"></loader>
-        </div>
+        <spinner-page v-if="loadingRegistrations"></spinner-page>
         <div v-else>
           <h5 class="title is-5">Registration Information</h5>
           <div v-if="registrations.length > 0">
@@ -54,11 +50,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <loader v-if="loading"
-              :color="'lightgray'"
-              class="scout-details-loading"></loader>
-    </div>
+    <spinner-page v-else></spinner-page>
   </div>
 </template>
 
@@ -67,6 +59,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { mapGetters } from 'vuex';
 
+import EventsUpdate from 'mixins/EventsUpdate';
 import URLS from 'urls';
 import RegistrationContainer from './RegistrationContainer.vue';
 
@@ -143,7 +136,10 @@ export default {
   },
   components: {
     RegistrationContainer
-  }
+  },
+  mixins: [
+    EventsUpdate
+  ]
 }
 </script>
 

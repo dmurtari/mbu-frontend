@@ -25,9 +25,7 @@
                           :assignments="assignmentList">
       </scout-registration>
     </div>
-    <loader v-else
-            :color="'lightgray'"
-            class="loader-centered"></loader>
+    <spinner-page v-else></spinner-page>
   </div>
 </template>
 
