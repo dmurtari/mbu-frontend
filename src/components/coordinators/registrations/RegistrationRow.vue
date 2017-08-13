@@ -162,7 +162,7 @@ export default {
             this.error = 'Failed to load registration details. Please refresh and try again';
           });
       } else {
-        this.state = 'displaying';
+        this.toggleState();
       }
     }
   },

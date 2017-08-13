@@ -12,7 +12,7 @@
         <strong>{{ classForPeriod(n).badge.name }}</strong>
       </div>
       <div class="class-completions">
-        <span v-if="classForPeriod(n).details.completions.length > 0">
+        <span v-if="hasCompletionsForPeriod(n)">
           {{ classForPeriod(n).details.completions | ordered | commaSeparated }}
         </span>
         <span v-else>
@@ -82,6 +82,10 @@ export default {
       } else {
         return { badge: { name: 'No Assignment' } };
       }
+    },
+    hasCompletionsForPeriod (period) {
+      return this.classForPeriod(period).details &&
+        this.classForPeriod(period).details.completions.length > 0;
     }
   }
 }
