@@ -19,7 +19,7 @@
 
 <script>
 import Detail from './Detail.vue';
-import Edit from './Edit.vue';
+import ScoutEdit from 'components/scouts/ScoutEdit.vue';
 
 export default {
   props: {
@@ -45,8 +45,8 @@ export default {
   },
   components: {
     'scout-detail': Detail,
-    'scout-edit': Edit
-  }
+    ScoutEdit
+}
 }
 </script>
 
