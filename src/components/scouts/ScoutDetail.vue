@@ -10,17 +10,32 @@
           <h5 class="title is-5">Scout Information</h5>
           <ul>
             <li>
-              <b>First Name: </b>{{ scout.firstname }}</li>
+              <strong>First Name: </strong>{{ scout.firstname }}
+            </li>
             <li>
-              <b>Last Name: </b>{{ scout.lastname }}</li>
+              <strong>Last Name: </strong>{{ scout.lastname }}
+            </li>
             <li>
-              <b>Birthday: </b>{{ scout.birthday | shortDate }}</li>
+              <strong>Birthday: </strong>{{ scout.birthday | shortDate }}
+            </li>
             <li>
-              <b>Age: </b>{{ scout.age }}</li>
+              <strong>Age: </strong>{{ scout.age }}
+            </li>
             <li>
-              <b>Date Added: </b>{{ scout.created_at | shortDate }}</li>
+              <strong>Date Added: </strong>{{ scout.created_at | shortDate }}
+            </li>
             <li>
-              <b>Notes: </b>{{ scout.notes }}</li>
+              <strong>Notes: </strong>{{ scout.notes }}
+            </li>
+            <li>
+              <strong>Emergency Contact: </strong>{{ scout.emergency_name }}
+            </li>
+            <li>
+              <strong>Relationship to Scout: </strong>{{ scout.emergency_relation }}
+            </li>
+            <li>
+              <strong>Emergency Number: </strong>{{ scout.emergency_phone }}
+            </li>
           </ul>
         </div>
         <div class="column is-6"
@@ -28,15 +43,20 @@
           <h5 class="title is-5">Coordinator Information</h5>
           <ul>
             <li>
-              <b>Name: </b>{{ scout.user.fullname }}</li>
+              <strong>Name: </strong>{{ scout.user.fullname }}
+            </li>
             <li>
-              <b>Email: </b>{{ scout.user.email }}</li>
+              <strong>Email: </strong>{{ scout.user.email }}
+            </li>
             <li>
-              <b>Council: </b>{{ scout.user.details.council }}</li>
+              <strong>Council: </strong>{{ scout.user.details.council }}
+            </li>
             <li>
-              <b>District: </b>{{ scout.user.details.district }}</li>
+              <strong>District: </strong>{{ scout.user.details.district }}
+            </li>
             <li>
-              <b>Troop: </b>{{ scout.user.details.troop }}</li>
+              <strong>Troop: </strong>{{ scout.user.details.troop }}
+            </li>
           </ul>
         </div>
       </div>
