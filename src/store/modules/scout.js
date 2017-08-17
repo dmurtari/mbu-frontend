@@ -67,7 +67,11 @@ const mutations = {
   [types.SET_SCOUTS] (state, scouts) {
     state.scouts = scouts;
   },
-  [types.UPDATE_SCOUT] (state, updatedScout) {
+  [types.UPDATE_SCOUT](state, updatedScout) {
+    if (state.scouts.length < 1) {
+      return;
+    }
+
     let scout = _.find(state.scouts, { id: updatedScout.id });
     state.scouts = _.reject(state.scouts, (existingScout) => {
       return existingScout.id === updatedScout.id;

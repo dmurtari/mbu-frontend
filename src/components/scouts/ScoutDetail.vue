@@ -5,9 +5,21 @@
         <h3 class="title is-3">{{ scout.fullname }}</h3>
         <h5 class="subtitle is-5"> Troop {{ scout.troop }}</h5>
       </div>
-      <div class="section columns">
+      <scout-edit v-if="editScout"
+                  @close="toggleEditScout()"
+                  :scout="scout"></scout-edit>
+      <div class="section columns"
+           v-if="!editScout">
         <div class="column is-6">
-          <h5 class="title is-5">Scout Information</h5>
+          <h5 class="title is-5">
+            Scout Information
+            <button class="button is-small is-white"
+                    data-balloon="Edit Scout"
+                    @click="toggleEditScout()">
+              <span class="fa fa-edit"
+                    aria-label="Edit"></span>
+            </button>
+          </h5>
           <ul>
             <li>
               <strong>First Name: </strong>{{ scout.firstname }}
@@ -93,13 +105,15 @@ import { mapGetters } from 'vuex';
 import EventsUpdate from 'mixins/EventsUpdate';
 import URLS from 'urls';
 import RegistrationContainer from './RegistrationContainer.vue';
+import ScoutEdit from './ScoutEdit.vue';
 
 export default {
   data () {
     return {
+      editScout: false,
+      error: '',
       loading: false,
       loadingRegistrations: false,
-      error: '',
       scout: {},
       registrations: {}
     };
@@ -112,22 +126,8 @@ export default {
       return _.orderBy(this.registrations, 'created_at');
     }
   },
-  mounted () {
-    this.loading = true;
-    axios.get(URLS.SCOUTS_URL + this.$route.params.id)
-      .then((response) => {
-        this.scout = response.data;
-        return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
-      })
-      .then((response) => {
-        this.loading = false;
-        this.registrations = response.data;
-        this.error = '';
-      })
-      .catch(() => {
-        this.loading = false;
-        this.error = 'Failed to get registrations for this scout.';
-      });
+  created () {
+   this.reload();
   },
   methods: {
     eventForId (eventId) {
@@ -138,6 +138,8 @@ export default {
       axios.get(URLS.SCOUTS_URL + this.$route.params.id)
         .then((response) => {
           this.scout = response.data;
+          this.scout['id'] = this.scout.scout_id;
+          this.scout['user_id'] = this.scout.user.user_id;
           this.loading = false;
           this.error = '';
           this.reloadRegistrations();
@@ -148,6 +150,7 @@ export default {
         });
     },
     reloadRegistrations () {
+      this.loadingRegistrations = true;
       return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
         .then((response) => {
           this.loadingRegistrations = false;
@@ -158,6 +161,9 @@ export default {
           this.loadingRegistrations = false;
           this.error = 'Failed to get registrations for this scout.';
         })
+    },
+    toggleEditScout () {
+      this.editScout = !this.editScout;
     }
   },
   watch: {
@@ -166,7 +172,8 @@ export default {
     }
   },
   components: {
-    RegistrationContainer
+    RegistrationContainer,
+    ScoutEdit
   },
   mixins: [
     EventsUpdate
