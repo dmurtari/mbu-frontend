@@ -16,8 +16,10 @@
             <button class="button is-small is-white"
                     data-balloon="Edit Scout"
                     @click="toggleEditScout()">
-              <span class="fa fa-edit"
-                    aria-label="Edit"></span>
+              <span class="icon is-small">
+                <span class="fa fa-edit"
+                      aria-label="Edit"></span>
+              </span>
             </button>
           </h5>
           <ul>

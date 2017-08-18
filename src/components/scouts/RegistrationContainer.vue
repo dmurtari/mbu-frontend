@@ -3,13 +3,15 @@
     <div v-if="!loading">
       <h5 class="title is-5">
         {{ event.semester }} {{ event.year}}
-        <button class="edit-button button is-pulled-right"
+        <button class="is-white button is-small"
                 data-balloon="Edit Assignments"
                 data-balloon-pos="left"
                 @click.prevent="toggleEditing()"
                 v-if="!editing">
-          <span class="fa fa-edit"
-                aria-label="Edit Assignments"></span>
+          <span class="icon is-small">
+            <span class="fa fa-edit"
+                  aria-label="Edit Assignments"></span>
+          </span>
         </button>
       </h5>
       <assignment-edit v-if="editing"
@@ -75,8 +77,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.edit-button {
-  margin-top: -.5em;
-  margin-right: -.5em;
-}
+
 </style>
