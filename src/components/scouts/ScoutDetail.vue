@@ -15,6 +15,7 @@
             Scout Information
             <button class="button is-small is-white"
                     data-balloon="Edit Scout"
+                    data-balloon-pos="up"
                     @click="toggleEditScout()">
               <span class="icon is-small">
                 <span class="fa fa-edit"

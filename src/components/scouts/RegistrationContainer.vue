@@ -5,7 +5,7 @@
         {{ event.semester }} {{ event.year}}
         <button class="is-white button is-small"
                 data-balloon="Edit Assignments"
-                data-balloon-pos="left"
+                data-balloon-pos="up"
                 @click.prevent="toggleEditing()"
                 v-if="!editing">
           <span class="icon is-small">

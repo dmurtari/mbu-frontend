@@ -21,7 +21,7 @@
               :list="contents"
               :per="per"
               tag="table"
-              class="table is-striped paginated-table"
+              class="table is-striped paginated-table is-fullwidth"
               ref="paginator">
       <slot name="header"></slot>
       <tbody>

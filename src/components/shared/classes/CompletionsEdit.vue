@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table">
+    <table class="table is-fullwidth">
       <colgroup>
         <col style="width: 25%">
         <col style="width: 10%">

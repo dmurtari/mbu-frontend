@@ -7,7 +7,7 @@
           ({{ scouts.length }})
         </span>
         <div class="is-pulled-right"
-            v-if="scouts.length > 0">
+             v-if="scouts.length > 0">
           <button class="titlebar-button button is-light"
                   @click="toggleEdit()">
             Edit Completions
@@ -15,11 +15,11 @@
         </div>
       </h5>
       <div v-if="scouts.length < 1"
-            class="notification">
+           class="notification">
         There are no scouts attending this period.
       </div>
       <table v-else
-              class="table is-striped">
+             class="table is-striped is-fullwidth">
         <thead>
           <tr>
             <th>Full Name</th>
@@ -75,13 +75,13 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       editing: false
     };
   },
   methods: {
-    toggleEdit() {
+    toggleEdit () {
       if (this.editing) {
         this.$emit('triggerRefresh');
       }
@@ -96,8 +96,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .attendee-container {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-  }
+.attendee-container {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
 </style>

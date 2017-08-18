@@ -47,7 +47,7 @@
                     @dismissed="dismissError()">{{ error }}</closable-error>
     <spinner-page v-if="loading"></spinner-page>
     <table v-else
-           class="table is-striped">
+           class="table is-striped is-fullwidth">
       <thead>
         <tr>
           <th>Badge</th>
