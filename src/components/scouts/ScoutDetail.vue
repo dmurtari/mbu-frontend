@@ -6,7 +6,7 @@
         <h5 class="subtitle is-5"> Troop {{ scout.troop }}</h5>
       </div>
       <scout-edit v-if="editScout"
-                  @close="toggleEditScout()"
+                  @close="closeAndRefresh()"
                   :scout="scout"></scout-edit>
       <div class="section columns"
            v-if="!editScout">
@@ -127,9 +127,13 @@ export default {
     }
   },
   created () {
-   this.reload();
+    this.reload();
   },
   methods: {
+    closeAndRefresh () {
+      this.editScout = false;
+      this.reload();
+    },
     eventForId (eventId) {
       return _.find(this.allEvents, { 'id': eventId });
     },
