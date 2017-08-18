@@ -2,16 +2,17 @@
   <div>
     <b>Assign Merit Badges</b>
     <p>
-      Assign Merit Badges for {{ scout.fullname }} for MBU {{ event.semester }}
-      {{ event.year }} here. Select a merit badge from the dropdown for each
-      period. Merit Badges that are not offered for that period are grayed out.
+      Assign Merit Badges for {{ scout.fullname }} for MBU {{ event.semester }} {{ event.year
+      }} here. Select a merit badge from the dropdown for each period. Merit Badges
+      that are not offered for that period are grayed out.
     </p>
     <br>
     <p>
       {{ scout.fullname }} has listed as their preferences:
     </p>
     <ul>
-      <li v-for="preference in preferences">
+      <li v-for="preference in preferences"
+          :key="preference.offering_id">
         {{ preference.details.rank }}: {{ preference.badge.name }}
         <span v-if="preference.price !== '0.00'">
           ({{ preference.price | currency }})
@@ -20,8 +21,11 @@
     </ul>
     <form class="form">
       <div class="columns">
-        <div v-for="n in 3" class="field column is-4">
-          <label class="label" for="period-1-assignment">Period {{ n }}:</label>
+        <div v-for="n in 3"
+             :key="n"
+             class="field column is-4">
+          <label class="label"
+                 for="period-1-assignment">Period {{ n }}:</label>
           <div class="control">
             <span class="input-group select">
               <select class="input"
@@ -67,16 +71,16 @@
     </form>
     </form>
     <div class="field is-grouped">
-    <div class="control">
-      <button class="button is-primary"
-              :class=" {' is-disabled is-loading': saving }"
-              @click="setAssignments()">Save Assignments</button>
-    </div>
-    <div class="control">
-      <button class="button"
-              :class=" {'is-disabled': saving }"
-              @click="$emit('done')">Cancel</button>
-    </div>
+      <div class="control">
+        <button class="button is-primary"
+                :class=" {' is-disabled is-loading': saving }"
+                @click="setAssignments()">Save Assignments</button>
+      </div>
+      <div class="control">
+        <button class="button"
+                :class=" {'is-disabled': saving }"
+                @click="$emit('done')">Cancel</button>
+      </div>
     </div>
 
   </div>
@@ -104,19 +108,19 @@ export default {
       require: true
     }
   },
-  data() {
+  data () {
     return {
       assignments: [],
       saving: false
     };
   },
   computed: {
-    sortedOfferings() {
+    sortedOfferings () {
       return _.orderBy(this.event.offerings, 'name');
     }
   },
   methods: {
-    maybeRespondToDuration(offeringId, period) {
+    maybeRespondToDuration (offeringId, period) {
       let offering = _.find(this.event.offerings, (offering) => {
         return offering.details.id === Number(offeringId);
       });
@@ -128,14 +132,14 @@ export default {
         this.assignments[2] = offeringId;
       }
     },
-    offered(offeringId, period) {
+    offered (offeringId, period) {
       let offering = _.find(this.event.offerings, (offering) => {
         return offering.details.id === offeringId;
       });
 
       return _.indexOf(offering.details.periods, period) >= 0;
     },
-    setAssignments() {
+    setAssignments () {
       this.saving = true;
 
       let postData = [];
@@ -174,7 +178,7 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     let result = [null, null, null];
 
     _.forEach(this.registration.assignments, (assignment) => {
@@ -189,12 +193,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  li {
-    padding-left: 1rem;
-  }
+li {
+  padding-left: 1rem;
+}
 
-  form {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+form {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 </style>
