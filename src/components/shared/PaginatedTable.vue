@@ -116,6 +116,10 @@ table.paginated-table {
   th.sortable:hover {
     background: #EEE;
   }
+
+  td {
+    word-wrap: break-word;
+  }
 }
 
 .pagination-list {

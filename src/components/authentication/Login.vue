@@ -3,20 +3,22 @@
     <div class="column is-three-quarters is-offset-2">
       <h1 class="title">Login</h1>
       <h3 class="subtitle">Welcome back to MBU Online!</h3>
-      <div class="notification is-warning" v-if="error">
-        <button class="delete" @click.prevent="dismissError()"></button>
+      <div class="notification is-warning"
+           v-if="error">
+        <button class="delete"
+                @click.prevent="dismissError()"></button>
         <p>Invalid email/password combination</p>
       </div>
       <div class="notification is-success"
-          v-if="$route.query.from === 'resetSuccess'">
+           v-if="$route.query.from === 'resetSuccess'">
         <p>
-          Successfully reset your password! Please login to your account with
-          using new password.
+          Successfully reset your password! Please login to your account with using new password.
         </p>
       </div>
       <form>
         <div class="field">
-          <label class="label" for="login-email">Email</label>
+          <label class="label"
+                 for="login-email">Email</label>
           <div class="control">
             <input type="email"
                    class="input is-expanded"
@@ -27,16 +29,19 @@
                    v-model="credentials.email">
           </div>
           <span v-if="$v.credentials.email.$error">
-            <span class="help is-danger" v-if="!$v.credentials.email.email">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.email.email">
               Email address is invalid
             </span>
-            <span class="help is-danger" v-if="!$v.credentials.email.required">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.email.required">
               Email is required
             </span>
           </span>
         </div>
         <div class="field">
-          <label class="label" for="login-password">Password</label>
+          <label class="label"
+                 for="login-password">Password</label>
           <div class="control">
             <input type="password"
                    class="input is-expanded"
@@ -65,7 +70,7 @@
           </div>
           <div class="control">
             <router-link class="button is-link is-pulled-right"
-                        to="/reset">Forgot your password?</router-link>
+                         to="/reset">Forgot your password?</router-link>
           </div>
         </div>
         <br>
@@ -78,7 +83,7 @@
 import { required, email } from 'vuelidate/lib/validators'
 
 export default {
-  data() {
+  data () {
     return {
       credentials: {
         email: '',
@@ -89,11 +94,11 @@ export default {
     }
   },
   methods: {
-    dismissError() {
+    dismissError () {
       this.$v.$reset();
       this.error = '';
     },
-    submit() {
+    submit () {
       let credentials = {
         email: this.credentials.email,
         password: this.credentials.password,
@@ -111,11 +116,11 @@ export default {
           this.error = true;
         });
     },
-    signup() {
+    signup () {
       this.$emit('close');
       this.$router.push('/signup');
     },
-    reset() {
+    reset () {
       this.$emit('close');
       this.$router.push('/reset');
     }
@@ -135,9 +140,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 a {
   cursor: pointer;
 }
-
 </style>
