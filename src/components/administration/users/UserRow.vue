@@ -21,7 +21,7 @@
                          :disabled="user.role != 'coordinator'"
                          :to="'/administration/users/current/' + user.id">
               <span class="icon is-small">
-                <span class="fa fa-eye"
+                <span class="fa fa-info-circle"
                       aria-label="Details"></span>
               </span>
             </router-link>
