@@ -78,6 +78,7 @@ export default [
           {
             path: 'current',
             component: UserContainer,
+            redirect: 'current/all',
             children: [
               {
                 path: 'all',

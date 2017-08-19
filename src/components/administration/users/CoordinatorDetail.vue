@@ -23,6 +23,36 @@
           </li>
         </ul>
       </div>
+      <div class="section">
+        <h5 class="title is-5">Scouts</h5>
+        <div class="notification"
+             v-if="user.scouts.length < 1">
+          This user has not yet added any scouts to their troop.
+        </div>
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Birthday</th>
+              <th>Emergency Contact</th>
+              <th>Emergency Phone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="scout in user.scouts"
+                :key="scout.id">
+              <td>{{ scout.firstname }} {{ scout.lastname }}</td>
+              <td>{{ scout.birthday | shortDate }}</td>
+              <td>{{ scout.emergency_name }} ({{ scout.emergency_relation }})</td>
+              <td>{{ scout.emergency_phone }}</td>
+              <td>
+                <router-link :to="'/administration/scouts/list/' + scout.id ">Details</router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
