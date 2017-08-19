@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h4 class="title is-4">
-      Current Users of MBU Online
-    </h4>
     <p>
       Use this page to view current users of this website.
     </p>

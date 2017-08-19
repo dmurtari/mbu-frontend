@@ -13,13 +13,33 @@
         </ul>
       </td>
       <td>
-        <button class="button is-danger is-outlined"
-                :class="{ 'is-loading': deleting }"
-                :disabled="deleting || user.id === profile.id"
-                @click="toggleConfirm()">
-          <span class="fa fa-trash"
-                aria-label="Delete Account"></span>
-        </button>
+        <div class="field has-addons">
+          <p class="control">
+            <router-link class="button is-info is-outlined"
+                         data-balloon="Details"
+                         data-balloon-pos="up"
+                         :disabled="user.role != 'coordinator'"
+                         :to="'/administration/users/current/' + user.id">
+              <span class="icon is-small">
+                <span class="fa fa-eye"
+                      aria-label="Details"></span>
+              </span>
+            </router-link>
+          </p>
+          <p class="control">
+            <button class="button is-danger is-outlined"
+                    :class="{ 'is-loading': deleting }"
+                    data-balloon="Delete User"
+                    data-balloon-pos="up"
+                    :disabled="deleting || user.id === profile.id"
+                    @click="toggleConfirm()">
+              <span class="icon is-small">
+                <span class="fa fa-trash"
+                      aria-label="Delete Account"></span>
+              </span>
+            </button>
+          </p>
+        </div>
       </td>
     </template>
     <template v-if="confirmDelete">
@@ -30,8 +50,8 @@
                         @close="toggleConfirm()">
           <span slot="header">
             Are you sure you want to delete {{ user.fullname }}'s account? This cannot be undone,
-            and will remove all data (such as scouts) associated with
-            {{ user.fullname }}'s account.
+            and will remove all data (such as scouts) associated with {{ user.fullname
+            }}'s account.
           </span>
           <span slot="help-text">
             Enter the full name of this user with correct capitalization to confirm that you

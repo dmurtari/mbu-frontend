@@ -1,51 +1,53 @@
-import store from './store';
+import store from 'store';
 
-import About from './components/About.vue';
-import Main from './components/Main.vue';
-import NotFound from './components/NotFound.vue';
+import About from 'components/About.vue';
+import Main from 'components/Main.vue';
+import NotFound from 'components/NotFound.vue';
 
-import BadgeList from './components/badges/List.vue';
-import EventList from './components/events/List.vue';
+import BadgeList from 'components/badges/List.vue';
+import EventList from 'components/events/List.vue';
 
-import Profile from './components/users/profile/Profile.vue';
+import Profile from 'components/users/profile/Profile.vue';
 
-import EmailForm from './components/authentication/EmailForm.vue';
-import Reset from './components/authentication/Reset.vue';
-import ResetForm from './components/authentication/ResetForm.vue';
-import Login from './components/authentication/Login.vue';
-import Signup from './components/authentication/Signup.vue';
+import EmailForm from 'components/authentication/EmailForm.vue';
+import Reset from 'components/authentication/Reset.vue';
+import ResetForm from 'components/authentication/ResetForm.vue';
+import Login from 'components/authentication/Login.vue';
+import Signup from 'components/authentication/Signup.vue';
 
-import ClassList from './components/shared/classes/List.vue';
-import ClassDetail from './components/shared/classes/ClassDetail.vue';
-import ClassContainer from './components/shared/classes/ClassContainer.vue';
-import AttendanceList from './components/shared/attendance/List.vue';
+import ClassList from 'components/shared/classes/List.vue';
+import ClassDetail from 'components/shared/classes/ClassDetail.vue';
+import ClassContainer from 'components/shared/classes/ClassContainer.vue';
+import AttendanceList from 'components/shared/attendance/List.vue';
 
-import Administration from './components/administration/Administration.vue';
-import AdministrationHome from './components/administration/AdministrationHome.vue'
-import AdminOfferings from './components/administration/offerings/List.vue';
-import AdminUsers from './components/administration/users/List.vue';
-import AdminApproval from './components/administration/users/AwaitingApproval.vue';
-import AdminPurchasables from './components/administration/purchasables/List.vue';
-import AdminScouts from './components/administration/scouts/List.vue';
-import AdminEvents from './components/administration/events/EventsContainer.vue';
-import AttendanceView from './components/administration/attendance/AttendanceView.vue';
-import ScoutContainer from './components/administration/scouts/ScoutContainer.vue';
-import ListAdmins from './components/administration/users/admins/AdminUsersContainer.vue';
+import Administration from 'components/administration/Administration.vue';
+import AdministrationHome from 'components/administration/AdministrationHome.vue'
+import AdminOfferings from 'components/administration/offerings/List.vue';
+import AdminUsers from 'components/administration/users/List.vue';
+import AdminApproval from 'components/administration/users/AwaitingApproval.vue';
+import AdminPurchasables from 'components/administration/purchasables/List.vue';
+import AdminScouts from 'components/administration/scouts/List.vue';
+import AdminEvents from 'components/administration/events/EventsContainer.vue';
+import AttendanceView from 'components/administration/attendance/AttendanceView.vue';
+import ScoutContainer from 'components/administration/scouts/ScoutContainer.vue';
+import ListAdmins from 'components/administration/users/admins/AdminUsersContainer.vue';
+import CoordinatorDetail from 'components/administration/users/CoordinatorDetail.vue';
+import UserContainer from 'components/administration/users/UserContainer.vue';
 
-import ScoutDetails from './components/scouts/ScoutDetail.vue';
-import AttendanceDetails from './components/stats/DetailView.vue';
+import ScoutDetails from 'components/scouts/ScoutDetail.vue';
+import AttendanceDetails from 'components/stats/DetailView.vue';
 
-import CoordinatorPage from './components/coordinators/CoordinatorPage.vue';
-import CoordinatorHome from './components/coordinators/CoordinatorHome.vue';
-import CoordinatorScouts from './components/coordinators/scouts/List.vue';
-import CoordinatorRegistration from './components/coordinators/registrations/List.vue';
-import CoordinatorAttendance from './components/coordinators/attendance/List.vue';
+import CoordinatorPage from 'components/coordinators/CoordinatorPage.vue';
+import CoordinatorHome from 'components/coordinators/CoordinatorHome.vue';
+import CoordinatorScouts from 'components/coordinators/scouts/List.vue';
+import CoordinatorRegistration from 'components/coordinators/registrations/List.vue';
+import CoordinatorAttendance from 'components/coordinators/attendance/List.vue';
 
-import TeacherPage from './components/teachers/TeacherPage.vue';
-import TeacherHome from './components/teachers/TeacherHome.vue';
-import TeacherStats from './components/teachers/stats/TeacherStats.vue';
+import TeacherPage from 'components/teachers/TeacherPage.vue';
+import TeacherHome from 'components/teachers/TeacherHome.vue';
+import TeacherStats from 'components/teachers/stats/TeacherStats.vue';
 
-import RegistrationTable from './components/stats/RegistrationTable.vue';
+import RegistrationTable from 'components/stats/RegistrationTable.vue';
 
 export default [
   {
@@ -75,8 +77,18 @@ export default [
         children: [
           {
             path: 'current',
-            component: AdminUsers,
-            meta: { title: 'MBU Online | Current Users' }
+            component: UserContainer,
+            children: [
+              {
+                path: 'all',
+                component: AdminUsers,
+                meta: { title: 'MBU Online | Current Users' }
+              }, {
+                path: ':id',
+                component: CoordinatorDetail,
+                meta: { title: 'MBU Online | User Detail' }
+              }
+            ]
           }, {
             path: 'approval',
             component: AdminApproval,

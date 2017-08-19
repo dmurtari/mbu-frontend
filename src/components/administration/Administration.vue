@@ -27,7 +27,7 @@
                 </span>
               </a>
               <ul v-if="showUserMenu">
-                <router-link to="/administration/users/current">Current Users</router-link>
+                <router-link to="/administration/users">Current Users</router-link>
                 <router-link to="/administration/users/approval">
                   Need Approval&nbsp;
                   <span class="tag is-pulled-right is-small"
