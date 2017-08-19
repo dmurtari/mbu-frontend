@@ -155,7 +155,11 @@ export default [
             path: 'offerings',
             component: AdminOfferings,
             meta: { title: 'MBU Online | Class Offerings' }
-          },
+          }, {
+            path: 'badges',
+            component: BadgeList,
+            meta: { title: 'MBU Online | Available Badges' }
+          }
         ]
       }, {
         path: 'classes',

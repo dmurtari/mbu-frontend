@@ -69,6 +69,7 @@
               </a>
               <ul v-if="showEventMenu">
                 <router-link to="/administration/events/all">All Events</router-link>
+                <router-link to="/administration/events/badges">Available Badges</router-link>
                 <router-link to="/administration/events/offerings">Offerings</router-link>
                 <router-link to="/administration/events/purchasables">Purchasables</router-link>
                 <router-link to="/administration/classes">Classes/Completions</router-link>
