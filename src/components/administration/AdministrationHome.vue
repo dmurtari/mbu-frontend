@@ -65,6 +65,12 @@
           at an event.
         </p>
         <br>
+        <h5 class="title is-5">Badges</h5>
+        <p>
+          This section is a list of all badges offered at any MBU events. In order to be able
+          to list a badge as offered at an event, you should add it to this list of badges first.
+        </p>
+        <br>
         <h5 class="title is-5">Offerings</h5>
         <p>
           Manage
@@ -80,6 +86,12 @@
           <b>items available for purches</b> for MBU events. Add descriptions for items,
           as well as information such as whether scouts can pick a size for an item,
           and whether or not an item is age restricted.
+        </p>
+        <br>
+        <h5 class="title is-5">Classes/Completions</h5>
+        <p>
+          Use this section to view a summary of attendance for all classes at an MBU event.
+          Also, <strong>completion records</strong> can be added with this section.
         </p>
       </div>
     </div>
