@@ -12,63 +12,7 @@
                   :troops="troops"
                   class="scout-list-filters"></filter-box>
       <div v-if="filteredScouts.length > 0">
-        <paginated-table :target="'scouts'"
-                         :contents="filteredScouts"
-                         :per="20"
-                         :showLinks="true">
-          <thead slot="header">
-            <tr>
-              <th @click="sort('firstname')"
-                  class="sortable"
-                  :class="{ 'sorted-column': order === 'firstname' }">
-                First Name
-                <span class="icon is-small"
-                      v-if="order === 'firstname'">
-                  <span v-if="sortAscending"
-                        class="fa fa-sort-alpha-asc"></span>
-                  <span v-else
-                        class="fa fa-sort-alpha-desc"></span>
-                </span>
-              </th>
-              <th @click="sort('lastname')"
-                  class="sortable"
-                  :class="{ 'sorted-column': order === 'lastname' }">
-                Last Name
-                <span class="icon is-small"
-                      v-if="order === 'lastname'">
-                  <span v-if="sortAscending"
-                        class="fa fa-sort-alpha-asc"></span>
-                  <span v-else
-                        class="fa fa-sort-alpha-desc"></span>
-                </span>
-              </th>
-              <th @click="sort('troop')"
-                  class="sortable"
-                  :class="{ 'sorted-column': order === 'troop' }">
-                Troop
-                <span class="icon is-small"
-                      v-if="order === 'troop'">
-                  <span v-if="sortAscending"
-                        class="fa fa-sort-numeric-asc"></span>
-                  <span v-else
-                        class="fa fa-sort-numeric-desc"></span>
-                </span>
-              </th>
-              <th>Coordinator</th>
-              <th colspan="1"></th>
-            </tr>
-          </thead>
-          <template slot="row"
-                    scope="props">
-            <scout-row :id="props.item.scout_id"
-                       :firstname="props.item.firstname"
-                       :lastname="props.item.lastname"
-                       :troop="props.item.troop"
-                       :registration="props.item.registrations"
-                       :user="props.item.user">
-            </scout-row>
-          </template>
-        </paginated-table>
+        <scout-table :scouts="filteredScouts"></scout-table>
       </div>
       <div class="notification"
            v-else>
@@ -86,7 +30,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import URLS from 'urls';
-import ScoutRow from './ScoutRow.vue';
+import ScoutTable from './ScoutTable.vue';
 import FilterBox from 'components/shared/FilterBox.vue';
 import EventsUpdate from 'mixins/EventsUpdate';
 
@@ -98,8 +42,6 @@ export default {
       loading: false,
       scouts: [],
       search: '',
-      order: 'troop',
-      sortAscending: true,
       troopFilter: null
     };
   },
@@ -119,13 +61,9 @@ export default {
         });
       }
 
-      scouts = _.filter(scouts, (scout) => {
+      return scouts = _.filter(scouts, (scout) => {
         return scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
-
-      let sortOrder = this.sortAscending ? 'asc' : 'desc';
-
-      return _.orderBy(scouts, this.order, sortOrder);
     },
     troops () {
       if (!this.scouts) {
@@ -138,14 +76,6 @@ export default {
   methods: {
     dismissError () {
       this.error = '';
-    },
-    sort (order) {
-      if (order === this.order) {
-        this.sortAscending = !this.sortAscending;
-      } else {
-        this.order = order;
-        this.sortAscending = true;
-      }
     }
   },
   created () {
@@ -163,7 +93,7 @@ export default {
   },
   components: {
     FilterBox,
-    ScoutRow
+    ScoutTable
   },
   mixins: [
     EventsUpdate
