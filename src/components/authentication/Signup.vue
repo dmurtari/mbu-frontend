@@ -3,10 +3,14 @@
     <div class="column is-8 is-offset-2">
       <h1 class="title">Create Your Account</h1>
       <h3 class="subtitle">
-            Welcome to MBU Online! Create your account here to be able to use all
-            of the features of this website.
-          </h3>
-      <div class="notification"
+        Welcome to MBU Online! Create your account here to be able to use all of the features
+        of this website.
+      </h3>
+      <div class="notification is-warning">
+        Note that you will not be able to use your account to complete any tasks until your
+        account has been approved by an administrator.
+      </div>
+      <div class="notification is-warning"
            v-if="!error">
         All fields are required.
       </div>
@@ -30,11 +34,13 @@
                    v-model="credentials.email">
           </div>
           <span v-if="$v.credentials.email.$error">
-            <span class="help is-danger" v-if="!$v.credentials.email.isUnique">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.email.isUnique">
               An account already exists with the email address you specified.
               <router-link to="/reset">Forgot your password?</router-link>
             </span>
-            <span class="help is-danger" v-if="!$v.credentials.email.email">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.email.email">
               The email address you entered is invalid
             </span>
             <span class="help is-danger"
@@ -56,7 +62,8 @@
                    v-model="credentials.password">
           </div>
           <span v-if="$v.credentials.password.$error">
-            <span class="help is-danger" v-if="!$v.credentials.password.minLength">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.password.minLength">
               Your password must be at least 8 characters
             </span>
             <span class="help is-danger"
@@ -78,7 +85,8 @@
                    v-model="credentials.passwordConfirmation">
           </div>
           <span v-if="$v.credentials.passwordConfirmation.$error">
-            <span class="help is-danger" v-if="!$v.credentials.passwordConfirmation.sameAs">
+            <span class="help is-danger"
+                  v-if="!$v.credentials.passwordConfirmation.sameAs">
               The passwords you entered don't match
             </span>
             <span class="help is-danger"
@@ -101,8 +109,8 @@
           </div>
           <span class="help is-danger"
                 v-if="!$v.credentials.firstname.required && $v.credentials.firstname.$error">
-                Please enter your first name
-              </span>
+            Please enter your first name
+          </span>
         </div>
         <div class="field column is-half">
           <label class="label"
@@ -118,8 +126,8 @@
           </div>
           <span class="help is-danger"
                 v-if="!$v.credentials.lastname.required && $v.credentials.lastname.$error">
-                Please enter your last name
-              </span>
+            Please enter your last name
+          </span>
         </div>
         <div class="field column is-12">
           <label class="label"
@@ -159,7 +167,8 @@
                      v-model="credentials.coordinator.troop">
             </div>
             <span v-if="$v.credentials.coordinator.troop.$error">
-              <span class="help is-danger" v-if="!$v.credentials.coordinator.troop.alphaNum">
+              <span class="help is-danger"
+                    v-if="!$v.credentials.coordinator.troop.alphaNum">
                 Please enter a valid troop number
               </span>
               <span class="help is-danger"
@@ -177,13 +186,14 @@
                      id="signup-district"
                      placeholder="District"
                      :class="{ 'is-danger': $v.credentials.coordinator.district.$error }"
+
                      @blur="$v.credentials.coordinator.district.$touch"
                      v-model="credentials.coordinator.district">
             </div>
             <span class="help is-danger"
                   v-if="!$v.credentials.coordinator.district.required && $v.credentials.coordinator.district.$error">
-                  Please enter your troop's district
-                </span>
+              Please enter your troop's district
+            </span>
           </div>
           <div class="field column is-one-third">
             <label class="label"
@@ -199,8 +209,8 @@
             </div>
             <span class="help is-danger"
                   v-if="!$v.credentials.coordinator.council.required && $v.credentials.coordinator.council.$error">
-                  Please enter your troop's council
-                </span>
+              Please enter your troop's council
+            </span>
           </div>
         </template>
         <template v-if="credentials.role === 'teacher'">
@@ -215,19 +225,16 @@
                      :class="{ 'is-danger': $v.credentials.teacher.chapter.$error }"
                      @blur="$v.credentials.teacher.chapter.$touch"
                      v-model="credentials.teacher.chapter">
-              </div>
+            </div>
             <span class="help is-danger"
                   v-if="!$v.credentials.teacher.chapter.required && $v.credentials.teacher.chapter.$error">
-                  Please enter the group you are affiliated with (e.g. APO chapter)
-                </span>
+              Please enter the group you are affiliated with (e.g. APO chapter)
+            </span>
           </div>
         </template>
         <div class="field column is-12">
           <button class="button is-primary"
-                  :class="{ 'is-disabled': $v.basicInfo.$invalid ||
-                                              ( $v.teacherInfo.$invalid &&
-                                                $v.coordinatorInfo.$invalid),
-                                'is-loading': creating }"
+                  :disabled="$v.basicInfo.$invalid || ( $v.teacherInfo.$invalid && $v.coordinatorInfo.$invalid)"
                   @click.prevent="submit()">Signup</button>
         </div>
       </form>
@@ -239,7 +246,7 @@
 import { required, email, sameAs, minLength, alpha, alphaNum } from 'vuelidate/lib/validators'
 
 export default {
-  data() {
+  data () {
     return {
       credentials: {
         email: '',
@@ -266,7 +273,7 @@ export default {
     }
   },
   methods: {
-    clearRoleDetails() {
+    clearRoleDetails () {
       this.credentials.teacher.chapter = '';
       this.credentials.coordinator.troop = '';
       this.credentials.coordinator.district = '';
@@ -274,11 +281,11 @@ export default {
       this.$v.credentials.teacher.$reset();
       this.$v.credentials.coordinator.$reset();
     },
-    dismissError() {
+    dismissError () {
       this.error = '';
       this.$v.$reset();
     },
-    submit() {
+    submit () {
       this.creating = true;
 
       let credentials = {
@@ -349,6 +356,6 @@ export default {
 
 <style lang="scss">
 .column .columns {
-    margin-bottom: -0.75rem;
+  margin-bottom: -0.75rem;
 }
 </style>
