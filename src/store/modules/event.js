@@ -68,11 +68,13 @@ const getters = {
     return state.events;
   },
   currentEvent(state) {
-    return state.currentEvent;
+    return _.find(state.events, (event) => {
+      return event.id === state.currentEvent.id;
+    });
   },
   currentEventIndex(state) {
     return _.findIndex(state.events, (event) => {
-      event.id === state.currentEvent.id;
+      return event.id === state.currentEvent.id;
     });
   },
   isCurrentEvent: (state) => (eventId) => {
