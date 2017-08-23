@@ -6,7 +6,7 @@
         Welcome to MBU Online! Create your account here to be able to use all of the features
         of this website.
       </h3>
-      <div class="notification is-warning">
+      <div class="notification is-info">
         Note that you will not be able to use your account to complete any tasks until your
         account has been approved by an administrator.
       </div>
