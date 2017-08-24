@@ -1,3 +1,5 @@
+var path = require('path')
+
 module.exports = function (config) {
   config.set({
     browsers: ['PhantomJS'],
@@ -7,6 +9,12 @@ module.exports = function (config) {
       './src/**/*.js': ['webpack']
     },
     webpack: {
+      resolve: {
+        modules: [
+          path.resolve('./src'),
+          path.resolve('./node_modules')
+        ]
+      },
       module: {
         loaders: [
           {
