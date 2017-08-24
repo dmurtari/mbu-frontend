@@ -73,12 +73,13 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary"
-                :class=" {' is-disabled is-loading': saving }"
+                :disabled="saving"
+                :class=" {'is-loading': saving }"
                 @click="setAssignments()">Save Assignments</button>
       </div>
       <div class="control">
         <button class="button"
-                :class=" {'is-disabled': saving }"
+                :disabled="saving"
                 @click="$emit('done')">Cancel</button>
       </div>
     </div>

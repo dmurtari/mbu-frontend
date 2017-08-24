@@ -99,6 +99,7 @@
         </div>
         <div class="control">
           <button class="button"
+                  :disabled="creating"
                   @click.prevent="close()">Cancel</button>
         </div>
       </div>

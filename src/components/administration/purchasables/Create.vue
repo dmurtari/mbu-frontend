@@ -2,11 +2,12 @@
   <div class="box">
     <h4 class="title is-4">Add a New Item</h4>
     <p>
-      Add a new purchasable item for this event by filling out the form below.
-      The name and price of the item are required.
+      Add a new purchasable item for this event by filling out the form below. The name
+      and price of the item are required.
     </p>
     <br>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -14,7 +15,8 @@
     <form>
       <div class="columns is-multiline">
         <div class="field column is-6">
-          <label class="label" for="purchasable-create-item">Item Name</label>
+          <label class="label"
+                 for="purchasable-create-item">Item Name</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -24,12 +26,14 @@
                    @blur="$v.purchasable.item.$touch"
                    v-model="purchasable.item">
           </div>
-          <span class="help is-danger" v-if="$v.purchasable.item.$error">
+          <span class="help is-danger"
+                v-if="$v.purchasable.item.$error">
             Please enter the name of the item
           </span>
         </div>
         <div class="field column is-6">
-          <label class="label" for="purchasable-create-price">Price</label>
+          <label class="label"
+                 for="purchasable-create-price">Price</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -39,12 +43,14 @@
                    @blur="$v.purchasable.price.$touch"
                    v-model="purchasable.price">
           </div>
-          <span class="help is-danger" v-if="$v.purchasable.price.$error">
+          <span class="help is-danger"
+                v-if="$v.purchasable.price.$error">
             Please enter the price of the item
           </span>
         </div>
         <div class="field column is-12">
-          <label class="label" for="purchasable-create-description">Description</label>
+          <label class="label"
+                 for="purchasable-create-description">Description</label>
           <div class="control">
             <textarea class="textarea"
                       id="purchasable-create-description"
@@ -56,20 +62,23 @@
         <div class="field column is-6">
           <div class="control">
             <label class="checkbox">
-              <input v-model="hasAgeRestriction" type="checkbox"> This item is age restricted
+              <input v-model="hasAgeRestriction"
+                     type="checkbox"> This item is age restricted
             </label>
           </div>
         </div>
         <div class="field column is-6">
           <div class="control">
             <label class="checkbox">
-              <input v-model="purchasable.has_size" type="checkbox"> Allow scouts to select a size
+              <input v-model="purchasable.has_size"
+                     type="checkbox"> Allow scouts to select a size
             </label>
           </div>
         </div>
         <template v-if="hasAgeRestriction">
           <div class="field column is-6">
-            <label class="label" for="purchasable-min-age">Minimum Age (If Any)</label>
+            <label class="label"
+                   for="purchasable-min-age">Minimum Age (If Any)</label>
             <div class="control">
               <input type="number"
                      class="input"
@@ -78,15 +87,18 @@
                      @blur="$v.purchasable.minimum_age.$touch"
                      v-model="purchasable.minimum_age">
             </div>
-            <span class="help is-danger" v-if="!$v.purchasable.minimum_age.number">
+            <span class="help is-danger"
+                  v-if="!$v.purchasable.minimum_age.number">
               Minimum age must be a number
             </span>
-            <span class="help is-danger" v-if="!$v.purchasable.minimum_age.lessThan">
+            <span class="help is-danger"
+                  v-if="!$v.purchasable.minimum_age.lessThan">
               Minimum age must be less than maximum age
             </span>
           </div>
           <div class="field column is-6">
-            <label class="label" for="purchasable-max-age">Maximum Age (If Any)</label>
+            <label class="label"
+                   for="purchasable-max-age">Maximum Age (If Any)</label>
             <div class="control">
               <input type="number"
                      class="input"
@@ -95,10 +107,12 @@
                      @blur="$v.purchasable.maximum_age.$touch"
                      v-model="purchasable.maximum_age">
             </div>
-            <span class="help is-danger" v-if="!$v.purchasable.maximum_age.number">
+            <span class="help is-danger"
+                  v-if="!$v.purchasable.maximum_age.number">
               Maximum age must be a number
             </span>
-            <span class="help is-danger" v-if="!$v.purchasable.maximum_age.greaterThan">
+            <span class="help is-danger"
+                  v-if="!$v.purchasable.maximum_age.greaterThan">
               Maximum age must be greater than minimum age
             </span>
           </div>
@@ -107,12 +121,13 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary"
-                  :disabled="$v.$invalid"
-                  :class="{ 'is-loading is-disabled': creating }"
+                  :disabled="$v.$invalid || creating"
+                  :class="{ 'is-loading': creating }"
                   @click.prevent="createPurchasable()">Create Item</button>
         </div>
         <div class="control">
           <button class="button"
+                  :disabled="creating"
                   @click.prevent="close()">Cancel</button>
         </div>
       </div>
@@ -129,7 +144,7 @@ export default {
   props: {
     eventId: { required: true }
   },
-  data() {
+  data () {
     return {
       creating: false,
       error: '',
@@ -145,12 +160,12 @@ export default {
     };
   },
   methods: {
-    createPurchasable() {
+    createPurchasable () {
       let purchasable = _.clone(this.purchasable);
       purchasable.maximum_age = this.purchasable.maximum_age ?
-                                  this.purchasable.maximum_age : null;
+        this.purchasable.maximum_age : null;
       purchasable.minimum_age = this.purchasable.minimum_age ?
-                                  this.purchasable.minimum_age : null;
+        this.purchasable.minimum_age : null;
 
       this.$store.dispatch('createPurchasable', {
         eventId: this.eventId,
@@ -164,7 +179,7 @@ export default {
           this.error = 'Failed to create item. Please refresh and try again.';
         });
     },
-    close() {
+    close () {
       this.$emit('close');
     }
   },

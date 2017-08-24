@@ -2,12 +2,13 @@
   <div class="box">
     <h4 class="title is-4">Create an Event</h4>
     <p>
-      Fill out the information below to create a new Merit Badge University
-      event. To add merit badges that will be offered at this event, go to
+      Fill out the information below to create a new Merit Badge University event. To add
+      merit badges that will be offered at this event, go to
       <router-link to="/administration"> the administration page</router-link>.
     </p>
     <br>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -15,7 +16,8 @@
     <form>
       <div class="columns is-multiline">
         <div class="field column is-4">
-          <label class="label" for="event-create-year">Year</label>
+          <label class="label"
+                 for="event-create-year">Year</label>
           <div class="control">
             <masked-input mask="9999"
                           placeholder="yyyy"
@@ -24,12 +26,14 @@
                           @blur="$v.event.year.$touch"
                           v-model="event.year"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.event.year.$error">
+          <span class="help is-danger"
+                v-if="$v.event.year.$error">
             Please enter a valid year
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="event-create-semester">Semester</label>
+          <label class="label"
+                 for="event-create-semester">Semester</label>
           <div class="control">
             <span class="select">
               <select id="event-create-semester"
@@ -45,12 +49,14 @@
               </select>
             </span>
           </div>
-          <span class="help is-danger" v-if="$v.event.semester.$error">
+          <span class="help is-danger"
+                v-if="$v.event.semester.$error">
             Please pick a semester for this event
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="event-create-price">Registration Fee</label>
+          <label class="label"
+                 for="event-create-price">Registration Fee</label>
           <div class="control">
             <masked-input mask="99.99"
                           placeholder="00.00"
@@ -59,12 +65,14 @@
                           id="event-create-price"
                           v-model="event.price"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.event.price.$error">
+          <span class="help is-danger"
+                v-if="$v.event.price.$error">
             Please enter the price of the event (or 00.00)
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="event-create-date">Date</label>
+          <label class="label"
+                 for="event-create-date">Date</label>
           <div class="control">
             <masked-input mask="99/99/9999"
                           placeholder="mm/dd/yyyy"
@@ -73,12 +81,14 @@
                           @blur="$v.event.date.$touch"
                           v-model="event.date"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.event.date.$error">
+          <span class="help is-danger"
+                v-if="$v.event.date.$error">
             Please enter a valid date for this event
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="event-create-open">Registration Opens</label>
+          <label class="label"
+                 for="event-create-open">Registration Opens</label>
           <div class="control">
             <masked-input mask="99/99/9999"
                           placeholder="mm/dd/yyyy"
@@ -87,13 +97,14 @@
                           @blur="$v.event.registration_open.$touch"
                           v-model="event.registration_open"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.event.registration_open.$error">
-            Please enter a valid date for registration opening, before the day
-            of the event
+          <span class="help is-danger"
+                v-if="$v.event.registration_open.$error">
+            Please enter a valid date for registration opening, before the day of the event
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="event-create-close">Registration Closes</label>
+          <label class="label"
+                 for="event-create-close">Registration Closes</label>
           <div class="control">
             <masked-input mask="99/99/9999"
                           placeholder="mm/dd/yyyy"
@@ -102,30 +113,33 @@
                           @blur="$v.event.registration_close.$touch"
                           v-model="event.registration_close"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.event.registration_close.$error">
-            Please enter a valid date for registration closing, between
-            registration opening and the event day
+          <span class="help is-danger"
+                v-if="$v.event.registration_close.$error">
+            Please enter a valid date for registration closing, between registration opening
+            and the event day
           </span>
         </div>
         <div class="field column is-12">
           <div class="control">
             <label class="checkbox">
-              <input v-model="current" type="checkbox"> Mark this as the current event
+              <input v-model="current"
+                     type="checkbox"> Mark this as the current event
             </label>
             <help-tag text="The current event is the event that scoutmasters will
-                            be able to register their scouts for."></help-tag>
+                              be able to register their scouts for."></help-tag>
           </div>
         </div>
       </div>
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary"
-                  :disabled="$v.$invalid"
-                  :class="{ 'is-loading is-disabled': creating }"
+                  :disabled="$v.$invalid || creating"
+                  :class="{ 'is-loading': creating }"
                   @click.prevent="createEvent()">Create Event</button>
         </div>
         <div class="control">
           <button class="button"
+                  :disabled="creating"
                   @click.prevent="clearAndClose()">Cancel</button>
         </div>
       </div>
@@ -142,7 +156,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 export default {
-  data() {
+  data () {
     return {
       event: {
         year: '',
@@ -162,7 +176,7 @@ export default {
     }
   },
   methods: {
-    createEvent() {
+    createEvent () {
       this.creating = true;
       const dateFormat = 'MM/DD/YYYY'
 
@@ -196,14 +210,14 @@ export default {
           this.error = err;
         })
     },
-    clearAndClose() {
+    clearAndClose () {
       _.forEach(this.event, (value, key) => {
         this.event[key] = '';
       });
       this.error = '';
       this.close();
     },
-    close() {
+    close () {
       this.$emit('close');
     }
   },
@@ -229,11 +243,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  span.select {
-    width: 100%;
+span.select {
+  width: 100%;
 
-    select {
-      width: 100%;
-    }
+  select {
+    width: 100%;
   }
+}
 </style>

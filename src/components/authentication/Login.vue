@@ -60,16 +60,18 @@
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-primary"
-                    :class="{ 'is-loading is-disabled': loading }"
-                    :disabled="$v.credentials.$invalid"
+                    :class="{ 'is-loading': loading }"
+                    :disabled="$v.credentials.$invalid || loading"
                     @click.prevent="submit()">Login</button>
           </div>
           <div class="control">
             <button class="button is-info is-outlined"
+                    :disabled="loading"
                     @click.prevent="signup()">Create an Account</button>
           </div>
           <div class="control">
             <router-link class="button is-link is-pulled-right"
+                         :disabled="loading"
                          to="/reset">Forgot your password?</router-link>
           </div>
         </div>

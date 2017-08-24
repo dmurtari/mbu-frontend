@@ -23,7 +23,8 @@
       </span>
     </div>
     <button class="button is-primary"
-            :class="{ 'is-disabled is-loading': sending }"
+            :class="{ 'is-loading': sending }"
+            :disabled="sending"
             @click.prevent="sendResetEmail()">
       {{ sent ? 'Resend Email' : 'Send Email' }}
     </button>

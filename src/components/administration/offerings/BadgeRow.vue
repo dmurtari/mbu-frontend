@@ -38,7 +38,8 @@
       <div class="field" v-if="!offered">
         <div class="control">
           <button class="button is-success create-button"
-                  :class="{ 'is-disabled is-loading': creating }"
+                  :class="{ 'is-loading': creating }"
+                  :disabled="creating"
                   @click="createOffering()">
             Offer this Badge
           </button>

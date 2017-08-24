@@ -13,12 +13,14 @@
     </td>
     <td>
       <button class="button is-primary"
-              :class="{ 'is-disabled is-loading': saving }"
+              :class="{ 'is-loading': saving }"
+              :disabled="saving || deleting"
               @click="approveUser()">
         <span class="fa fa-check" aria-label="Approve"></span>
       </button>
       <button class="button is-danger"
-              :class="{ 'is-disabled is-loading': deleting }"
+              :class="{ 'is-loading': deleting }"
+              :disabled="saving || deleting"
               @click="deleteUser()">
         <span class="fa fa-trash" aria-label="Delete Account"></span>
       </button>

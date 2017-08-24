@@ -8,15 +8,16 @@
       </p>
     </div>
     <p>
-      Edit merit badge preferences for {{ scout.fullname }} below. You must
-      select six unique merit badges.
+      Edit merit badge preferences for {{ scout.fullname }} below. You must select six
+      unique merit badges.
     </p>
     <br>
-    <div v-if="!showDeleteConfirmation" class="columns is-multiline">
+    <div v-if="!showDeleteConfirmation"
+         class="columns is-multiline">
       <template v-for="(preference, index) in preferences">
         <div class="column field is-6 is-4-widescreen">
           <label class="label"
-                  :for="'registration-rank' + index">
+                 :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
           </label>
           <div class="control">
@@ -52,26 +53,27 @@
       <div class="column is-12">
         <h5 class="title is-5">Save Changes for {{ scout.fullname }}</h5>
         <p>
-          Once you are done editing {{ scout.fullname }}'s registration, save these
-          changes by clicking the button below. You can also remove this
-          registration by clicking the "Unregister" button.
+          Once you are done editing {{ scout.fullname }}'s registration, save these changes
+          by clicking the button below. You can also remove this registration by clicking
+          the "Unregister" button.
         </p>
       </div>
       <div class="column is-12">
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-primary"
-                    :disabled="$v.$invalid"
-                    :class="{ 'is-disabled is-loading': saving }"
+                    :disabled="$v.$invalid || saving"
+                    :class="{ 'is-loading': saving }"
                     @click="save()">Save Changes</button>
           </div>
           <div class="control">
             <button class="button"
-                    :class="{ 'is-disabled': saving }"
+                    :disabled="saving"
                     @click="cancel()">Cancel</button>
           </div>
           <div class="control is-pulled-right">
             <button class="button is-danger"
+                    :disabled="saving"
                     @click.prevent="toggleDeleteConfirmation()">Unregister</button>
           </div>
         </div>
@@ -89,11 +91,11 @@
         Do you really want to unregister {{ scout.fullname }} from this event?
       </span>
       <span slot="help-text">
-        Enter the event's semester and year to confirm that you wish to remove
-        {{ scout.fullname }}'s registration for MBU
-        {{ this.event.semester + ' ' + this.event.year }}. You can re-register
-        {{ scout.fullname }} for this event at any time <b>before the event's
-        registration closes ({{ event.registration_close | longDate }}).</b>
+        Enter the event's semester and year to confirm that you wish to remove {{ scout.fullname
+        }}'s registration for MBU {{ this.event.semester + ' ' + this.event.year }}.
+        You can re-register {{ scout.fullname }} for this event at any time
+        <b>before the event's registration closes ({{ event.registration_close | longDate
+          }}).</b>
       </span>
     </confirm-delete>
   </div>
@@ -122,7 +124,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       preferences: [],
       saving: false,
@@ -131,15 +133,15 @@ export default {
     };
   },
   computed: {
-    offerings() {
+    offerings () {
       return _.orderBy(this.event.offerings, 'name');
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.$emit('cancel');
     },
-    deleteRegistration() {
+    deleteRegistration () {
       return this.$store.dispatch('deleteRegistration', {
         scoutId: this.scout.id,
         eventId: this.event.id
@@ -152,11 +154,11 @@ export default {
           this.error = 'Failed to delete registration. Please refresh and try again.';
         })
     },
-    save() {
+    save () {
       if (!this.uniqueOfferings()) {
         this.error = 'Merit Badge requests cannot be duplicates.';
         return;
-        }
+      }
 
       this.saving = true;
       return this.$store.dispatch('setPreferences', {
@@ -174,15 +176,15 @@ export default {
           this.error = 'Failed to save preferences. Please refresh and try again';
         });
     },
-    uniqueOfferings() {
+    uniqueOfferings () {
       let offerings = _.map(this.preferences, 'offering');
       return _.uniq(offerings).length === offerings.length;
     },
-    toggleDeleteConfirmation() {
+    toggleDeleteConfirmation () {
       this.showDeleteConfirmation = !this.showDeleteConfirmation;
     },
   },
-  mounted() {
+  mounted () {
     _.forEach(this.registration.preferences, (preference) => {
       this.preferences.push({
         offering: preference.offering_id,
@@ -211,7 +213,7 @@ export default {
 </script>
 
 <style lang="scss" scope>
-  .is-fullwidth {
-    width: 100%;
-  }
+.is-fullwidth {
+  width: 100%;
+}
 </style>

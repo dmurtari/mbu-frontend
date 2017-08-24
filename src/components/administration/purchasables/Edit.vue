@@ -3,7 +3,8 @@
     <form v-if="!deleting">
       <div class="columns is-multiline">
         <div class="field column is-6">
-          <label class="label" for="purchasable-update-item">Item Name</label>
+          <label class="label"
+                 for="purchasable-update-item">Item Name</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -13,12 +14,14 @@
                    @blur="$v.purchasableUpdate.item.$touch"
                    v-model="purchasableUpdate.item">
           </div>
-          <span class="help is-danger" v-if="$v.purchasableUpdate.item.$error">
+          <span class="help is-danger"
+                v-if="$v.purchasableUpdate.item.$error">
             Please enter the name of the item
           </span>
         </div>
         <div class="field column is-6">
-          <label class="label" for="purchasable-update-price">Price</label>
+          <label class="label"
+                 for="purchasable-update-price">Price</label>
           <div class="control">
             <input type="number"
                    class="input"
@@ -28,12 +31,14 @@
                    @blur="$v.purchasableUpdate.price.$touch"
                    v-model="purchasableUpdate.price">
           </div>
-          <span class="help is-danger" v-if="$v.purchasableUpdate.price.$error">
+          <span class="help is-danger"
+                v-if="$v.purchasableUpdate.price.$error">
             Please enter the price of the item
           </span>
         </div>
         <div class="field column is-12">
-          <label class="label" for="purchasable-update-description">Description</label>
+          <label class="label"
+                 for="purchasable-update-description">Description</label>
           <div class="control">
             <textarea class="textarea"
                       id="purchasable-update-description"
@@ -43,7 +48,8 @@
           </div>
         </div>
         <div class="field column is-6">
-          <label class="label" for="purchasable-update-min-age">Minimum Age (If Any)</label>
+          <label class="label"
+                 for="purchasable-update-min-age">Minimum Age (If Any)</label>
           <div class="control">
             <input type="number"
                    class="input"
@@ -52,15 +58,18 @@
                    @blur="$v.purchasableUpdate.minimum_age.$touch"
                    v-model="purchasableUpdate.minimum_age">
           </div>
-          <span class="help is-danger" v-if="!$v.purchasableUpdate.minimum_age.number">
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.minimum_age.number">
             Minimum age must be a number
           </span>
-          <span class="help is-danger" v-if="!$v.purchasableUpdate.minimum_age.lessThan">
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.minimum_age.lessThan">
             Minimum age must be less than maximum age
           </span>
         </div>
         <div class="field column is-6">
-          <label class="label" for="purchasable-update-max-age">Maximum Age (If Any)</label>
+          <label class="label"
+                 for="purchasable-update-max-age">Maximum Age (If Any)</label>
           <div class="control">
             <input type="number"
                    class="input"
@@ -69,17 +78,20 @@
                    @blur="$v.purchasableUpdate.maximum_age.$touch"
                    v-model="purchasableUpdate.maximum_age">
           </div>
-          <span class="help is-danger" v-if="!$v.purchasableUpdate.maximum_age.number">
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.maximum_age.number">
             Maximum age must be a number
           </span>
-          <span class="help is-danger" v-if="!$v.purchasableUpdate.maximum_age.greaterThan">
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.maximum_age.greaterThan">
             Maximum age must be greater than minimum age
           </span>
         </div>
         <div class="field column is-6">
           <div class="control">
             <label class="checkbox">
-              <input v-model="purchasableUpdate.has_size" type="checkbox"> Allow scouts to select a size
+              <input v-model="purchasableUpdate.has_size"
+                     type="checkbox"> Allow scouts to select a size
             </label>
           </div>
         </div>
@@ -87,17 +99,19 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary"
-                  :disabled="$v.$invalid"
-                  :class="{ 'is-loading is-disabled': saving }"
+                  :disabled="$v.$invalid || saving"
+                  :class="{ 'is-loading': saving }"
                   @click.prevent="update()">Save Changes</button>
         </div>
         <div class="control">
           <button class="button"
+                  :disabled="saving"
                   @click.prevent="close()">Cancel</button>
         </div>
         <div class="control is-pulled-right">
           <button class="button is-danger"
-                    @click.prevent="toggleDelete()">Delete Item</button>
+                  :disabled="saving"
+                  @click.prevent="toggleDelete()">Delete Item</button>
         </div>
       </div>
     </form>
@@ -112,8 +126,8 @@
       </span>
       <span slot="help-text">
         Enter the name of the item with correct capitalization to confirm deletion.
-        <b>This action cannot be undone, and will remove this item for any scout
-        that has purchased it.</b>
+        <b>This action cannot be undone, and will remove this item for any scout that
+          has purchased it.</b>
       </span>
     </confirm-delete>
   </div>
@@ -131,7 +145,7 @@ export default {
     },
     eventId: { required: true }
   },
-  data() {
+  data () {
     return {
       purchasableUpdate: {
         item: '',
@@ -147,7 +161,7 @@ export default {
     };
   },
   methods: {
-    update() {
+    update () {
       this.purchasableUpdate.id = this.purchasable.id;
       this.$store.dispatch('updatePurchasable', {
         eventId: this.eventId,
@@ -161,10 +175,10 @@ export default {
           this.error = 'Failed to update item. Please refresh and try again.';
         });
     },
-    close() {
+    close () {
       this.$emit('close');
     },
-    deletePurchasable() {
+    deletePurchasable () {
       this.$store.dispatch('deletePurchasable', {
         eventId: this.eventId,
         purchasableId: this.purchasable.id
@@ -177,11 +191,11 @@ export default {
           this.error = 'Failed to delete item. Please refresh and try again.';
         });
     },
-    toggleDelete() {
+    toggleDelete () {
       this.deleting = !this.deleting;
     }
   },
-  mounted() {
+  mounted () {
     this.purchasableUpdate.item = this.purchasable.item;
     this.purchasableUpdate.price = this.purchasable.price;
     this.purchasableUpdate.description = this.purchasable.description;

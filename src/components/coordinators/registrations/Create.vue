@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -10,14 +11,13 @@
     </h5>
     <div class="columns is-multiline">
       <p class="column is-12">
-        Please select the top six merit badges that {{ scout.firstname}} would
-        like to attend classes for. We will do our best to accommodate
-        preferences.
+        Please select the top six merit badges that {{ scout.firstname}} would like to attend
+        classes for. We will do our best to accommodate preferences.
       </p>
       <template v-for="(preference, index) in preferences">
         <div class="column field is-6 is-4-widescreen">
           <label class="label"
-            :for="'registration-rank' + index">
+                 :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
           </label>
           <div class="control">
@@ -48,15 +48,15 @@
         <div class="field is-grouped">
           <div class="control">
             <button class="button is-primary"
-                    :disabled="$v.$invalid"
-                    :class="{ 'is-disabled is-loading': creating }"
+                    :disabled="$v.$invalid || creating"
+                    :class="{ 'is-loading': creating }"
                     @click="registerScout()">
               Register Scout
             </button>
           </div>
           <div class="control">
             <button class="button"
-                    :class="{ 'is-disabled': creating }"
+                    :disabled="creating"
                     @click="cancel()">
               Cancel
             </button>
@@ -84,7 +84,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       preferences: [],
       creating: false,
@@ -92,15 +92,15 @@ export default {
     };
   },
   computed: {
-    offerings() {
+    offerings () {
       return _.orderBy(this.event.offerings, 'name');
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.$emit('cancel');
     },
-    registerScout() {
+    registerScout () {
       if (!this.uniqueOfferings()) {
         this.error = 'Merit Badge requests cannot be duplicates.';
         return;
@@ -128,13 +128,13 @@ export default {
           this.error = 'Failed to register scout for this event.';
         });
     },
-    uniqueOfferings() {
+    uniqueOfferings () {
       let offerings = _.map(this.preferences, 'offering');
       console.log(offerings)
       return _.uniq(offerings).length === offerings.length;
     }
   },
-  mounted() {
+  mounted () {
     for (var i = 1; i <= 6; i++) {
       this.preferences.push({
         rank: i,

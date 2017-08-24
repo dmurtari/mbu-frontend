@@ -22,10 +22,9 @@
             <input class="input"
                    v-model="completions[scout.scoutId]"
                    :id="'completion-scout-' + scout.scoutId"
-                   :class="{
-                       'is-disabled': saving,
-                       'is-danger': $v.completions.$each[scout.scoutId].$invalid
-                     }"
+                   :class="{ 'is-danger': $v.completions.$each[scout.scoutId].$invalid }"
+
+                   :disabled="saving"
                    aria-labelledby="Completions"
                    type="text"
                    @blur="$v.completions.$each[scout.scoutId].$touch"
@@ -41,12 +40,13 @@
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary"
-                :class="{ 'is-loading is-disabled': saving, 'is-disabled': $v.$invalid }"
+                :disabled="saving || $v.$invalid"
+                :class="{ 'is-loading': saving }"
                 @click.prevent="save()">Save Completions</button>
       </div>
       <div class="control">
         <button class="button"
-                :class="{ 'is-disabled': saving }"
+                :disabled="saving"
                 @click.prevent="cancel()">Cancel</button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
   props: {
     period: {
       type: Number,
-      requred: true
+      required: true
     },
     requirements: {
       type: Array,

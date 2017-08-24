@@ -4,20 +4,24 @@
         v-if="creating">Create Offering for {{ badge.name }}</h5>
     <h5 class="title is-5"
         v-else>Editing {{ badge.name }}</h5>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
-    <div class="notification is-danger" v-if="invalidPeriodsError">
+    <div class="notification is-danger"
+         v-if="invalidPeriodsError">
       <p>
         {{ invalidPeriodsError }}
       </p>
     </div>
-    <form class="form" v-if="!removing">
+    <form class="form"
+          v-if="!removing">
       <div class="columns is-multiline">
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-periods">Offered Periods:</label>
+          <label class="label"
+                 for="offering-periods">Offered Periods:</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -27,7 +31,8 @@
                    @blur="$v.offering.periods.$touch"
                    placeholder="Periods">
           </div>
-          <span v-if="$v.offering.periods.$error" class="help is-danger">
+          <span v-if="$v.offering.periods.$error"
+                class="help is-danger">
             <span v-if="!$v.offering.periods.required">
               Enter the periods this badge will be offered (separated by commas)
             </span>
@@ -37,7 +42,8 @@
           </span>
         </div>
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-duration">Duration of Class:</label>
+          <label class="label"
+                 for="offering-duration">Duration of Class:</label>
           <div class="control">
             <span class="input-group select duration-select">
               <select class="input"
@@ -51,15 +57,17 @@
               </select>
             </span>
           </div>
-          <span class="help is-danger" v-if="$v.offering.duration.$error">
+          <span class="help is-danger"
+                v-if="$v.offering.duration.$error">
             Pick the duration of this class
           </span>
         </div>
         <div class="field column is-4 is-2-widescreen">
-          <label class="label" for="offering-price">
+          <label class="label"
+                 for="offering-price">
             Price:
             <help-tag text="Any additional cost that the scout will need to pay
-                            to attend this class, in addition to the event fee">
+                              to attend this class, in addition to the event fee">
             </help-tag>
           </label>
           <div class="control">
@@ -71,15 +79,17 @@
                    @blur="$v.offering.price.$touch"
                    placeholder="Price">
           </div>
-          <span class="help is-danger" v-if="$v.offering.price.$error">
+          <span class="help is-danger"
+                v-if="$v.offering.price.$error">
             Enter the price of this class
           </span>
         </div>
         <div class="field column is-12 is-6-widescreen">
-          <label class="label" for="offering-requirements">
+          <label class="label"
+                 for="offering-requirements">
             Requirements:
             <help-tag text="A list of requirements that will be covered during
-                            class."></help-tag>
+                              class."></help-tag>
           </label>
           <div class="control">
             <input type="text"
@@ -90,13 +100,14 @@
                    @blur="$v.offering.requirements.$touch"
                    placeholder="1, 2, 3a, 4">
           </div>
-          <span class="help is-danger" v-if="$v.offering.requirements.$error">
+          <span class="help is-danger"
+                v-if="$v.offering.requirements.$error">
             <span v-if="!$v.offering.requirements.required">
               Please specify the requirements that will be covered
             </span>
             <span v-if="$v.offering.requirements.$each.$error">
-              Requirements can be a combination of numbers and letters, and must
-              be separated by commas (e.g. 1, 2a, 3b, 4).
+              Requirements can be a combination of numbers and letters, and must be separated by
+              commas (e.g. 1, 2a, 3b, 4).
             </span>
           </span>
         </div>
@@ -104,14 +115,15 @@
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-primary"
-                  :disabled="$v.$invalid"
-                  :class="{ 'is-loading is-disabled': saving }"
+                  :disabled="$v.$invalid || saving"
+                  :class="{ 'is-loading': saving }"
                   @click.prevent="saveOffering()">
             Save Offering
           </button>
         </div>
         <div class="control">
           <button class="button is-light"
+                  :disabled="saving"
                   @click.prevent="toggleEdit()">
             Cancel Changes
           </button>
@@ -119,6 +131,7 @@
         <div class="control is-pulled-right"
              v-if="!creating">
           <button class="button is-danger"
+                  :disabled="saving"
                   @click.prevent="toggleRemove()">
             Remove
           </button>
@@ -131,15 +144,16 @@
                     @deleteSuccess="deleteOffering()"
                     @close="toggleRemove()">
       <span slot="header">
-        Do you really want to remove this offering? This cannot be undone, and will
-        likely break existing registration records!
+        Do you really want to remove this offering? This cannot be undone, and will likely
+        break existing registration records!
       </span>
       <span slot="help-text">
-        Enter the full name of this badge with correct capitalization to confirm
-        that you wish to remove this offering. <b>This action cannot be undone, and
-        will delete all associated completion records and badge requests! Adding
-        this badge as an offering again will not restore previous records and
-        requests!</b>
+        Enter the full name of this badge with correct capitalization to confirm that you
+        wish to remove this offering.
+        <b>This action cannot be undone, and will delete all associated completion records
+          and badge requests! Adding this badge as an offering again will not restore
+          previous records and requests!
+        </b>
       </span>
     </confirm-delete>
   </div>
@@ -162,7 +176,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       offering: {
         periods: this.badge.periods || [],
@@ -178,10 +192,10 @@ export default {
   },
   computed: {
     editablePeriods: {
-      get() {
+      get () {
         return _.join(_.sortBy(this.offering.periods), ', ');
       },
-      set(newPeriods) {
+      set (newPeriods) {
         this.offering.periods = _.without(_.map(_.split(newPeriods, ',', 3), (period) => {
           let number = Number(_.trim(period));
           if (isNaN(number)) {
@@ -193,21 +207,21 @@ export default {
       }
     },
     editableRequirements: {
-      get() {
+      get () {
         return _.join(_.sortBy(this.offering.requirements), ', ');
       },
-      set(newRequirements) {
+      set (newRequirements) {
         this.offering.requirements = _.without(_.map(_.split(newRequirements, ','), (requirement) => {
           return String(_.trim(requirement));
         }), null, 0);
       }
     },
-    offered() {
+    offered () {
       return !_.isEmpty(this.badge.periods);
     }
   },
   methods: {
-    deleteOffering() {
+    deleteOffering () {
       this.$store.dispatch('deleteOffering', {
         eventId: this.eventId,
         badgeId: this.badge.badge_id
@@ -220,13 +234,13 @@ export default {
           this.error = 'Failed to remove badge from this event. Please try again';
         })
     },
-    toggleRemove() {
+    toggleRemove () {
       this.removing = !this.removing;
     },
-    toggleEdit() {
+    toggleEdit () {
       this.$emit('cancel');
     },
-    saveOffering() {
+    saveOffering () {
       _.pull(this.offering.periods, null);
       let sortedPeriods = this.offering.periods.sort();
 

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
@@ -8,7 +9,8 @@
     <form v-if="!showDeleteConfirmation">
       <div class="columns is-multiline">
         <div class="field column is-3">
-          <label class="label" for="scout-edit-first-name">First Name</label>
+          <label class="label"
+                 for="scout-edit-first-name">First Name</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -18,12 +20,14 @@
                    @blur="$v.scoutUpdate.firstname.$touch"
                    v-model="scoutUpdate.firstname">
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.firstname.$error">
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.firstname.$error">
             Please enter the scout's first name
           </span>
         </div>
         <div class="field column is-3">
-          <label class="label" for="scout-edit-last-name">Last Name</label>
+          <label class="label"
+                 for="scout-edit-last-name">Last Name</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -33,12 +37,14 @@
                    @blur="$v.scoutUpdate.lastname.$touch"
                    v-model="scoutUpdate.lastname">
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.lastname.$error">
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.lastname.$error">
             Please enter the scout's last name
           </span>
         </div>
         <div class="field column is-3">
-          <label class="label" for="scout-edit-birthday">Birthday</label>
+          <label class="label"
+                 for="scout-edit-birthday">Birthday</label>
           <div class="control">
             <masked-input mask="99/99/9999"
                           placeholder="mm/dd/yyyy"
@@ -47,12 +53,14 @@
                           @blur="$v.scoutUpdate.birthday.$touch"
                           v-model="scoutUpdate.birthday"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.birthday.$error">
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.birthday.$error">
             Please enter the scout's birthday
           </span>
         </div>
         <div class="field column is-3">
-          <label class="label" for="scout-edit-troop">Troop</label>
+          <label class="label"
+                 for="scout-edit-troop">Troop</label>
           <div class="control">
             <input type="number"
                    class="input"
@@ -62,12 +70,14 @@
                    @blur="$v.scoutUpdate.troop.$touch"
                    v-model="scoutUpdate.troop">
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.troop.$error">
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.troop.$error">
             Please enter the scout's troop
           </span>
         </div>
         <div class="field column is-12">
-          <label class="label" for="scout-edit-notes">Anything else we should know?</label>
+          <label class="label"
+                 for="scout-edit-notes">Anything else we should know?</label>
           <div class="control">
             <textarea class="textarea"
                       id="scout-edit-notes"
@@ -80,7 +90,8 @@
           <h5 class="title is-5">Emergency Contact Information</h5>
         </div>
         <div class="field column is-4">
-          <label class="label" for="scout-edit-emergency-name">Name</label>
+          <label class="label"
+                 for="scout-edit-emergency-name">Name</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -90,13 +101,14 @@
                    @blur="$v.scoutUpdate.emergency_name.$touch"
                    v-model="scoutUpdate.emergency_name">
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.emergency_name.$error">
-            Please enter the name of the person we should contact in event
-            of emergency
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.emergency_name.$error">
+            Please enter the name of the person we should contact in event of emergency
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="scout-edit-emergency-relation">Relation</label>
+          <label class="label"
+                 for="scout-edit-emergency-relation">Relation</label>
           <div class="control">
             <input type="text"
                    class="input"
@@ -106,12 +118,14 @@
                    @blur="$v.scoutUpdate.emergency_relation.$touch"
                    v-model="scoutUpdate.emergency_relation">
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.emergency_relation.$error">
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.emergency_relation.$error">
             Please enter the relationship of the emergency contact to the scout
           </span>
         </div>
         <div class="field column is-4">
-          <label class="label" for="scout-edit-emergency-phone">Phone Number</label>
+          <label class="label"
+                 for="scout-edit-emergency-phone">Phone Number</label>
           <div class="control">
             <masked-input mask="(999) 999-9999"
                           placeholder="(___) ___-____"
@@ -120,25 +134,27 @@
                           @blur="$v.scoutUpdate.emergency_phone.$touch"
                           v-model="scoutUpdate.emergency_phone"></masked-input>
           </div>
-          <span class="help is-danger" v-if="$v.scoutUpdate.emergency_phone.$error">
-            Please enter the phone number of the person we should contact in event
-            of emergency
+          <span class="help is-danger"
+                v-if="$v.scoutUpdate.emergency_phone.$error">
+            Please enter the phone number of the person we should contact in event of emergency
           </span>
         </div>
         <div class="column">
           <div class="field is-grouped">
             <div class="control">
               <button class="button is-primary"
-                      :disabled="$v.$invalid"
-                      :class="{ 'is-disabled is-loading': saving }"
+                      :disabled="$v.$invalid || saving"
+                      :class="{ 'is-loading': saving }"
                       @click.prevent="saveScout()">Save</button>
             </div>
             <div class="control">
               <button class="button"
+                      :disabled="saving"
                       @click.prevent="close()">Cancel</button>
             </div>
             <div class="control is-pulled-right">
               <button class="button is-danger"
+                      :disabled="Saving"
                       @click.prevent="toggleDeleteConfirmation()">Delete</button>
             </div>
           </div>
@@ -156,8 +172,8 @@
       </span>
       <span slot="help-text">
         Enter the scout's full name to confirm that you wish to delete this scout.
-        <b>This action cannot be undone, and will permanently delete all
-        associated records and registrations.</b>
+        <b>This action cannot be undone, and will permanently delete all associated records
+          and registrations.</b>
       </span>
     </confirm-delete>
   </div>
@@ -171,7 +187,7 @@ import { required } from 'vuelidate/lib/validators';
 import { date, phone } from 'validators';
 
 export default {
-  data() {
+  data () {
     return {
       scoutUpdate: {
         firstname: '',
@@ -200,7 +216,7 @@ export default {
     ])
   },
   methods: {
-    deleteScout() {
+    deleteScout () {
       this.$store.dispatch('deleteScout', {
         userId: this.scout.user_id,
         scoutId: this.scout.id
@@ -213,7 +229,7 @@ export default {
           this.error = 'Failed to delete scout. Please refresh and try again';
         })
     },
-    saveScout() {
+    saveScout () {
       this.saving = true;
       this.$store.dispatch('updateScout', {
         userId: this.scout.user_id,
@@ -229,14 +245,14 @@ export default {
           this.error = 'Failed to save changes. Please refresh and try again';
         })
     },
-    toggleDeleteConfirmation() {
+    toggleDeleteConfirmation () {
       this.showDeleteConfirmation = !this.showDeleteConfirmation;
     },
-    close() {
+    close () {
       this.$emit('close');
     }
   },
-  mounted() {
+  mounted () {
     this.scoutUpdate = _.clone(this.scout);
     this.scoutUpdate.birthday = moment(this.scoutUpdate.birthday).format('MM/DD/YYYY')
   },
