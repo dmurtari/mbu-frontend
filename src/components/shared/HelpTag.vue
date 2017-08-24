@@ -1,6 +1,7 @@
 <template>
   <span class="icon question-icon"
         :data-balloon="text"
+        data-balloon-pos="up"
         :data-balloon-length="length">
       <span class="fa fa-question-circle">
       </span>

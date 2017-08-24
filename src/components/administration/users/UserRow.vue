@@ -17,7 +17,7 @@
           <p class="control">
             <router-link class="button is-info is-outlined"
                          data-balloon="Details"
-                         data-balloon-pos="up"
+                         data-balloon-pos="left"
                          :disabled="user.role != 'coordinator'"
                          :to="'/administration/users/current/' + user.id">
               <span class="icon is-small">
@@ -30,7 +30,7 @@
             <button class="button is-danger is-outlined"
                     :class="{ 'is-loading': deleting }"
                     data-balloon="Delete User"
-                    data-balloon-pos="up"
+                    data-balloon-pos="right"
                     :disabled="deleting || user.id === profile.id"
                     @click="toggleConfirm()">
               <span class="icon is-small">
