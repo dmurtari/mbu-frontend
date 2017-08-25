@@ -1,6 +1,8 @@
 <template>
   <div class="loader-container">
-    <centered-spinner></centered-spinner>
+    <moon-loader :color="'lightgray'"
+                 class="moon-spinner">
+    </moon-loader>
   </div>
 </template>
 
@@ -17,7 +19,13 @@ export default {
 
 <style lang="scss" scoped>
 .loader-container {
-  margin-top: 15em;
+  flex-grow: 1;
+}
+
+.moon-spinner {
+  width: 5em;
+  display: block;
+  margin: auto;
 }
 </style>
 
