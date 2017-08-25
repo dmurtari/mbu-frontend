@@ -108,7 +108,7 @@ export default {
     event () {
       this.state = 'displaying';
     },
-    registration (newReg, old) {
+    event () {
       this.loadRegistrationInformation();
     }
   },
