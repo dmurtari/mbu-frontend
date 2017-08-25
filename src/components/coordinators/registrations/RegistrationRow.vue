@@ -10,39 +10,42 @@
       <template v-if="state === 'displaying'">
         <b class="column is-2 is-hidden-mobile">{{ scout.fullname }}</b>
         <h5 class="column is-2 title is-5 is-hidden-tablet">{{ scout.fullname }}</h5>
-        <loader v-if="loading"
-                :color="'lightgray'"></loader>
-        <template v-if="registration && !loading">
-          <div class="column auto">
-            <scout-registration :event="event"
-                                :preferences="preferences"
-                                :purchases="purchases"
-                                :showActualCost="false"
-                                :showAssignments="false"></scout-registration>
-          </div>
-          <div class="column is-1">
-            <button class="button"
-                    @click="toggleState('editing')"
-                    @cancel="toggleState()"
-                    data-balloon="Modify Registration"
-                    data-balloon-pos="up"
-                    :disabled="!registrationOpen">
-              <span class="fa fa-edit is-hidden-mobile"
-                    aria-label="Modify"></span>
-              <span class="is-hidden-tablet">Modify Registration</span>
+        <centered-spinner v-if="loading"></centered-spinner>
+        <template v-else>
+          <template v-if="registration"
+                    class="columns">
+            <div class="column auto">
+              <scout-registration :event="event"
+                                  :preferences="preferences"
+                                  :purchases="purchases"
+                                  :showActualCost="false"
+                                  :showAssignments="false"></scout-registration>
+            </div>
+            <div class="column is-1">
+              <button class="button"
+                      @click="toggleState('editing')"
+                      @cancel="toggleState()"
+                      data-balloon="Modify Registration"
+                      data-balloon-pos="up"
+                      :disabled="!registrationOpen">
+                <span class="fa fa-edit is-hidden-mobile"
+                      aria-label="Modify"></span>
+                <span class="is-hidden-tablet">Modify Registration</span>
+              </button>
+            </div>
+          </template>
+          <div class="register-action"
+               v-else>
+            <button class="button is-link register-button"
+                    v-if="registrationOpen"
+                    @click="toggleState('creating')">
+              Register for {{ event.semester + ' ' + event.year }}
             </button>
+            <span class="column auto"
+                  v-if="!registrationOpen">
+              Sorry, registration for this event is closed.
+            </span>
           </div>
-        </template>
-        <template v-if="!registration">
-          <button class="button is-link register-button"
-                  v-if="registrationOpen"
-                  @click="toggleState('creating')">
-            Register for {{ event.semester + ' ' + event.year }}
-          </button>
-          <span class="column auto"
-                v-if="!registrationOpen">
-            Sorry, registration for this event is closed.
-          </span>
         </template>
       </template>
       <create-registration v-if="state === 'creating'"
@@ -105,7 +108,7 @@ export default {
     event () {
       this.state = 'displaying';
     },
-    registration () {
+    registration (newReg, old) {
       this.loadRegistrationInformation();
     }
   },
@@ -186,8 +189,8 @@ export default {
   align-items: center;
 }
 
-.register-button {
-  height: auto;
+.register-action {
+  align-self: center;
 }
 
 .done-purchasing-button {

@@ -15,7 +15,8 @@
         classes for. We will do our best to accommodate preferences.
       </p>
       <template v-for="(preference, index) in preferences">
-        <div class="column field is-6 is-4-widescreen">
+        <div class="column field is-6 is-4-widescreen"
+             :key="index">
           <label class="label"
                  :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
