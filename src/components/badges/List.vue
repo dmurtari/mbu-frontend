@@ -44,7 +44,6 @@ import Badge from './Badge.vue';
 import BadgeCreate from './Create.vue';
 
 import ClosableError from 'components/shared/ClosableError.vue';
-import SpinnerPage from 'components/shared/SpinnerPage.vue';
 
 export default {
   data () {
@@ -71,8 +70,7 @@ export default {
   components: {
     Badge,
     BadgeCreate,
-    ClosableError,
-    SpinnerPage
+    ClosableError
   },
   created () {
     this.loading = true;
