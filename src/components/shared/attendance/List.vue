@@ -5,10 +5,16 @@
          v-else>
       <closable-error v-if="error">{{ error }}</closable-error>
       <div v-if="registrations.length > 0">
-        <attendance-row v-for="registration in registrations"
-                        :key="registration.id"
-                        :registration="registration"
-                        :event="event"></attendance-row>
+        <paginated-items :target="'registrations'"
+                         :contents="registrations"
+                         :per="10"
+                         :showLinks="true">
+          <template slot="row"
+                    scope="props">
+            <attendance-row :registration="props.item"
+                            :event="event"></attendance-row>
+          </template>
+        </paginated-items>
       </div>
       <div class="notification"
            v-else>
