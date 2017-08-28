@@ -11,10 +11,6 @@
               <a href="#general-profile"
                  @click="showDisplay()">My Profile</a>
             </li>
-            <li>
-              <a href="#coordinator-details"
-                 @click="showDisplay()">Details</a>
-            </li>
           </ul>
           <p class="menu-label">Make changes to your account</p>
           <ul class="menu-list">
@@ -39,9 +35,8 @@
       <div class="column">
         <div v-if="state === 'display'">
           <general-profile id="general-profile"
-                           class="general-profile" :profile="profile"></general-profile>
-          <coordinator-detail v-if="profile.role === 'coordinator' "
-                              id="coordinator-details"></coordinator-detail>
+                           class="general-profile"
+                           :profile="profile"></general-profile>
         </div>
         <div v-if="state === 'editProfile'">
           <edit-profile :profile="profile"
@@ -49,7 +44,7 @@
         </div>
         <div v-if="state === 'editPassword'">
           <edit-password :id="profile.id"
-                        @toggle="toggleEditPassword()"></edit-password>
+                         @toggle="toggleEditPassword()"></edit-password>
         </div>
         <div v-if="state === 'deleteAccount'">
           <delete-account :firstname="profile.firstname"
@@ -67,7 +62,6 @@
 import { mapGetters } from 'vuex';
 
 import General from './General.vue';
-import Coordinator from './Coordinator.vue';
 import Edit from './Edit.vue';
 import EditPassword from './EditPassword.vue';
 import Delete from './Delete.vue';
@@ -84,7 +78,7 @@ export default {
     ])
   },
   methods: {
-    toggleEdit() {
+    toggleEdit () {
       switch (this.state) {
         case 'editProfile':
           this.state = 'display';
@@ -94,7 +88,7 @@ export default {
           break;
       }
     },
-    toggleEditPassword() {
+    toggleEditPassword () {
       switch (this.state) {
         case 'editPassword':
           this.state = 'display';
@@ -104,7 +98,7 @@ export default {
           break;
       }
     },
-    toggleDeleteAccount() {
+    toggleDeleteAccount () {
       switch (this.state) {
         case 'deleteAccount':
           this.state = 'display';
@@ -114,18 +108,17 @@ export default {
           break;
       }
     },
-    showDisplay() {
+    showDisplay () {
       this.state = 'display';
     }
   },
   components: {
-    'coordinator-detail': Coordinator,
     'general-profile': General,
     'edit-profile': Edit,
     'edit-password': EditPassword,
     'delete-account': Delete
   },
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter (to, from, next) {
     if (!localStorage.getItem('token')) {
       next((vm) => vm.$router.push('/'));
     }
