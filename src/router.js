@@ -314,17 +314,17 @@ function requireApproval(to, from, next) {
     store.dispatch('getProfile')
       .then(() => {
         if (!store.getters.isApproved) {
-          next(false);
+          next('/');
         } else {
           next();
         }
       })
       .catch(() => {
-        next(false);
+        next('/');
       });
   } else {
     if (!store.getters.isApproved) {
-      next(false);
+      next('/');
     } else {
       next();
     }
@@ -340,18 +340,18 @@ function requireRole(role) {
             next();
           } else {
             console.warn('Role is not allowed access to this resource');
-            next(false);
+            next('/');
           }
         })
         .catch(() => {
-          next(false);
+          next('/');
         });
     } else {
       if ((store.getters.role === role || store.getters.isAdmin) && store.getters.isApproved) {
         next();
       } else {
         console.warn('Role is not allowed access to this resource');
-        next(false);
+        next('/');
       }
     }
   }
