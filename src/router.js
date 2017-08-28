@@ -87,7 +87,8 @@ export default [
               }, {
                 path: ':id',
                 component: CoordinatorDetail,
-                meta: { title: 'MBU Online | User Detail' }
+                meta: { title: 'MBU Online | User Detail' },
+                props: true
               }
             ]
           }, {
@@ -118,7 +119,8 @@ export default [
               }, {
                 path: ':id',
                 component: ScoutDetails,
-                meta: { title: 'MBU Online | Scout Detail' }
+                meta: { title: 'MBU Online | Scout Detail' },
+                props: true
               }
             ]
           }, {

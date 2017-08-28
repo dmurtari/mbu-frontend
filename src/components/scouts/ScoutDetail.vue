@@ -111,6 +111,11 @@ import RegistrationContainer from './RegistrationContainer.vue';
 import ScoutEdit from './ScoutEdit.vue';
 
 export default {
+  props: {
+    id: {
+      required: true
+    }
+  },
   data () {
     return {
       editScout: false,
@@ -142,7 +147,7 @@ export default {
     },
     reload () {
       this.loading = true;
-      axios.get(URLS.SCOUTS_URL + this.$route.params.id)
+      axios.get(URLS.SCOUTS_URL + this.id)
         .then((response) => {
           this.scout = response.data;
           this.scout['id'] = this.scout.scout_id;
@@ -158,7 +163,7 @@ export default {
     },
     reloadRegistrations () {
       this.loadingRegistrations = true;
-      return axios.get(URLS.SCOUTS_URL + this.$route.params.id + '/registrations')
+      return axios.get(URLS.SCOUTS_URL + this.id + '/registrations')
         .then((response) => {
           this.loadingRegistrations = false;
           this.registrations = response.data;

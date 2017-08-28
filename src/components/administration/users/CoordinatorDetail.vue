@@ -63,6 +63,11 @@ import axios from 'axios';
 import URLS from 'urls';
 
 export default {
+  props: {
+    id: {
+      required: true
+    }
+  },
   data () {
     return {
       error: '',
@@ -77,7 +82,7 @@ export default {
   },
   created () {
     this.loading = true;
-    axios.get(URLS.USERS_URL + this.$route.params.id + '/scouts')
+    axios.get(URLS.USERS_URL + this.id+ '/scouts')
       .then((response) => {
         this.user = response.data[0];
         this.error = '';
