@@ -33,7 +33,9 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta.title) {
-    document.title = to.meta.title;
+    document.title = 'MBU Online | ' + to.meta.title;
+  } else {
+    document.title = 'MBU Online'
   }
 
   return next();

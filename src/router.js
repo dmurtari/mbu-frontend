@@ -58,11 +58,11 @@ export default [
     path: '/',
     name: 'home',
     component: Main,
-    meta: { title: 'MBU Online | Home' }
+    meta: { title: 'Home' }
   }, {
     path: '/about',
     component: About,
-    meta: { title: 'MBU Online | About' }
+    meta: { title: 'About' }
   }, {
     path: '/administration',
     component: Administration,
@@ -72,7 +72,7 @@ export default [
       {
         path: 'home',
         component: AdministrationHome,
-        meta: { title: 'MBU Online | Administration' }
+        meta: { title: 'Administration' }
       }, {
         path: 'users',
         component: {
@@ -87,22 +87,22 @@ export default [
               {
                 path: 'all',
                 component: AdminUsers,
-                meta: { title: 'MBU Online | Current Users' }
+                meta: { title: 'Current Users' }
               }, {
                 path: ':id',
                 component: CoordinatorDetail,
-                meta: { title: 'MBU Online | User Detail' },
+                meta: { title: 'User Detail' },
                 props: true
               }
             ]
           }, {
             path: 'approval',
             component: AdminApproval,
-            meta: { title: 'MBU Online | Users Needing Approval' }
+            meta: { title: 'Users Needing Approval' }
           }, {
             path: 'admins',
             component: ListAdmins,
-            meta: { title: 'MBU Online | Administrative Users' }
+            meta: { title: 'Administrative Users' }
           }
         ]
       }, {
@@ -119,18 +119,18 @@ export default [
               {
                 path: 'all',
                 component: AdminScouts,
-                meta: { title: 'MBU Online | All Scouts' }
+                meta: { title: 'All Scouts' }
               }, {
                 path: ':id',
                 component: ScoutDetails,
-                meta: { title: 'MBU Online | Scout Detail' },
+                meta: { title: 'Scout Detail' },
                 props: true
               }
             ]
           }, {
             path: 'assignments',
             component: AttendanceView,
-            meta: { title: 'MBU Online | Assignments' },
+            meta: { title: 'Assignments' },
             redirect: 'assignments/list',
             children: [
               {
@@ -152,19 +152,19 @@ export default [
           {
             path: 'all',
             component: AdminEvents,
-            meta: { title: 'MBU Online | All Events' }
+            meta: { title: 'All Events' }
           }, {
             path: 'purchasables',
             component: AdminPurchasables,
-            meta: { title: 'MBU Online | Items for Purchase' }
+            meta: { title: 'Items for Purchase' }
           }, {
             path: 'offerings',
             component: AdminOfferings,
-            meta: { title: 'MBU Online | Class Offerings' }
+            meta: { title: 'Class Offerings' }
           }, {
             path: 'badges',
             component: BadgeList,
-            meta: { title: 'MBU Online | Available Badges' }
+            meta: { title: 'Available Badges' }
           }
         ]
       }, {
@@ -175,11 +175,11 @@ export default [
           {
             path: 'all',
             component: ClassList,
-            meta: { title: 'MBU Online | All Classes' }
+            meta: { title: 'All Classes' }
           }, {
             path: ':eventId/:id',
             component: ClassDetail,
-            meta: { title: 'MBU Online | Class Detail' },
+            meta: { title: 'Class Detail' },
             props(route) {
               return {
                 offeringId: Number(route.params.id),
@@ -199,15 +199,15 @@ export default [
       {
         path: 'home',
         component: CoordinatorHome,
-        meta: { title: 'MBU Online | Coordinator Home' }
+        meta: { title: 'Coordinator Home' }
       }, {
         path: 'scouts',
         component: CoordinatorScouts,
-        meta: { title: 'MBU Online | Your Scouts' }
+        meta: { title: 'Your Scouts' }
       }, {
         path: 'registrations',
         component: CoordinatorRegistration,
-        meta: { title: 'MBU Online | Registrations' }
+        meta: { title: 'Registrations' }
       }, {
         path: 'attendance',
         component: CoordinatorAttendance,
@@ -216,11 +216,11 @@ export default [
           {
             path: 'detail',
             component: AttendanceDetails,
-            meta: { title: 'MBU Online | Attendance Details' }
+            meta: { title: 'Attendance Details' }
           }, {
             path: 'list',
             component: RegistrationTable,
-            meta: { title: 'MBU Online | Attendance' }
+            meta: { title: 'Attendance' }
           }
         ]
       }
@@ -234,11 +234,11 @@ export default [
       {
         path: 'home',
         component: TeacherHome,
-        meta: { title: 'MBU Online | Instructor Home' }
+        meta: { title: 'Instructor Home' }
       }, {
         path: 'assignments',
         component: AttendanceView,
-        meta: { title: 'MBU Online | Statistics' },
+        meta: { title: 'Statistics' },
         redirect: 'assignments/list',
         children: [
           {
@@ -257,11 +257,11 @@ export default [
           {
             path: 'all',
             component: ClassList,
-            meta: { title: 'MBU Online | All Classes' }
+            meta: { title: 'All Classes' }
           }, {
             path: ':eventId/:id',
             component: ClassDetail,
-            meta: { title: 'MBU Online | Class Detail' },
+            meta: { title: 'Class Detail' },
             props(route) {
               return {
                 offeringId: Number(route.params.id),
@@ -273,29 +273,29 @@ export default [
       }, {
         path: 'assignments',
         component: AttendanceList,
-        meta: { title: 'MBU Online | Assignments' }
+        meta: { title: 'Assignments' }
       }
     ]
   }, {
     path: '/events',
     component: EventList,
-    meta: { title: 'MBU Online | Events' }
+    meta: { title: 'Events' }
   }, {
     path: '/badges',
     component: BadgeList,
-    meta: { title: 'MBU Online | Badges' }
+    meta: { title: 'Badges' }
   }, {
     path: '/signup',
     component: Signup,
-    meta: { title: 'MBU Online | Sign Up' }
+    meta: { title: 'Sign Up' }
   }, {
     path: '/login',
     component: Login,
-    meta: { title: 'MBU Online | Log In' }
+    meta: { title: 'Log In' }
   }, {
     path: '/reset',
     component: Reset,
-    meta: { title: 'MBU Online | Reset Your Password' },
+    meta: { title: 'Reset Your Password' },
     children: [
       {
         path: '',
@@ -308,24 +308,24 @@ export default [
   }, {
     path: '/profile',
     component: Profile,
-    meta: { title: 'MBU Online | Your Profile' },
     redirect: 'profile/general',
     children: [
       {
         path: 'general',
+        meta: { title: 'Your Profile' },
         component: ProfileOverview,
       }, {
         path: 'edit',
         component: ProfileEdit,
-        meta: { title: 'MBU Online | Edit Profile' }
+        meta: { title: 'Edit Profile' }
       }, {
         path: 'password',
         component: ProfilePassword,
-        meta: { title: 'MBU Online | Change Password' }
+        meta: { title: 'Change Password' }
       }, {
         path: 'delete',
         component: ProfileDelete,
-        meta: { title: 'MBU Online | Delete My Account' }
+        meta: { title: 'Delete My Account' }
       }
     ]
   }, {
