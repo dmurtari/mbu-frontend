@@ -141,12 +141,6 @@ import { required, alphaNum } from 'vuelidate/lib/validators'
 import _ from 'lodash';
 
 export default {
-  props: {
-    profile: {
-      type: Object,
-      required: true
-    }
-  },
   data () {
     return {
       profileUpdate: {
@@ -167,12 +161,13 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isAdmin'
+      'isAdmin',
+      'profile'
     ])
   },
   methods: {
     cancel () {
-      this.$emit('toggle');
+      this.$router.push('/profile');
     },
     update () {
       this.saving = true;
@@ -194,13 +189,14 @@ export default {
 
       this.$store.dispatch('updateProfile', profile)
         .then(() => {
-          this.saving = false;
           this.error = '';
-          this.$emit('toggle');
+          this.$router.push('/profile');
         })
         .catch((err) => {
-          this.saving = false;
           this.error = 'Failed to save changes. Please try again.';
+        })
+        .then(() => {
+          this.saving = false;
         });
     }
   },

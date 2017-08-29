@@ -8,6 +8,10 @@ import BadgeList from 'components/badges/List.vue';
 import EventList from 'components/events/List.vue';
 
 import Profile from 'components/users/profile/Profile.vue';
+import ProfileOverview from 'components/users/profile/General.vue';
+import ProfileEdit from 'components/users/profile/Edit.vue';
+import ProfileDelete from 'components/users/profile/Delete.vue';
+import ProfilePassword from 'components/users/profile/EditPassword.vue';
 
 import EmailForm from 'components/authentication/EmailForm.vue';
 import Reset from 'components/authentication/Reset.vue';
@@ -302,9 +306,28 @@ export default [
       }
     ]
   }, {
-    path: '/profile/:id?',
+    path: '/profile',
     component: Profile,
-    meta: { title: 'MBU Online | Your Profile' }
+    meta: { title: 'MBU Online | Your Profile' },
+    redirect: 'profile/general',
+    children: [
+      {
+        path: 'general',
+        component: ProfileOverview,
+      }, {
+        path: 'edit',
+        component: ProfileEdit,
+        meta: { title: 'MBU Online | Edit Profile' }
+      }, {
+        path: 'password',
+        component: ProfilePassword,
+        meta: { title: 'MBU Online | Change Password' }
+      }, {
+        path: 'delete',
+        component: ProfileDelete,
+        meta: { title: 'MBU Online | Delete My Account' }
+      }
+    ]
   }, {
     path: '*',
     component: NotFound

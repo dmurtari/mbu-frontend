@@ -1,5 +1,5 @@
 <template>
-  <div class="section column is-8 is-offset-2">
+  <div class="section">
     <h4 class="title is-4">Change Your Password</h4>
     <change-password :sending="sending"
                      :error="error"
@@ -10,40 +10,43 @@
 </template>
 
 <script>
-import ChangePassword from '../../authentication/ChangePassword.vue';
+import ChangePassword from 'components/authentication/ChangePassword.vue';
+
+import { mapGetters } from 'vuex';
 
 export default {
-  props: {
-    id: {
-      required: true
-    }
+  computed: {
+    ...mapGetters([
+      'profile'
+    ])
   },
-  data() {
+  data () {
     return {
       error: '',
       sending: false
     }
   },
   methods: {
-    close() {
-      this.$emit('toggle');
+    close () {
+      this.$router.push('/profile');
     },
-    resetPassword(password) {
+    resetPassword (password) {
       let data = {
-        id: this.id,
+        id: this.profile.id,
         password: password
       }
 
       this.sending = true;
       this.$store.dispatch('updateProfile', data)
         .then(() => {
-          this.sending = false;
           this.error = '';
-          this.$emit('toggle');
+          this.close();
         })
         .catch((err) => {
-          this.sending = false;
           this.error = 'Failed to reset password. Please try again.';
+        })
+        .then(() => {
+          this.sending = false;
         });
     }
   },
