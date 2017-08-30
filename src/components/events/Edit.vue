@@ -169,12 +169,13 @@ export default {
           return this.$store.dispatch('getEvents');
         })
         .then(() => {
-          this.saving = false;
           this.close();
         })
         .catch((err) => {
-          this.saving = false;
           this.error = err;
+        })
+        .then(() => {
+          this.saving = false;
         });
     },
     deleteEvent () {
@@ -193,12 +194,13 @@ export default {
         .then(() => {
           return this.$store.dispatch('getEvents');
         }).then(() => {
-          this.settingCurrent = false;
           this.$emit('close');
         })
         .catch(() => {
-          this.settingCurrent = false;
           this.error = 'Failed to set this event as current.';
+        })
+        .then(() => {
+          this.settingCurrent = false;
         });
     },
     showDeleteConfirm () {

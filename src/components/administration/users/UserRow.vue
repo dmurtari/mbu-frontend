@@ -95,12 +95,13 @@ export default {
 
       this.$store.dispatch('deleteUser', this.user.id)
         .then(() => {
-          this.deleting = false;
           this.error = '';
         })
         .catch(() => {
-          this.deleting = false;
           this.error = 'Failed to delete user. Please try again later.';
+        })
+        .then(() => {
+          this.deleting = false;
         });
     },
     toggleConfirm () {

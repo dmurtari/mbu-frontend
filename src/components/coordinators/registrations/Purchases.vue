@@ -4,20 +4,24 @@
       Items Available for Purchase ({{ event.semester }} {{ event.year }})
     </h5>
     <p>
-      Add items that this scout would like to purchase for this event by picking
-      an item from the dropdown, and entering a quantity and size (if applicable).
-      View details about these items on the <router-link to="/events">events
-      page.</router-link>
+      Add items that this scout would like to purchase for this event by picking an item
+      from the dropdown, and entering a quantity and size (if applicable). View details
+      about these items on the
+      <router-link to="/events">events page.
+      </router-link>
     </p>
     <br>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       <p>
         {{ error }}
       </p>
     </div>
-    <div class="columns is-mobile" v-if="availableItems.length > 0">
+    <div class="columns is-mobile"
+         v-if="availableItems.length > 0">
       <div class="field column is-3-mobile is-5-tablet">
-        <label class="label" for="purchasable-item-select">Item</label>
+        <label class="label"
+               for="purchasable-item-select">Item</label>
         <div class="control">
           <span class="select">
             <select id="purchasable-item-select"
@@ -33,12 +37,14 @@
         </div>
       </div>
       <div class="field column is-3-mobile is-2-tablet">
-        <label class="label" for="purchasable-item-quantity">Quantity</label>
+        <label class="label"
+               for="purchasable-item-quantity">Quantity</label>
         <div class="control">
           <input type="number"
                  class="input"
                  id="purchasable-item-quantity"
                  :class="{ 'is-danger': $v.itemToPurchase.quantity.$error && itemToPurchase.purchasable }"
+
                  @blur="$v.itemToPurchase.quantity.$touch"
                  v-model="itemToPurchase.quantity">
         </div>
@@ -48,14 +54,16 @@
         </span>
       </div>
       <div class="field column is-3-mobile is-2-tablet">
-        <label class="label" for="purchasable-item-size">Size</label>
+        <label class="label"
+               for="purchasable-item-size">Size</label>
         <div class="control">
           <span class="select">
             <select type="select"
                     class="input"
                     v-model="itemToPurchase.size"
                     :disabled="!itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size">
-              <option v-for="size in sizes" :value="size.value">
+              <option v-for="size in sizes"
+                      :value="size.value">
                 {{ size.text }}
               </option>
             </select>
@@ -83,14 +91,15 @@
         </div>
       </div>
     </div>
-    <div class="notification" v-else>
+    <div class="notification"
+         v-else>
       <p>
         <span v-if="existingPurchases.length > 0">
           This scout has already purchased all items availabe at this event.
         </span>
         <span v-else>
-          There are no items listed as available for purchase at this event.
-          Please check back later.
+          There are no items listed as available for purchase at this event. Please check back
+          later.
         </span>
       </p>
     </div>
@@ -98,11 +107,12 @@
       <h5 class="title is-5">
         Items Already Purchased ({{ event.semester }} {{ event.year }})
       </h5>
-      <div v-for="item in existingPurchases" class="purchased-item">
+      <div v-for="item in existingPurchases"
+           class="purchased-item">
         <b>{{ item.item }}</b>:
         <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
-        {{ item.price | currency }} &times; {{ item.details.quantity }} =
-        {{ item.price * item.details.quantity | currency }}
+        {{ item.price | currency }} &times; {{ item.details.quantity }} = {{ item.price *
+        item.details.quantity | currency }}
         <span class="tag is-danger delete-button"
               @click="deleteItem(item.id)">
           <span class="fa fa-trash"></span>
@@ -136,7 +146,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {
       itemToPurchase: {
         purchasable: '',
@@ -156,27 +166,27 @@ export default {
     };
   },
   computed: {
-    orderedPurchasables() {
+    orderedPurchasables () {
       return _.orderBy(this.purchasables, 'item');
     },
-    availableItems() {
+    availableItems () {
       return _.filter(this.orderedPurchasables, (purchasable) => {
         return !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
     },
-    shouldShowPurchases() {
+    shouldShowPurchases () {
       return this.existingPurchases.length > 0;
     }
   },
   methods: {
-    clearItem() {
+    clearItem () {
       this.itemToPurchase = {
         purchasable: '',
         quantity: '',
         size: ''
       };
     },
-    deleteItem(purchasableId) {
+    deleteItem (purchasableId) {
       this.$store.dispatch('deletePurchase', {
         registrationId: this.registrationId,
         scoutId: this.scoutId,
@@ -189,7 +199,7 @@ export default {
           this.error = 'Unable to delete. Please try again or contact an administration';
         })
     },
-    purchaseItem() {
+    purchaseItem () {
       let purchase = {
         purchasable: this.itemToPurchase.purchasable.id,
         quantity: this.itemToPurchase.quantity ? this.itemToPurchase.quantity : 0
@@ -206,13 +216,14 @@ export default {
         purchase: purchase
       })
         .then(() => {
-          this.creating = false;
           this.error = '';
           this.clearItem();
         })
         .catch(() => {
-          this.creating = false;
           this.error = 'Unable to purchase item. Please refresh and try again';
+        })
+        .then(() => {
+          this.creating = false;
         });
     }
   },
@@ -229,12 +240,12 @@ export default {
 </script>
 
 <style class="scss" scoped>
-  .delete-button {
-    cursor: pointer;
-  }
+.delete-button {
+  cursor: pointer;
+}
 
-  .purchased-item {
-    margin-top: .25rem;
-    margin-left: 1rem;
-  }
+.purchased-item {
+  margin-top: .25rem;
+  margin-left: 1rem;
+}
 </style>

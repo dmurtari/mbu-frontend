@@ -12,19 +12,19 @@ import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 import ChangePassword from './ChangePassword.vue';
 
 export default {
-  data() {
+  data () {
     return {
       error: '',
       sending: false
     }
   },
   computed: {
-    resetToken() {
+    resetToken () {
       return this.$route.params.resetToken;
     }
   },
   methods: {
-    resetPassword(password) {
+    resetPassword (password) {
       let data = {
         password: password,
         token: this.resetToken
@@ -34,15 +34,16 @@ export default {
 
       this.$store.dispatch('resetPassword', data)
         .then(() => {
-          this.sending = false;
           this.$router.replace({
             path: '/login',
             query: { from: 'resetSuccess' }
           });
         })
         .catch((err) => {
-          this.sending = false;
           this.error = 'Failed to reset password. Please try again.';
+        })
+        .then(() => {
+          this.sending = false;
         });
     }
   },

@@ -137,10 +137,11 @@ export default {
     this.$store.dispatch('getBadges')
       .then(() => {
         this.error = '';
-        this.loading = false;
       })
       .catch(() => {
         this.error = 'Couldn\'t load badges. Please try again'
+      })
+      .then(() => {
         this.loading = false;
       });
   },

@@ -152,27 +152,29 @@ export default {
           this.scout = response.data;
           this.scout['id'] = this.scout.scout_id;
           this.scout['user_id'] = this.scout.user.user_id;
-          this.loading = false;
           this.error = '';
           this.reloadRegistrations();
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get details for this scout.';
+        })
+        .then(() => {
+          this.loading = false;
         });
     },
     reloadRegistrations () {
       this.loadingRegistrations = true;
       return axios.get(URLS.SCOUTS_URL + this.id + '/registrations')
         .then((response) => {
-          this.loadingRegistrations = false;
           this.registrations = response.data;
           this.error = '';
         })
         .catch(() => {
-          this.loadingRegistrations = false;
           this.error = 'Failed to get registrations for this scout.';
         })
+        .then(() => {
+          this.loadingRegistrations = false;
+        });
     },
     toggleEditScout () {
       this.editScout = !this.editScout;

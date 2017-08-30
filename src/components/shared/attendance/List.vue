@@ -70,12 +70,13 @@ export default {
       this.troopFilter = null;
       this.$store.dispatch('getRegistrations', eventId)
         .then(() => {
-          this.loading = false;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get registrations for this event';
+        })
+        .then(() => {
+          this.loading = false;
         });
     }
   },

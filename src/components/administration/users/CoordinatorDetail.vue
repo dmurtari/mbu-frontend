@@ -86,10 +86,11 @@ export default {
       .then((response) => {
         this.user = response.data[0];
         this.error = '';
-        this.loading = false;
       })
       .catch(() => {
         this.error = 'Failed to get user details. Please refresh or try again later.';
+      })
+      .then(() => {
         this.loading = false;
       });
   }

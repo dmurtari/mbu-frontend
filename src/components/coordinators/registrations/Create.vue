@@ -121,12 +121,13 @@ export default {
         })
         .then(() => {
           this.error = '';
-          this.creating = false;
           this.$emit('created');
         })
         .catch((err) => {
-          this.creating = false;
           this.error = 'Failed to register scout for this event.';
+        })
+        .then(() => {
+          this.creating = false;
         });
     },
     uniqueOfferings () {

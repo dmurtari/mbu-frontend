@@ -119,12 +119,13 @@ export default {
           return this.$store.dispatch('getBadges')
         })
         .then(() => {
-          this.saving = false;
           this.close();
         })
         .catch((err) => {
-          this.saving = false;
           this.error = 'Error updating badge, please try again. Name is required.';
+        })
+        .then(() => {
+          this.saving = false;
         });
     },
     deleteBadge () {

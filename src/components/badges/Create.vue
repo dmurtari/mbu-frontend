@@ -103,13 +103,14 @@ export default {
           return this.$store.dispatch('getBadges')
         })
         .then(() => {
-          this.creating = false;
           this.$v.$reset();
           this.clearAndClose();
         })
         .catch((err) => {
-          this.creating = false;
           this.error = 'Error creating badge, please refresh the page and try again';
+        })
+        .then(() => {
+          this.creating = false;
         });
     },
     clearAndClose () {

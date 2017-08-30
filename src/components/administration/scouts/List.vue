@@ -82,13 +82,14 @@ export default {
     this.loading = true;
     axios.get(URLS.SCOUTS_URL)
       .then((response) => {
-        this.loading = false;
         this.scouts = response.data;
         this.error = '';
       })
       .catch(() => {
-        this.loading = false
         this.error = 'Failed to retrieve scouts. Please refresh and try again.';
+      })
+      .then(() => {
+        this.loading = false;
       });
   },
   components: {

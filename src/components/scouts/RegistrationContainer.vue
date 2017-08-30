@@ -65,13 +65,14 @@ export default {
     this.loading = true;
     this.$store.dispatch('getRegistrations', this.event.id)
       .then(() => {
-        this.loading = false;
         this.error = '';
       })
       .catch(() => {
-        this.loading = false;
         this.error = 'Failed to load registration information.';
       })
+      .then(() => {
+        this.loading = false;
+      });
   }
 }
 </script>

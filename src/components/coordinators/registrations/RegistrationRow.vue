@@ -159,11 +159,12 @@ export default {
         ])
           .then(() => {
             this.error = '';
-            this.loading = false;
           })
           .catch(() => {
-            this.loading = false;
             this.error = 'Failed to load registration details. Please refresh and try again';
+          })
+          .then(() => {
+            this.loading = false;
           });
       } else {
         this.toggleState();

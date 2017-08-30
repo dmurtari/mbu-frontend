@@ -95,7 +95,8 @@
         }}'s registration for MBU {{ this.event.semester + ' ' + this.event.year }}.
         You can re-register {{ scout.fullname }} for this event at any time
         <b>before the event's registration closes ({{ event.registration_close | longDate
-          }}).</b>
+          }}).
+        </b>
       </span>
     </confirm-delete>
   </div>
@@ -167,13 +168,14 @@ export default {
         preferences: this.preferences
       })
         .then(() => {
-          this.saving = false;
           this.error = '';
           this.$emit('saved');
         })
         .catch((err) => {
-          this.saving = false;
           this.error = 'Failed to save preferences. Please refresh and try again';
+        })
+        .then(() => {
+          this.saving = false;
         });
     },
     uniqueOfferings () {

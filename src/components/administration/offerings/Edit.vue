@@ -67,7 +67,7 @@
                  for="offering-price">
             Price:
             <help-tag text="Any additional cost that the scout will need to pay
-                              to attend this class, in addition to the event fee">
+                                  to attend this class, in addition to the event fee">
             </help-tag>
           </label>
           <div class="control">
@@ -89,7 +89,7 @@
                  for="offering-requirements">
             Requirements:
             <help-tag text="A list of requirements that will be covered during
-                              class."></help-tag>
+                                  class."></help-tag>
           </label>
           <div class="control">
             <input type="text"
@@ -267,11 +267,13 @@ export default {
         })
           .then((response) => {
             this.error = '';
-            this.saving = false;
             this.toggleEdit();
           })
           .catch((err) => {
             this.error = 'Couldn\'t create offering. Please refresh and try again';
+          })
+          .then(() => {
+            this.saving = false;
           });
       } else {
         this.$store.dispatch('updateOffering', {
@@ -281,12 +283,13 @@ export default {
         })
           .then(() => {
             this.error = '';
-            this.saving = false;
             this.toggleEdit();
           })
           .catch(() => {
-            this.saving = false;
             this.error = 'Failed to save badge. Please try again.';
+          })
+          .then(() => {
+            this.saving = false;
           });
       }
     }

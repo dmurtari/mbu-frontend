@@ -27,7 +27,7 @@
                          @close="toggleCreate()"
                          @created="refreshUsers()"></create-admin-form>
       <user-list class="admins"
-                    :users="admins"></user-list>
+                 :users="admins"></user-list>
     </div>
   </div>
 </template>
@@ -63,13 +63,14 @@ export default {
 
       this.$store.dispatch('getUsers')
         .then(() => {
-          this.loading = false;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get users. Please try again later.';
         })
+        .then(() => {
+          this.loading = false;
+        });
     }
   },
   created () {

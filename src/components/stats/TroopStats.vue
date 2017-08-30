@@ -15,8 +15,8 @@
       </li>
       <li>
         <b>
-          Total for {{ registrations.length }}
-          {{ registrations.length == 1 ? 'scout' : 'scouts'}} shown:
+          Total for {{ registrations.length }} {{ registrations.length == 1 ? 'scout' : 'scouts'}}
+          shown:
         </b>
         <span>{{ subtotal | currency }}</span>
       </li>
@@ -24,9 +24,8 @@
       <li>
         <b>Event Registration Fees</b>
         <span>
-          {{ registrations.length * Number(event.price) | currency }}
-          ({{ registrations.length }} &times;
-           {{ event.price | currency }})
+          {{ registrations.length * Number(event.price) | currency }} ({{ registrations.length
+          }} &times; {{ event.price | currency }})
         </span>
       </li>
       <li>
@@ -108,9 +107,11 @@ export default {
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get the necessary information for statistics.';
         })
+        .then(() => {
+          this.loading = false;
+        });
     }
   },
   components: {

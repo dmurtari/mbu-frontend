@@ -12,12 +12,13 @@ export default {
       this.$store.dispatch('getCurrentEvent')
     ])
       .then(() => {
-        this.eventLoading = false;
         this.eventLoadError = '';
       })
       .catch(() => {
-        this.eventLoading = false;
         this.eventLoadError = 'Failed to fetch event data. Please refresh to try again.';
+      })
+      .then(() => {
+        this.eventLoading = false;
       });
   }
 }

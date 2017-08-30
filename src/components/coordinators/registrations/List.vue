@@ -179,12 +179,13 @@ export default {
     this.loading = true;
     this.$store.dispatch('getScouts', this.profile.id)
       .then(() => {
-        this.loading = false;
         this.error = '';
       })
       .catch(() => {
-        this.loading = false;
         this.error = 'Failed to load scouts. Please refresh, or try again later.';
+      })
+      .then(() => {
+        this.loading = false;
       });
   },
   mixins: [

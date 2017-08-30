@@ -144,12 +144,13 @@ export default {
 
       this.$store.dispatch('getRegistrations', this.eventId)
         .then(() => {
-          this.loading = false;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get registration information for this event';
+        })
+        .then(() => {
+          this.loading = false;
         });
     }
   },

@@ -103,13 +103,14 @@ export default {
           });
       }))
         .then(() => {
-          this.saving = false;
           this.error = '';
           this.$emit('done');
         })
         .catch(() => {
-          this.saving = false;
           this.error = 'Failed to save records. Please refresh and try again.';
+        })
+        .then(() => {
+          this.saving = false;
         });
 
     },

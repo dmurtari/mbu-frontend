@@ -170,13 +170,14 @@ export default {
       })
         .then(() => {
           this.error = '';
-          this.saving = false;
           this.$emit('done');
         })
         .catch(() => {
           this.error = 'Failed to save assignments. Please refresh and try again';
-          this.saving = false;
         })
+        .then(() => {
+          this.saving = false;
+        });
     }
   },
   mounted () {

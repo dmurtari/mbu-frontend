@@ -3,7 +3,7 @@
     <h3 class="title is-3">
       All Badges ({{ totalBadges }} Total)
     </h3>
-     <closable-error v-if="error">{{ error }}</closable-error>
+    <closable-error v-if="error">{{ error }}</closable-error>
     <spinner-page v-if="loading"></spinner-page>
     <div v-else>
       <button class="button is-primary"
@@ -19,8 +19,8 @@
             <p>
               No badges have been added yet.
               <span v-if="isAdmin">
-                <br> You will not be able to create any merit badge offerings for an event
-                until you add badges.
+                <br> You will not be able to create any merit badge offerings for an
+                event until you add badges.
                 <a @click.prevent="toggleAdd()"
                    v-if="!displayAddBadge">
                   Add the first badge?
@@ -76,13 +76,14 @@ export default {
     this.loading = true;
     this.$store.dispatch('getBadges')
       .then(() => {
-        this.loading = false;
         this.error = '';
       })
       .catch(() => {
-        this.loading = false;
         this.error = 'Failed to load badges';
       })
+      .then(() => {
+        this.loading = false;
+      });
   }
 }
 </script>

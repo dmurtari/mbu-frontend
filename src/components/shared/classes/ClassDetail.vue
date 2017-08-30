@@ -81,12 +81,13 @@ export default {
       this.$store.dispatch('getClasses', this.eventId)
         .then(() => {
           this.refreshDetails()
-          this.loading = false;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Unable to load class details.';
+        })
+        .then(() => {
+          this.loading = false;
         });
     }
   },

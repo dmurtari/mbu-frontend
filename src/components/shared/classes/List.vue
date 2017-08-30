@@ -2,7 +2,8 @@
   <div>
     <p>
       This page shows the number of scouts assigned to each class. You can view the completion
-      records for each scout in a class by clicking the "details" link next to each class.
+      records for each scout in a class by clicking the "details" link next to each
+      class.
       <span v-if="isAdmin"> To edit badges that are offered for an event, use the
         <router-link to="/administration/events/offerings">offerings page</router-link>. To change a scout's badge assignments, use the
         <router-link to="/administration/scouts/assignments">assignments page</router-link>.
@@ -119,12 +120,13 @@ export default {
       this.loading = true;
       this.$store.dispatch('getClasses', eventId)
         .then(() => {
-          this.loading = false;
           this.error = '';
         })
         .catch(() => {
-          this.loading = false;
           this.error = 'Failed to get classes for this event';
+        })
+        .then(() => {
+          this.loading = false;
         });
     }
   },

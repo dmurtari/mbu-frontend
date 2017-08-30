@@ -235,6 +235,7 @@
         <div class="field column is-12">
           <button class="button is-primary"
                   :disabled="$v.basicInfo.$invalid || ( $v.teacherInfo.$invalid && $v.coordinatorInfo.$invalid)"
+
                   @click.prevent="submit()">Signup</button>
         </div>
       </form>
@@ -307,14 +308,15 @@ export default {
 
       this.$store.dispatch('signup', credentials)
         .then(() => {
-          this.creating = false;
           this.$router.push('/');
           this.error = '';
         })
         .catch((err) => {
-          this.creating = false;
           console.log(err)
           this.error = 'Error creating your account. Please try again.';
+        })
+        .then(() => {
+          this.creating = false;
         });
     }
   },

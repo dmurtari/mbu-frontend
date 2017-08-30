@@ -151,15 +151,16 @@ export default {
           this.$store.dispatch('approveUser', userId);
         })
         .then(() => {
-          this.creating = false;
           this.error = '';
           this.showSuccess = true;
           this.$emit('created');
           this.close();
         })
         .catch(() => {
-          this.creating = false;
           this.error = 'Error creating this account. Please try again later.';
+        })
+        .then(() => {
+          this.creating = false;
         });
     }
   },

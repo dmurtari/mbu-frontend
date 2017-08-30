@@ -1,11 +1,12 @@
 <template>
   <form>
-    <div class="notification is-danger" v-if="error">
+    <div class="notification is-danger"
+         v-if="error">
       Failed to send the reset email. Please re-enter your email and try again.
     </div>
-    <div class="notification is-success" v-if="sent">
-      Successfully sent the reset email! Check your inbox and click the link in
-      the message.
+    <div class="notification is-success"
+         v-if="sent">
+      Successfully sent the reset email! Check your inbox and click the link in the message.
     </div>
     <div class="field">
       <label class="label">
@@ -17,9 +18,8 @@
                v-model="email">
       </div>
       <span class="help">
-        A link to reset your password will be emailed to you from
-        no&#8209;reply@apo&#8209;gammatheta.org. Please check your spam folder
-        if you do not see this email.
+        A link to reset your password will be emailed to you from no&#8209;reply@apo&#8209;gammatheta.org.
+        Please check your spam folder if you do not see this email.
       </span>
     </div>
     <button class="button is-primary"
@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       email: '',
       error: false,
@@ -42,18 +42,19 @@ export default {
     }
   },
   methods: {
-    sendResetEmail() {
+    sendResetEmail () {
       this.sending = true;
       this.$store.dispatch('sendResetEmail', this.email)
         .then(() => {
-          this.sending = false;
           this.error = false;
           this.sent = true;
         })
         .catch(() => {
-          this.sending= false;
           this.sent = false;
           this.error = true;
+        })
+        .then(() => {
+          this.sending = false;
         });
     }
   }

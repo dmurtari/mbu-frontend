@@ -109,13 +109,14 @@ export default {
       this.loading = true;
       this.$store.dispatch('login', credentials)
         .then(() => {
-          this.loading = false;
           this.error = false;
           this.$router.push('/');
         })
         .catch((err) => {
-          this.loading = false;
           this.error = true;
+        })
+        .then(() => {
+          this.loading = false;
         });
     },
     signup () {

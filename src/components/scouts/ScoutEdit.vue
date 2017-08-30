@@ -236,14 +236,15 @@ export default {
         scout: this.scoutUpdate
       })
         .then(() => {
-          this.saving = false;
           this.error = '';
           this.close();
         })
         .catch(() => {
-          this.saving = true;
           this.error = 'Failed to save changes. Please refresh and try again';
         })
+        .then(() => {
+          this.saving = false;
+        });
     },
     toggleDeleteConfirmation () {
       this.showDeleteConfirmation = !this.showDeleteConfirmation;

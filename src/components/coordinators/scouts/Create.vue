@@ -229,12 +229,13 @@ export default {
         .then(() => {
           this.$v.$reset();
           this.error = '';
-          this.creating = false;
           this.close();
         })
         .catch((err) => {
-          this.creating = false;
           this.error = 'Error adding scout. Please refresh the page, and try again.';
+        })
+        .then(() => {
+          this.creating = false;
         });
     }
   },

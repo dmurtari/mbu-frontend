@@ -136,13 +136,14 @@ export default {
           this.showUserMenu = true;
         }
 
-        this.loading = false;
         this.error = '';
       })
       .catch(() => {
-        this.loading = false;
         this.error = 'Failed to load users. Please refresh or try later.';
       })
+      .then(() => {
+        this.loading = false;
+      });
   }
 }
 </script>
