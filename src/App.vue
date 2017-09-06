@@ -29,7 +29,7 @@
           <router-view></router-view>
         </div>
       </section>
-      <!-- <mbu-footer></mbu-footer> -->
+      <mbu-footer></mbu-footer>
     </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ export default {
     }
   },
   components: {
-    Navbar
+    Navbar,
+    'mbu-footer': Footer
   },
   computed: {
     ...mapGetters([

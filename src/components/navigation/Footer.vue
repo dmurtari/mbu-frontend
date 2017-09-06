@@ -6,7 +6,8 @@
           <strong>MBU Online</strong> &copy; 2017 Domenic Murtari
         </p>
         <p>
-          <a class="icon" href="https://github.com/dmurtari/mbu-frontend">
+          <a class="icon"
+             href="https://github.com/dmurtari/mbu-frontend">
             <i class="fa fa-github"></i>
           </a>
         </p>
@@ -16,20 +17,24 @@
 </template>
 
 <style lang="scss">
-  html {
-    position: relative;
-    min-height: 100%;
-  }
+html {
+  position: relative;
+  min-height: 100%;
+}
 
-  body {
-    margin: 0 0 100px;
-  }
+body {
+  margin: 0 0 100px;
+}
 
-  footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+
+  .icon {
+    color: black;
   }
+}
 </style>
