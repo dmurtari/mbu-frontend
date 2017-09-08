@@ -154,7 +154,7 @@
             </div>
             <div class="control is-pulled-right">
               <button class="button is-danger"
-                      :disabled="Saving"
+                      :disabled="saving"
                       @click.prevent="toggleDeleteConfirmation()">Delete</button>
             </div>
           </div>

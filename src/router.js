@@ -3,6 +3,7 @@ import store from 'store';
 import About from 'components/About.vue';
 import Main from 'components/Main.vue';
 import NotFound from 'components/NotFound.vue';
+import Privacy from 'components/Privacy.vue';
 
 import BadgeList from 'components/badges/List.vue';
 import EventList from 'components/events/List.vue';
@@ -63,6 +64,10 @@ export default [
     path: '/about',
     component: About,
     meta: { title: 'About' }
+  }, {
+    path: '/privacy',
+    component: Privacy,
+    meta: { title: 'Privacy Policy' }
   }, {
     path: '/administration',
     component: Administration,
