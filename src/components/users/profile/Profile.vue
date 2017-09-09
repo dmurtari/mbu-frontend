@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <h1 class="title">Your Profile</h1>
-    <h3 class="subtitle">View and make changes to your profile</h3>
+  <div>
+    <h3 class="title is-3">Your Profile</h3>
+    <h5 class="subtitle is-5">View and make changes to your profile</h5>
     <div class="columns">
       <div class="column is-3">
         <aside class="menu">
@@ -38,3 +38,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.subtitle {
+  padding-top: 1rem;
+}
+</style>
