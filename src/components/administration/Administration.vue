@@ -157,4 +157,8 @@ export default {
 span.tag {
   margin-top: -2px;
 }
+
+.subtitle {
+  padding-top: 1rem;
+}
 </style>
