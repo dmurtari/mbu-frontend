@@ -3,7 +3,11 @@
     <div class="container">
       <div class="nav-left">
         <router-link class="nav-item brand"
-                     to="/">MBU Online</router-link>
+                     to="/">
+          <h5 class="title is-5">
+            MBU Home
+          </h5>
+        </router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
                      to="/badges">Badges</router-link>
         <router-link class="nav-item is-hidden-mobile is-tab"
@@ -111,5 +115,7 @@ export default {
   padding-top: .5em;
 }
 
-.brand {}
+.brand {
+  font-variant: small-caps;
+}
 </style>
