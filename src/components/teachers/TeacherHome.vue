@@ -20,7 +20,7 @@
           <a href="#completions">Edit completion records?</a>
         </li>
       </ul>
-      <div class="section-container"
+      <div class="question-container"
            id="assignments">
         <h5 class="title is-5">Edit class assignments?</h5>
         <p>
@@ -32,7 +32,7 @@
           edit button next to the scout who's assignments you would like to edit.
         </p>
       </div>
-      <div class="section-container"
+      <div class="question-container"
            id="view">
         <h5 class="title is-5">View the scouts in a class?</h5>
         <p>
@@ -44,7 +44,7 @@
           <strong>details</strong> link next to the class.
         </p>
       </div>
-      <div class="section-container"
+      <div class="question-container"
            id="completions">
         <h5 class="title is-5">Edit completion records?</h5>
         <p>
