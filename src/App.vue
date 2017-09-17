@@ -5,7 +5,7 @@
       <navbar></navbar>
       <section class="section">
         <div class="container"
-             v-if="!isApproved && isApproved !== undefined">
+             v-if="!isApproved && isApproved != null">
           <div class="notification is-warning">
             Your account has not yet been approved by an administrator. You can view Merit Badge
             and Event information,

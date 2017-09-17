@@ -8,6 +8,7 @@ module.exports = function (config) {
     preprocessors: {
       './src/**/*.js': ['webpack']
     },
+    reporters: ['dots'],
     webpack: {
       resolve: {
         modules: [
