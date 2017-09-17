@@ -4,12 +4,12 @@
       Accounts Needing Approval
     </h4>
     <p>
-      Users will be unable to use the full functionality of this website (such
-      as registering their troop, or editing completion records) until their
-      account has been approved. Approve user account below, or delete the
-      account if you do not recognize the user.
+      Users will be unable to use the full functionality of this website (such as registering their troop,
+      or editing completion records) until their account has been approved. Approve user account below,
+      or delete the account if you do not recognize the user.
     </p>
-    <table class="table" v-if="unapprovedUsers.length > 0">
+    <table class="table is-fullwidth"
+           v-if="unapprovedUsers.length > 0">
       <thead>
         <tr>
           <th>Name</th>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  table, div.notification {
-    margin-top: 1rem;
-  }
+table, div.notification {
+  margin-top: 1rem;
+}
 </style>
