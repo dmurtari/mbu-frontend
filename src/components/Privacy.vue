@@ -39,7 +39,7 @@
       of persons who have special access rights to such systems, and are required to keep the information
       confidential. In addition, all information you supply is encrypted via Secure Socket Layer (SSL)
       technology, as long as you access this website through
-      <a href="https://mbu.online">https://mbu.online</a> (notice the https). Check for the green lock in the address bar of your browser
+      <a href="https://www.mbu.online">https://www.mbu.online</a> (notice the https). Check for the green lock in the address bar of your browser
       to make sure you are accessing this website securely.
     </p>
     <h4>Do we use 'cookies'?</h4>
