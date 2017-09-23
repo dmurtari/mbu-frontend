@@ -8,14 +8,14 @@
       </p>
     </div>
     <p>
-      Edit merit badge preferences for {{ scout.fullname }} below. You must select six
-      unique merit badges.
+      Edit merit badge preferences for {{ scout.fullname }} below. You must select six unique merit badges.
     </p>
     <br>
     <div v-if="!showDeleteConfirmation"
          class="columns is-multiline">
       <template v-for="(preference, index) in preferences">
-        <div class="column field is-6 is-4-widescreen">
+        <div class="column field is-6 is-4-widescreen"
+             :key="preference.offering">
           <label class="label"
                  :for="'registration-rank' + index">
             {{ index + 1 | ordinalSuffix }}&nbsp;choice:
@@ -53,9 +53,8 @@
       <div class="column is-12">
         <h5 class="title is-5">Save Changes for {{ scout.fullname }}</h5>
         <p>
-          Once you are done editing {{ scout.fullname }}'s registration, save these changes
-          by clicking the button below. You can also remove this registration by clicking
-          the "Unregister" button.
+          Once you are done editing {{ scout.fullname }}'s click the button below. You can also remove this registration
+          by clicking the "Unregister" button.
         </p>
       </div>
       <div class="column is-12">
@@ -64,7 +63,7 @@
             <button class="button is-primary"
                     :disabled="$v.$invalid || saving"
                     :class="{ 'is-loading': saving }"
-                    @click="save()">Save Changes</button>
+                    @click="save()">Done</button>
           </div>
           <div class="control">
             <button class="button"
@@ -91,11 +90,10 @@
         Do you really want to unregister {{ scout.fullname }} from this event?
       </span>
       <span slot="help-text">
-        Enter the event's semester and year to confirm that you wish to remove {{ scout.fullname
-        }}'s registration for MBU {{ this.event.semester + ' ' + this.event.year }}.
-        You can re-register {{ scout.fullname }} for this event at any time
-        <b>before the event's registration closes ({{ event.registration_close | longDate
-          }}).
+        Enter the event's semester and year to confirm that you wish to remove {{ scout.fullname }}'s registration
+        for MBU {{ this.event.semester + ' ' + this.event.year }}. You can re-register {{ scout.fullname
+        }} for this event at any time
+        <b>before the event's registration closes ({{ event.registration_close | longDate }}).
         </b>
       </span>
     </confirm-delete>
