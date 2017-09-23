@@ -6,12 +6,14 @@
     {{ item.price * item.details.quantity | currency }}
     <button class="button is-danger is-small"
             :class="{ 'is-loading': deleting }"
+            id="delete-purchased-item"
             :disabled="deleting"
             @click="deleteItem()">
       <span class="fa fa-trash"></span>
     </button>
     <button class="button is-warning is-small"
             v-if="error"
+            id="delete-warning"
             data-balloon="Failed to remove item. Please refresh or try again later."
             data-balloon-pos="up">
       <span class="fa fa-exclamation-triangle"></span>
