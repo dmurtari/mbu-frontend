@@ -105,18 +105,12 @@
       <h5 class="title is-5">
         Items Already Purchased ({{ event.semester }} {{ event.year }})
       </h5>
-      <div v-for="item in existingPurchases"
-           :key="item.id"
-           class="purchased-item">
-        <b>{{ item.item }}</b>:
-        <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
-        {{ item.price | currency }} &times; {{ item.details.quantity }} = {{ item.price * item.details.quantity
-        | currency }}
-        <button class="button is-danger is-small"
-              @click="deleteItem(item.id)">
-          <span class="fa fa-trash"></span>
-        </button>
-      </div>
+      <purchased-item v-for="item in existingPurchases"
+                      :key="item.id"
+                      :item="item"
+                      :registrationId="registrationId"
+                      :scoutId="scoutId"
+                      class="purchased-item"></purchased-item>
     </div>
   </div>
   </div>
@@ -125,6 +119,8 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { number } from 'validators';
+
+import PurchasedItem from './PurchasedItem.vue';
 
 export default {
   props: {
@@ -239,6 +235,9 @@ export default {
         positive: (value) => { return value > 0 }
       }
     }
+  },
+  components: {
+    PurchasedItem
   }
 }
 </script>
