@@ -29,7 +29,7 @@ const propsData = {
   scoutId: 2
 }
 
-describe.only('PurchasedItem.vue', () => {
+describe('PurchasedItem.vue', () => {
   let wrapper, store, actions;
 
   beforeEach(() => {
