@@ -161,6 +161,8 @@ export default {
   },
   methods: {
     createPurchasable () {
+      this.creating = true;
+
       let purchasable = _.clone(this.purchasable);
       purchasable.maximum_age = this.purchasable.maximum_age ?
         this.purchasable.maximum_age : null;
@@ -177,6 +179,9 @@ export default {
         })
         .catch((err) => {
           this.error = 'Failed to create item. Please refresh and try again.';
+        })
+        .then(() => {
+          this.creating = false;
         });
     },
     close () {

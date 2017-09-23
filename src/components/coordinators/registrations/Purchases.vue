@@ -4,9 +4,8 @@
       Items Available for Purchase ({{ event.semester }} {{ event.year }})
     </h5>
     <p>
-      Add items that this scout would like to purchase for this event by picking an item
-      from the dropdown, and entering a quantity and size (if applicable). View details
-      about these items on the
+      Add items that this scout would like to purchase for this event by picking an item from the dropdown,
+      and entering a quantity and size (if applicable). View details about these items on the
       <router-link to="/events">events page.
       </router-link>
     </p>
@@ -44,7 +43,6 @@
                  class="input"
                  id="purchasable-item-quantity"
                  :class="{ 'is-danger': $v.itemToPurchase.quantity.$error && itemToPurchase.purchasable }"
-
                  @blur="$v.itemToPurchase.quantity.$touch"
                  v-model="itemToPurchase.quantity">
         </div>
@@ -63,6 +61,7 @@
                     v-model="itemToPurchase.size"
                     :disabled="!itemToPurchase.purchasable || !itemToPurchase.purchasable.has_size">
               <option v-for="size in sizes"
+                      :key="size.value"
                       :value="size.value">
                 {{ size.text }}
               </option>
@@ -98,8 +97,7 @@
           This scout has already purchased all items availabe at this event.
         </span>
         <span v-else>
-          There are no items listed as available for purchase at this event. Please check back
-          later.
+          There are no items listed as available for purchase at this event. Please check back later.
         </span>
       </p>
     </div>
@@ -108,15 +106,16 @@
         Items Already Purchased ({{ event.semester }} {{ event.year }})
       </h5>
       <div v-for="item in existingPurchases"
+           :key="item.id"
            class="purchased-item">
         <b>{{ item.item }}</b>:
         <span v-if="item.details.size">(Size {{ item.details.size | upperCase }})</span>
-        {{ item.price | currency }} &times; {{ item.details.quantity }} = {{ item.price *
-        item.details.quantity | currency }}
-        <span class="tag is-danger delete-button"
+        {{ item.price | currency }} &times; {{ item.details.quantity }} = {{ item.price * item.details.quantity
+        | currency }}
+        <button class="button is-danger is-small"
               @click="deleteItem(item.id)">
           <span class="fa fa-trash"></span>
-        </span>
+        </button>
       </div>
     </div>
   </div>
@@ -187,6 +186,8 @@ export default {
       };
     },
     deleteItem (purchasableId) {
+      this.deleting = true;
+
       this.$store.dispatch('deletePurchase', {
         registrationId: this.registrationId,
         scoutId: this.scoutId,
@@ -198,6 +199,9 @@ export default {
         .catch(() => {
           this.error = 'Unable to delete. Please try again or contact an administration';
         })
+        .then(() => {
+          this.deleting = false;
+        });
     },
     purchaseItem () {
       let purchase = {

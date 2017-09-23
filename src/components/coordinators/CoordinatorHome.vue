@@ -59,7 +59,7 @@
         </p>
         <br>
         <p>
-          <b>If the scout has already been registered for the event</b><br> Click the edit
+          <b>If the scout has already been registered for the event:</b><br> Click the edit
           <i class="fa fa-edit"></i> button in the row of the registration. Then, select six merit badge preferences for this
           event.
         </p>
