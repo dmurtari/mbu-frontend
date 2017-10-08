@@ -1,26 +1,28 @@
 <template>
   <div class="badge-row is-flex-tablet columns is-multiline">
     <template v-if="shouldShowEdit">
-      <edit-offering class="column auto"
+      <offering-edit class="column auto"
                      :badge="badge"
                      :eventId="eventId"
                      :creating="creating"
-                     @cancel="cancelEdit()"></edit-offering>
+                     @cancel="cancelEdit()"></offering-edit>
     </template>
     <template v-if="!shouldShowEdit">
       <div class="column is-11">
         <h5 class="title is-5">{{ badge.name }}</h5>
       </div>
-      <div class="column is-1" v-if="isAdmin && offered">
-          <button class="button is-white offering-detail is-hidden-mobile"
-                  @click="toggleEdit()">
-            <span class="fa fa-edit" aria-label="Edit"></span>
-          </button>
-          <button class="button offering-detail is-hidden-tablet"
-                  @click="toggleEdit()">
-            Edit Offering
-          </button>
-        </div>
+      <div class="column is-1"
+           v-if="isAdmin && offered">
+        <button class="button is-white offering-detail is-hidden-mobile"
+                @click="toggleEdit()">
+          <span class="fa fa-edit"
+                aria-label="Edit"></span>
+        </button>
+        <button class="button offering-detail is-hidden-tablet"
+                @click="toggleEdit()">
+          Edit Offering
+        </button>
+      </div>
       <template v-if="offered">
         <div class="column is-4 offering-detail">
           <b>Periods offered: </b>{{ periods }}
@@ -29,13 +31,17 @@
           <b>Duration: </b>{{ badge.duration + ' ' + durationLabel }}
         </div>
         <div class="column is-4 offering-detail">
-          <b>Price: </b>{{ offeringPrice }}
+          <b>Price: </b>{{ badge.price | currency }}
         </div>
-        <div class="column is-6 offering-detail">
+        <div class="column is-4 offering-detail">
+          <b>Size Limit: </b>{{ badge.size_limit }}
+        </div>
+        <div class="column is-8 offering-detail">
           <b>Requirements: </b>{{ requirements }}
         </div>
       </template>
-      <div class="field" v-if="!offered">
+      <div class="field"
+           v-if="!offered">
         <div class="control">
           <button class="button is-success create-button"
                   :class="{ 'is-loading': creating }"
@@ -51,9 +57,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import accounting from 'accounting';
 
-import Edit from './Edit.vue';
+import OfferingEdit from './OfferingEdit.vue';
 
 export default {
   props: {
@@ -65,7 +70,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       creating: false,
       editing: false,
@@ -76,68 +81,65 @@ export default {
     ...mapGetters([
       'isAdmin'
     ]),
-    durationLabel() {
+    durationLabel () {
       return Number(this.badge.duration) == 1 ? 'period ' : 'periods';
     },
-    offered() {
+    offered () {
       return !_.isEmpty(this.badge.periods);
     },
-    offeringPrice() {
-      return accounting.formatMoney(this.badge.price);
-    },
-    periods() {
+    periods () {
       return _.join(_.sortBy(this.badge.periods), ', ');
     },
-    requirements() {
+    requirements () {
       if (this.badge.requirements.length < 1) {
         return 'None listed';
       } else {
         return _.join(_.sortBy(this.badge.requirements), ', ');
       }
     },
-    shouldShowEdit() {
+    shouldShowEdit () {
       return this.editing || this.creating;
     }
   },
   watch: {
-    badge()  {
+    badge () {
       this.editing = false;
     }
   },
   methods: {
-    createOffering() {
+    createOffering () {
       this.creating = true;
     },
-    cancelEdit() {
+    cancelEdit () {
       this.creating = false;
       this.editing = false;
     },
-    toggleEdit() {
+    toggleEdit () {
       this.editing = !this.editing;
     }
   },
   components: {
-    'edit-offering': Edit
+    OfferingEdit
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .badge-row {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-bottom: 1px lightgray solid;
-    align-items: center;
-  }
+.badge-row {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px lightgray solid;
+  align-items: center;
+}
 
-  .offering-detail {
-    padding-top: .5em;
-    padding-bottom: .5em;
-    white-space: nowrap;
-  }
+.offering-detail {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  white-space: nowrap;
+}
 
-  .create-button {
-    margin-left: 1rem;
-    margin-top: 1rem;
-  }
+.create-button {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
 </style>

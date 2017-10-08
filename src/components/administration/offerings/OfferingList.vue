@@ -4,11 +4,10 @@
       Manage Merit Badge Offerings
     </h4>
     <p>
-      Use this page to create, edit, and remove badge offerings for different events. These
-      badges are what Scoutmasters will see as being offered for an event. Add badges
-      and edit details such which periods each badge will be offered, how many class
-      periods each badge will take to teach, and how much scouts need to pay to attend
-      class for a badge.
+      Use this page to create, edit, and remove badge offerings for different events. These badges are what
+      Scoutmasters will see as being offered for an event. Add badges and edit details such which periods
+      each badge will be offered, how many class periods each badge will take to teach, and how much scouts
+      need to pay to attend class for a badge.
     </p>
     <closable-error v-if="error || eventLoadError"></closable-error>
     <spinner-page v-if="loading || eventLoading"></spinner-page>
@@ -64,10 +63,10 @@
           if you haven't added any events already.
         </div>
         <div v-else>
-          <badge-row v-for="badge in filteredOfferings"
-                     :key="badge.id"
-                     :eventId="eventId"
-                     :badge="badge"></badge-row>
+          <offering-row v-for="badge in filteredOfferings"
+                        :key="badge.id"
+                        :eventId="eventId"
+                        :badge="badge"></offering-row>
         </div>
       </div>
     </div>
@@ -77,7 +76,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import BadgeRow from './BadgeRow.vue';
+import OfferingRow from './OfferingRow.vue';
 import EventsUpdate from 'mixins/EventsUpdate';
 
 export default {
@@ -122,7 +121,8 @@ export default {
           periods: offering.periods,
           duration: offering.duration,
           price: offering.price,
-          requirements: offering.requirements
+          requirements: offering.requirements,
+          size_limit: offering.size_limit
         };
       });
     }
@@ -146,7 +146,7 @@ export default {
       });
   },
   components: {
-    BadgeRow
+    OfferingRow
   },
   mixins: [
     EventsUpdate

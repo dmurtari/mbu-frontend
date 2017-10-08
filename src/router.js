@@ -27,7 +27,7 @@ import AttendanceList from 'components/shared/attendance/List.vue';
 
 import Administration from 'components/administration/Administration.vue';
 import AdministrationHome from 'components/administration/AdministrationHome.vue'
-import AdminOfferings from 'components/administration/offerings/List.vue';
+import OfferingList from 'components/administration/offerings/OfferingList.vue';
 import AdminUsers from 'components/administration/users/List.vue';
 import AdminApproval from 'components/administration/users/AwaitingApproval.vue';
 import AdminPurchasables from 'components/administration/purchasables/List.vue';
@@ -164,7 +164,7 @@ export default [
             meta: { title: 'Items for Purchase' }
           }, {
             path: 'offerings',
-            component: AdminOfferings,
+            component: OfferingList,
             meta: { title: 'Class Offerings' }
           }, {
             path: 'badges',

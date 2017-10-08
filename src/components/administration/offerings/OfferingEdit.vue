@@ -19,7 +19,7 @@
     <form class="form"
           v-if="!removing">
       <div class="columns is-multiline">
-        <div class="field column is-4 is-2-widescreen">
+        <div class="field column is-4">
           <label class="label"
                  for="offering-periods">Offered Periods:</label>
           <div class="control">
@@ -41,7 +41,7 @@
             </span>
           </span>
         </div>
-        <div class="field column is-4 is-2-widescreen">
+        <div class="field column is-4">
           <label class="label"
                  for="offering-duration">Duration of Class:</label>
           <div class="control">
@@ -62,7 +62,7 @@
             Pick the duration of this class
           </span>
         </div>
-        <div class="field column is-4 is-2-widescreen">
+        <div class="field column is-4">
           <label class="label"
                  for="offering-price">
             Price:
@@ -84,7 +84,27 @@
             Enter the price of this class
           </span>
         </div>
-        <div class="field column is-12 is-6-widescreen">
+        <div class="field column is-4">
+          <label class="label"
+                 for="offering-size-limit">
+            Size Limit:
+            <help-tag text="The limit to the amount of scouts that can attend a single period"></help-tag>
+          </label>
+          <div class="control">
+            <input type="number"
+                   class="input"
+                   id="offering-size-limit"
+                   v-model="offering.size_limit"
+                   :class="{ 'is-danger': $v.offering.size_limit.$error }"
+                   @blur="$v.offering.size_limit.$touch"
+                   placeholder="Size Limit">
+          </div>
+          <span class="help is-danger"
+                v-if="$v.offering.size_limit.$error">
+            Enter the size limit for this class
+          </span>
+        </div>
+        <div class="field column is-8">
           <label class="label"
                  for="offering-requirements">
             Requirements:
@@ -182,6 +202,7 @@ export default {
         periods: this.badge.periods || [],
         duration: this.badge.duration || 1,
         price: this.badge.price || '0.00',
+        size_limit: this.badge.size_limit || 20,
         requirements: this.badge.requirements || []
       },
       invalidPeriodsError: '',
@@ -299,7 +320,8 @@ export default {
       periods: { required, $each: { numeric, between: between(1, 3) } },
       duration: { required },
       price: { required },
-      requirements: { required, $each: { alphaNum } }
+      requirements: { required, $each: { alphaNum } },
+      size_limit: { required, numeric }
     }
   }
 }
