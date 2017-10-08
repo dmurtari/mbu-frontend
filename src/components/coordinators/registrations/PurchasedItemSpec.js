@@ -2,8 +2,8 @@ import Vue from 'vue';
 import PurchasedItem from './PurchasedItem.vue';
 import Vuex from 'vuex';
 import {
-  mount
-} from 'avoriaz';
+  shallow
+} from 'vue-test-utils';
 
 import filters from 'filters';
 
@@ -44,7 +44,7 @@ describe('PurchasedItem.vue', () => {
 
   describe('when created with an item', () => {
     beforeEach(() => {
-      wrapper = mount(PurchasedItem, {
+      wrapper = shallow(PurchasedItem, {
         store,
         propsData
       });
@@ -63,22 +63,22 @@ describe('PurchasedItem.vue', () => {
     });
 
     it('should have a delete button', () => {
-      expect(wrapper.find(selectors.deleteButton)).to.have.lengthOf(1);
+      expect(wrapper.findAll(selectors.deleteButton)).to.have.lengthOf(1);
     });
 
     it('should not have an error', () => {
-      expect(wrapper.data().error).to.equal('');
-      expect(wrapper.find(selectors.deleteError)).to.have.lengthOf(0);
+      expect(wrapper.vm.error).to.equal('');
+      expect(wrapper.findAll(selectors.deleteError)).to.have.lengthOf(0);
     });
 
     describe('and clicking the delete button', () => {
       beforeEach(() => {
-        const button = wrapper.find(selectors.deleteButton)[0];
+        const button = wrapper.find(selectors.deleteButton);
         button.trigger('click');
       });
 
       it('should set the deleting property', () => {
-        expect(wrapper.data().deleting).to.be.true;
+        expect(wrapper.vm.deleting).to.be.true;
       });
 
       it('should trigger the vuex delete method', () => {
@@ -101,24 +101,24 @@ describe('PurchasedItem.vue', () => {
         actions
       });
 
-      wrapper = mount(PurchasedItem, {
+      wrapper = shallow(PurchasedItem, {
         store,
         propsData
       });
 
-      const button = wrapper.find(selectors.deleteButton)[0];
+      const button = wrapper.find(selectors.deleteButton);
       button.trigger('click');
     });
 
     it('should not set an error', () => {
       actions.deletePurchase().then(() => {
-        expect(wrapper.data().error).to.equal('');
+        expect(wrapper.vm.error).to.equal('');
       });
     });
 
     it('should know that it is done deleting', () => {
       actions.deletePurchase().then(() => {
-        expect(wrapper.data().deleting).to.be.false;
+        expect(wrapper.vm.deleting).to.be.false;
       });
     });
   });
@@ -134,24 +134,24 @@ describe('PurchasedItem.vue', () => {
         propsData
       });
 
-      wrapper = mount(PurchasedItem, {
+      wrapper = shallow(PurchasedItem, {
         store,
         propsData
       });
 
-      const button = wrapper.find(selectors.deleteButton)[0];
+      const button = wrapper.find(selectors.deleteButton);
       button.trigger('click');
     });
 
     it('should set an error', () => {
       actions.deletePurchase().catch(() => {
-        expect(wrapper.data().error).to.have.length.greaterThan(1);
+        expect(wrapper.vm.error).to.have.length.greaterThan(1);
       });
     });
 
     it('should know that it is done deleting', () => {
       actions.deletePurchase().catch(() => {
-        expect(wrapper.data().deleting).to.be.false;
+        expect(wrapper.vm.deleting).to.be.false;
       });
     });
   });

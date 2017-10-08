@@ -2,8 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import Vuex from 'vuex';
 import {
-  mount
-} from 'avoriaz';
+  shallow
+} from 'vue-test-utils';
 
 Vue.use(Vuex);
 
@@ -20,7 +20,7 @@ describe('App component', () => {
         getters
       });
 
-      wrapper = mount(App, {
+      wrapper = shallow(App, {
         store
       });
 
@@ -28,7 +28,7 @@ describe('App component', () => {
     });
 
     it('should not display a notification', () => {
-      expect(wrapper.find('.notification')).to.have.lengthOf(0);
+      expect(wrapper.findAll('.notification')).to.have.lengthOf(0);
     });
   });
 
@@ -47,7 +47,7 @@ describe('App component', () => {
           getters, actions
         });
 
-        wrapper = mount(App, {
+        wrapper = shallow(App, {
           store
         });
 
@@ -55,7 +55,7 @@ describe('App component', () => {
       });
 
       it('should show a notification', () => {
-        expect(wrapper.find('.notification')).to.have.lengthOf(1);
+        expect(wrapper.findAll('.notification')).to.have.lengthOf(1);
       });
     });
 
@@ -69,7 +69,7 @@ describe('App component', () => {
           getters
         });
 
-        wrapper = mount(App, {
+        wrapper = shallow(App, {
           store
         });
 
@@ -77,7 +77,7 @@ describe('App component', () => {
       });
 
       it('should not show a notification', () => {
-        expect(wrapper.find('.notification')).to.have.lengthOf(0);
+        expect(wrapper.findAll('.notification')).to.have.lengthOf(0);
       });
     });
   });

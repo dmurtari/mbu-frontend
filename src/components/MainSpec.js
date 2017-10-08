@@ -4,8 +4,8 @@ import Vue from 'vue';
 import Main from './Main.vue';
 import Vuex from 'vuex';
 import {
-  mount
-} from 'avoriaz';
+  shallow
+} from 'vue-test-utils';
 
 Vue.use(Vuex);
 
@@ -30,13 +30,13 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = mount(Main, {
+      wrapper = shallow(Main, {
         store
       });
     });
 
     it('should show a welcome message', () => {
-      expect(wrapper.find('#genericWelcome')).to.have.lengthOf(1);
+      expect(wrapper.findAll('#genericWelcome')).to.have.lengthOf(1);
     });
 
     it('should show a signup link', () => {
@@ -48,15 +48,15 @@ describe('Main', () => {
     });
 
     it('should not show the admin welcome', () => {
-      expect(wrapper.find('#adminWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#adminWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the teacher welcome', () => {
-      expect(wrapper.find('#teacherWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#teacherWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the coordinator welcome', () => {
-      expect(wrapper.find('#coordinatorWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#coordinatorWelcome')).to.have.lengthOf(0);
     });
 
     it('should contain the event information', () => {
@@ -82,25 +82,25 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = mount(Main, {
+      wrapper = shallow(Main, {
         store
       });
     });
 
     it('should not show the generic welcome message', () => {
-      expect(wrapper.find('#genericWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#genericWelcome')).to.have.lengthOf(0);
     });
 
     it('should show the admin welcome', () => {
-      expect(wrapper.find('#adminWelcome')).to.have.lengthOf(1);
+      expect(wrapper.findAll('#adminWelcome')).to.have.lengthOf(1);
     });
 
     it('should not show the teacher welcome', () => {
-      expect(wrapper.find('#teacherWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#teacherWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the coordinator welcome', () => {
-      expect(wrapper.find('#coordinatorWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#coordinatorWelcome')).to.have.lengthOf(0);
     });
   });
 
@@ -122,25 +122,25 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = mount(Main, {
+      wrapper = shallow(Main, {
         store
       });
     });
 
     it('should not show the generic welcome message', () => {
-      expect(wrapper.find('#genericWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#genericWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the admin welcome', () => {
-      expect(wrapper.find('#adminWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#adminWelcome')).to.have.lengthOf(0);
     });
 
     it('should show the teacher welcome', () => {
-      expect(wrapper.find('#teacherWelcome')).to.have.lengthOf(1);
+      expect(wrapper.findAll('#teacherWelcome')).to.have.lengthOf(1);
     });
 
     it('should not show the coordinator welcome', () => {
-      expect(wrapper.find('#coordinatorWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#coordinatorWelcome')).to.have.lengthOf(0);
     });
   });
 
@@ -162,25 +162,25 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = mount(Main, {
+      wrapper = shallow(Main, {
         store
       });
     });
 
     it('should not show the generic welcome message', () => {
-      expect(wrapper.find('#genericWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#genericWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the admin welcome', () => {
-      expect(wrapper.find('#adminWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#adminWelcome')).to.have.lengthOf(0);
     });
 
     it('should not show the teacher welcome', () => {
-      expect(wrapper.find('#teacherWelcome')).to.have.lengthOf(0);
+      expect(wrapper.findAll('#teacherWelcome')).to.have.lengthOf(0);
     });
 
     it('should show the coordinator welcome', () => {
-      expect(wrapper.find('#coordinatorWelcome')).to.have.lengthOf(1);
+      expect(wrapper.findAll('#coordinatorWelcome')).to.have.lengthOf(1);
     });
   });
 });
