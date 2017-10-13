@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = function (config) {
   config.set({
-    browsers: ['ChromeDebugging'],
+    browsers: ['PhantomJS'],
     frameworks: ['mocha', 'sinon', 'chai', 'sinon-chai'],
     files: ['./src/**/*Spec.js'],
     preprocessors: {
