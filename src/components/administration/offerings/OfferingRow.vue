@@ -14,7 +14,8 @@
       <div class="column is-1"
            v-if="isAdmin && offered">
         <button class="button is-white offering-detail is-hidden-mobile"
-                @click="toggleEdit()">
+                @click="toggleEdit()"
+                id="edit-button">
           <span class="fa fa-edit"
                 aria-label="Edit"></span>
         </button>
@@ -41,12 +42,13 @@
         </div>
       </template>
       <div class="field"
-           v-if="!offered">
+           v-if="!offered && isAdmin">
         <div class="control">
           <button class="button is-success create-button"
                   :class="{ 'is-loading': creating }"
                   :disabled="creating"
-                  @click="createOffering()">
+                  @click="createOffering()"
+                  id="offer-button">
             Offer this Badge
           </button>
         </div>
