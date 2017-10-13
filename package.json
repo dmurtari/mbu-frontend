@@ -10,6 +10,7 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start ./karma.conf.js --single-run",
     "unit:watch": "cross-env BABEL_ENV=test karma start ./karma.conf.js --no-single-run",
+    "unit:watch:attachable": "cross-env BABEL_ENV=test karma start ./karma.conf.js --browsers ChromeDebugging",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
@@ -64,6 +65,7 @@
     "inject-loader": "^3.0.0",
     "karma": "^1.7.0",
     "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
     "karma-phantomjs-launcher": "^1.0.2",

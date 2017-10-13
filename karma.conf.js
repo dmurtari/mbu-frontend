@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = function (config) {
   config.set({
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeDebugging'],
     frameworks: ['mocha', 'sinon', 'chai', 'sinon-chai'],
     files: ['./src/**/*Spec.js'],
     preprocessors: {
@@ -10,6 +10,7 @@ module.exports = function (config) {
     },
     reporters: ['dots'],
     webpack: {
+      devtool: '#cheap-module-eval-source-map',
       resolve: {
         modules: [
           path.resolve('./src'),
@@ -30,7 +31,12 @@ module.exports = function (config) {
         ]
       }
     },
-
+    customLaunchers: {
+      ChromeDebugging: {
+        base: 'Chrome',
+        flags: [ '--remote-debugging-port=9333' ]
+      }
+    },
     webpackMiddleware: {
       noInfo: true
     }
