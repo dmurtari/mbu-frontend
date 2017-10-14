@@ -10,7 +10,7 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start ./karma.conf.js --single-run",
     "unit:watch": "cross-env BABEL_ENV=test karma start ./karma.conf.js --no-single-run",
-    "unit:watch:attachable": "cross-env BABEL_ENV=test karma start ./karma.conf.js --browsers ChromeDebugging",
+    "unit:debug": "cross-env BABEL_ENV=test karma start ./karma.conf.js --browsers ChromeDebugging",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
@@ -96,7 +96,7 @@
     "vue-loader": "^13.0.4",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.3",
-    "vue-test-utils": "^1.0.0-beta.1",
+    "vue-test-utils": "^1.0.0-beta.2",
     "webpack": "^2.6.1",
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
