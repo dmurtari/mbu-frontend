@@ -215,7 +215,11 @@ const actions = {
         });
     });
   },
-  getEvents({ commit }) {
+  getEvents({ commit, state }) {
+    if (state.events.length > 1) {
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       axios
         .get(URLS.EVENTS_URL)
@@ -251,7 +255,11 @@ const actions = {
         });
     });
   },
-  getCurrentEvent({ commit }) {
+  getCurrentEvent({ commit, state }) {
+    if (state.currentEvent && state.currentEvent.id) {
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       axios
         .get(URLS.CURRENT_EVENT_URL)
