@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <template slot="row"
-              scope="props">
+              slot-scope="props">
       <scout-row :id="props.item.scout_id"
                  :firstname="props.item.firstname"
                  :lastname="props.item.lastname"

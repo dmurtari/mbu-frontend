@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <template slot="row"
-              scope="props">
+              slot-scope="props">
       <user-row :user="props.item"></user-row>
     </template>
   </paginated-table>

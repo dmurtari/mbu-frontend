@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <template slot="row"
-              scope="props">
+              slot-scope="props">
       <stats-row :event="event"
                  :registration="props.item"></stats-row>
     </template>

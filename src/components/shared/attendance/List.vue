@@ -10,7 +10,7 @@
                          :per="10"
                          :showLinks="true">
           <template slot="row"
-                    scope="props">
+                    slot-scope="props">
             <attendance-row :registration="props.item"
                             :event="event"></attendance-row>
           </template>
