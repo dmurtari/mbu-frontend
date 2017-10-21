@@ -28,5 +28,5 @@ describe('The before date validator', () => {
 
   it('should fail for invalid dates', () => {
     expect(afterDate('date')('12/32/2000', parentVm)).to.be.false;
-  })
+  });
 });
