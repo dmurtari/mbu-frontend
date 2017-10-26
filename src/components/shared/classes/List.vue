@@ -68,7 +68,8 @@
                         :eventId="eventId"
                         :badge="offeredClass.badge.name"
                         :scouts="offeredClass.assignees"
-                        :duration="offeredClass.duration"></attendance-row>
+                        :duration="offeredClass.duration"
+                        :offered-periods="offeredClass.periods"></attendance-row>
       </tbody>
     </table>
   </div>
@@ -99,7 +100,7 @@ export default {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
     classes () {
-      let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
+      let event = this.eventClasses[this.eventId] || {};
       return event.classes;
     },
     orderedClasses () {

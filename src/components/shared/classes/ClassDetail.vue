@@ -65,7 +65,8 @@ export default {
       this.error = '';
     },
     refreshDetails () {
-      let event = _.find(this.eventClasses, { eventId: this.eventId }) || {};
+      let event = this.eventClasses[this.eventId] || {};
+
       _.forEach(event.classes, (availableClass) => {
         if (availableClass.offering_id === this.offeringId) {
           this.offering = availableClass;

@@ -5,7 +5,7 @@
     <td>{{ assignees.length }}</td>
     <td v-for="n in 3"
         :key="n">
-      <span :class="{ 'is-light': scoutsForPeriod(n).length < 1 }">
+      <span :class="{ 'is-light': !offeredForPeriod(n) }">
         {{ scoutsForPeriod(n).length }}
       </span>
     </td>
@@ -41,20 +41,27 @@ export default {
     scouts: {
       type: Array,
       default: () => []
+    },
+    offeredPeriods: {
+      type: Array,
+      required: true
     }
   },
   watch: {
-    scouts () {
+    scouts() {
       this.assignees = this.scouts;
     }
   },
-  mounted () {
+  methods: {
+    offeredForPeriod(period) {
+      return this.offeredPeriods.indexOf(period) > -1;
+    }
+  },
+  mounted() {
     this.assignees = this.scouts;
   },
-  mixins: [
-    ScoutsForClass
-  ]
-}
+  mixins: [ScoutsForClass]
+};
 </script>
 
 <style scoped lang="scss">
