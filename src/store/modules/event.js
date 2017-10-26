@@ -234,27 +234,6 @@ const actions = {
         });
     });
   },
-  getClassSize({ commit }, details) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(
-          URLS.EVENTS_URL +
-            details.eventId +
-            '/badges/' +
-            details.badgeId +
-            '/limits'
-        )
-        .then(response => {
-          console.log('Received class size information', response.data);
-          commit();
-          resolve(response.data);
-        })
-        .catch(err => {
-          console.error('Failed to get class size limits', err);
-          reject();
-        });
-    });
-  },
   getCurrentEvent({ commit, state }) {
     if (state.currentEvent && state.currentEvent.id) {
       return;

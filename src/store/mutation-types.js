@@ -14,6 +14,7 @@ export const UPDATE_BADGE = 'badges/UPDATE';
 
 // Classes
 export const SET_CLASSES = 'classes/SET';
+export const SET_CLASS_SIZES = 'classes/SET_SIZES';
 
 // Events
 export const ADD_EVENT = 'events/ADD';
