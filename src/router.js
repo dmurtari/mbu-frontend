@@ -179,10 +179,12 @@ export default [
         children: [
           {
             path: 'all',
+            name: 'adminClassList',
             component: ClassList,
             meta: { title: 'All Classes' }
           }, {
             path: ':eventId/:id',
+            name: 'adminClassDetail',
             component: ClassDetail,
             meta: { title: 'Class Detail' },
             props(route) {

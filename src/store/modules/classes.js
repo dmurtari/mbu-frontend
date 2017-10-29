@@ -17,6 +17,13 @@ const getters = {
 
 const mutations = {
   [types.SET_CLASSES](state, details) {
+    details.classes = _.map(details.classes, (classInfo) => {
+      return {
+        ...classInfo,
+        sizeInfo: {}
+      }
+    });
+
     if (state.eventClasses[details.eventId]) {
       Vue.set(state.eventClasses[details.eventId], 'classes', details.classes);
     } else {
@@ -52,17 +59,11 @@ const actions = {
             classes: response.data
           });
 
-          if (
-            state.eventClasses[eventId] &&
-            state.eventClasses[eventId].classes.length > 0 &&
-            !state.eventClasses[eventId].classes[0].sizeInfo
-          ) {
-            console.log('No size info found, making requests for class sizes')
-            dispatch('getClassSizes', {
-              eventId: eventId,
-              badgeIds: _.map(response.data, 'badge.badge_id')
-            });
-          }
+          dispatch('getClassSizes', {
+            eventId: eventId,
+            badgeIds: _.map(response.data, 'badge.badge_id')
+          });
+
           resolve();
         })
         .catch(err => {
@@ -72,7 +73,7 @@ const actions = {
     });
   },
   getClassSizes({ commit }, details) {
-    let requests = Promise.all(
+    const requests = Promise.all(
       _.map(details.badgeIds, badgeId => {
         return axios.get(
           URLS.EVENTS_URL + details.eventId + '/badges/' + badgeId + '/limits'

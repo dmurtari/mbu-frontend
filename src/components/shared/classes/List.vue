@@ -118,7 +118,11 @@ export default {
     },
     setEvent (eventId) {
       this.eventId = eventId;
+      this.loadClasses(eventId);
+    },
+    loadClasses (eventId) {
       this.loading = true;
+
       this.$store.dispatch('getClasses', eventId)
         .then(() => {
           this.error = '';
