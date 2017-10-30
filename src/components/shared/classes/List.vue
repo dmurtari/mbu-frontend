@@ -65,9 +65,9 @@
         <attendance-row v-for="offeredClass in filteredClass"
                         :key="offeredClass.offering_id"
                         :id="offeredClass.offering_id"
-                        :eventId="eventId"
+                        :event-id="eventId"
                         :badge="offeredClass.badge.name"
-                        :scouts="offeredClass.assignees"
+                        :size-info="offeredClass.sizeInfo"
                         :duration="offeredClass.duration"
                         :offered-periods="offeredClass.periods"></attendance-row>
       </tbody>
@@ -78,6 +78,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 import AttendanceRow from './AttendanceRow.vue';
 
@@ -124,6 +125,12 @@ export default {
       this.loading = true;
 
       this.$store.dispatch('getClasses', eventId)
+        .then(() => {
+          this.$store.dispatch('getClassSizes', {
+            eventId: eventId,
+            badgeIds: _.map(this.classes, 'badge.badge_id')
+          })
+        })
         .then(() => {
           this.error = '';
         })

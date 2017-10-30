@@ -2,11 +2,11 @@
   <tr>
     <td>{{ badge }}</td>
     <td>{{ duration }}</td>
-    <td>{{ assignees.length }}</td>
+    <td>{{ sizeInfo.total }}</td>
     <td v-for="n in 3"
         :key="n">
       <span :class="{ 'is-light': !offeredForPeriod(n) }">
-        {{ scoutsForPeriod(n).length }}
+        {{ sizeInfo[n] }}
       </span>
     </td>
     <td>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import ScoutsForClass from './ScoutsForClass';
 
 export default {
   props: {
@@ -38,18 +37,13 @@ export default {
       type: Number,
       required: true
     },
-    scouts: {
-      type: Array,
-      default: () => []
+    sizeInfo: {
+      type: Object,
+      required: true
     },
     offeredPeriods: {
       type: Array,
       required: true
-    }
-  },
-  watch: {
-    scouts() {
-      this.assignees = this.scouts;
     }
   },
   methods: {
@@ -57,10 +51,11 @@ export default {
       return this.offeredPeriods.indexOf(period) > -1;
     }
   },
-  mounted() {
-    this.assignees = this.scouts;
-  },
-  mixins: [ScoutsForClass]
+  watch: {
+    sizeInfo (old, newSize) {
+      console.log('Size changed', old, newSize)
+    }
+  }
 };
 </script>
 

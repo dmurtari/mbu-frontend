@@ -59,11 +59,6 @@ const actions = {
             classes: response.data
           });
 
-          dispatch('getClassSizes', {
-            eventId: eventId,
-            badgeIds: _.map(response.data, 'badge.badge_id')
-          });
-
           resolve();
         })
         .catch(err => {
