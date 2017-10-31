@@ -62,12 +62,12 @@
       </thead>
 
       <tbody>
-        <attendance-row v-for="offeredClass in filteredClass"
+        <attendance-row v-for="offeredClass in filteredOrderedClasses"
                         :key="offeredClass.offering_id"
                         :id="offeredClass.offering_id"
                         :event-id="eventId"
                         :badge="offeredClass.badge.name"
-                        :size-info="offeredClass.sizeInfo"
+                        :size-info="offeredClass.sizeInfo || {}"
                         :duration="offeredClass.duration"
                         :offered-periods="offeredClass.periods"></attendance-row>
       </tbody>
@@ -107,7 +107,7 @@ export default {
     orderedClasses () {
       return _.orderBy(this.classes, 'badge.name');
     },
-    filteredClass () {
+    filteredOrderedClasses () {
       return _.filter(this.orderedClasses, (classObject) => {
         return classObject.badge.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
@@ -119,6 +119,12 @@ export default {
     },
     setEvent (eventId) {
       this.eventId = eventId;
+
+      if (this.event && this.event.classes && this.event.classes.length > 0) {
+        console.log('Classes already exist, skipping load')
+        return;
+      };
+
       this.loadClasses(eventId);
     },
     loadClasses (eventId) {
@@ -126,7 +132,7 @@ export default {
 
       this.$store.dispatch('getClasses', eventId)
         .then(() => {
-          this.$store.dispatch('getClassSizes', {
+          return this.$store.dispatch('getClassSizes', {
             eventId: eventId,
             badgeIds: _.map(this.classes, 'badge.badge_id')
           })

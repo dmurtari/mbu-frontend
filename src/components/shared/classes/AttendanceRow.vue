@@ -50,11 +50,6 @@ export default {
     offeredForPeriod(period) {
       return this.offeredPeriods.indexOf(period) > -1;
     }
-  },
-  watch: {
-    sizeInfo (old, newSize) {
-      console.log('Size changed', old, newSize)
-    }
   }
 };
 </script>

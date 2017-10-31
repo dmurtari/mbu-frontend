@@ -37,12 +37,15 @@ const mutations = {
       return;
     }
 
-    _.forEach(details.sizes, sizeInfo => {
-      let selectedClass = _.find(event.classes, classInfo => {
+    _.forEach(event.classes, (classInfo, index) => {
+      const sizeInfo = _.find(details.sizes, sizeInfo => {
         return classInfo.badge.badge_id === sizeInfo.badgeId;
       });
 
-      Vue.set(selectedClass, 'sizeInfo', sizeInfo.sizeLimits);
+      event.classes[index] = {
+        ...classInfo,
+        sizeInfo: sizeInfo.sizeLimits
+      };
     });
   }
 };
