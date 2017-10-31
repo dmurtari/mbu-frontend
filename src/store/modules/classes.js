@@ -17,11 +17,8 @@ const getters = {
 
 const mutations = {
   [types.SET_CLASSES](state, details) {
-    details.classes = _.map(details.classes, (classInfo) => {
-      return {
-        ...classInfo,
-        sizeInfo: {}
-      }
+    _.forEach(details.classes, (classInfo) => {
+      Vue.set(classInfo, 'sizeInfo', {});
     });
 
     if (state.eventClasses[details.eventId]) {
@@ -42,10 +39,7 @@ const mutations = {
         return classInfo.badge.badge_id === sizeInfo.badgeId;
       });
 
-      event.classes[index] = {
-        ...classInfo,
-        sizeInfo: sizeInfo.sizeLimits
-      };
+      Vue.set(classInfo, 'sizeInfo', (sizeInfo && sizeInfo.sizeLimits) || {})
     });
   }
 };
@@ -62,7 +56,7 @@ const actions = {
             classes: response.data
           });
 
-          resolve();
+          resolve(response.data);
         })
         .catch(err => {
           console.error('Failed to get classes for event', eventId, err);
