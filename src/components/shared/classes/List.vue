@@ -101,8 +101,7 @@ export default {
       return _.find(this.allEvents, { 'id': this.eventId });
     },
     classes () {
-      let event = this.eventClasses[this.eventId] || {};
-      return event.classes;
+      return this.eventClasses[this.eventId] || {};
     },
     orderedClasses () {
       return _.orderBy(this.classes, 'badge.name');
@@ -120,8 +119,7 @@ export default {
     setEvent (eventId) {
       this.eventId = eventId;
 
-      if (this.event && this.event.classes && this.event.classes.length > 0) {
-        console.log('Classes already exist, skipping load')
+      if (this.classes && this.classes.length > 0) {
         return;
       };
 
@@ -131,10 +129,10 @@ export default {
       this.loading = true;
 
       this.$store.dispatch('getClasses', eventId)
-        .then(() => {
+        .then((classes) => {
           return this.$store.dispatch('getClassSizes', {
             eventId: eventId,
-            badgeIds: _.map(this.classes, 'badge.badge_id')
+            badgeIds: _.map(classes, 'badge.badge_id')
           })
         })
         .then(() => {
@@ -146,6 +144,11 @@ export default {
         .then(() => {
           this.loading = false;
         });
+    }
+  },
+  watch: {
+    eventId () {
+      this.dismissError();
     }
   },
   components: {

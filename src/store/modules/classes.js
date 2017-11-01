@@ -17,35 +17,34 @@ const getters = {
 
 const mutations = {
   [types.SET_CLASSES](state, details) {
-    _.forEach(details.classes, (classInfo) => {
-      Vue.set(classInfo, 'sizeInfo', {});
-    });
-
-    if (state.eventClasses[details.eventId]) {
-      Vue.set(state.eventClasses[details.eventId], 'classes', details.classes);
-    } else {
-      state.eventClasses[details.eventId] = details;
-    }
+      Vue.set(state.eventClasses, details.eventId, details.classes);
   },
   [types.SET_CLASS_SIZES](state, details) {
-    let event = state.eventClasses[details.eventId];
+    let existingClasses = state.eventClasses[details.eventId];
 
     if (event == undefined) {
       return;
     }
 
-    _.forEach(event.classes, (classInfo, index) => {
+    let classes = [];
+
+    _.forEach(existingClasses, (classInfo, index) => {
       const sizeInfo = _.find(details.sizes, sizeInfo => {
         return classInfo.badge.badge_id === sizeInfo.badgeId;
       });
 
-      Vue.set(classInfo, 'sizeInfo', (sizeInfo && sizeInfo.sizeLimits) || {})
+      classes.push({
+        ...classInfo,
+        sizeInfo: (sizeInfo && sizeInfo.sizeLimits) || {}
+      });
     });
+
+    Vue.set(state.eventClasses, details.eventId, classes);
   }
 };
 
 const actions = {
-  getClasses({ commit, dispatch, state }, eventId) {
+  getClasses({ commit }, eventId) {
     return new Promise((resolve, reject) => {
       return axios
         .get(URLS.EVENTS_URL + eventId + '/offerings/assignees')
