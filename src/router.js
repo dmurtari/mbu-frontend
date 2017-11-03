@@ -20,7 +20,7 @@ import ResetForm from 'components/authentication/ResetForm.vue';
 import Login from 'components/authentication/Login.vue';
 import Signup from 'components/authentication/Signup.vue';
 
-import ClassList from 'components/shared/classes/List.vue';
+import ClassList from 'components/shared/classes/ClassList.vue';
 import ClassDetail from 'components/shared/classes/ClassDetail.vue';
 import ClassContainer from 'components/shared/classes/ClassContainer.vue';
 import AttendanceList from 'components/shared/attendance/List.vue';

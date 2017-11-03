@@ -119,7 +119,7 @@ export default {
     setEvent (eventId) {
       this.eventId = eventId;
 
-      if (this.classes && this.classes.length > 0) {
+      if (this.classes && this.classes.length > 0 && this.classes[0].sizeInfo) {
         return;
       };
 
