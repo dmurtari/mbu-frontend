@@ -65,9 +65,9 @@ export default {
       this.error = '';
     },
     refreshDetails () {
-      let event = this.eventClasses[this.eventId] || {};
+      let availableClasses = this.eventClasses[this.eventId] || {};
 
-      _.forEach(event.classes, (availableClass) => {
+      _.forEach(availableClasses, (availableClass) => {
         if (availableClass.offering_id === this.offeringId) {
           this.offering = availableClass;
           this.assignees = availableClass.assignees;
@@ -93,7 +93,7 @@ export default {
     }
   },
   created () {
-    if (this.eventClasses.length < 1) {
+    if (!this.eventClasses[this.eventId] || this.eventClasses[this.eventId].length < 1) {
       this.triggerRefresh();
     } else {
       this.refreshDetails();
