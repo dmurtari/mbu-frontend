@@ -105,15 +105,6 @@ export default {
   },
   mixins: [
     ScoutsForClass
-  ],
-  beforeRouteEnter (to, from, next) {
-    if (store.getters.eventClasses.length < 1) {
-      store.dispatch('getClasses', to.params.eventId)
-        .then(() => next())
-        .catch(() => next(false));
-    } else {
-      next();
-    }
-  }
+  ]
 }
 </script>

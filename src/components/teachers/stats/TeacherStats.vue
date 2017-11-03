@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import StatsList from '../../stats/List.vue';
+import StatsList from '../../stats/StatsList.vue';
 
 export default {
   components: {

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import StatsList from 'components/stats/List.vue';
+import StatsList from 'components/stats/StatsList.vue';
 
 export default {
   components: {
