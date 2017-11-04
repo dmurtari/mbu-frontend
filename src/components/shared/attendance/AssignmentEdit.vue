@@ -165,13 +165,15 @@ export default {
         }
 
         let existingData = _.find(postData, { offering: assignment });
+        let existingAssignment = _.find(this.registration.assignments, { offering_id: assignment });
 
         if (existingData) {
           existingData.periods.push(index + 1);
         } else {
           postData.push({
             periods: [index + 1],
-            offering: assignment
+            offering: assignment,
+            completions: (existingAssignment && existingAssignment.details.completions) || []
           });
         }
       });
