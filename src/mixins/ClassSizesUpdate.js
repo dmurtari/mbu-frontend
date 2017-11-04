@@ -1,3 +1,5 @@
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
@@ -5,7 +7,16 @@ export default {
       classLoadError: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'eventClasses'
+    ])
+  },
   methods: {
+    hasClassInfoForEvent(eventId) {
+      const classes = this.eventClasses[eventId] || {};
+      return classes && classes.length > 0 && classes[0].sizeInfo;
+    },
     loadClasses(eventId) {
       this.classesLoading = true;
 

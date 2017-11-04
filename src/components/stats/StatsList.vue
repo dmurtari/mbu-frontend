@@ -64,6 +64,8 @@
 import { mapGetters } from 'vuex';
 
 import EventsUpdate from 'mixins/EventsUpdate';
+import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
+
 import TroopStats from './TroopStats.vue';
 import FilterBox from 'components/shared/FilterBox.vue';
 
@@ -119,8 +121,7 @@ export default {
       return _.find(this.registrations, (registrations) => {
         return registrations.eventId === this.eventId;
       });
-    }
-    ,
+    },
     troops () {
       if (!this.selectedRegistration) {
         return [];
@@ -142,6 +143,10 @@ export default {
       this.loading = true;
       this.totalDue = null;
 
+      if (!this.hasClassInfoForEvent(this.eventId)) {
+        this.loadClasses(this.eventId);
+      };
+
       this.$store.dispatch('getRegistrations', this.eventId)
         .then(() => {
           this.error = '';
@@ -159,7 +164,8 @@ export default {
     TroopStats
   },
   mixins: [
-    EventsUpdate
+    EventsUpdate,
+    ClassSizesUpdate
   ]
 }
 </script>
