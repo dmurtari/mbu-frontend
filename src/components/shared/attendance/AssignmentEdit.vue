@@ -46,6 +46,10 @@
                     <span v-if="preference.duration > 1">
                       ({{ preference.duration }} periods)
                     </span>
+                    <span v-if="sizeInfoForOffering(event.id, preference.offering_id)">
+                      ({{ sizeInfoForOffering(event.id, preference.offering_id)[n] }} of
+                      {{ sizeInfoForOffering(event.id, preference.offering_id).size_limit }})
+                    </span>
                   </option>
                 </optgroup>
                 <option disabled></option>
@@ -60,6 +64,10 @@
                     </span>
                     <span v-if="offering.details.duration > 1">
                       ({{ offering.details.duration }} periods)
+                    </span>
+                    <span v-if="sizeInfoForOffering(event.id, offering.details.id)">
+                      ({{ sizeInfoForOffering(event.id, offering.details.id)[n] }} of
+                      {{ sizeInfoForOffering(event.id, offering.details.id).size_limit }}()
                     </span>
                   </option>
                 </optgroup>
@@ -90,6 +98,8 @@
 <script>
 import _ from 'lodash';
 
+import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
+
 export default {
   props: {
     scout: {
@@ -107,6 +117,10 @@ export default {
     registration: {
       type: Object,
       require: true
+    },
+    classes: {
+      type: Array,
+      default: []
     }
   },
   data () {
@@ -169,10 +183,13 @@ export default {
         eventId: this.event.id
       })
         .then(() => {
+          this.getSizesForBadges(this.event.id, _.map(this.event.offerings, 'id'))
+        })
+        .then(() => {
           this.error = '';
           this.$emit('done');
         })
-        .catch(() => {
+        .catch((err) => {
           this.error = 'Failed to save assignments. Please refresh and try again';
         })
         .then(() => {
@@ -190,7 +207,10 @@ export default {
     });
 
     this.assignments = result;
-  }
+  },
+  mixins: [
+    ClassSizesUpdate
+  ]
 }
 </script>
 

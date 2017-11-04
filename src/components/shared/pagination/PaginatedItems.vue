@@ -29,7 +29,7 @@
         </slot>
       </paginate>
     </slot>
-    <nav class="pagination is-centered">
+    <nav class="pagination is-centered pagination-footer">
       <paginate-links :for="target"
                       :limit="limit"
                       :show-step-links="showLinks"
@@ -145,5 +145,9 @@ export default {
       color: white;
     }
   }
+}
+
+.pagination-footer {
+  padding-top: 2rem;
 }
 </style>

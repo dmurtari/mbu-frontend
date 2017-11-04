@@ -46,6 +46,7 @@
           <div id="print-break-before">
           </div>
           <router-view :event="this.event"
+                       :classes="classesForEvent(this.eventId)"
                        :registrations="this.filteredRegistrations"></router-view>
         </div>
         <div v-else

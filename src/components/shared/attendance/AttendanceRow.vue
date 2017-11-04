@@ -26,6 +26,7 @@
     </div>
     <assignment-edit v-if="state === 'assigning'"
                      :scout="scout"
+                     :classes="classes"
                      :event="event"
                      :preferences="preferences"
                      :registration="registration"
@@ -41,6 +42,12 @@ import ScoutRegistration from 'components/scouts/ScoutRegistration.vue';
 import RegistrationMappers from 'mixins/RegistrationMappers';
 
 export default {
+  props: {
+    classes: {
+      type: Array,
+      default: []
+    }
+  },
   data() {
     return {
       state: 'displaying'

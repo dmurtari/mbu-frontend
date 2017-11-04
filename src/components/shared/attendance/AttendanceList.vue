@@ -12,7 +12,8 @@
           <template slot="row"
                     slot-scope="props">
             <attendance-row :registration="props.item"
-                            :event="event"></attendance-row>
+                            :event="event"
+                            :classes="classes"></attendance-row>
           </template>
         </paginated-items>
       </div>
@@ -41,6 +42,10 @@ export default {
     registrations: {
       type: Array,
       required: true
+    },
+    classes: {
+      type: Array,
+      default: []
     }
   },
   data () {

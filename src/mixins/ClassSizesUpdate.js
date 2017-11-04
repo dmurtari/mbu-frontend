@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { mapGetters } from 'vuex';
 
 export default {
@@ -5,27 +7,33 @@ export default {
     return {
       classesLoading: false,
       classLoadError: ''
-    }
+    };
   },
   computed: {
-    ...mapGetters([
-      'eventClasses'
-    ])
+    ...mapGetters(['eventClasses'])
   },
   methods: {
+    sizeInfoForOffering(eventId, offeringId) {
+      const classes = this.classesForEvent(eventId);
+      return _.find(classes, { offering_id: offeringId }).sizeInfo;
+    },
+    classesForEvent(eventId) {
+      return this.eventClasses[eventId] || [];
+    },
     hasClassInfoForEvent(eventId) {
-      const classes = this.eventClasses[eventId] || {};
+      const classes = this.classesForEvent(eventId);
       return classes && classes.length > 0 && classes[0].sizeInfo;
     },
     loadClasses(eventId) {
       this.classesLoading = true;
 
-      this.$store.dispatch('getClasses', eventId)
-        .then((classes) => {
-          return this.$store.dispatch('getClassSizes', {
-            eventId: eventId,
-            badgeIds: _.map(classes, 'badge.badge_id')
-          })
+      this.$store
+        .dispatch('getClasses', eventId)
+        .then(classes => {
+          return this.getSizesForBadges(
+            eventId,
+            _.map(classes, 'badge.badge_id')
+          );
         })
         .then(() => {
           this.classLoadError = '';
@@ -36,6 +44,12 @@ export default {
         .then(() => {
           this.classesLoading = false;
         });
+    },
+    getSizesForBadges(eventId, badgeIds) {
+      return this.$store.dispatch('getClassSizes', {
+        eventId: eventId,
+        badgeIds: badgeIds
+      });
     }
   }
 };

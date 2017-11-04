@@ -50,7 +50,7 @@ export const SET_REGISTRATIONS = 'registrations/SET';
 
 // Event Registrations
 export const SET_EVENT_REGISTRATIONS = 'eventRegistrations/SET';
-export const SET_ASSIGNMENTS = 'eventRevistrationAssignment/SET';
+export const SET_ASSIGNMENTS = 'eventRegistrationAssignment/SET';
 
 // Scouts
 export const ADD_SCOUT = 'scouts/ADD';

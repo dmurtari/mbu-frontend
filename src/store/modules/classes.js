@@ -35,7 +35,7 @@ const mutations = {
 
       classes.push({
         ...classInfo,
-        sizeInfo: (sizeInfo && sizeInfo.sizeLimits) || {}
+        sizeInfo: (sizeInfo && sizeInfo.sizeLimits) || classInfo.sizeInfo || {}
       });
     });
 
