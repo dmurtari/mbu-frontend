@@ -50,13 +50,19 @@
     <table v-else
            class="table is-striped is-fullwidth">
       <thead>
+        <tr class="meta-header">
+          <th colspan="3">Badge Info</th>
+          <th colspan="4">Attendance per Period</th>
+          <th></th>
+        </tr>
         <tr>
           <th>Badge</th>
           <th>Duration</th>
+          <th>Limit/Period</th>
           <th>Total</th>
-          <th>Period 1</th>
-          <th>Period 2</th>
-          <th>Period 3</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
           <th></th>
         </tr>
       </thead>
@@ -149,5 +155,11 @@ export default {
   width: 5em;
   display: block;
   margin: auto;
+}
+
+table .meta-header {
+  th:first-child {
+    border-right: 1px solid lightgray;
+  }
 }
 </style>

@@ -2,6 +2,7 @@
   <tr>
     <td>{{ badge }}</td>
     <td>{{ duration }}</td>
+    <td>{{ sizeInfo.size_limit }}</td>
     <td>{{ sizeInfo.total }}</td>
     <td v-for="n in 3"
         :key="n">
