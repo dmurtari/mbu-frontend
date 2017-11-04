@@ -183,7 +183,7 @@ export default {
         eventId: this.event.id
       })
         .then(() => {
-          this.getSizesForBadges(this.event.id, _.map(this.event.offerings, 'id'))
+          this.loadClasses(this.event.id)
         })
         .then(() => {
           this.error = '';
