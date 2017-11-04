@@ -44,9 +44,9 @@
         </div>
       </div>
     </div>
-    <closable-error v-if="error"
-                    @dismissed="dismissError()">{{ error }}</closable-error>
-    <spinner-page v-if="loading"></spinner-page>
+    <closable-error v-if="classLoadError"
+                    @dismissed="dismissError()">{{ classLoadError }}</closable-error>
+    <spinner-page v-if="classesLoading"></spinner-page>
     <table v-else
            class="table is-striped is-fullwidth">
       <thead>
@@ -81,13 +81,12 @@ import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 import AttendanceRow from './AttendanceRow.vue';
+import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
 
 export default {
   data () {
     return {
-      error: '',
       eventId: 1,
-      loading: false,
       search: ''
     };
   },
@@ -114,7 +113,7 @@ export default {
   },
   methods: {
     dismissError () {
-      this.error = '';
+      this.classLoadError = '';
     },
     setEvent (eventId) {
       this.eventId = eventId;
@@ -124,26 +123,6 @@ export default {
       };
 
       this.loadClasses(eventId);
-    },
-    loadClasses (eventId) {
-      this.loading = true;
-
-      this.$store.dispatch('getClasses', eventId)
-        .then((classes) => {
-          return this.$store.dispatch('getClassSizes', {
-            eventId: eventId,
-            badgeIds: _.map(classes, 'badge.badge_id')
-          })
-        })
-        .then(() => {
-          this.error = '';
-        })
-        .catch(() => {
-          this.error = 'Failed to get classes for this event';
-        })
-        .then(() => {
-          this.loading = false;
-        });
     }
   },
   watch: {
@@ -153,7 +132,10 @@ export default {
   },
   components: {
     AttendanceRow
-  }
+  },
+  mixins: [
+    ClassSizesUpdate
+  ]
 }
 </script>
 
