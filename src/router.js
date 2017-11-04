@@ -23,7 +23,7 @@ import Signup from 'components/authentication/Signup.vue';
 import ClassList from 'components/shared/classes/ClassList.vue';
 import ClassDetail from 'components/shared/classes/ClassDetail.vue';
 import ClassContainer from 'components/shared/classes/ClassContainer.vue';
-import AttendanceList from 'components/shared/attendance/List.vue';
+import AttendanceList from 'components/shared/attendance/AttendanceList.vue';
 
 import Administration from 'components/administration/Administration.vue';
 import AdministrationHome from 'components/administration/AdministrationHome.vue'
