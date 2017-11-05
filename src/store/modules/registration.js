@@ -20,18 +20,14 @@ const mutations = {
 
   },
   [types.SET_ASSIGNMENTS] (state, details) {
-    let registrations = _.find(state.registrations, (registration) => {
-      return registration.eventId === details.eventId;
-    });
-
-    let registration = _.find(registrations.registrations, (registration) => {
+    let registration = _.find(state.registrations[details.eventId], (registration) => {
       return registration.registration_id === details.registrationId;
     });
 
     Vue.set(registration, 'assignments', details.assignments);
   },
   [types.SET_EVENT_REGISTRATIONS] (state, details) {
-    state.registrations.push(details);
+    Vue.set(state.registrations, details.eventId, details.registrations);
   }
 };
 

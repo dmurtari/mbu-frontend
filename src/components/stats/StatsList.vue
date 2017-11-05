@@ -107,9 +107,9 @@ export default {
       let registrations;
 
       if (!this.troopFilter) {
-        registrations = this.selectedRegistration.registrations;
+        registrations = this.selectedRegistration;
       } else {
-        registrations = _.filter(this.selectedRegistration.registrations, (registration) => {
+        registrations = _.filter(this.selectedRegistration, (registration) => {
           return registration.scout.troop === this.troopFilter;
         });
       }
@@ -119,16 +119,14 @@ export default {
       });
     },
     selectedRegistration () {
-      return _.find(this.registrations, (registrations) => {
-        return registrations.eventId === this.eventId;
-      });
+      return this.registrations[this.eventId] || [];
     },
     troops () {
       if (!this.selectedRegistration) {
         return [];
       }
 
-      return _.uniq(_.map(this.selectedRegistration.registrations, ('scout.troop')));
+      return _.uniq(_.map(this.selectedRegistration, ('scout.troop')));
     }
   },
   methods: {
