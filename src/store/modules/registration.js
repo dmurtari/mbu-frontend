@@ -6,7 +6,7 @@ import * as types from '../mutation-types';
 import URLS from '../../urls';
 
 const state = {
-  registrations: []
+  registrations: {}
 };
 
 const getters = {
@@ -16,8 +16,20 @@ const getters = {
 };
 
 const mutations = {
-  [types.SET_ASSIGNMENT] (state, details) {
+  [types.SET_COMPLETION] (state, details) {
+    let registration = _.find(state.registrations[details.eventId], (registration) => {
+      return registration.registration_id === details.registrationId;
+    });
 
+    if (!registration) {
+      return;
+    }
+
+    let assignment = _.find(registration.assignments, (assignment) => {
+      return assignment.offering_id === details.offeringId;
+    });
+
+    Vue.set(assignment.details, 'completions', details.completions);
   },
   [types.SET_ASSIGNMENTS] (state, details) {
     let registration = _.find(state.registrations[details.eventId], (registration) => {
@@ -66,8 +78,12 @@ const actions = {
         })
         .then((response) => {
           console.log('Updated assignment with completion', response.data);
-          commit(types.SET_ASSIGNMENT, {
-           })
+          commit(types.SET_COMPLETION, {
+            eventId: details.eventId,
+            offeringId: details.offeringId,
+            registrationId: details.registrationId,
+            completions: details.completions
+          })
           resolve(response.data);
         })
         .catch((err)=> {

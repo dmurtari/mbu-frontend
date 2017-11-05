@@ -46,6 +46,7 @@
                         :period="period"
                         :requirements="requirements"
                         :offeringId="offeringId"
+                        :eventId="eventId"
                         @done="toggleEdit()"></completions-edit>
     </div>
   </div>
@@ -71,6 +72,10 @@ export default {
       default: () => []
     },
     offeringId: {
+      type: Number,
+      required: true
+    },
+    eventId: {
       type: Number,
       required: true
     }

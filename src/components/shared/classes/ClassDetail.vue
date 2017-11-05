@@ -16,6 +16,7 @@
                  :period="n"
                  :requirements="offering.requirements"
                  :offeringId="offeringId"
+                 :eventId="eventId"
                  :scouts="scoutsForPeriod(n)"
                  @triggerRefresh="triggerRefresh()"></attendees>
     </div>

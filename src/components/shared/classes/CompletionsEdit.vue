@@ -78,6 +78,10 @@ export default {
     offeringId: {
       type: Number,
       required: true
+    },
+    eventId: {
+      type: Number,
+      required: true
     }
   },
   data () {
@@ -100,7 +104,8 @@ export default {
           scoutId: scoutId,
           registrationId: scout.registrationId,
           offeringId: this.offeringId,
-          copletions: completions
+          eventId: this.eventId,
+          completions: completions
         });
       }))
         .then(() => {
