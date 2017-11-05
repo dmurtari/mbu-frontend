@@ -51,7 +51,7 @@
            class="table is-striped is-fullwidth">
       <thead>
         <tr class="meta-header">
-          <th colspan="3">Badge Info</th>
+          <th colspan="3">Class Information</th>
           <th colspan="4">Attendance per Period</th>
           <th></th>
         </tr>

@@ -23,7 +23,6 @@
                    v-model="completions[scout.scoutId]"
                    :id="'completion-scout-' + scout.scoutId"
                    :class="{ 'is-danger': $v.completions.$each[scout.scoutId].$invalid }"
-
                    :disabled="saving"
                    aria-labelledby="Completions"
                    type="text"
@@ -97,10 +96,12 @@ export default {
           return Number(_.trim(completion));
         }), null, 0);
 
-        return axios.put(URLS.SCOUTS_URL + scoutId + '/registrations/' +
-          scout.registrationId + '/assignments/' + this.offeringId, {
-            completions: completions
-          });
+        return this.$store.dispatch('saveCompletions', {
+          scoutId: scoutId,
+          registrationId: scout.registrationId,
+          offeringId: this.offeringId,
+          copletions: completions
+        });
       }))
         .then(() => {
           this.error = '';

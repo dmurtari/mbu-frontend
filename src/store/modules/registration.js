@@ -16,6 +16,9 @@ const getters = {
 };
 
 const mutations = {
+  [types.SET_ASSIGNMENT] (state, details) {
+
+  },
   [types.SET_ASSIGNMENTS] (state, details) {
     let registrations = _.find(state.registrations, (registration) => {
       return registration.eventId === details.eventId;
@@ -57,6 +60,24 @@ const actions = {
           console.error('Failed to get registrations with', err);
           reject();
         });
+    });
+  },
+  saveCompletions({ commit }, details) {
+    return new Promise((resolve, reject) => {
+      axios.put(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
+        details.registrationId + '/assignments/' + details.offeringId, {
+          completions: details.completions
+        })
+        .then((response) => {
+          console.log('Updated assignment with completion', response.data);
+          commit(types.SET_ASSIGNMENT, {
+           })
+          resolve(response.data);
+        })
+        .catch((err)=> {
+          console.log('Failed to save completions', err);
+          reject();
+        })
     });
   },
   setAssignments({ commit }, details) {
