@@ -116,7 +116,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       editScout: false,
       error: '',
@@ -127,28 +127,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'allEvents'
-    ]),
-    orderedRegistrations () {
+    ...mapGetters(['allEvents']),
+    orderedRegistrations() {
       return _.orderBy(this.registrations, 'created_at');
     }
   },
-  created () {
+  created() {
     this.reload();
   },
   methods: {
-    closeAndRefresh () {
+    closeAndRefresh() {
       this.editScout = false;
       this.reload();
     },
-    eventForId (eventId) {
-      return _.find(this.allEvents, { 'id': eventId });
+    eventForId(eventId) {
+      return _.find(this.allEvents, { id: eventId });
     },
-    reload () {
+    reload() {
       this.loading = true;
-      axios.get(URLS.SCOUTS_URL + this.id)
-        .then((response) => {
+      axios
+        .get(URLS.SCOUTS_URL + this.id)
+        .then(response => {
           this.scout = response.data;
           this.scout['id'] = this.scout.scout_id;
           this.scout['user_id'] = this.scout.user.user_id;
@@ -162,10 +161,11 @@ export default {
           this.loading = false;
         });
     },
-    reloadRegistrations () {
+    reloadRegistrations() {
       this.loadingRegistrations = true;
-      return axios.get(URLS.SCOUTS_URL + this.id + '/registrations')
-        .then((response) => {
+      return axios
+        .get(URLS.SCOUTS_URL + this.id + '/registrations')
+        .then(response => {
           this.registrations = response.data;
           this.error = '';
         })
@@ -176,12 +176,12 @@ export default {
           this.loadingRegistrations = false;
         });
     },
-    toggleEditScout () {
+    toggleEditScout() {
       this.editScout = !this.editScout;
     }
   },
   watch: {
-    $route () {
+    $route() {
       this.reload();
     }
   },
@@ -189,10 +189,8 @@ export default {
     RegistrationContainer,
     ScoutEdit
   },
-  mixins: [
-    EventsUpdate
-  ]
-}
+  mixins: [EventsUpdate]
+};
 </script>
 
 <style lang="scss" scoped>
@@ -200,7 +198,7 @@ export default {
   display: block;
   margin: auto;
   width: 5rem;
-  margin-top: 5rem
+  margin-top: 5rem;
 }
 
 .section {

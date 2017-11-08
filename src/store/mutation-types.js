@@ -29,7 +29,7 @@ export const ADD_OFFERING = 'offerings/ADD';
 export const DELETE_OFFERING = 'offerings/DELETE';
 export const GET_OFFERINGS = 'offerings/GET';
 export const SET_OFFERINGS = 'offerings/SET';
-export const UPDATE_OFFERING = 'offerings/UPDATE'
+export const UPDATE_OFFERING = 'offerings/UPDATE';
 
 // Preferences
 export const SET_PREFERENCES = 'preferences/SET';
@@ -51,7 +51,7 @@ export const SET_REGISTRATIONS = 'registrations/SET';
 // Event Registrations
 export const SET_EVENT_REGISTRATIONS = 'eventRegistrations/SET';
 export const SET_ASSIGNMENTS = 'eventRegistrationAssignments/SET';
-export const SET_COMPLETION= 'eventRegistrationCompletion/SET';
+export const SET_COMPLETION = 'eventRegistrationCompletion/SET';
 
 // Scouts
 export const ADD_SCOUT = 'scouts/ADD';
