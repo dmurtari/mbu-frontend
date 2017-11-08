@@ -30,6 +30,16 @@ import store from 'store';
 import Attendees from './Attendees.vue';
 
 export default {
+  props: {
+    offeringId: {
+      type: Number,
+      required: true
+    },
+    eventId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       assignees: [],
@@ -46,21 +56,9 @@ export default {
     },
     readableRequirements() {
       return _.join(_.orderBy(this.offering.requirements), ', ');
-    }
-  },
-  props: {
-    offeringId: {
-      type: Number,
-      required: true
     },
-    eventId: {
-      type: Number,
-      required: true
-    }
-  },
-  computed: {
-     scoutsByPeriod() {
-      let scoutPeriods = _.map(this.assignees, (assignee) => {
+    scoutsByPeriod() {
+      let scoutPeriods = _.map(this.assignees, assignee => {
         let scout = {
           periods: assignee.assignment.periods,
           scout: assignee.scout
@@ -72,17 +70,21 @@ export default {
         return scout;
       });
 
-      return _.reduce(scoutPeriods, (acc, elt) => {
-        _.forEach(elt.periods, (period) => {
-          if (acc[period]) {
-            acc[period].push(elt.scout)
-          } else {
-            acc[period] = [elt.scout]
-          }
-        });
+      return _.reduce(
+        scoutPeriods,
+        (acc, elt) => {
+          _.forEach(elt.periods, period => {
+            if (acc[period]) {
+              acc[period].push(elt.scout);
+            } else {
+              acc[period] = [elt.scout];
+            }
+          });
 
-        return acc;
-      }, []);
+          return acc;
+        },
+        []
+      );
     }
   },
   methods: {
@@ -105,8 +107,8 @@ export default {
         this.badge + ' (' + this.event.semester + ' ' + this.event.year + ')'
       );
     },
-     scoutsForPeriod(period) {
-      let scouts = this.scoutsByPeriod[period] || {}
+    scoutsForPeriod(period) {
+      let scouts = this.scoutsByPeriod[period] || {};
       return _.orderBy(scouts, 'lastname');
     },
     triggerRefresh() {
