@@ -32,7 +32,7 @@ import AttendanceRow from './AttendanceRow.vue';
 import EventsUpdate from 'mixins/EventsUpdate';
 
 import { mapGetters } from 'vuex';
-import _ from 'lodash'
+import _ from 'lodash';
 
 export default {
   props: {
@@ -48,7 +48,7 @@ export default {
       default: []
     }
   },
-  data () {
+  data() {
     return {
       error: '',
       loading: false,
@@ -58,22 +58,28 @@ export default {
     };
   },
   computed: {
-    noRegistrations () {
-      return !this.selectedRegistration || this.selectedRegistration.registrations.length < 1;
+    noRegistrations() {
+      return (
+        !this.selectedRegistration ||
+        this.selectedRegistration.registrations.length < 1
+      );
     },
-    troops () {
+    troops() {
       if (!this.selectedRegistration) {
         return [];
       }
 
-      return _.uniq(_.map(this.selectedRegistration.registrations, ('scout.troop')));
+      return _.uniq(
+        _.map(this.selectedRegistration.registrations, 'scout.troop')
+      );
     }
   },
   watch: {
-    selectedEventId (eventId) {
+    selectedEventId(eventId) {
       this.loading = true;
       this.troopFilter = null;
-      this.$store.dispatch('getRegistrations', eventId)
+      this.$store
+        .dispatch('getRegistrations', eventId)
         .then(() => {
           this.error = '';
         })
@@ -88,10 +94,8 @@ export default {
   components: {
     AttendanceRow
   },
-  mixins: [
-    EventsUpdate
-  ]
-}
+  mixins: [EventsUpdate]
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,9 +1,8 @@
 <template>
   <div>
     <p>
-      This page shows the number of scouts assigned to each class. You can view the completion
-      records for each scout in a class by clicking the "details" link next to each
-      class.
+      This page shows the number of scouts assigned to each class. You can view the completion records for
+      each scout in a class by clicking the "details" link next to each class.
       <span v-if="isAdmin"> To edit badges that are offered for an event, use the
         <router-link to="/administration/events/offerings">offerings page</router-link>. To change a scout's badge assignments, use the
         <router-link to="/administration/scouts/assignments">assignments page</router-link>.
@@ -90,59 +89,57 @@ import AttendanceRow from './AttendanceRow.vue';
 import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
 
 export default {
-  data () {
+  data() {
     return {
       eventId: 1,
       search: ''
     };
   },
   computed: {
-    ...mapGetters([
-      'allEvents',
-      'eventClasses',
-      'isAdmin'
-    ]),
-    event () {
-      return _.find(this.allEvents, { 'id': this.eventId });
+    ...mapGetters(['allEvents', 'eventClasses', 'isAdmin']),
+    event() {
+      return _.find(this.allEvents, { id: this.eventId });
     },
-    classes () {
+    classes() {
       return this.eventClasses[this.eventId] || {};
     },
-    orderedClasses () {
+    orderedClasses() {
       return _.orderBy(this.classes, 'badge.name');
     },
-    filteredOrderedClasses () {
-      return _.filter(this.orderedClasses, (classObject) => {
-        return classObject.badge.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+    filteredOrderedClasses() {
+      return _.filter(this.orderedClasses, classObject => {
+        return (
+          classObject.badge.name
+            .toLowerCase()
+            .indexOf(this.search.toLowerCase()) > -1
+        );
       });
     }
   },
   methods: {
-    dismissError () {
+    dismissError() {
       this.classLoadError = '';
     },
-    setEvent (eventId) {
+    setEvent(eventId) {
       this.eventId = eventId;
 
       if (this.hasClassInfoForEvent(eventId)) {
         return;
-      };
+      }
 
       this.loadClasses(eventId);
     }
   },
   watch: {
-    eventId () {
+    eventId() {
       this.dismissError();
     }
   },
   components: {
     AttendanceRow
   },
-  mixins: [
-    ClassSizesUpdate
-  ]
-}
+  mixins: [ClassSizesUpdate]
+};
 </script>
 
 <style lang="scss" scoped>
