@@ -34,11 +34,12 @@
 <script>
 import ScoutRegistration from './ScoutRegistration.vue';
 import AssignmentEdit from 'components/shared/attendance/AssignmentEdit.vue';
-import RegistrationMappers from 'mixins/RegistrationMappers';
 
+import RegistrationMappers from 'mixins/RegistrationMappers';
+import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
 
 export default {
-  data () {
+  data() {
     return {
       editing: false,
       error: '',
@@ -46,24 +47,40 @@ export default {
     };
   },
   methods: {
-    toggleEditing () {
+    toggleEditing() {
       this.editing = !this.editing;
 
       if (!this.editing) {
         this.$emit('done');
       }
+    },
+    maybeLoadClasses(eventId) {
+      return new Promise((resolve, reject) => {
+        if (this.hasClassInfoForEvent(eventId)) {
+          resolve();
+        }
+
+        this.$store.dispatch('getClasses', eventId).then(classes => {
+          return this.getSizesForBadges(
+            eventId,
+            _.map(classes, 'badge.badge_id')
+          );
+        })
+        .then(() => resolve())
+        .catch(() => reject());
+      });
     }
   },
   components: {
     AssignmentEdit,
     ScoutRegistration
   },
-  mixins: [
-    RegistrationMappers
-  ],
-  mounted () {
+  mounted() {
     this.loading = true;
-    this.$store.dispatch('getRegistrations', this.event.id)
+    Promise.all([
+      this.$store.dispatch('getRegistrations', this.event.id),
+      this.maybeLoadClasses(this.event.id)
+    ])
       .then(() => {
         this.error = '';
       })
@@ -73,8 +90,9 @@ export default {
       .then(() => {
         this.loading = false;
       });
-  }
-}
+  },
+  mixins: [RegistrationMappers, ClassSizesUpdate]
+};
 </script>
 
 <style lang="scss" scoped>

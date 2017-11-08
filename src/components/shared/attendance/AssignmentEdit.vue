@@ -2,9 +2,9 @@
   <div>
     <b>Assign Merit Badges</b>
     <p>
-      Assign Merit Badges for {{ scout.fullname }} for MBU {{ event.semester }} {{ event.year
-      }} here. Select a merit badge from the dropdown for each period. Merit Badges
-      that are not offered for that period are grayed out.
+      Assign Merit Badges for {{ scout.fullname }} for MBU {{ event.semester }} {{ event.year }} here. Select
+      a merit badge from the dropdown for each period. Merit Badges that are not offered for that period
+      are grayed out.
     </p>
     <br>
     <p>
@@ -47,8 +47,8 @@
                       ({{ preference.duration }} periods)
                     </span>
                     <span v-if="sizeInfoForOffering(event.id, preference.offering_id)">
-                      ({{ sizeInfoForOffering(event.id, preference.offering_id)[n] }} of
-                      {{ sizeInfoForOffering(event.id, preference.offering_id).size_limit }})
+                      ({{ sizeInfoForOffering(event.id, preference.offering_id)[n] }} of {{ sizeInfoForOffering(event.id, preference.offering_id).size_limit
+                      }})
                     </span>
                   </option>
                 </optgroup>
@@ -66,8 +66,8 @@
                       ({{ offering.details.duration }} periods)
                     </span>
                     <span v-if="sizeInfoForOffering(event.id, offering.details.id)">
-                      ({{ sizeInfoForOffering(event.id, offering.details.id)[n] }} of
-                      {{ sizeInfoForOffering(event.id, offering.details.id).size_limit }}()
+                      ({{ sizeInfoForOffering(event.id, offering.details.id)[n] }} of {{ sizeInfoForOffering(event.id, offering.details.id).size_limit
+                      }}()
                     </span>
                   </option>
                 </optgroup>
@@ -112,7 +112,9 @@ export default {
     },
     preferences: {
       type: Array,
-      default: () => { return []; }
+      default: () => {
+        return [];
+      }
     },
     registration: {
       type: Object,
@@ -120,23 +122,25 @@ export default {
     },
     classes: {
       type: Array,
-      default: []
+      default: () => {
+        return [];
+      }
     }
   },
-  data () {
+  data() {
     return {
       assignments: [],
       saving: false
     };
   },
   computed: {
-    sortedOfferings () {
+    sortedOfferings() {
       return _.orderBy(this.event.offerings, 'name');
     }
   },
   methods: {
-    maybeRespondToDuration (offeringId, period) {
-      let offering = _.find(this.event.offerings, (offering) => {
+    maybeRespondToDuration(offeringId, period) {
+      let offering = _.find(this.event.offerings, offering => {
         return offering.details.id === Number(offeringId);
       });
 
@@ -147,14 +151,14 @@ export default {
         this.assignments[2] = offeringId;
       }
     },
-    offered (offeringId, period) {
-      let offering = _.find(this.event.offerings, (offering) => {
+    offered(offeringId, period) {
+      let offering = _.find(this.event.offerings, offering => {
         return offering.details.id === offeringId;
       });
 
       return _.indexOf(offering.details.periods, period) >= 0;
     },
-    setAssignments () {
+    setAssignments() {
       this.saving = true;
 
       let postData = [];
@@ -165,7 +169,9 @@ export default {
         }
 
         let existingData = _.find(postData, { offering: assignment });
-        let existingAssignment = _.find(this.registration.assignments, { offering_id: assignment });
+        let existingAssignment = _.find(this.registration.assignments, {
+          offering_id: assignment
+        });
 
         if (existingData) {
           existingData.periods.push(index + 1);
@@ -173,47 +179,49 @@ export default {
           postData.push({
             periods: [index + 1],
             offering: assignment,
-            completions: (existingAssignment && existingAssignment.details.completions) || []
+            completions:
+              (existingAssignment && existingAssignment.details.completions) ||
+              []
           });
         }
       });
 
-      this.$store.dispatch('setAssignments', {
-        scoutId: this.scout.scout_id,
-        registrationId: this.registration.id,
-        assignments: postData,
-        eventId: this.event.id
-      })
+      this.$store
+        .dispatch('setAssignments', {
+          scoutId: this.scout.scout_id,
+          registrationId: this.registration.id,
+          assignments: postData,
+          eventId: this.event.id
+        })
         .then(() => {
-          this.loadClasses(this.event.id)
+          this.loadClasses(this.event.id);
         })
         .then(() => {
           this.error = '';
           this.$emit('done');
         })
-        .catch((err) => {
-          this.error = 'Failed to save assignments. Please refresh and try again';
+        .catch(err => {
+          this.error =
+            'Failed to save assignments. Please refresh and try again';
         })
         .then(() => {
           this.saving = false;
         });
     }
   },
-  mounted () {
+  mounted() {
     let result = [null, null, null];
 
-    _.forEach(this.registration.assignments, (assignment) => {
-      return _.forEach(assignment.details.periods, (period) => {
+    _.forEach(this.registration.assignments, assignment => {
+      return _.forEach(assignment.details.periods, period => {
         result[Number(period) - 1] = assignment.offering_id;
       });
     });
 
     this.assignments = result;
   },
-  mixins: [
-    ClassSizesUpdate
-  ]
-}
+  mixins: [ClassSizesUpdate]
+};
 </script>
 
 <style lang="scss" scoped>

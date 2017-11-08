@@ -46,9 +46,13 @@ export default {
         });
     },
     getSizesForBadges(eventId, badgeIds) {
-      return this.$store.dispatch('getClassSizes', {
-        eventId: eventId,
-        badgeIds: badgeIds
+      return new Promise((resolve, reject) => {
+        this.$store.dispatch('getClassSizes', {
+          eventId: eventId,
+          badgeIds: badgeIds
+        })
+        .then(() => resolve())
+        .catch(() => reject());
       });
     }
   }
