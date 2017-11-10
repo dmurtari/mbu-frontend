@@ -38,7 +38,7 @@
                   <option v-for="preference in preferences"
                           :key="preference.offering_id"
                           :value="preference.offering_id"
-                          :disabled="!offered(preference.offering_id, n)">
+                          :disabled="!offered(preference.offering_id, n) || classFull(preference.offering_id, n)">
                     {{ preference.badge.name }}
                     <span v-if="preference.price !== '0.00'">
                       ({{ preference.price | currency }})
@@ -47,8 +47,7 @@
                       ({{ preference.duration }} periods)
                     </span>
                     <span v-if="sizeInfoForOffering(event.id, preference.offering_id)">
-                      ({{ sizeInfoForOffering(event.id, preference.offering_id)[n] }} of {{ sizeInfoForOffering(event.id, preference.offering_id).size_limit
-                      }})
+                      ({{ sizeInfoText(preference.offering_id, n) }})
                     </span>
                   </option>
                 </optgroup>
@@ -57,7 +56,7 @@
                   <option v-for="offering in sortedOfferings"
                           :key="offering.details.id"
                           :value="offering.details.id"
-                          :disabled="!offered(offering.details.id, n)">
+                          :disabled="!offered(offering.details.id, n) || classFull(offering.details.id, n)">
                     {{ offering.name }}
                     <span v-if="offering.details.price !== '0.00'">
                       ({{ offering.details.price | currency }})
@@ -66,8 +65,7 @@
                       ({{ offering.details.duration }} periods)
                     </span>
                     <span v-if="sizeInfoForOffering(event.id, offering.details.id)">
-                      ({{ sizeInfoForOffering(event.id, offering.details.id)[n] }} of {{ sizeInfoForOffering(event.id, offering.details.id).size_limit
-                      }}()
+                      ({{ sizeInfoText(offering.details.id, n) }})
                     </span>
                   </option>
                 </optgroup>
@@ -139,6 +137,10 @@ export default {
     }
   },
   methods: {
+    classFull(offeringId, period) {
+      return this.sizeInfoForOffering(this.event.id, offeringId)[period] >=
+        this.sizeInfoForOffering(this.event.id, offeringId).size_limit;
+    },
     maybeRespondToDuration(offeringId, period) {
       let offering = _.find(this.event.offerings, offering => {
         return offering.details.id === Number(offeringId);
@@ -207,6 +209,11 @@ export default {
         .then(() => {
           this.saving = false;
         });
+    },
+    sizeInfoText(offeringId, period) {
+      return `${this.sizeInfoForOffering(this.event.id, offeringId)[
+        period
+      ]} of ${this.sizeInfoForOffering(this.event.id, offeringId).size_limit}`;
     }
   },
   mounted() {
