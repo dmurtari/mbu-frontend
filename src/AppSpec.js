@@ -8,7 +8,7 @@ import {
 Vue.use(Vuex);
 
 describe('App component', () => {
-  let wrapper, store, getters;
+  let wrapper, store, getters, actions;
 
   describe('when not authenticated', () => {
     beforeEach(() => {
@@ -16,8 +16,12 @@ describe('App component', () => {
         isApproved: () => null
       };
 
+      actions = {
+        getProfile: sinon.stub().rejects()
+      }
+
       store = new Vuex.Store({
-        getters
+        getters, actions
       });
 
       wrapper = shallow(App, {
@@ -39,7 +43,7 @@ describe('App component', () => {
           isApproved: () => false
         };
 
-        let actions = {
+        actions = {
           getProfile: sinon.stub().resolves()
         }
 
@@ -65,8 +69,12 @@ describe('App component', () => {
           isApproved: () => true
         };
 
+        actions = {
+          getProfile: sinon.stub().resolves()
+        }
+
         store = new Vuex.Store({
-          getters
+          getters, actions
         });
 
         wrapper = shallow(App, {

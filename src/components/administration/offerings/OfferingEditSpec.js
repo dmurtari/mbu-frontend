@@ -25,7 +25,17 @@ describe('OfferingEdit.vue', () => {
 
     wrapper = shallow(OfferingEdit, {
       localVue,
-      store
+      store,
+      propsData: {
+        badge: {
+          badge_id: 2,
+          duration: 1,
+          periods: [2, 3],
+          requirements: [1, 2, 3],
+          name: 'Badge'
+        },
+        eventId: '1'
+      }
     });
   });
 
@@ -37,71 +47,52 @@ describe('OfferingEdit.vue', () => {
     expect(wrapper.vm.creating).to.be.false;
   });
 
-  describe('when created with a badge', () => {
+  it('should format the list of periods', () => {
+    expect(wrapper.vm.editablePeriods).to.equal('2, 3');
+  });
+
+  it('should format the list of requirements', () => {
+    expect(wrapper.vm.editableRequirements).to.equal('1, 2, 3');
+  });
+
+  it('should parse edited periods', () => {
+    wrapper.vm.editablePeriods = '1, 2, 3';
+    expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
+  });
+
+  it('should parse poorly formatted edited periods', () => {
+    wrapper.vm.editablePeriods = '1 ,2,3,';
+    expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
+  });
+
+  it('should only parse 3 periods', () => {
+    wrapper.vm.editablePeriods = '1, 2, 3, 4';
+    expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
+  });
+
+  it('should parse edited requirements', () => {
+    wrapper.vm.editableRequirements = '1, 2, 3a, 4';
+    expect(wrapper.vm.offering.requirements).to.deep.equal(['1', '2', '3a', '4']);
+  });
+
+  it('should parse poorly formatted edited requirements', () => {
+    wrapper.vm.editableRequirements = '1,2 ,3,4';
+    expect(wrapper.vm.offering.requirements).to.deep.equal(['1', '2', '3', '4']);
+  });
+
+  describe('and then trying to delete the offering', () => {
     beforeEach(() => {
-      wrapper = shallow(OfferingEdit, {
-        localVue,
-        store,
-        propsData: {
-          badge: {
-            badge_id: 2,
-            duration: 1,
-            periods: [2, 3],
-            requirements: [1, 2, 3],
-            name: 'Badge'
-          },
-          eventId: '1'
-        }
-      });
+      wrapper.vm.deleteOffering();
     });
 
-    it('should format the list of periods', () => {
-      expect(wrapper.vm.editablePeriods).to.equal('2, 3');
+    it('should have dispatched the appropriate action', () => {
+      expect(actions.deleteOffering).to.have.been.called;
     });
 
-    it('should format the list of requirements', () => {
-      expect(wrapper.vm.editableRequirements).to.equal('1, 2, 3');
-    });
-
-    it('should parse edited periods', () => {
-      wrapper.vm.editablePeriods = '1, 2, 3';
-      expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
-    });
-
-    it('should parse poorly formatted edited periods', () => {
-      wrapper.vm.editablePeriods = '1 ,2,3,';
-      expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
-    });
-
-    it('should only parse 3 periods', () => {
-      wrapper.vm.editablePeriods = '1, 2, 3, 4';
-      expect(wrapper.vm.offering.periods).to.deep.equal([1, 2, 3]);
-    });
-
-    it('should parse edited requirements', () => {
-      wrapper.vm.editableRequirements = '1, 2, 3a, 4';
-      expect(wrapper.vm.offering.requirements).to.deep.equal(['1', '2', '3a', '4']);
-    });
-
-    it('should parse poorly formatted edited requirements', () => {
-      wrapper.vm.editableRequirements = '1,2 ,3,4';
-      expect(wrapper.vm.offering.requirements).to.deep.equal(['1', '2', '3', '4']);
-    });
-
-    describe('and then trying to delete the offering', () => {
-      beforeEach(() => {
-        wrapper.vm.deleteOffering();
-      });
-
-      it('should have dispatched the appropriate action', () => {
-        expect(actions.deleteOffering).to.have.been.called;
-      });
-
-      xit('should have called with the appropriate information', () => {
-        expect(actions.deleteOffering).to.have.been.calledWithMatch(
-          { eventId: '1', badgeId: 2 }
-        )
-      });
+    xit('should have called with the appropriate information', () => {
+      expect(actions.deleteOffering).to.have.been.calledWithMatch(
+        { eventId: '1', badgeId: 2 }
+      )
     });
   });
 });
