@@ -1,7 +1,6 @@
 <template>
   <paginated-table :target="'users'"
                    :contents="users"
-                   :per="20"
                    :showLinks="true">
     <thead slot="header">
       <tr>

@@ -11,6 +11,7 @@
                       }"
                       :classes="{
                         'li.number > a, li.ellipses > a': 'pagination-link',
+                        'ul.paginate-links > li.active > a': 'is-current',
                         'li.left-arrow': 'pagination-previous',
                         'li.right-arrow': 'pagination-next'
                       }"
@@ -40,6 +41,7 @@
                       }"
                       :classes="{
                          'li.number > a, li.ellipses > a': 'pagination-link',
+                         'ul.paginate-links > li.active > a': 'is-current',
                          'li.left-arrow': 'pagination-previous',
                          'li.right-arrow': 'pagination-next'
                        }"
@@ -68,7 +70,7 @@ export default {
     },
     per: {
       type: Number,
-      default: 20,
+      default: 2,
     },
     showLinks: {
       type: Boolean,
@@ -99,6 +101,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~bulma/bulma';
+
 .pagination-list {
   li.number {
     background-color: white;
@@ -135,15 +139,6 @@ export default {
 
   .pagination-previous {
     order: 0 !important;
-  }
-
-  li.active {
-    a {
-      font-size: 1rem;
-      background-color: #00d1b2;
-      border-color: #00d1b2;
-      color: white;
-    }
   }
 }
 

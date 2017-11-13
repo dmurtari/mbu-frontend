@@ -6,14 +6,15 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                          next: 'Next',
-                          prev: 'Previous'
-                        }"
+                            next: 'Next',
+                            prev: 'Previous'
+                          }"
                       :classes="{
-                          'li.number > a, li.ellipses > a': 'pagination-link',
-                          'li.left-arrow': 'pagination-previous',
-                          'li.right-arrow': 'pagination-next'
-                        }"
+                            'li.number > a, li.ellipses > a': 'pagination-link',
+                            'ul.paginate-links > li.active > a': 'is-current',
+                            'li.left-arrow': 'pagination-previous',
+                            'li.right-arrow': 'pagination-next'
+                          }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -37,14 +38,15 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                          next: 'Next',
-                          prev: 'Previous'
-                        }"
+                            next: 'Next',
+                            prev: 'Previous'
+                          }"
                       :classes="{
-                          'li.number > a, li.ellipses > a': 'pagination-link',
-                          'li.left-arrow': 'pagination-previous',
-                          'li.right-arrow': 'pagination-next'
-                        }"
+                            'li.number > a, li.ellipses > a': 'pagination-link',
+                            'ul.paginate-links > li.active > a': 'is-current',
+                            'li.left-arrow': 'pagination-previous',
+                            'li.right-arrow': 'pagination-next'
+                          }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -69,20 +71,20 @@ export default {
     },
     per: {
       type: Number,
-      default: 20,
+      default: 2
     },
     showLinks: {
       type: Boolean,
       default: false
     }
   },
-  data () {
+  data() {
     return {
       paginate: [this.target]
     };
   },
   methods: {
-    pageChanged (toPage) {
+    pageChanged(toPage) {
       let query = _.clone(this.$route.query);
       query.page = toPage;
       this.$router.replace({
@@ -90,15 +92,17 @@ export default {
       });
     }
   },
-  mounted () {
+  mounted() {
     if (this.$route.query.page) {
       this.$refs.paginator.goToPage(this.$route.query.page);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
+@import '~bulma/bulma';
+
 table.paginated-table {
   margin-top: 2rem;
   table-layout: fixed;
@@ -106,10 +110,10 @@ table.paginated-table {
     font-size: 16px;
   }
   .sorted-column {
-    background: #EEE;
+    background: #eee;
   }
   th.sortable:hover {
-    background: #EEE;
+    background: #eee;
   }
   td {
     word-wrap: break-word;
@@ -145,14 +149,6 @@ table.paginated-table {
   }
   .pagination-previous {
     order: 0 !important;
-  }
-  li.active {
-    a {
-      font-size: 1rem;
-      background-color: #00d1b2;
-      border-color: #00d1b2;
-      color: white;
-    }
   }
 }
 </style>
