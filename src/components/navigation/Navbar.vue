@@ -8,19 +8,6 @@
           MBU Home
         </h5>
       </router-link>
-      <!-- <router-link class="nav-item is-hidden-mobile is-tab"
-                        to="/badges">Badges</router-link>
-          <router-link class="nav-item is-hidden-mobile is-tab"
-                        to="/events">Events</router-link>
-          <router-link class="nav-item is-hidden-mobile is-tab"
-                        v-if="isCoordinator && isApproved"
-                        to="/coordinator">Manage Troop</router-link>
-          <router-link class="nav-item is-hidden-mobile is-tab"
-                        v-if="isTeacher && isApproved"
-                        to="/teacher">Instructor Tasks</router-link>
-          <router-link class="nav-item is-hidden-mobile is-tab"
-                        v-if="isAdmin"
-                        to="/administration">Administration</router-link> -->
       <span class="navbar-burger"
             :class="{ 'is-active': dropdownActive }"
             @click.prevent="toggleDropdown()">
