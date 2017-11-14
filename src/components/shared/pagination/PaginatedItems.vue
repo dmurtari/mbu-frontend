@@ -6,15 +6,15 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next',
-                        prev: 'Previous'
-                      }"
+                          next: 'Next',
+                          prev: 'Previous'
+                        }"
                       :classes="{
-                        'li.number > a, li.ellipses > a': 'pagination-link',
-                        'ul.paginate-links > li.active > a': 'is-current',
-                        'li.left-arrow': 'pagination-previous',
-                        'li.right-arrow': 'pagination-next'
-                      }"
+                          'li.number > a, li.ellipses > a': 'pagination-link',
+                          '.active > a': 'is-current',
+                          'li.left-arrow': 'pagination-previous',
+                          'li.right-arrow': 'pagination-next'
+                        }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -36,15 +36,15 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                        next: 'Next',
-                        prev: 'Previous'
-                      }"
+                          next: 'Next',
+                          prev: 'Previous'
+                        }"
                       :classes="{
-                         'li.number > a, li.ellipses > a': 'pagination-link',
-                         'ul.paginate-links > li.active > a': 'is-current',
-                         'li.left-arrow': 'pagination-previous',
-                         'li.right-arrow': 'pagination-next'
-                       }"
+                           'li.number > a, li.ellipses > a': 'pagination-link',
+                           '.active > a': 'is-current',
+                           'li.left-arrow': 'pagination-previous',
+                           'li.right-arrow': 'pagination-next'
+                         }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -70,20 +70,20 @@ export default {
     },
     per: {
       type: Number,
-      default: 2,
+      default: 2
     },
     showLinks: {
       type: Boolean,
       default: false
     }
   },
-  data () {
+  data() {
     return {
       paginate: [this.target]
     };
   },
   methods: {
-    pageChanged (toPage) {
+    pageChanged(toPage) {
       let query = _.clone(this.$route.query);
       query.page = toPage;
 
@@ -92,12 +92,12 @@ export default {
       });
     }
   },
-  mounted () {
+  mounted() {
     if (this.$route.query.page) {
       this.$refs.paginator.goToPage(this.$route.query.page);
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -137,6 +137,15 @@ export default {
 
   .pagination-previous {
     order: 0 !important;
+  }
+
+  li.active {
+    a {
+      font-size: 1rem;
+      background-color: #3273dc;
+      border-color: #3273dc;
+      color: white;
+    }
   }
 }
 

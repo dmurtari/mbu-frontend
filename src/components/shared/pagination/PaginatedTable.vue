@@ -6,15 +6,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                            next: 'Next',
-                            prev: 'Previous'
-                          }"
+                              next: 'Next',
+                              prev: 'Previous'
+                            }"
                       :classes="{
-                            'li.number > a, li.ellipses > a': 'pagination-link',
-                            'ul.paginate-links > li.active > a': 'is-current',
-                            'li.left-arrow': 'pagination-previous',
-                            'li.right-arrow': 'pagination-next'
-                          }"
+                              'li.number > a, li.ellipses > a': 'pagination-link',
+                              'li.left-arrow': 'pagination-previous',
+                              'li.right-arrow': 'pagination-next'
+                            }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -38,15 +37,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                            next: 'Next',
-                            prev: 'Previous'
-                          }"
+                              next: 'Next',
+                              prev: 'Previous'
+                            }"
                       :classes="{
-                            'li.number > a, li.ellipses > a': 'pagination-link',
-                            'ul.paginate-links > li.active > a': 'is-current',
-                            'li.left-arrow': 'pagination-previous',
-                            'li.right-arrow': 'pagination-next'
-                          }"
+                              'li.number > a, li.ellipses > a': 'pagination-link',
+                              'li.left-arrow': 'pagination-previous',
+                              'li.right-arrow': 'pagination-next'
+                            }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -147,6 +145,15 @@ table.paginated-table {
   }
   .pagination-previous {
     order: 0 !important;
+  }
+
+  li.active {
+    a {
+      font-size: 1rem;
+      background-color: #3273dc;
+      border-color: #3273dc;
+      color: white;
+    }
   }
 }
 </style>
