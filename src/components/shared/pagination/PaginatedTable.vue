@@ -101,8 +101,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~bulma/bulma';
-
 table.paginated-table {
   margin-top: 2rem;
   table-layout: fixed;

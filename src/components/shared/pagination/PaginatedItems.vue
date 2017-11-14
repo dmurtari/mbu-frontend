@@ -101,8 +101,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~bulma/bulma';
-
 .pagination-list {
   li.number {
     background-color: white;
