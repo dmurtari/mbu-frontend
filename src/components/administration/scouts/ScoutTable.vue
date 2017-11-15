@@ -1,8 +1,9 @@
 <template>
-  <paginated-table :target="'scouts'"
+  <paginated-items :target="'scouts'"
                    :contents="orderedScouts"
-                   :showLinks="true">
-    <thead slot="header">
+                   :showLinks="true"
+                   :table="true">
+    <thead slot="heading">
       <tr>
         <th @click="sort('firstname')"
             class="sortable"
@@ -54,7 +55,7 @@
                  :user="props.item.user">
       </scout-row>
     </template>
-  </paginated-table>
+  </paginated-items>
 </template>
 
 <script>

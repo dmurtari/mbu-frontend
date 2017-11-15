@@ -1,8 +1,9 @@
 <template>
-  <paginated-table :target="'users'"
+  <paginated-items :target="'users'"
                    :contents="users"
-                   :showLinks="true">
-    <thead slot="header">
+                   :showLinks="true"
+                   :table="true">
+    <thead slot="heading">
       <tr>
         <th width="15%">Name</th>
         <th width="15%">Role</th>
@@ -15,7 +16,7 @@
               slot-scope="props">
       <user-row :user="props.item"></user-row>
     </template>
-  </paginated-table>
+  </paginated-items>
 </template>
 
 

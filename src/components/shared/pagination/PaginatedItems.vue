@@ -6,15 +6,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                          next: 'Next',
-                          prev: 'Previous'
-                        }"
+                        next: 'Next',
+                        prev: 'Previous'
+                      }"
                       :classes="{
-                          'li.number > a, li.ellipses > a': 'pagination-link',
-                          '.active > a': 'is-current',
-                          'li.left-arrow': 'pagination-previous',
-                          'li.right-arrow': 'pagination-next'
-                        }"
+                        'li.number > a, li.ellipses > a': 'pagination-link',
+                        'li.left-arrow': 'pagination-previous',
+                        'li.right-arrow': 'pagination-next'
+                      }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -22,12 +21,23 @@
       <paginate :name="target"
                 :list="contents"
                 :per="per"
+                :tag="table ? 'table' : undefined"
+                :class="table ? 'table is-striped paginated-table is-fullwidth' : undefined"
                 ref="paginator">
         <slot name="heading"></slot>
-        <slot name="row"
-              v-for="(item, index) in paginated(target)"
-              :item="item">
-        </slot>
+        <template v-if="table">
+          <tbody>
+            <slot v-for="(item, index) in paginated(target)"
+                  name="row"
+                  :item="item"></slot>
+          </tbody>
+        </template>
+        <template v-else>
+          <slot name="row"
+                v-for="(item, index) in paginated(target)"
+                :item="item">
+          </slot>
+        </template>
       </paginate>
     </slot>
     <nav class="pagination is-centered pagination-footer">
@@ -36,15 +46,14 @@
                       :show-step-links="showLinks"
                       class="pagination-list"
                       :step-links="{
-                          next: 'Next',
-                          prev: 'Previous'
-                        }"
+                        next: 'Next',
+                        prev: 'Previous'
+                      }"
                       :classes="{
-                           'li.number > a, li.ellipses > a': 'pagination-link',
-                           '.active > a': 'is-current',
-                           'li.left-arrow': 'pagination-previous',
-                           'li.right-arrow': 'pagination-next'
-                         }"
+                        'li.number > a, li.ellipses > a': 'pagination-link',
+                        'li.left-arrow': 'pagination-previous',
+                        'li.right-arrow': 'pagination-next'
+                      }"
                       @change="pageChanged">
       </paginate-links>
     </nav>
@@ -73,6 +82,10 @@ export default {
       default: 2
     },
     showLinks: {
+      type: Boolean,
+      default: false
+    },
+    table: {
       type: Boolean,
       default: false
     }
@@ -151,5 +164,26 @@ export default {
 
 .pagination-footer {
   padding-top: 2rem;
+}
+
+table.paginated-table {
+  margin-top: 2rem;
+  table-layout: fixed;
+
+  .icon {
+    font-size: 16px;
+  }
+
+  .sorted-column {
+    background: #eee;
+  }
+
+  th.sortable:hover {
+    background: #eee;
+  }
+
+  td {
+    word-wrap: break-word;
+  }
 }
 </style>

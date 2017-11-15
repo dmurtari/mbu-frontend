@@ -1,8 +1,9 @@
 <template>
-  <paginated-table :target="'registrations'"
+  <paginated-items :target="'registrations'"
                    :contents="registrations"
-                   :showLinks="true">
-    <thead slot="header">
+                   :showLinks="true"
+                   :table="true">
+    <thead slot="heading">
       <tr>
         <th width="10%">Scout</th>
         <th width="8%">Troop</th>
@@ -21,7 +22,7 @@
       <stats-row :event="event"
                  :registration="props.item"></stats-row>
     </template>
-  </paginated-table>
+  </paginated-items>
 </template>
 
 <script>
