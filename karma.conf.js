@@ -2,13 +2,13 @@ var path = require('path')
 
 module.exports = function (config) {
   config.set({
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeHeadless'],
     frameworks: ['mocha', 'sinon', 'chai', 'sinon-chai'],
     files: ['./src/**/*Spec.js'],
     preprocessors: {
       './src/**/*.js': ['webpack']
     },
-    reporters: ['dots'],
+    reporters: ['spec'],
     webpack: {
       devtool: '#cheap-module-eval-source-map',
       resolve: {
@@ -32,9 +32,13 @@ module.exports = function (config) {
       }
     },
     customLaunchers: {
-      ChromeDebugging: {
+      ChromeHeadless: {
         base: 'Chrome',
-        flags: [ '--remote-debugging-port=9333' ]
+        flags: [
+          '--headless',
+          '--disable-gpu',
+          '--remote-debugging-port=9333'
+        ]
       }
     },
     webpackMiddleware: {
