@@ -126,8 +126,8 @@
               Please specify the requirements that will be covered
             </span>
             <span v-if="$v.offering.requirements.$each.$error">
-              Requirements can be a combination of numbers and letters, and must be separated by
-              commas (e.g. 1, 2a, 3b, 4).
+              Requirements can be a combination of numbers and letters, and must be separated by commas (e.g. 1, 2a,
+              3b, 4).
             </span>
           </span>
         </div>
@@ -164,15 +164,14 @@
                     @deleteSuccess="deleteOffering()"
                     @close="toggleRemove()">
       <span slot="header">
-        Do you really want to remove this offering? This cannot be undone, and will likely
-        break existing registration records!
+        Do you really want to remove this offering? This cannot be undone, and will likely break existing registration
+        records!
       </span>
       <span slot="help-text">
-        Enter the full name of this badge with correct capitalization to confirm that you
-        wish to remove this offering.
-        <b>This action cannot be undone, and will delete all associated completion records
-          and badge requests! Adding this badge as an offering again will not restore
-          previous records and requests!
+        Enter the full name of this badge with correct capitalization to confirm that you wish to remove this
+        offering.
+        <b>This action cannot be undone, and will delete all associated completion records and badge requests!
+          Adding this badge as an offering again will not restore previous records and requests!
         </b>
       </span>
     </confirm-delete>
@@ -196,7 +195,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       offering: {
         periods: this.badge.periods || [],
@@ -213,65 +212,77 @@ export default {
   },
   computed: {
     editablePeriods: {
-      get () {
+      get() {
         return _.join(_.sortBy(this.offering.periods), ', ');
       },
-      set (newPeriods) {
-        this.offering.periods = _.without(_.map(_.split(newPeriods, ',', 3), (period) => {
-          let number = Number(_.trim(period));
-          if (isNaN(number)) {
-            return null;
-          } else {
-            return number;
-          }
-        }), null, 0);
+      set(newPeriods) {
+        this.offering.periods = _.without(
+          _.map(_.split(newPeriods, ',', 3), period => {
+            let number = Number(_.trim(period));
+            if (isNaN(number)) {
+              return null;
+            } else {
+              return number;
+            }
+          }),
+          null,
+          0
+        );
       }
     },
     editableRequirements: {
-      get () {
+      get() {
         return _.join(_.sortBy(this.offering.requirements), ', ');
       },
-      set (newRequirements) {
-        this.offering.requirements = _.without(_.map(_.split(newRequirements, ','), (requirement) => {
-          return String(_.trim(requirement));
-        }), null, 0);
+      set(newRequirements) {
+        this.offering.requirements = _.without(
+          _.map(_.split(newRequirements, ','), requirement => {
+            return String(_.trim(requirement));
+          }),
+          null,
+          0
+        );
       }
     },
-    offered () {
+    offered() {
       return !_.isEmpty(this.badge.periods);
     }
   },
   methods: {
-    deleteOffering () {
-      this.$store.dispatch('deleteOffering', {
-        eventId: this.eventId,
-        badgeId: this.badge.badge_id
-      })
+    deleteOffering() {
+      this.$store
+        .dispatch('deleteOffering', {
+          eventId: this.eventId,
+          badgeId: this.badge.badge_id
+        })
         .then(() => {
           this.toggleEdit();
           this.error = '';
         })
         .catch(() => {
-          this.error = 'Failed to remove badge from this event. Please try again';
-        })
+          this.error =
+            'Failed to remove badge from this event. Please try again';
+        });
     },
-    toggleRemove () {
+    toggleRemove() {
       this.removing = !this.removing;
     },
-    toggleEdit () {
+    toggleEdit() {
       this.$emit('cancel');
     },
-    saveOffering () {
+    saveOffering() {
       _.pull(this.offering.periods, null);
       let sortedPeriods = this.offering.periods.sort();
 
       if (this.offering.duration == 2 && !_.isEqual(sortedPeriods, [2, 3])) {
-        this.error = 'Offerings that last 2 periods must be assigned periods 2 and 3';
+        this.error =
+          'Offerings that last 2 periods must be assigned periods 2 and 3';
         return;
       }
 
       if (this.offering.duration == 3 && !_.isEqual(sortedPeriods, [1, 2, 3])) {
-        this.error = 'For offerings that last 3 periods, periods must be 1, 2, and 3';
+        this.error =
+          'For offerings that last 3 periods, periods must be 1, 2, and 3';
         return;
       }
 
@@ -282,26 +293,29 @@ export default {
           offering: this.offering
         };
 
-        this.$store.dispatch('createOffering', {
-          eventId: this.eventId,
-          details: offering
-        })
-          .then((response) => {
+        this.$store
+          .dispatch('createOffering', {
+            eventId: this.eventId,
+            details: offering
+          })
+          .then(response => {
             this.error = '';
             this.toggleEdit();
           })
-          .catch((err) => {
-            this.error = 'Couldn\'t create offering. Please refresh and try again';
+          .catch(err => {
+            this.error =
+              "Couldn't create offering. Please refresh and try again";
           })
           .then(() => {
             this.saving = false;
           });
       } else {
-        this.$store.dispatch('updateOffering', {
-          eventId: this.eventId,
-          badgeId: this.badge.badge_id,
-          offering: this.offering
-        })
+        this.$store
+          .dispatch('updateOffering', {
+            eventId: this.eventId,
+            badgeId: this.badge.badge_id,
+            offering: this.offering
+          })
           .then(() => {
             this.error = '';
             this.toggleEdit();
@@ -324,7 +338,7 @@ export default {
       size_limit: { required, numeric }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

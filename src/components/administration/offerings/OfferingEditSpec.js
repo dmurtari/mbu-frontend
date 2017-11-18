@@ -3,11 +3,13 @@ import {
   createLocalVue
 } from 'vue-test-utils';
 import Vuex from 'vuex';
+import Vuelidate from 'vuelidate';
 
 import OfferingEdit from './OfferingEdit.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(Vuelidate)
 
 describe('OfferingEdit.vue', () => {
   let wrapper, store, actions;
