@@ -36,7 +36,7 @@
           </template>
           <div class="register-action"
                v-else>
-            <button class="button is-link register-button"
+            <button class="button is-text register-button"
                     v-if="registrationOpen"
                     @click="toggleState('creating')">
               Register for {{ event.semester + ' ' + event.year }}

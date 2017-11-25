@@ -17,7 +17,7 @@
           {{ scout.fullname }} has not yet been assigned any merit badges for
           MBU {{ event.semester }} {{ event.year }}.
           <br>
-          <a class="is-link"
+          <a class="is-text"
               @click.prevent="toggleState('assigning')">
             Assign Merit Badges
           </a>

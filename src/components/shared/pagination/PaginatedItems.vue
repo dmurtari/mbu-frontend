@@ -79,7 +79,7 @@ export default {
     },
     per: {
       type: Number,
-      default: 2
+      default: 20
     },
     showLinks: {
       type: Boolean,

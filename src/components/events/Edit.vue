@@ -87,7 +87,7 @@
                   @click.prevent="close()">Cancel</button>
         </div>
         <div class="control">
-          <button class="button is-link"
+          <button class="button is-text"
                   :disabled="settingCurrent || saving"
                   :class="{ 'is-loading': settingCurrent }"
                   @click.prevent="setAsCurrent()">Set as the Current Event</button>

@@ -70,7 +70,7 @@
                     @click.prevent="signup()">Create an Account</button>
           </div>
           <div class="control">
-            <router-link class="button is-link is-pulled-right"
+            <router-link class="button is-text is-pulled-right"
                          :disabled="loading"
                          to="/reset">Forgot your password?</router-link>
           </div>
