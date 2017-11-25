@@ -2,6 +2,16 @@
 
 $body-size: 14px !default;
 
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// TODO: Revert these changes
+$primary: $turquoise;
+$primary-invert: findColorInvert($primary);
+$link: $primary !default;
+$link-invert: $primary-invert !default;
+$link-focus-border: $primary !default;
+
 @import "~bulma/bulma";
 
 span.select {

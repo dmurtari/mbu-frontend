@@ -114,6 +114,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~bulma/sass/utilities/initial-variables";
+
 .pagination-list {
   li.number {
     background-color: white;
@@ -155,8 +157,8 @@ export default {
   li.active {
     a {
       font-size: 1rem;
-      background-color: #3273dc;
-      border-color: #3273dc;
+      background-color: $turquoise;
+      border-color: $turquoise;
       color: white;
     }
   }
