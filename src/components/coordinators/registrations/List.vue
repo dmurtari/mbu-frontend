@@ -112,7 +112,7 @@ export default {
   data () {
     return {
       error: '',
-      eventId: 1,
+      eventId: 0,
       loading: false,
       registrationFilter: 'all',
       registrationFilters: [

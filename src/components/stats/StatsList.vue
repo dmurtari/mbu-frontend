@@ -83,7 +83,7 @@ export default {
   },
   data () {
     return {
-      eventId: 1,
+      eventId: 0,
       error: '',
       loading: false,
       search: '',

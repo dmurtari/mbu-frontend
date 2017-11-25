@@ -91,7 +91,7 @@ import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
 export default {
   data() {
     return {
-      eventId: 1,
+      eventId: 0,
       search: ''
     };
   },
