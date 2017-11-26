@@ -15,7 +15,8 @@ export default {
   methods: {
     sizeInfoForOffering(eventId, offeringId) {
       const classes = this.classesForEvent(eventId);
-      return _.find(classes, { offering_id: offeringId }).sizeInfo;
+      const classInfo = _.find(classes, { offering_id: offeringId }) || {};
+      return classInfo.sizeInfo;
     },
     classesForEvent(eventId) {
       return this.eventClasses[eventId] || [];
