@@ -114,9 +114,11 @@ export default {
         });
       }
 
-      return _.filter(registrations, (registration) => {
+      registrations = _.filter(registrations, (registration) => {
         return registration.scout.fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
       });
+
+      return _.orderBy(registrations, ['scout.troop']);
     },
     selectedRegistration () {
       return this.registrations[this.eventId] || [];
@@ -126,7 +128,7 @@ export default {
         return [];
       }
 
-      return _.uniq(_.map(this.selectedRegistration, ('scout.troop')));
+      return _.orderBy(_.uniq(_.map(this.selectedRegistration, ('scout.troop'))));
     }
   },
   methods: {
