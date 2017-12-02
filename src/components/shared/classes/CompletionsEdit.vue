@@ -84,7 +84,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       completions: {},
       error: '',
@@ -92,22 +92,29 @@ export default {
     };
   },
   methods: {
-    save () {
+    save() {
       this.saving = true;
-      Promise.all(_.map(this.completions, (completion, scoutId) => {
-        let scout = _.find(this.scouts, ['scoutId', Number(scoutId)]);
-        let completions = _.without(_.map(_.orderBy(_.split(completion, ',')), (completion) => {
-          return Number(_.trim(completion));
-        }), null, 0);
+      Promise.all(
+        _.map(this.completions, (completion, scoutId) => {
+          let scout = _.find(this.scouts, ['scoutId', Number(scoutId)]);
 
-        return this.$store.dispatch('saveCompletions', {
-          scoutId: scoutId,
-          registrationId: scout.registrationId,
-          offeringId: this.offeringId,
-          eventId: this.eventId,
-          completions: completions
-        });
-      }))
+          let completions = _.without(
+            _.map(_.split(completion, ','), completion => {
+              return String(_.trim(completion));
+            }),
+            null,
+            0
+          );
+
+          return this.$store.dispatch('saveCompletions', {
+            scoutId: scoutId,
+            registrationId: scout.registrationId,
+            offeringId: this.offeringId,
+            eventId: this.eventId,
+            completions: completions
+          });
+        })
+      )
         .then(() => {
           this.error = '';
           this.$emit('done');
@@ -118,15 +125,18 @@ export default {
         .then(() => {
           this.saving = false;
         });
-
     },
-    cancel () {
+    cancel() {
       this.$emit('done');
     }
   },
-  beforeMount () {
-    _.forEach(this.scouts, (scout) => {
-      Vue.set(this.completions, scout.scoutId, _.join(_.orderBy(scout.completions), ', '));
+  beforeMount() {
+    _.forEach(this.scouts, scout => {
+      Vue.set(
+        this.completions,
+        scout.scoutId,
+        _.join(_.orderBy(scout.completions), ', ')
+      );
     });
   },
   validations: {
@@ -134,5 +144,5 @@ export default {
       $each: { commaSeparated }
     }
   }
-}
+};
 </script>
