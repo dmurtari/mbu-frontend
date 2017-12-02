@@ -6,7 +6,7 @@
     <div v-else>
       <span v-if="offering.requirements && offering.requirements.length > 0">
         Requirements are:
-        <b>{{ readableRequirements }}</b>
+        <b>{{ offering.requirements | numAlphaSort | commaSeparated }}</b>
       </span>
       <span v-else>
         Requirements are not available.
@@ -53,9 +53,6 @@ export default {
     ...mapGetters(['allEvents', 'eventClasses']),
     event() {
       return _.find(this.allEvents, { id: this.eventId }) || {};
-    },
-    readableRequirements() {
-      return _.join(_.orderBy(this.offering.requirements), ', ');
     },
     scoutsByPeriod() {
       let scoutPeriods = _.map(this.assignees, assignee => {

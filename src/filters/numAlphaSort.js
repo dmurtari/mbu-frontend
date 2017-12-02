@@ -1,7 +1,12 @@
+import _ from 'lodash';
+
 export default (array) => {
-  return array.sort(function (a, b) {
-    var aa = a.split(/(?=\D)/),
-        bb = b.split(/(?=\D)/);
-    return aa[0] - bb[0] || (aa[1] || '').localeCompare(bb[1] || '');
+  let sortable = _.cloneDeep(array);
+
+  return sortable.sort(function (first, second) {
+    const firstSplit = first.split(/(?=\D)/);
+    const secondSplit = second.split(/(?=\D)/);
+
+    return firstSplit[0] - secondSplit[0] || (firstSplit[1] || '').localeCompare(secondSplit[1] || '');
   });
 }

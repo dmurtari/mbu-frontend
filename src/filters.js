@@ -2,6 +2,8 @@ import moment from 'moment';
 import numeral from 'numeral';
 import _ from 'lodash';
 
+import numAlphaSort from './filters/numAlphaSort';
+
 export default function(Vue) {
   Vue.filter('longDate', (value) => {
     return moment(value).format('dddd, MMMM Do, YYYY');
@@ -29,5 +31,8 @@ export default function(Vue) {
   });
   Vue.filter('ordered', (value) => {
     return _.orderBy(value);
-  })
+  });
+  Vue.filter('numAlphaSort', (array) => {
+    return numAlphaSort(array);
+  });
 }
