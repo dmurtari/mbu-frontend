@@ -32,7 +32,7 @@
               :key="scout.id">
             <td>{{ scout.fullname }}</td>
             <td>{{ scout.troop }}</td>
-            <td>{{ scout.completions | ordered | commaSeparated }}</td>
+            <td>{{ scout.completions | numAlphaSort | commaSeparated }}</td>
           </tr>
         </tbody>
       </table>
