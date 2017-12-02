@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export default (array) => {
-  let sortable = _.cloneDeep(array);
+  let sortable = _.cloneDeep(_.without(array, null, undefined));
 
   return sortable.sort(function (first, second) {
     const firstSplit = first.split(/(?=\D)/);

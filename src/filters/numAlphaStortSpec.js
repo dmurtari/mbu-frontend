@@ -20,4 +20,12 @@ describe('Sorting numbers followed by a letter', () => {
   it('should allow mixed elements', () => {
     expect(numAlphaSort(['1a', '3b', '11a', '10', '2'])).to.deep.equal(['1a', '2', '3b', '10', '11a']);
   });
+
+  it('should protect against null values', () => {
+    expect(numAlphaSort(['1', null])).to.deep.equal(['1']);
+  });
+
+  it('should protect against undefined values', () => {
+    expect(numAlphaSort(['1', undefined])).to.deep.equal(['1']);
+  });
 });
