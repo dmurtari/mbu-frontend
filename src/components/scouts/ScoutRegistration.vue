@@ -82,7 +82,7 @@
               <div class="completions">
                 Completions:
                 <span v-if="assignment.details.completions.length > 0">
-                  {{ assignment.details.completions | ordered | commaSeparated }}
+                  {{ assignment.details.completions | numAlphaSort | commaSeparated }}
                 </span>
                 <span v-else>
                   No completions recorded yet

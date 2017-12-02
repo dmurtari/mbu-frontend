@@ -13,7 +13,7 @@
       </div>
       <div class="class-completions">
         <span v-if="hasCompletionsForPeriod(n)">
-          {{ classForPeriod(n).details.completions | ordered | commaSeparated }}
+          {{ classForPeriod(n).details.completions | numAlphaSort | commaSeparated }}
         </span>
         <span v-else>
           No completion records
