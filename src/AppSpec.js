@@ -3,7 +3,7 @@ import App from './App.vue';
 import Vuex from 'vuex';
 import {
   shallow
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 
 Vue.use(Vuex);
 

@@ -1,7 +1,7 @@
 import {
   shallow,
   createLocalVue
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 import Vuex from 'vuex';
 
 import OfferingRow from './OfferingRow.vue';
@@ -12,7 +12,7 @@ localVue.use(Vuex);
 describe('OfferingRow.vue', () => {
   let wrapper, getters, store;
 
-  describe('when authenticated as an admin', () => {
+  describe.only('when authenticated as an admin', () => {
     beforeEach(() => {
       getters = {
         isAdmin: () => true
@@ -45,7 +45,7 @@ describe('OfferingRow.vue', () => {
       expect(wrapper.find('#edit-button').is('button')).to.be.true;
     });
 
-    it('should show the editing form', () => {
+    it('should not show the editing form', () => {
       expect(wrapper.vm.shouldShowEdit).to.be.false;
     });
 
@@ -63,6 +63,7 @@ describe('OfferingRow.vue', () => {
 
     describe('and clicking the edit button', () => {
       beforeEach(() => {
+        console.log(wrapper.find('#edit-button'))
         wrapper.find('#edit-button').trigger('click');
       });
 

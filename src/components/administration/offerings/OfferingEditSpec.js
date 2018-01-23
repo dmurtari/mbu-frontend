@@ -1,7 +1,7 @@
 import {
   shallow,
   createLocalVue
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 import Vuex from 'vuex';
 import Vuelidate from 'vuelidate';
 

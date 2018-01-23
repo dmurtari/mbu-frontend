@@ -3,7 +3,7 @@ import PurchasedItem from './PurchasedItem.vue';
 import Vuex from 'vuex';
 import {
   shallow
-} from 'vue-test-utils';
+} from '@vue/test-utils';
 
 import filters from 'filters';
 

@@ -77,7 +77,6 @@ const actions = {
           completions: details.completions
         })
         .then((response) => {
-          console.log('Updated assignment with completion', response.data);
           commit(types.SET_COMPLETION, {
             eventId: details.eventId,
             offeringId: details.offeringId,
