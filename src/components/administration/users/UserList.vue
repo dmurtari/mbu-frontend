@@ -9,7 +9,7 @@
         <th width="15%">Role</th>
         <th width="30%">Email</th>
         <th width="25%">Details</th>
-        <th width="80px"></th>
+        <th width="110px"></th>
       </tr>
     </thead>
     <template slot="row"

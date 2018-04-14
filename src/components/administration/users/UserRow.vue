@@ -17,7 +17,7 @@
           <p class="control">
             <router-link class="button is-info is-outlined"
                          data-balloon="Details"
-                         data-balloon-pos="left"
+                         data-balloon-pos="up"
                          :disabled="user.role != 'coordinator'"
                          :to="'/administration/users/current/' + user.id">
               <span class="icon is-small">
@@ -27,10 +27,21 @@
             </router-link>
           </p>
           <p class="control">
+            <router-link class="button is-link is-outlined"
+                         data-balloon="Edit"
+                         data-balloon-pos="up"
+                         to="/">
+              <span class="icon is-small">
+                <span class="fa fa-pencil"
+                      aria-label="Edit"></span>
+              </span>
+            </router-link>
+          </p>
+          <p class="control">
             <button class="button is-danger is-outlined"
                     :class="{ 'is-loading': deleting }"
                     data-balloon="Delete User"
-                    data-balloon-pos="right"
+                    data-balloon-pos="up"
                     :disabled="deleting || user.id === profile.id"
                     @click="toggleConfirm()">
               <span class="icon is-small">
@@ -74,26 +85,25 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       deleting: false,
       confirmDelete: false
     };
   },
   computed: {
-    ...mapGetters([
-      'profile'
-    ])
+    ...mapGetters(['profile'])
   },
   methods: {
-    clearError () {
+    clearError() {
       this.error = '';
     },
-    deleteUser () {
+    deleteUser() {
       this.deleting = true;
       this.confirmDelete = false;
 
-      this.$store.dispatch('deleteUser', this.user.id)
+      this.$store
+        .dispatch('deleteUser', this.user.id)
         .then(() => {
           this.error = '';
         })
@@ -104,11 +114,11 @@ export default {
           this.deleting = false;
         });
     },
-    toggleConfirm () {
+    toggleConfirm() {
       this.confirmDelete = !this.confirmDelete;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

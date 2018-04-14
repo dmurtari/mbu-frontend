@@ -29,7 +29,8 @@
              v-if="user.scouts.length < 1">
           This user has not yet added any scouts to their troop.
         </div>
-        <table class="table is-striped is-fullwidth">
+        <table class="table is-striped is-fullwidth"
+               v-else>
           <thead>
             <tr>
               <th>Name</th>
