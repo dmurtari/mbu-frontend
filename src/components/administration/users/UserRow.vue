@@ -7,49 +7,40 @@
       <td>
         <ul class="details-list">
           <li v-for="(value, key) in user.details"
-              :key="value">
+              :key="user.id + key + value">
             <b>{{ key | titleCase}}:</b> {{ value | titleCase}}
           </li>
         </ul>
       </td>
       <td>
-        <div class="field has-addons">
-          <p class="control">
-            <router-link class="button is-info is-outlined"
-                         data-balloon="Details"
-                         data-balloon-pos="up"
-                         :disabled="user.role != 'coordinator'"
-                         :to="'/administration/users/current/' + user.id">
-              <span class="icon is-small">
-                <span class="fa fa-info-circle"
-                      aria-label="Details"></span>
-              </span>
-            </router-link>
-          </p>
-          <p class="control">
-            <router-link class="button is-link is-outlined"
-                         data-balloon="Edit"
-                         data-balloon-pos="up"
-                         to="/">
-              <span class="icon is-small">
-                <span class="fa fa-pencil"
-                      aria-label="Edit"></span>
-              </span>
-            </router-link>
-          </p>
-          <p class="control">
-            <button class="button is-danger is-outlined"
-                    :class="{ 'is-loading': deleting }"
-                    data-balloon="Delete User"
-                    data-balloon-pos="up"
-                    :disabled="deleting || user.id === profile.id"
-                    @click="toggleConfirm()">
-              <span class="icon is-small">
-                <span class="fa fa-trash"
-                      aria-label="Delete Account"></span>
-              </span>
-            </button>
-          </p>
+        <div class="right">
+          <div class="field has-addons">
+            <p class="control">
+              <router-link class="button is-info is-outlined"
+                          data-balloon="Details"
+                          data-balloon-pos="up"
+                          :disabled="user.role != 'coordinator'"
+                          :to="'/administration/users/current/' + user.id">
+                <span class="icon is-small">
+                  <span class="fa fa-info-circle"
+                        aria-label="Details"></span>
+                </span>
+              </router-link>
+            </p>
+            <p class="control">
+              <button class="button is-danger is-outlined"
+                      :class="{ 'is-loading': deleting }"
+                      data-balloon="Delete User"
+                      data-balloon-pos="up"
+                      :disabled="deleting || user.id === profile.id"
+                      @click="toggleConfirm()">
+                <span class="icon is-small">
+                  <span class="fa fa-trash"
+                        aria-label="Delete Account"></span>
+                </span>
+              </button>
+            </p>
+          </div>
         </div>
       </td>
     </template>
@@ -125,5 +116,10 @@ export default {
 .details-list {
   list-style: none;
   padding-left: 0;
+}
+
+.right {
+  display: flex;
+  flex-direction: row-reverse;
 }
 </style>

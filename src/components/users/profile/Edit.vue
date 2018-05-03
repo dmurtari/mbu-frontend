@@ -38,7 +38,7 @@
           Please enter your last name
         </span>
       </div>
-      <template v-if="profile.role === 'coordinator'">
+      <template v-if="profileToEdit.role === 'coordinator'">
         <div class="field column is-4">
           <label class="label"
                  for="edit-troop">Troop</label>
@@ -92,7 +92,7 @@
           </span>
         </div>
       </template>
-      <template v-if="profile.role === 'teacher'">
+      <template v-if="profileToEdit.role === 'teacher'">
         <div class="field column is-12">
           <label class="label"
                  for="edit-chapter">Chapter/Organization</label>
@@ -136,12 +136,21 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { required, alphaNum } from 'vuelidate/lib/validators'
+import { required, alphaNum } from 'vuelidate/lib/validators';
 
 import _ from 'lodash';
 
 export default {
-  data () {
+  props: {
+    propProfile: {
+      type: Object
+    },
+    routable: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
     return {
       profileUpdate: {
         firstname: '',
@@ -157,28 +166,32 @@ export default {
       },
       error: '',
       saving: false
-    }
+    };
   },
   computed: {
-    ...mapGetters([
-      'isAdmin',
-      'profile'
-    ])
+    ...mapGetters(['isAdmin', 'profile']),
+    profileToEdit() {
+      return this.propProfile ? this.propProfile : this.profile;
+    }
   },
   methods: {
-    cancel () {
-      this.$router.push('/profile');
+    cancel() {
+      if (this.routable) {
+        this.$router.push('/profile');
+      } else {
+        this.$emit('done');
+      }
     },
-    update () {
+    update() {
       this.saving = true;
 
       let profile = {
-        id: this.profile.id,
+        id: this.profileToEdit.id,
         firstname: this.profileUpdate.firstname,
         lastname: this.profileUpdate.lastname
-      }
+      };
 
-      switch (this.profile.role) {
+      switch (this.profileToEdit.role) {
         case 'coordinator':
           profile.details = this.profileUpdate.coordinator;
           break;
@@ -187,12 +200,13 @@ export default {
           break;
       }
 
-      this.$store.dispatch('updateProfile', profile)
+      this.$store
+        .dispatch('updateProfile', profile)
         .then(() => {
           this.error = '';
-          this.$router.push('/profile');
+          this.cancel();
         })
-        .catch((err) => {
+        .catch(err => {
           this.error = 'Failed to save changes. Please try again.';
         })
         .then(() => {
@@ -200,10 +214,10 @@ export default {
         });
     }
   },
-  mounted () {
-    this.profileUpdate.firstname = this.profile.firstname;
-    this.profileUpdate.lastname = this.profile.lastname;
-    this.profileUpdate[this.profile.role] = _.clone(this.profile.details);
+  mounted() {
+    this.profileUpdate.firstname = this.profileToEdit.firstname;
+    this.profileUpdate.lastname = this.profileToEdit.lastname;
+    this.profileUpdate[this.profileToEdit.role] = _.clone(this.profileToEdit.details);
   },
   validations: {
     profileUpdate: {
@@ -219,9 +233,12 @@ export default {
       }
     },
     basicInfo: ['profileUpdate.firstname', 'profileUpdate.lastname'],
-    coordinatorInfo: ['profileUpdate.coordinator.troop', 'profileUpdate.coordinator.district',
-      'profileUpdate.coordinator.council'],
+    coordinatorInfo: [
+      'profileUpdate.coordinator.troop',
+      'profileUpdate.coordinator.district',
+      'profileUpdate.coordinator.council'
+    ],
     teacherInfo: ['profileUpdate.teacher.chapter']
   }
-}
+};
 </script>
