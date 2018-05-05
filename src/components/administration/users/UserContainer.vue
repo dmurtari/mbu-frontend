@@ -7,7 +7,7 @@
       <router-link to="/administration/users/current/all">
         Current Users
       </router-link>
-      /&nbspUser Detail
+      /&nbsp;User Detail
     </h4>
     <router-view></router-view>
   </div>

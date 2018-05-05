@@ -14,6 +14,7 @@
           <h3 class="title is-3">
             {{ user.firstname }} {{ user.lastname }}
             <button class="button is-white is-medium"
+                    id="edit-user-button"
                     data-balloon="Edit User Profile"
                     data-balloon-pos="up"
                     @click="toggleEdit()">

@@ -12,7 +12,7 @@ localVue.use(Vuex);
 describe('OfferingRow.vue', () => {
   let wrapper, getters, store;
 
-  describe.only('when authenticated as an admin', () => {
+  describe('when authenticated as an admin', () => {
     beforeEach(() => {
       getters = {
         isAdmin: () => true
@@ -63,7 +63,6 @@ describe('OfferingRow.vue', () => {
 
     describe('and clicking the edit button', () => {
       beforeEach(() => {
-        console.log(wrapper.find('#edit-button'))
         wrapper.find('#edit-button').trigger('click');
       });
 

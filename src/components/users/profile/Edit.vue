@@ -117,6 +117,7 @@
             <button class="button is-primary"
                     :class="{ 'is-loading': saving }"
                     :disabled="saving"
+                    id="save-profile"
                     @click.prevent="update()">
               Save Changes
             </button>
@@ -124,6 +125,7 @@
           <div class="control">
             <button class="button"
                     :disabled="saving"
+                    id="cancel"
                     @click.prevent="cancel()">
               Cancel
             </button>
