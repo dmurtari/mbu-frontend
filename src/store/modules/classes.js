@@ -22,7 +22,7 @@ const mutations = {
   [types.SET_CLASS_SIZES](state, details) {
     let existingClasses = state.eventClasses[details.eventId];
 
-    if (event == undefined) {
+    if (existingClasses == undefined) {
       return;
     }
 
