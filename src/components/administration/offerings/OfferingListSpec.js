@@ -140,12 +140,13 @@ describe('OfferingList.vue', () => {
       });
 
       it('should contain the offered badges', () => {
-        expect(wrapper.vm.filteredOfferings).to.contain(expectedOfferings[0]);
-        expect(wrapper.vm.filteredOfferings).to.contain(expectedOfferings[2]);
+        console.log(wrapper.vm.filteredOfferings);
+        expect(wrapper.vm.filteredOfferings).to.deep.include(expectedOfferings[0]);
+        expect(wrapper.vm.filteredOfferings).to.deep.include(expectedOfferings[2]);
       });
 
       it('should not contain the unoffered badge', () => {
-        expect(wrapper.vm.filteredOfferings).not.to.contain(expectedOfferings[1]);
+        expect(wrapper.vm.filteredOfferings).not.to.deep.include(expectedOfferings[1]);
       });
     });
 
@@ -159,12 +160,12 @@ describe('OfferingList.vue', () => {
       });
 
       it('should not contain the offered badges', () => {
-        expect(wrapper.vm.filteredOfferings).not.to.contain(expectedOfferings[0]);
-        expect(wrapper.vm.filteredOfferings).not.to.contain(expectedOfferings[2]);
+        expect(wrapper.vm.filteredOfferings).not.to.deep.contain(expectedOfferings[0]);
+        expect(wrapper.vm.filteredOfferings).not.to.deep.contain(expectedOfferings[2]);
       });
 
       it('should contain the unoffered badge', () => {
-        expect(wrapper.vm.filteredOfferings).to.contain(expectedOfferings[1]);
+        expect(wrapper.vm.filteredOfferings).to.deep.include(expectedOfferings[1]);
       });
     });
   });

@@ -55,7 +55,7 @@
                   <div class="control">
                     <input class="input"
                            id="scout-list-find"
-                           v-model="search"></input>
+                           v-model="search">
                   </div>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 var path = require('path')
+var webpackConfig = require('./build/webpack.test.conf')
 
 module.exports = function (config) {
   config.set({
@@ -9,28 +10,7 @@ module.exports = function (config) {
       './src/**/*.js': ['webpack']
     },
     reporters: ['spec'],
-    webpack: {
-      devtool: '#cheap-module-eval-source-map',
-      resolve: {
-        modules: [
-          path.resolve('./src'),
-          path.resolve('./node_modules')
-        ]
-      },
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/
-          },
-          {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-          }
-        ]
-      }
-    },
+    webpack: webpackConfig,
     customLaunchers: {
       ChromeHeadless: {
         base: 'Chrome',
