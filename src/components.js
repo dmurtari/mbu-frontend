@@ -6,11 +6,11 @@ import HelpTag from 'components/shared/HelpTag.vue';
 import InlineDropdown from 'components/shared/InlineDropdown.vue';
 import MaskedInput from 'components/shared/MaskedInput.vue';
 import PaginatedItems from 'components/shared/pagination/PaginatedItems.vue';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 import SpinnerPage from 'components/shared/loaders/SpinnerPage.vue';
 
 export default function(Vue) {
-  Vue.component('centered-spinner', CenteredSpinner)
+  Vue.component('centered-spinner', CenteredSpinner);
   Vue.component('closable-error', ClosableError);
   Vue.component('confirm-delete', ConfirmDelete);
   Vue.component('events-dropdown', EventsDropdown);

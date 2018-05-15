@@ -12,7 +12,6 @@ import filters from './filters';
 
 import './assets/sass/main.scss';
 import '../node_modules/balloon-css/balloon.min.css';
-import './assets/js/jasny-bootstrap.min.js';
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
@@ -35,7 +34,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = 'MBU Online | ' + to.meta.title;
   } else {
-    document.title = 'MBU Online'
+    document.title = 'MBU Online';
   }
 
   return next();
