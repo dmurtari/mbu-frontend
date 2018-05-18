@@ -66,9 +66,10 @@
           <label class="label"
                  for="scout-create-birthday">Birthday</label>
           <div class="control">
-            <masked-input mask="99/99/9999"
+            <masked-input mask="11/11/1111"
                           placeholder="mm/dd/yyyy"
                           id="scout-create-birthday"
+                          class="input"
                           :class="{ 'is-danger': $v.scout.birthday.$error }"
                           @blur="$v.scout.birthday.$touch"
                           v-model="scout.birthday"></masked-input>
@@ -152,9 +153,10 @@
           <label class="label"
                  for="scout-create-emergency-phone">Phone Number</label>
           <div class="control">
-            <masked-input mask="(999) 999-9999"
+            <masked-input mask="(111) 111-1111"
                           placeholder="(___) ___-____"
                           id="scout-create-emergency-phone"
+                          class="input"
                           :class="{ 'is-danger': $v.scout.emergency_phone.$error }"
                           @blur="$v.scout.emergency_phone.$touch"
                           v-model="scout.emergency_phone"></masked-input>

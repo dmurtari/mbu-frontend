@@ -12,9 +12,10 @@
           <label class="label"
                  for="event-edit-price">Registration Fee</label>
           <div class="control">
-            <masked-input mask="99.99"
+            <masked-input mask="11.11"
                           placeholder="00.00"
                           id="event-edit-price"
+                          class="input"
                           :class="{ 'is-danger': $v.eventUpdate.price.$error }"
                           @blur="$v.eventUpdate.price.$touch"
                           v-model="eventUpdate.price"></masked-input>
@@ -28,9 +29,10 @@
           <label class="label"
                  for="event-edit-date">Date</label>
           <div class="control">
-            <masked-input mask="99/99/9999"
+            <masked-input mask="11/11/1111"
                           placeholder="mm/dd/yyyy"
                           id="event-edit-date"
+                          class="input"
                           :class="{ 'is-danger': $v.eventUpdate.date.$error }"
                           @blur="$v.eventUpdate.date.$touch"
                           v-model="eventUpdate.date"></masked-input>
@@ -44,9 +46,10 @@
           <label class="label"
                  for="event-edit-open">Registration Opens</label>
           <div class="control">
-            <masked-input mask="99/99/9999"
+            <masked-input mask="11/11/1111"
                           placeholder="mm/dd/yyyy"
                           id="event-edit-open"
+                          class="input"
                           :class="{ 'is-danger': $v.eventUpdate.registration_open.$error }"
                           @blur="$v.eventUpdate.registration_open.$touch"
                           v-model="eventUpdate.registration_open"></masked-input>
@@ -60,9 +63,10 @@
           <label class="label"
                  for="event-edit-close">Registration Closes</label>
           <div class="control">
-            <masked-input mask="99/99/9999"
+            <masked-input mask="11/11/1111"
                           placeholder="mm/dd/yyyy"
                           id="event-create-close"
+                          class="input"
                           :class="{ 'is-danger': $v.eventUpdate.registration_close.$error }"
                           @blur="$v.eventUpdate.registration_close.$touch"
                           v-model="eventUpdate.registration_close"></masked-input>
