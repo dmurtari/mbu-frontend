@@ -1,8 +1,6 @@
 <template>
   <span class="icon question-icon"
-        :data-balloon="text"
-        data-balloon-pos="up"
-        :data-balloon-length="length">
+        v-tooltip.top="text">
       <span class="fa fa-question-circle">
       </span>
   </span>

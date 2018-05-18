@@ -14,8 +14,7 @@
           <h5 class="title is-5">
             Scout Information
             <button class="button is-small is-white"
-                    data-balloon="Edit Scout"
-                    data-balloon-pos="up"
+                    v-tooltip="'Edit Scout'"
                     @click="toggleEditScout()">
               <span class="icon is-small">
                 <span class="fa fa-edit"

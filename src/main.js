@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuelidate from 'vuelidate';
 import VuePaginate from 'vue-paginate';
+import VTooltip from 'v-tooltip'
 
 import App from './App.vue';
 
@@ -11,11 +12,11 @@ import components from './components';
 import filters from './filters';
 
 import './assets/sass/main.scss';
-import '../node_modules/balloon-css/balloon.min.css';
 
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
 Vue.use(VuePaginate);
+Vue.use(VTooltip)
 
 components(Vue);
 filters(Vue);

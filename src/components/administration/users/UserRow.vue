@@ -17,10 +17,9 @@
           <div class="field has-addons">
             <p class="control">
               <router-link class="button is-info is-outlined"
-                          data-balloon="Details"
-                          data-balloon-pos="up"
-                          :disabled="user.role != 'coordinator'"
-                          :to="'/administration/users/current/' + user.id">
+                           v-tooltip="'Details'"
+                           :disabled="user.role != 'coordinator'"
+                           :to="'/administration/users/current/' + user.id">
                 <span class="icon is-small">
                   <span class="fa fa-info-circle"
                         aria-label="Details"></span>
@@ -30,8 +29,7 @@
             <p class="control">
               <button class="button is-danger is-outlined"
                       :class="{ 'is-loading': deleting }"
-                      data-balloon="Delete User"
-                      data-balloon-pos="up"
+                      v-tooltip="'Delete User'"
                       :disabled="deleting || user.id === profile.id"
                       @click="toggleConfirm()">
                 <span class="icon is-small">
@@ -51,13 +49,11 @@
                         @deleteSuccess="deleteUser()"
                         @close="toggleConfirm()">
           <span slot="header">
-            Are you sure you want to delete {{ user.fullname }}'s account? This cannot be undone,
-            and will remove all data (such as scouts) associated with {{ user.fullname
-            }}'s account.
+            Are you sure you want to delete {{ user.fullname }}'s account? This cannot be undone, and will remove all data (such as scouts)
+            associated with {{ user.fullname }}'s account.
           </span>
           <span slot="help-text">
-            Enter the full name of this user with correct capitalization to confirm that you
-            wish to delete this user.
+            Enter the full name of this user with correct capitalization to confirm that you wish to delete this user.
             <strong>This action cannot be undone, and will remove all associated data.</strong>
           </span>
         </confirm-delete>

@@ -14,8 +14,7 @@
     <button class="button is-warning is-small"
             v-if="error"
             id="delete-warning"
-            data-balloon="Failed to remove item. Please refresh or try again later."
-            data-balloon-pos="up">
+            v-tooltip="'Failed to remove item. Please refresh or try again later.'">
       <span class="fa fa-exclamation-triangle"></span>
     </button>
   </div>

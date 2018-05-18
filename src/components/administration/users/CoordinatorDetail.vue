@@ -15,8 +15,7 @@
             {{ user.firstname }} {{ user.lastname }}
             <button class="button is-white is-medium"
                     id="edit-user-button"
-                    data-balloon="Edit User Profile"
-                    data-balloon-pos="up"
+                    v-tooltip="'Edit User Profile'"
                     @click="toggleEdit()">
               <span class="icon is-large">
                 <span class="fa fa-edit fa-lg"
