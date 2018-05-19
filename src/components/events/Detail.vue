@@ -1,15 +1,21 @@
 <template>
   <div>
     <div>
-      <p><strong>Date:</strong> {{ event.date | longDate }}</p>
-      <p><strong>Registration Fee:</strong> ${{ event.price }}</p>
-      <p><strong>Registration Open:</strong> {{ event.registration_open | longDate }}</p>
-      <p><strong>Registration Close:</strong> {{ event.registration_close | longDate }}</p>
+      <p>
+        <strong>Date:</strong> {{ event.date | longDate }}</p>
+      <p>
+        <strong>Registration Fee:</strong> ${{ event.price }}</p>
+      <p>
+        <strong>Registration Open:</strong> {{ event.registration_open | longDate }}</p>
+      <p>
+        <strong>Registration Close:</strong> {{ event.registration_close | longDate }}</p>
     </div>
     <br>
     <h5 class="title is-5">Merit Badges offered at this event:</h5>
-    <div v-if="orderedOfferings.length > 0" class="offering-list">
-      <div v-for="offering in orderedOfferings">
+    <div v-if="orderedOfferings.length > 0"
+         class="offering-list">
+      <div v-for="offering in orderedOfferings"
+           :key="offering.id">
         {{ offering.name }}
         <span v-if="offering.details.price !== '0.00'">
           ({{ offering.details.price | currency }})
@@ -28,8 +34,9 @@
     </div>
     <br>
     <h5 class="title is-5">Items available for purchase:</h5>
-    <div v-if="event.purchasables.length > 0">
+    <div v-if="event.purchasables && event.purchasables.length > 0">
       <div v-for="purchasable in event.purchasables"
+           :key="purchasable.id"
            :class="purchasable.id"
            class="purchasable-item">
         <b>{{ purchasable.item }}</b> ({{ purchasable.price | currency}})
@@ -37,8 +44,7 @@
         <span v-if="purchasable.minimum_age || purchasable.maximum_age">
           <br>
           <i>
-            This item is restricted to
-            {{ ageText(purchasable.minimum_age, purchasable.maximum_age) }}
+            This item is restricted to {{ ageText(purchasable.minimum_age, purchasable.maximum_age) }}
           </i>
         </span>
       </div>
@@ -65,9 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'isAdmin'
-    ]),
+    ...mapGetters(['isAdmin']),
     orderedOfferings() {
       return _.orderBy(this.event.offerings, 'name');
     }
@@ -83,29 +87,29 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  .purchasable-item {
-    padding-bottom: 1rem;
-  }
+.purchasable-item {
+  padding-bottom: 1rem;
+}
 
-  @media screen and (min-width: 700px) {
-    .offering-list {
-      columns: 3
-    }
+@media screen and (min-width: 700px) {
+  .offering-list {
+    columns: 3;
   }
+}
 
-  @media screen and (max-width: 699px) and (min-width: 500px) {
-    .offering-list {
-      columns: 2
-    }
+@media screen and (max-width: 699px) and (min-width: 500px) {
+  .offering-list {
+    columns: 2;
   }
+}
 
-  @media screen and (max-width: 499) {
-    .offering-list {
-      columns: 1
-    }
+@media screen and (max-width: 499) {
+  .offering-list {
+    columns: 1;
   }
+}
 </style>

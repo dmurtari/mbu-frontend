@@ -282,7 +282,7 @@ const actions = {
         .then(response => {
           console.log('Updated event to', response.data.event);
           commit(types.UPDATE_EVENT, response.data.event);
-          resolve(event);
+          resolve(response.data.event);
         })
         .catch(err => {
           console.error('Failed to update event', err.response.data.message);
