@@ -1,0 +1,1 @@
+{"version":3,"sources":["badges.ffee6a2d1c4c72389197.css"],"names":[],"mappings":"AACA,8BACE,iBAAkB,AAClB,kBAAoB,CACrB,AAGD,YACE,cAAgB,CACjB","file":"badges.ffee6a2d1c4c72389197.css","sourcesContent":["\n.edit-button[data-v-63a8e83a] {\n  margin-top: -.5em;\n  margin-right: -.5em;\n}\n\n\n.badge-list {\n  margin-top: 2em;\n}\n\n"]}

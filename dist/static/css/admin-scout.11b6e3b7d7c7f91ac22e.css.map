@@ -1,0 +1,1 @@
+{"version":3,"sources":["admin-scout.11b6e3b7d7c7f91ac22e.css"],"names":[],"mappings":"AAEA,+BACE,gBAAiB,AACjB,kBAAoB,CACrB,AACD,qCACE,eAAiB,CAClB","file":"admin-scout.11b6e3b7d7c7f91ac22e.css","sourcesContent":["\n\n.notification[data-v-5e40f636] {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n.scout-list-filters[data-v-5e40f636] {\n  margin-top: 2rem;\n}\n\n"]}

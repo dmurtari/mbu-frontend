@@ -1,58 +1,58 @@
 import store from 'store';
 
-import About from 'components/About.vue';
-import Main from 'components/Main.vue';
-import NotFound from 'components/NotFound.vue';
-import Privacy from 'components/Privacy.vue';
+const About = () => import(/* webpackChunkName: "about" */ 'components/About.vue');
+const Main = () => import(/* webpackChunkName: "main" */ 'components/Main.vue');
+const NotFound = () => import(/* webpackChunkName: "404" */'components/NotFound.vue');
+const Privacy = () => import(/* webpackChunkName: "privacy" */  'components/Privacy.vue');
 
-import BadgeList from 'components/badges/List.vue';
-import EventList from 'components/events/List.vue';
+const BadgeList = () => import(/* webpackChunkName: "badges" */ 'components/badges/List.vue');
+const EventList = () => import(/* webpackChunkName: "events" */'components/events/List.vue');
 
-import Profile from 'components/users/profile/Profile.vue';
-import ProfileOverview from 'components/users/profile/General.vue';
-import ProfileEdit from 'components/users/profile/Edit.vue';
-import ProfileDelete from 'components/users/profile/Delete.vue';
-import ProfilePassword from 'components/users/profile/EditPassword.vue';
+const Profile = () => import(/* webpackChunkName: "profile" */ 'components/users/profile/Profile.vue');
+const ProfileOverview = () => import(/* webpackChunkName: "profile" */ 'components/users/profile/General.vue');
+const ProfileEdit = () => import(/* webpackChunkName: "profile" */ 'components/users/profile/Edit.vue');
+const ProfileDelete = () => import(/* webpackChunkName: "profile" */ 'components/users/profile/Delete.vue');
+const ProfilePassword = () => import(/* webpackChunkName: "profile" */ 'components/users/profile/EditPassword.vue');
 
-import EmailForm from 'components/authentication/EmailForm.vue';
-import Reset from 'components/authentication/Reset.vue';
-import ResetForm from 'components/authentication/ResetForm.vue';
-import Login from 'components/authentication/Login.vue';
-import Signup from 'components/authentication/Signup.vue';
+const EmailForm = () => import(/* webpackChunkName: "reset-flow" */ 'components/authentication/EmailForm.vue');
+const Reset = () => import(/* webpackChunkName: "reset-flow" */ 'components/authentication/Reset.vue');
+const ResetForm = () => import(/* webpackChunkName: "reset-flow" */ 'components/authentication/ResetForm.vue');
+const Login = () => import(/* webpackChunkName: "login" */ 'components/authentication/Login.vue');
+const Signup = () => import(/* webpackChunkName: "signup" */ 'components/authentication/Signup.vue');
 
-import ClassList from 'components/shared/classes/ClassList.vue';
-import ClassDetail from 'components/shared/classes/ClassDetail.vue';
-import ClassContainer from 'components/shared/classes/ClassContainer.vue';
-import AttendanceList from 'components/shared/attendance/AttendanceList.vue';
+const ClassList = () => import(/* webpackChunkName: "classes" */ 'components/shared/classes/ClassList.vue');
+const ClassDetail = () => import(/* webpackChunkName: "classes" */ 'components/shared/classes/ClassDetail.vue');
+const ClassContainer = () => import(/* webpackChunkName: "classes" */ 'components/shared/classes/ClassContainer.vue');
+const AttendanceList = () => import(/* webpackChunkName: "attendance" */ 'components/shared/attendance/AttendanceList.vue');
 
-import Administration from 'components/administration/Administration.vue';
-import AdministrationHome from 'components/administration/AdministrationHome.vue'
-import OfferingList from 'components/administration/offerings/OfferingList.vue';
-import AdminUsers from 'components/administration/users/List.vue';
-import AdminApproval from 'components/administration/users/AwaitingApproval.vue';
-import AdminPurchasables from 'components/administration/purchasables/List.vue';
-import AdminScouts from 'components/administration/scouts/List.vue';
-import AdminEvents from 'components/administration/events/EventsContainer.vue';
-import AttendanceView from 'components/administration/attendance/AttendanceView.vue';
-import ScoutContainer from 'components/administration/scouts/ScoutContainer.vue';
-import ListAdmins from 'components/administration/users/admins/AdminUsersContainer.vue';
-import CoordinatorDetail from 'components/administration/users/CoordinatorDetail.vue';
-import UserContainer from 'components/administration/users/UserContainer.vue';
+const Administration = () => import(/* webpackChunkName: "admin" */ 'components/administration/Administration.vue');
+const AdministrationHome = () => import(/* webpackChunkName: "admin" */ 'components/administration/AdministrationHome.vue');
+const OfferingList = () => import(/* webpackChunkName: "offerings" */ 'components/administration/offerings/OfferingList.vue');
+const AdminUsers = () => import(/* webpackChunkName: "admin-user" */ 'components/administration/users/List.vue');
+const AdminApproval = () => import(/* webpackChunkName: "admin-approval" */ 'components/administration/users/AwaitingApproval.vue');
+const AdminPurchasables = () => import(/* webpackChunkName: "admin-event" */ 'components/administration/purchasables/List.vue');
+const AdminScouts = () => import(/* webpackChunkName: "admin-scout" */ 'components/administration/scouts/List.vue');
+const AdminEvents = () => import(/* webpackChunkName: "admin-event" */ 'components/administration/events/EventsContainer.vue');
+const AttendanceView = () => import(/* webpackChunkName: "scouts" */'components/administration/attendance/AttendanceView.vue');
+const ScoutContainer = () => import(/* webpackChunkName: "scouts" */ 'components/administration/scouts/ScoutContainer.vue');
+const ListAdmins = () => import(/* webpackChunkName: "admin-admins" */ 'components/administration/users/admins/AdminUsersContainer.vue');
+const CoordinatorDetail = () => import(/* webpackChunkName: "admin-user-detail" */ 'components/administration/users/CoordinatorDetail.vue');
+const UserContainer = () => import(/* webpackChunkName: "admin-user" */ 'components/administration/users/UserContainer.vue');
 
-import ScoutDetails from 'components/scouts/ScoutDetail.vue';
-import AttendanceDetails from 'components/stats/DetailView.vue';
+const ScoutDetails = () => import(/* webpackChunkName: "scouts" */'components/scouts/ScoutDetail.vue');
+const AttendanceDetails = () => import(/* webpackChunkName: "scouts" */ 'components/stats/DetailView.vue');
 
-import CoordinatorPage from 'components/coordinators/CoordinatorPage.vue';
-import CoordinatorHome from 'components/coordinators/CoordinatorHome.vue';
-import CoordinatorScouts from 'components/coordinators/scouts/List.vue';
-import CoordinatorRegistration from 'components/coordinators/registrations/List.vue';
-import CoordinatorAttendance from 'components/coordinators/attendance/List.vue';
+const CoordinatorPage = () => import(/* webpackChunkName: "coordinator" */ 'components/coordinators/CoordinatorPage.vue');
+const CoordinatorHome = () => import(/* webpackChunkName: "coordinator" */ 'components/coordinators/CoordinatorHome.vue');
+const CoordinatorScouts = () => import(/* webpackChunkName: "coordinator" */ 'components/coordinators/scouts/List.vue');
+const CoordinatorRegistration = () => import(/* webpackChunkName: "coordinator" */ 'components/coordinators/registrations/List.vue');
+const CoordinatorAttendance = () => import(/* webpackChunkName: "coordinator" */ 'components/coordinators/attendance/List.vue');
 
-import TeacherPage from 'components/teachers/TeacherPage.vue';
-import TeacherHome from 'components/teachers/TeacherHome.vue';
-import TeacherStats from 'components/teachers/stats/TeacherStats.vue';
+const TeacherPage = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/TeacherPage.vue');
+const TeacherHome = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/TeacherHome.vue');
+const TeacherStats = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/stats/TeacherStats.vue');
 
-import RegistrationTable from 'components/stats/RegistrationTable.vue';
+const RegistrationTable = () => import(/* webpackChunkName: "assignments" */ 'components/stats/RegistrationTable.vue');
 
 export default [
   {
