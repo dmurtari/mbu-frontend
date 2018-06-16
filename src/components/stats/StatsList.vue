@@ -94,7 +94,8 @@ export default {
   computed: {
     ...mapGetters([
       'allEvents',
-      'registrations'
+      'registrations',
+      'isCoordinator'
     ]),
     event () {
       return _.find(this.allEvents, { 'id': this.eventId });
@@ -144,7 +145,7 @@ export default {
       this.loading = true;
       this.totalDue = null;
 
-      if (!this.hasClassInfoForEvent(this.eventId)) {
+      if (!this.hasClassInfoForEvent(this.eventId) && this.isCoordinator) {
         this.loadClasses(this.eventId);
       };
 
