@@ -45,7 +45,7 @@ export default {
     },
     classes: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   data() {
