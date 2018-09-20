@@ -70,7 +70,7 @@ const getters = {
   currentEvent(state) {
     return _.find(state.events, event => {
       return event.id === state.currentEvent.id;
-    });
+    }) || {};
   },
   currentEventIndex(state) {
     return _.findIndex(state.events, event => {
