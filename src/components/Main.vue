@@ -29,12 +29,17 @@
         </h3>
       </div>
     </section>
-    <section class="section">
+    <section class="section"
+             v-if="currentEvent.id">
       <h4 class="title is-4">
         Latest Event Information
         <span v-if="currentEvent">({{ currentEvent.semester }} {{ currentEvent.year }})</span>
       </h4>
       <event-summary></event-summary>
+    </section>
+    <section class="section"
+             v-else>
+      <h4 class="subtitle is-4">No current event information. Check back later!</h4>
     </section>
   </div>
 </template>
@@ -57,5 +62,5 @@ export default {
   components: {
     EventSummary
   }
-}
+};
 </script>
