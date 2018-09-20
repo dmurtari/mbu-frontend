@@ -58,10 +58,6 @@ describe('Main', () => {
     it('should not show the coordinator welcome', () => {
       expect(wrapper.findAll('#coordinatorWelcome')).to.have.lengthOf(0);
     });
-
-    it('should contain the event information', () => {
-      expect(wrapper.text()).to.contain('Latest Event Information');
-    });
   });
 
   describe('when logged in as an admin', () => {
