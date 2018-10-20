@@ -35,7 +35,7 @@
                 <div class="control ">
                   <input class="input is-expanded"
                          id="class-list-find"
-                         v-model="search"></input>
+                         v-model="search">
                 </div>
               </div>
             </div>

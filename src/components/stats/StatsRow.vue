@@ -68,7 +68,7 @@ export default {
     },
     totalDue () {
       return Number(this.event.price) + Number(this.assignmentCosts)
-        + Number(this.purchaseCosts);;
+        + Number(this.purchaseCosts);
     }
   },
   methods: {

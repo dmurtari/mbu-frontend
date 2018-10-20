@@ -75,7 +75,6 @@
         </div>
       </div>
     </form>
-    </form>
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary"
@@ -141,7 +140,7 @@ export default {
       return this.sizeInfoForOffering(this.event.id, offeringId)[period] >=
         this.sizeInfoForOffering(this.event.id, offeringId).size_limit;
     },
-    maybeRespondToDuration(offeringId, period) {
+    maybeRespondToDuration(offeringId) {
       let offering = _.find(this.event.offerings, offering => {
         return offering.details.id === Number(offeringId);
       });
@@ -202,7 +201,7 @@ export default {
           this.error = '';
           this.$emit('done');
         })
-        .catch(err => {
+        .catch(() => {
           this.error =
             'Failed to save assignments. Please refresh and try again';
         })

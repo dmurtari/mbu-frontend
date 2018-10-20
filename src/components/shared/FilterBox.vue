@@ -33,7 +33,7 @@
                  slot="field-contents"
                  id="scout-list-find"
                  v-model="searchProp"
-                 @input="updateQuery('search', $event.target.value)"></input>
+                 @input="updateQuery('search', $event.target.value)">
         </horizontal-field>
       </div>
       <div class="column is-6">
