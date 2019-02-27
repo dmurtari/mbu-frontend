@@ -1,5 +1,4 @@
 import axios from 'axios';
-import _ from 'lodash';
 
 import * as types from '../mutation-types';
 import URLS from '../../urls';
@@ -62,11 +61,11 @@ const mutations = {
 };
 
 const actions = {
-  checkEmail({ commit }, email) {
+  checkEmail(context, email) {
     return new Promise((resolve, reject) => {
       axios.get(URLS.USERS_URL + 'exists/' + email)
         .then((response) => {
-          console.log('Got response', response.data.exists);
+          console.info('Got response', response.data.exists);
           resolve(response.data.exists);
         })
         .catch((err) => {
@@ -75,11 +74,11 @@ const actions = {
         });
     });
   },
-  createAccount({ commit }, credentials) {
+  createAccount(context, credentials) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.SIGNUP_URL, credentials)
         .then((response) => {
-          console.log('Successfully created user');
+          console.info('Successfully created user');
           resolve(response.data.profile.id);
         })
         .catch((err) => {
@@ -91,18 +90,18 @@ const actions = {
   deleteAccount({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.USERS_URL + id)
-        .then((response) => {
-          console.log('Account deleted');
+        .then(() => {
+          console.info('Account deleted');
           commit(types.LOGOUT);
           resolve();
         })
         .catch((err) => {
-          console.error('Failed to delete account');
+          console.error('Failed to delete account', err);
           reject();
         })
     });
   },
-  getProfile({ commit }, credentials) {
+  getProfile({ commit }) {
     return new Promise((resolve, reject) => {
       let token = localStorage.getItem('token');
 
@@ -110,12 +109,12 @@ const actions = {
         headers: { 'Authorization': token }
       })
         .then((response) => {
-          console.log('Successfully authenticated from JWT');
+          console.info('Successfully authenticated from JWT');
           commit(types.PROFILE, response.data.profile);
           resolve();
         })
         .catch((err) => {
-          console.error('Failed to authenticate JWT');
+          console.error('Failed to authenticate JWT', err);
           localStorage.removeItem('token');
           reject();
         });
@@ -125,7 +124,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.LOGIN_URL, credentials)
         .then((response) => {
-          console.log('Successfully logged in user');
+          console.info('Successfully logged in user');
           commit(types.LOGIN, response.data);
           resolve();
         })
@@ -139,7 +138,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.SIGNUP_URL, credentials)
         .then((response) => {
-          console.log('Successfully created user');
+          console.info('Successfully created user');
           commit(types.LOGIN, response.data);
           resolve();
         })
@@ -149,7 +148,7 @@ const actions = {
         });
     });
   },
-  sendResetEmail({ commit }, email) {
+  sendResetEmail(context, email) {
     let data = {
       email: email,
       url: URLS.RESET_URL
@@ -157,21 +156,21 @@ const actions = {
 
     return new Promise((resolve, reject) => {
       axios.post(URLS.FORGOT_URL, data)
-        .then((response) => {
-          console.log('Send reset email to', email);
+        .then(() => {
+          console.info('Send reset email to', email);
           resolve();
         })
         .catch((err) => {
-          console.error('Failed to send reset email');
+          console.error('Failed to send reset email', err);
           reject();
         });
     });
   },
-  resetPassword({ commit }, data) {
+  resetPassword(context, data) {
     return new Promise((resolve, reject) => {
       axios.post(URLS.RESET_API_URL, data)
         .then(() => {
-          console.log('Reset password');
+          console.info('Reset password');
           resolve()
         })
         .catch((err) => {
@@ -184,11 +183,11 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.put(URLS.USERS_URL + data.id, data)
         .then((response) => {
-          console.log('Updated profile');
+          console.info('Updated profile');
 
           // Only login if user is updating their own profile
           if (state.profile.id == data.id) {
-            console.log('Logging in');
+            console.info('Logging in');
             commit(types.LOGIN, response.data);
           }
 
@@ -201,7 +200,7 @@ const actions = {
     });
   },
   logout({ commit }) {
-    console.log('Logging out');
+    console.info('Logging out');
     commit(types.LOGOUT);
   }
 };

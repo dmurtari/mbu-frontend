@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
-
 import ScoutRegistration from '../scouts/ScoutRegistration.vue';
 import RegistrationMappers from '../../mixins/RegistrationMappers';
 

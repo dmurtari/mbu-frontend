@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import date from './date';
 
 describe('The date validator', () => {

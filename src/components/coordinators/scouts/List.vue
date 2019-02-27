@@ -73,9 +73,10 @@
 </template>
 
 <script>
-import Create from './Create.vue';
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
+import Create from './Create.vue';
 import Scout from './Scout.vue';
 
 export default {

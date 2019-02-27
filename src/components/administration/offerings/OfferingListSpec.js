@@ -1,8 +1,10 @@
 import {
-  shallow,
+  shallowMount,
   createLocalVue
 } from '@vue/test-utils';
 import Vuex from 'vuex';
+import { expect } from 'chai'
+import sinon from 'sinon';
 
 import OfferingList from './OfferingList.vue';
 
@@ -64,6 +66,7 @@ describe('OfferingList.vue', () => {
           }
         ]
       },
+      // eslint-disable-next-line no-unused-vars
       offeringsForEvent: (eventId) => {
         return () => {
           return [{
@@ -95,7 +98,7 @@ describe('OfferingList.vue', () => {
       getters
     });
 
-    wrapper = shallow(OfferingList, {
+    wrapper = shallowMount(OfferingList, {
       localVue,
       store,
     });
@@ -140,7 +143,7 @@ describe('OfferingList.vue', () => {
       });
 
       it('should contain the offered badges', () => {
-        console.log(wrapper.vm.filteredOfferings);
+        console.info(wrapper.vm.filteredOfferings);
         expect(wrapper.vm.filteredOfferings).to.deep.include(expectedOfferings[0]);
         expect(wrapper.vm.filteredOfferings).to.deep.include(expectedOfferings[2]);
       });

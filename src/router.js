@@ -50,7 +50,6 @@ const CoordinatorAttendance = () => import(/* webpackChunkName: "coordinator" */
 
 const TeacherPage = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/TeacherPage.vue');
 const TeacherHome = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/TeacherHome.vue');
-const TeacherStats = () => import(/* webpackChunkName: "teacher" */ 'components/teachers/stats/TeacherStats.vue');
 
 const RegistrationTable = () => import(/* webpackChunkName: "assignments" */ 'components/stats/RegistrationTable.vue');
 
@@ -341,6 +340,7 @@ export default [
   }
 ];
 
+ // eslint-disable-next-line no-unused-vars
 function requireApproval(to, from, next) {
   if (store.getters.isApproved === undefined) {
     store.dispatch('getProfile')

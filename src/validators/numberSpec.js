@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import number from './number';
 
 describe('The number validator', () => {

@@ -59,6 +59,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 import OfferingEdit from './OfferingEdit.vue';
 

@@ -208,7 +208,7 @@ export default {
           this.error = '';
           this.cancel();
         })
-        .catch(err => {
+        .catch(() => {
           this.error = 'Failed to save changes. Please try again.';
         })
         .then(() => {

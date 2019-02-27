@@ -25,7 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import store from 'store';
+import _ from 'lodash';
 
 import Attendees from './Attendees.vue';
 

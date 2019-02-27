@@ -1,10 +1,11 @@
 // import 'babel-polyfill';
+import { expect } from 'chai'
 
 import Vue from 'vue';
 import Main from './Main.vue';
 import Vuex from 'vuex';
 import {
-  shallow
+  shallowMount
 } from '@vue/test-utils';
 
 Vue.use(Vuex);
@@ -30,7 +31,7 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = shallow(Main, {
+      wrapper = shallowMount(Main, {
         store
       });
     });
@@ -78,7 +79,7 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = shallow(Main, {
+      wrapper = shallowMount(Main, {
         store
       });
     });
@@ -118,7 +119,7 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = shallow(Main, {
+      wrapper = shallowMount(Main, {
         store
       });
     });
@@ -158,7 +159,7 @@ describe('Main', () => {
       store = new Vuex.Store({
         getters
       });
-      wrapper = shallow(Main, {
+      wrapper = shallowMount(Main, {
         store
       });
     });

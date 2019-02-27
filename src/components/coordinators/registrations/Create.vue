@@ -71,7 +71,6 @@
 <script>
 import _ from 'lodash';
 
-import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 
 export default {
@@ -123,7 +122,7 @@ export default {
           this.error = '';
           this.$emit('created');
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to register scout for this event.';
         })
         .then(() => {
@@ -132,7 +131,6 @@ export default {
     },
     uniqueOfferings () {
       let offerings = _.map(this.preferences, 'offering');
-      console.log(offerings)
       return _.uniq(offerings).length === offerings.length;
     }
   },

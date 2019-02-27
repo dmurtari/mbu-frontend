@@ -103,7 +103,6 @@
 <script>
 import _ from 'lodash';
 
-import { mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 
 import Purchases from './Purchases.vue';
@@ -149,7 +148,7 @@ export default {
           this.error = '';
           this.$emit('saved');
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to delete registration. Please refresh and try again.';
         })
     },
@@ -169,7 +168,7 @@ export default {
           this.error = '';
           this.$emit('saved');
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to save preferences. Please refresh and try again';
         })
         .then(() => {

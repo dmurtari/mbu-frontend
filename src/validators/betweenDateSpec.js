@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import betweenDate from './betweenDate';
 
 describe('The between date validator', () => {

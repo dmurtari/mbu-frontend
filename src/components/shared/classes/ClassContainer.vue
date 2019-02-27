@@ -7,7 +7,7 @@
       <router-link to="../all">
         All Classes
       </router-link>
-      /&nbsp{{ title }}
+      /&nbsp;{{ title }}
     </h4>
     <closable-error v-if="eventLoadError"></closable-error>
     <spinner-page v-if="eventLoading"></spinner-page>

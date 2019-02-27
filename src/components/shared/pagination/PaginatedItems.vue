@@ -27,14 +27,14 @@
         <slot name="heading"></slot>
         <template v-if="table">
           <tbody>
-            <slot v-for="(item, index) in paginated(target)"
+            <slot v-for="(item) in paginated(target)"
                   name="row"
                   :item="item"></slot>
           </tbody>
         </template>
         <template v-else>
           <slot name="row"
-                v-for="(item, index) in paginated(target)"
+                v-for="(item) in paginated(target)"
                 :item="item">
           </slot>
         </template>

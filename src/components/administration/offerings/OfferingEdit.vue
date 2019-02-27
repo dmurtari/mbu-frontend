@@ -180,6 +180,7 @@
 
 <script>
 import { required, between, alphaNum, numeric } from 'vuelidate/lib/validators';
+import _ from 'lodash';
 
 export default {
   props: {
@@ -298,11 +299,11 @@ export default {
             eventId: this.eventId,
             details: offering
           })
-          .then(response => {
+          .then(() => {
             this.error = '';
             this.toggleEdit();
           })
-          .catch(err => {
+          .catch(() => {
             this.error =
               "Couldn't create offering. Please refresh and try again";
           })

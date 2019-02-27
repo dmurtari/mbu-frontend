@@ -87,7 +87,7 @@ const actions = {
       axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
                  details.registrationId + '/purchases/', details.purchase)
         .then((response) => {
-          console.log('Created purchase for scout', details.scoutId, details.purchase);
+          console.info('Created purchase for scout', details.scoutId, details.purchase);
           commit(types.SET_PURCHASES, {
             registrationId: details.registrationId,
             purchases: response.data.registration.purchases
@@ -95,7 +95,7 @@ const actions = {
           resolve(response.data.registration.purchases);
         })
         .catch((err) => {
-          console.error('Failed to purchase', details.purchase);
+          console.error('Failed to purchase', details.purchase, err);
           reject();
         })
     });
@@ -106,11 +106,11 @@ const actions = {
         event_id: details.eventId
       })
         .then((response) => {
-          console.log('Created registration for scout', details.scoutId, 'event', details.eventId);
+          console.info('Created registration for scout', details.scoutId, 'event', details.eventId);
           commit(types.ADD_REGISTRATION, response.data.registration);
           resolve(response.data.registration);
         })
-        .catch((err) => {
+        .catch(() => {
           console.error('Failed to register', details.scoutId, 'for', details.eventId);
           reject();
         })
@@ -120,7 +120,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.USERS_URL + details.userId + '/scouts', details.scout)
         .then((response) => {
-          console.log('Added scout', response.data.scout, 'for user', details.userId);
+          console.info('Added scout', response.data.scout, 'for user', details.userId);
           commit(types.ADD_SCOUT, response.data.scout);
           resolve(response.data.scout);
         })
@@ -134,8 +134,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
                    details.registrationId + '/purchases/' + details.purchasableId)
-        .then((response) => {
-          console.log('Removed item', details.purchasableId);
+        .then(() => {
+          console.info('Removed item', details.purchasableId);
           commit(types.DELETE_PURCHASE, details);
           resolve();
         })
@@ -148,8 +148,8 @@ const actions = {
   deleteRegistration({ commit }, details) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.SCOUTS_URL + details.scoutId + '/registrations/' + details.eventId)
-        .then((response) => {
-          console.log('Deleted registration for event', details.eventId);
+        .then(() => {
+          console.info('Deleted registration for event', details.eventId);
           commit(types.DELETE_REGISTRATION, details);
           resolve();
         })
@@ -162,8 +162,8 @@ const actions = {
   deleteScout({ commit }, details) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.USERS_URL + details.userId + '/scouts/' + details.scoutId)
-        .then((response) => {
-          console.log('Deleted scout', details.scoutId, 'for user', details.userId);
+        .then(() => {
+          console.info('Deleted scout', details.scoutId, 'for user', details.userId);
           commit(types.DELETE_SCOUT, details.scoutId);
           resolve()
         })
@@ -178,7 +178,7 @@ const actions = {
       axios.get(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
                 details.registrationId + '/purchases')
         .then((response) => {
-          console.log('Received purchases', response.data);
+          console.info('Received purchases', response.data);
           commit(types.SET_PURCHASES, {
             scoutId: details.scoutId,
             registrationId: details.registrationId,
@@ -197,7 +197,7 @@ const actions = {
       axios.get(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
                 details.registrationId + '/preferences')
         .then((response) => {
-          console.log('Received preferences', response.data);
+          console.info('Received preferences', response.data);
           commit(types.SET_PREFERENCES, {
             scoutId: details.scoutId,
             registrationId: details.registrationId,
@@ -215,7 +215,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(URLS.USERS_URL + userId + '/scouts/registrations')
         .then((response) => {
-          console.log('Got scouts for user', userId, response.data);
+          console.info('Got scouts for user', userId, response.data);
           commit(types.SET_SCOUTS, response.data);
           resolve(response.data);
         })
@@ -230,7 +230,7 @@ const actions = {
       axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
                  details.registrationId + '/preferences', details.preferences)
         .then((response) => {
-          console.log('Set preferences for registration', details.registrationId,
+          console.info('Set preferences for registration', details.registrationId,
                       response.data.registration.preferences);
           commit(types.SET_PREFERENCES, {
             scoutId: details.scoutId,
@@ -249,7 +249,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.put(URLS.USERS_URL + details.userId + '/scouts/' + details.scout.id, details.scout)
         .then((response) => {
-          console.log('Updated scout', details.scout.id);
+          console.info('Updated scout', details.scout.id);
           commit(types.UPDATE_SCOUT, response.data.scout);
           resolve();
         })

@@ -1,6 +1,3 @@
-import * as types from '../mutation-types';
-import URLS from '../../urls';
-
 const state = {};
 
 const getters = {};

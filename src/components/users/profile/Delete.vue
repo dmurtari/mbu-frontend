@@ -48,7 +48,7 @@ export default {
           this.error = '';
           this.$router.push('/');
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Couldn\'t delete your account. Please contact an administrator';
         });
     },

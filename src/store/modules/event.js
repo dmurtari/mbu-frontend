@@ -101,7 +101,7 @@ const actions = {
       axios
         .post(URLS.EVENTS_URL, event)
         .then(response => {
-          console.log('Created event', response.data.event);
+          console.info('Created event', response.data.event);
           commit(types.ADD_EVENT, response.data.event);
           resolve(response.data.event);
         })
@@ -116,7 +116,7 @@ const actions = {
       axios
         .post(URLS.EVENTS_URL + offering.eventId + '/badges', offering.details)
         .then(response => {
-          console.log(
+          console.info(
             'Created offering',
             offering.details,
             'for event',
@@ -133,14 +133,14 @@ const actions = {
   },
   createPurchasable({ commit }, details) {
     return new Promise((resolve, reject) => {
-      console.log('posting', details);
+      console.info('posting', details);
       axios
         .post(
           URLS.EVENTS_URL + details.eventId + '/purchasables',
           details.purchasable
         )
         .then(response => {
-          console.log('Added purchasable', details.purchasable);
+          console.info('Added purchasable', details.purchasable);
           commit(types.SET_PURCHASABLES, {
             eventId: details.eventId,
             purchasables: response.data.purchasables
@@ -158,7 +158,7 @@ const actions = {
       axios
         .delete(URLS.EVENTS_URL + eventId)
         .then(() => {
-          console.log('Deleted event', eventId);
+          console.info('Deleted event', eventId);
           commit(types.DELETE_EVENT, eventId);
           resolve();
         })
@@ -174,8 +174,8 @@ const actions = {
         .delete(
           URLS.EVENTS_URL + details.eventId + '/badges/' + details.badgeId
         )
-        .then(response => {
-          console.log(
+        .then(() => {
+          console.info(
             'Deleted badge',
             details.badgeId,
             'from event',
@@ -199,8 +199,8 @@ const actions = {
             '/purchasables/' +
             details.purchasableId
         )
-        .then(response => {
-          console.log(
+        .then(() => {
+          console.info(
             'Deleted item',
             details.purchasableId,
             'from event',
@@ -224,7 +224,7 @@ const actions = {
       axios
         .get(URLS.EVENTS_URL)
         .then(response => {
-          console.log('Received events', response.data);
+          console.info('Received events', response.data);
           commit(types.GET_EVENTS, response.data);
           resolve();
         })
@@ -243,7 +243,7 @@ const actions = {
       axios
         .get(URLS.CURRENT_EVENT_URL)
         .then(response => {
-          console.log('Received current event', response.data);
+          console.info('Received current event', response.data);
           commit(types.SET_CURRENT, response.data);
           resolve(response.data);
         })
@@ -262,7 +262,7 @@ const actions = {
       axios
         .post(URLS.CURRENT_EVENT_URL, { id: eventId })
         .then(response => {
-          console.log('Updated current event to', eventId);
+          console.info('Updated current event to', eventId);
           commit(types.SET_CURRENT, response.data.currentEvent);
           resolve(response.data.currentEvent);
         })
@@ -280,7 +280,7 @@ const actions = {
       axios
         .put(URLS.EVENTS_URL + eventUpdate.id, eventUpdate)
         .then(response => {
-          console.log('Updated event to', response.data.event);
+          console.info('Updated event to', response.data.event);
           commit(types.UPDATE_EVENT, response.data.event);
           resolve(response.data.event);
         })
@@ -298,7 +298,7 @@ const actions = {
           details.offering
         )
         .then(response => {
-          console.log('Updated offering for badge', details.badgeId);
+          console.info('Updated offering for badge', details.badgeId);
           commit(types.UPDATE_OFFERING, response.data.offering);
           resolve();
         })

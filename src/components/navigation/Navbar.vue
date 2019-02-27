@@ -68,8 +68,6 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Login from '../authentication/Login.vue';
-
 export default {
   data() {
     return {
@@ -94,9 +92,6 @@ export default {
     toggleDropdown() {
       this.dropdownActive = !this.dropdownActive;
     }
-  },
-  components: {
-    login: Login
   }
 };
 </script>

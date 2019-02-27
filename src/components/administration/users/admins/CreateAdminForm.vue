@@ -171,7 +171,7 @@ export default {
         email,
         isUnique (value) {
           if (value === '') return true
-          return new Promise((resolve, reject) => {
+          return new Promise((resolve) => {
             this.$store.dispatch('checkEmail', value)
               .then((value) => resolve(!value));
           })

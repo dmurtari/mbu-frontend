@@ -1,15 +1,20 @@
 import {
-  shallow,
+  shallowMount,
   createLocalVue
 } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Vuelidate from 'vuelidate';
+import chai from 'chai';
+import { expect } from 'chai'
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import OfferingEdit from './OfferingEdit.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.use(Vuelidate)
+localVue.use(Vuelidate);
+chai.use(sinonChai);
 
 describe('OfferingEdit.vue', () => {
   let wrapper, store, actions;
@@ -25,7 +30,7 @@ describe('OfferingEdit.vue', () => {
       actions
     });
 
-    wrapper = shallow(OfferingEdit, {
+    wrapper = shallowMount(OfferingEdit, {
       localVue,
       store,
       propsData: {

@@ -170,19 +170,19 @@ export default {
 
       this.$store.dispatch('updateEvent', event)
         .then(() => {
-          console.log('Getting new events');
+          console.info('Getting new events');
           return this.$store.dispatch('getEvents');
         })
         .then(() => {
-          console.log('Closing');
+          console.info('Closing');
           this.close();
         })
         .catch((err) => {
-          console.log('Error')
+          console.info('Error')
           this.error = err;
         })
         .then(() => {
-          console.log('Done')
+          console.info('Done')
           this.saving = false;
         });
     },

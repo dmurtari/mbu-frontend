@@ -156,6 +156,8 @@ export default {
           this.event.registration_close,
           null,
           '[]');
+      } else {
+        return false;
       }
     }
   },

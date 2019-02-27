@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{"84ba":function(e,t,n){"use strict";n.r(t);var i=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},r=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",[n("p",[e._v("This is the new registration website for MBU")])])}],s=n("2877"),o={},u=Object(s["a"])(o,i,r,!1,null,null,null);u.options.__file="About.vue";t["default"]=u.exports}}]);
-//# sourceMappingURL=about.bc384911.js.map

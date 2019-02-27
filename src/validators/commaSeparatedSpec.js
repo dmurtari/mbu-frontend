@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import commaSeparated from './commaSeparated';
 
 describe('The comma separated validator', () => {

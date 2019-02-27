@@ -244,7 +244,7 @@
 </template>
 
 <script>
-import { required, email, sameAs, minLength, alpha, alphaNum } from 'vuelidate/lib/validators'
+import { required, email, sameAs, minLength, alphaNum } from 'vuelidate/lib/validators'
 
 export default {
   data () {
@@ -312,7 +312,7 @@ export default {
           this.error = '';
         })
         .catch((err) => {
-          console.log(err)
+          console.info(err)
           this.error = 'Error creating your account. Please try again.';
         })
         .then(() => {
@@ -327,7 +327,7 @@ export default {
         email,
         isUnique (value) {
           if (value === '') return true
-          return new Promise((resolve, reject) => {
+          return new Promise((resolve) => {
             this.$store.dispatch('checkEmail', value)
               .then((value) => resolve(!value));
           })

@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import numAlphaSort from './numAlphaSort';
 
 describe('Sorting numbers followed by a letter', () => {

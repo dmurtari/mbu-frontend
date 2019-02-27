@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { required, sameAs, minLength } from 'vuelidate/lib/validators'
-
 import ChangePassword from './ChangePassword.vue';
 
 export default {
@@ -39,7 +37,7 @@ export default {
             query: { from: 'resetSuccess' }
           });
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to reset password. Please try again.';
         })
         .then(() => {

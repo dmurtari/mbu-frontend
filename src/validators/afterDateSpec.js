@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import afterDate from './afterDate';
 
 describe('The before date validator', () => {

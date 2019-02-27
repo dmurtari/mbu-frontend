@@ -11,10 +11,5 @@ module.exports = {
         'vue$': 'vue/dist/vue.esm.js'
       }
     }
-  },
-  pluginOptions: {
-    karma: {
-      files: ['./src/**/*Spec.js']
-    }
   }
 }

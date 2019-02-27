@@ -53,10 +53,7 @@
 </template>
 
 <script>
-import URLS from 'urls';
-
 import Vue from 'vue';
-import axios from 'axios';
 import _ from 'lodash';
 
 import { commaSeparated } from 'validators';

@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
-
 import AssignmentEdit from './AssignmentEdit.vue';
 import ScoutRegistration from 'components/scouts/ScoutRegistration.vue';
 import RegistrationMappers from 'mixins/RegistrationMappers';

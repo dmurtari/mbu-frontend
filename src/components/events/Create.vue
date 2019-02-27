@@ -153,7 +153,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 import { date, beforeDate, betweenDate } from 'validators';
 
@@ -205,7 +204,7 @@ export default {
         .then(() => {
           return this.$store.dispatch('getEvents');
         })
-        .then((data) => {
+        .then(() => {
           this.$v.$reset();
           this.creating = false;
           this.clearAndClose();

@@ -28,7 +28,7 @@ const mutations = {
 
     let classes = [];
 
-    _.forEach(existingClasses, (classInfo, index) => {
+    _.forEach(existingClasses, (classInfo) => {
       const sizeInfo = _.find(details.sizes, sizeInfo => {
         return classInfo.badge.badge_id === sizeInfo.badgeId;
       });
@@ -49,7 +49,7 @@ const actions = {
       return axios
         .get(URLS.EVENTS_URL + eventId + '/offerings/assignees')
         .then(response => {
-          console.log('Received classes', response.data);
+          console.info('Received classes', response.data);
           commit(types.SET_CLASSES, {
             eventId: String(eventId),
             classes: response.data
@@ -82,7 +82,7 @@ const actions = {
             };
           });
 
-          console.log('Received class size information', sizes);
+          console.info('Received class size information', sizes);
 
           commit(types.SET_CLASS_SIZES, {
             eventId: details.eventId,

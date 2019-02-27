@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
-
 import CompletionsEdit from './CompletionsEdit.vue';
 
 export default {

@@ -84,8 +84,6 @@
 <script>
 import { required, sameAs, minLength } from 'vuelidate/lib/validators';
 
-import Login from './Login.vue';
-
 export default {
   data () {
     return {

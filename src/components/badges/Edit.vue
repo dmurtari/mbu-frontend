@@ -121,7 +121,7 @@ export default {
         .then(() => {
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Error updating badge, please try again. Name is required.';
         })
         .then(() => {

@@ -45,12 +45,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.post(URLS.BADGES_URL, badge)
         .then((response) => {
-          console.log('Created badge', response.data.badge)
+          console.info('Created badge', response.data.badge)
           commit(types.ADD_BADGE, response.data.badge);
           resolve(badge);
         })
         .catch((err) => {
-          console.log('Failed to create badge', err.response.data.message);
+          console.info('Failed to create badge', err.response.data.message);
           reject(err.response.data.message);
         });
     });
@@ -59,12 +59,12 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.BADGES_URL + badgeId)
         .then(() => {
-          console.log('Delete badge', badgeId);
+          console.info('Delete badge', badgeId);
           commit(types.DELETE_BADGE, badgeId);
           resolve();
         })
         .catch(() => {
-          console.log('Failed to delete badge', badgeId);
+          console.info('Failed to delete badge', badgeId);
           reject();
         })
     });
@@ -73,22 +73,26 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(URLS.BADGES_URL)
         .then((response) => {
-          console.log('Received badges', response.data)
+          console.info('Received badges', response.data)
           commit(types.GET_BADGES, response.data);
           resolve();
-        });
+        })
+        .catch(err => {
+          console.error('Filaed to update badge', err);
+          reject();
+        })
     });
   },
   updateBadge({ commit }, badgeUpdate) {
     return new Promise((resolve, reject) => {
       axios.put(URLS.BADGES_URL + badgeUpdate.id, badgeUpdate)
         .then((response) => {
-          console.log('Updated badge to', response.data.badge);
+          console.info('Updated badge to', response.data.badge);
           commit(types.UPDATE_BADGE, response.data.badge);
           resolve(badgeUpdate);
         })
         .catch((err) => {
-          console.log('Failed to update badge', err.response.data.message);
+          console.info('Failed to update badge', err.response.data.message);
           reject(err.response.data.message);
         });
     });

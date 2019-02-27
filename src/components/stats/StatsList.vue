@@ -63,6 +63,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 import EventsUpdate from 'mixins/EventsUpdate';
 import ClassSizesUpdate from 'mixins/ClassSizesUpdate';
@@ -147,7 +148,7 @@ export default {
 
       if (!this.hasClassInfoForEvent(this.eventId) && this.isCoordinator) {
         this.loadClasses(this.eventId);
-      };
+      }
 
       this.$store.dispatch('getRegistrations', this.eventId)
         .then(() => {

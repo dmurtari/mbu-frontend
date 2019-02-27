@@ -20,7 +20,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import moment from 'moment'
 
 import EventEdit from './Edit.vue';
 import EventDetail from './Detail.vue';

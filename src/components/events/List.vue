@@ -20,7 +20,7 @@
           <div class="notification">
             <p>
               No events have been added yet.
-              <div v-if="isAdmin">
+              <span v-if="isAdmin">
                 <br> Scoutmasters will not be able to register any scouts for events until
                 you create an event (make sure to mark it as the current semester's
                 event)
@@ -28,7 +28,7 @@
                    v-if="!displayAddEvent">
                   Add the first event?
                 </a>
-              </div>
+              </span>
             </p>
           </div>
         </span>

@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 import ScoutRegistration from './ScoutRegistration.vue';
 import AssignmentEdit from 'components/shared/attendance/AssignmentEdit.vue';
 

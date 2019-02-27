@@ -42,7 +42,7 @@ export default {
           this.error = '';
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to reset password. Please try again.';
         })
         .then(() => {

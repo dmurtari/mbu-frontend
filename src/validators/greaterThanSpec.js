@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import greaterThan from './greaterThan';
 
 describe('The less than validator', () => {

@@ -1,5 +1,6 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import { expect } from 'chai'
 
 import Detail from './Detail.vue';
 
@@ -18,7 +19,7 @@ describe('Event Detail.vue', () => {
       getters
     });
 
-    wrapper = shallow(Detail, {
+    wrapper = shallowMount(Detail, {
       localVue,
       store,
       propsData: {

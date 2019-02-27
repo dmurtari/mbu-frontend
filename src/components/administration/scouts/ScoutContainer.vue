@@ -7,7 +7,7 @@
       <router-link to="/administration/scouts/list/all">
         All Scouts
       </router-link>
-      /&nbspScout Detail
+      /&nbsp;Scout Detail
     </h4>
     <router-view></router-view>
   </div>

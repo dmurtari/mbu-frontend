@@ -2,11 +2,16 @@ import Vue from 'vue';
 import PurchasedItem from './PurchasedItem.vue';
 import Vuex from 'vuex';
 import {
-  shallow
+  shallowMount
 } from '@vue/test-utils';
+import { expect } from 'chai'
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import filters from 'filters';
 
+chai.use(sinonChai);
 Vue.use(Vuex);
 filters(Vue);
 
@@ -44,7 +49,7 @@ describe('PurchasedItem.vue', () => {
 
   describe('when created with an item', () => {
     beforeEach(() => {
-      wrapper = shallow(PurchasedItem, {
+      wrapper = shallowMount(PurchasedItem, {
         store,
         propsData
       });
@@ -101,7 +106,7 @@ describe('PurchasedItem.vue', () => {
         actions
       });
 
-      wrapper = shallow(PurchasedItem, {
+      wrapper = shallowMount(PurchasedItem, {
         store,
         propsData
       });
@@ -134,7 +139,7 @@ describe('PurchasedItem.vue', () => {
         propsData
       });
 
-      wrapper = shallow(PurchasedItem, {
+      wrapper = shallowMount(PurchasedItem, {
         store,
         propsData
       });

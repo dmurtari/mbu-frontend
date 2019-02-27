@@ -112,7 +112,7 @@ export default {
           this.error = false;
           this.$router.push('/');
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = true;
         })
         .then(() => {

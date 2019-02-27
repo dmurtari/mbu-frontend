@@ -1,8 +1,9 @@
 import {
-  shallow,
+  shallowMount,
   createLocalVue
 } from '@vue/test-utils';
 import Vuex from 'vuex';
+import { expect } from 'chai'
 
 import OfferingRow from './OfferingRow.vue';
 
@@ -22,7 +23,7 @@ describe('OfferingRow.vue', () => {
         getters
       });
 
-      wrapper = shallow(OfferingRow, {
+      wrapper = shallowMount(OfferingRow, {
         localVue,
         store,
         propsData: {
@@ -81,7 +82,7 @@ describe('OfferingRow.vue', () => {
 
     describe('and when the badge is not offered', () => {
       beforeEach(() => {
-        wrapper = shallow(OfferingRow, {
+        wrapper = shallowMount(OfferingRow, {
           localVue,
           store,
           propsData: {
@@ -136,7 +137,7 @@ describe('OfferingRow.vue', () => {
         getters
       });
 
-      wrapper = shallow(OfferingRow, {
+      wrapper = shallowMount(OfferingRow, {
         localVue,
         store,
         propsData: {
@@ -161,7 +162,7 @@ describe('OfferingRow.vue', () => {
 
     describe('and the badge is not offered', () => {
       beforeEach(() => {
-        wrapper = shallow(OfferingRow, {
+        wrapper = shallowMount(OfferingRow, {
           localVue,
           store,
           propsData: {

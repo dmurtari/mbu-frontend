@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 import CreateRegistration from './Create.vue';
@@ -106,8 +105,6 @@ export default {
   watch: {
     event () {
       this.state = 'displaying';
-    },
-    event () {
       this.loadRegistrationInformation();
     }
   },

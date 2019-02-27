@@ -40,7 +40,7 @@
                 <div class="control">
                   <input class="input"
                          id="user-list-find"
-                         v-model="search"></input>
+                         v-model="search">
                 </div>
               </div>
             </div>

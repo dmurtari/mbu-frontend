@@ -177,7 +177,7 @@ export default {
           this.error = '';
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to create item. Please refresh and try again.';
         })
         .then(() => {

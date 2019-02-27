@@ -75,6 +75,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import _ from 'lodash';
 
 import OfferingRow from './OfferingRow.vue';
 import EventsUpdate from 'mixins/EventsUpdate';

@@ -46,8 +46,8 @@ const actions = {
   approveUser({ commit }, userId) {
     return new Promise((resolve, reject) => {
       axios.put(URLS.USERS_URL + userId, { approved: true })
-        .then((response) => {
-          console.log('Approved user', userId);
+        .then(() => {
+          console.info('Approved user', userId);
           commit(types.APPROVE_USER, userId);
           resolve();
         })
@@ -60,8 +60,8 @@ const actions = {
   deleteUser({ commit }, userId) {
     return new Promise((resolve, reject) => {
       axios.delete(URLS.USERS_URL + userId)
-        .then((response) => {
-          console.log('Deleted user', userId);
+        .then(() => {
+          console.info('Deleted user', userId);
           commit(types.DELETE_USER, userId);
           resolve();
         })
@@ -75,7 +75,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(URLS.USERS_URL)
         .then((response) => {
-          console.log('Received users', response.data);
+          console.info('Received users', response.data);
           commit(types.GET_USERS, response.data);
           resolve();
         })

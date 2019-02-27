@@ -1,5 +1,6 @@
-import { shallow, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import { expect } from 'chai'
 
 import CoordinatorDetail from './CoordinatorDetail.vue';
 
@@ -10,7 +11,7 @@ describe('CoordinatorDetail.vue', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(CoordinatorDetail, {
+    wrapper = shallowMount(CoordinatorDetail, {
       localVue,
       propsData: {
         id: 1

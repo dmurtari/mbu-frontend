@@ -2,8 +2,10 @@ import Vue from 'vue';
 import App from './App.vue';
 import Vuex from 'vuex';
 import {
-  shallow
+  shallowMount
 } from '@vue/test-utils';
+import { expect } from 'chai'
+import sinon from 'sinon';
 
 Vue.use(Vuex);
 
@@ -24,7 +26,7 @@ describe('App component', () => {
         getters, actions
       });
 
-      wrapper = shallow(App, {
+      wrapper = shallowMount(App, {
         store
       });
 
@@ -51,7 +53,7 @@ describe('App component', () => {
           getters, actions
         });
 
-        wrapper = shallow(App, {
+        wrapper = shallowMount(App, {
           store
         });
 
@@ -77,7 +79,7 @@ describe('App component', () => {
           getters, actions
         });
 
-        wrapper = shallow(App, {
+        wrapper = shallowMount(App, {
           store
         });
 

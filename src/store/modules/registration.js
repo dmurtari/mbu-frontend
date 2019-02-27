@@ -44,7 +44,7 @@ const mutations = {
 };
 
 const actions = {
-  getRegistrations({ commit, state, rootState }, eventId) {
+  getRegistrations({ commit, rootState }, eventId) {
     let getURL;
 
     if (rootState.authentication.profile.role === 'coordinator') {
@@ -57,7 +57,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios.get(getURL)
         .then((response) => {
-          console.log('Received registrations', response.data);
+          console.info('Received registrations', response.data);
           commit(types.SET_EVENT_REGISTRATIONS, {
             eventId: eventId,
             registrations: response.data
@@ -86,7 +86,7 @@ const actions = {
           resolve(response.data);
         })
         .catch((err)=> {
-          console.log('Failed to save completions', err);
+          console.info('Failed to save completions', err);
           reject();
         })
     });
@@ -96,7 +96,7 @@ const actions = {
       axios.post(URLS.SCOUTS_URL + details.scoutId + '/registrations/' +
         details.registrationId + '/assignments', details.assignments)
         .then((response) => {
-          console.log('Set assignments for registration', details.registrationId,
+          console.info('Set assignments for registration', details.registrationId,
             response.data.registration.assignments);
           commit(types.SET_ASSIGNMENTS, {
             eventId: details.eventId,

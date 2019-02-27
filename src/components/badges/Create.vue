@@ -74,6 +74,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 import { required } from 'vuelidate/lib/validators';
 
 export default {
@@ -106,7 +108,7 @@ export default {
           this.$v.$reset();
           this.clearAndClose();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Error creating badge, please refresh the page and try again';
         })
         .then(() => {

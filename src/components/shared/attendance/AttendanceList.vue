@@ -31,7 +31,6 @@
 import AttendanceRow from './AttendanceRow.vue';
 import EventsUpdate from 'mixins/EventsUpdate';
 
-import { mapGetters } from 'vuex';
 import _ from 'lodash';
 
 export default {

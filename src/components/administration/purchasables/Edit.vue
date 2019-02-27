@@ -171,7 +171,7 @@ export default {
           this.error = '';
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to update item. Please refresh and try again.';
         });
     },
@@ -187,7 +187,7 @@ export default {
           this.error = '';
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Failed to delete item. Please refresh and try again.';
         });
     },

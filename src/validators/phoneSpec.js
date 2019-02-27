@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 import phone from './phone';
 
 describe('The phone validator', () => {

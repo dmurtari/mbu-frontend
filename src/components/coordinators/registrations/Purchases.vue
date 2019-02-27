@@ -113,12 +113,12 @@
                       class="purchased-item"></purchased-item>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { number } from 'validators';
+import _ from 'lodash';
 
 import PurchasedItem from './PurchasedItem.vue';
 

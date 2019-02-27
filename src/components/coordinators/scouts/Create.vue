@@ -233,7 +233,7 @@ export default {
           this.error = '';
           this.close();
         })
-        .catch((err) => {
+        .catch(() => {
           this.error = 'Error adding scout. Please refresh the page, and try again.';
         })
         .then(() => {
