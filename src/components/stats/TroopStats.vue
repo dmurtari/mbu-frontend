@@ -3,7 +3,7 @@
     <ul>
       <span v-if="!isTeacher">
         <li>
-          <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }} (all scouts):</b>
+          <b>{{ isCoordinator ? 'Total Due' : 'Total Income' }} (all scouts): </b>
           <span v-if="totalDue">{{ totalDue | currency }}</span>
           <span v-else>Calculating...</span>
         </li>
@@ -22,18 +22,18 @@
       </li>
       <br>
       <li>
-        <b>Event Registration Fees</b>
+        <b>Event Registration Fees: </b>
         <span>
           {{ registrations.length * Number(event.price) | currency }} ({{ registrations.length
           }} &times; {{ event.price | currency }})
         </span>
       </li>
       <li>
-        <b>Merit Badge Fees:</b>
+        <b>Merit Badge Fees: </b>
         <span>{{ subcost('assignments') | currency }}</span>
       </li>
       <li>
-        <b>Purchase Costs:</b>
+        <b>Purchase Costs: </b>
         <span>{{ subcost('purchases') | currency }}</span>
       </li>
       <purchased-items :registrations="registrations"

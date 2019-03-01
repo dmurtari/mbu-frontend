@@ -5,17 +5,22 @@
         <h1 class="title is-1">Welcome to MBU Online</h1>
         <h3 class="subtitle is-3">
           <span v-if="isAdmin" id="adminWelcome">Get started on the
-            <router-link to="/administration">Administration</router-link>page.
+            <router-link to="/administration">Administration</router-link>
+            page.
           </span>
           <span v-else-if="isTeacher" id="teacherWelcome">Get started using the
-            <router-link to="/teacher">Teacher</router-link>page.
+            <router-link to="/teacher">Teacher</router-link>
+            page.
           </span>
           <span v-else-if="isCoordinator" id="coordinatorWelcome">Get started using the
-            <router-link to="/coordinator">Manage Troop</router-link>page.
+            <router-link to="/coordinator">Manage Troop</router-link>
+            page.
           </span>
           <span v-else id="genericWelcome">
-            <router-link to="/login">Login</router-link>or
-            <router-link to="/signup">signup</router-link>to get started
+            <router-link to="/login">Login</router-link>
+            or
+            <router-link to="/signup">signup</router-link>
+            to get started
           </span>
         </h3>
       </div>
