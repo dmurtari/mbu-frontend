@@ -95,6 +95,35 @@
             </label>
           </div>
         </div>
+        <div class="field column is-6">
+          <div class="control">
+            <label class="checkbox">
+              <input v-model="hasPurchaseLimit"
+                     type="checkbox"> Limit the number of items available for purchase
+            </label>
+          </div>
+        </div>
+        <div class="field column is-6"
+             v-if="hasPurchaseLimit">
+          <label class="label"
+                 for="purchase-limit">Number available for purchase</label>
+          <div class="control">
+            <input type="number"
+                   class="input"
+                   id="purchase-limit"
+                   :class="{ 'is-danger': $v.purchasableUpdate.purchaser_limit.$error }"
+                   @blur="$v.purchasableUpdate.purchaser_limit.$touch"
+                   v-model="purchasableUpdate.purchaser_limit">
+          </div>
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.purchaser_limit.number">
+            Purchase limit must be a number
+          </span>
+          <span class="help is-danger"
+                v-if="!$v.purchasableUpdate.purchaser_limit.greaterThan">
+            Purchase limit must be greater than 0
+          </span>
+        </div>
       </div>
       <div class="field is-grouped">
         <div class="control">
@@ -145,24 +174,27 @@ export default {
     },
     eventId: { required: true }
   },
-  data () {
+  data() {
     return {
       purchasableUpdate: {
         item: '',
         price: '',
         description: '',
         has_size: false,
+        purchaser_limit: undefined,
         minimum_age: '',
         maximum_age: ''
       },
+      hasPurchaseLimit: false,
       error: '',
       deleting: false,
       saving: false
     };
   },
   methods: {
-    update () {
+    update() {
       this.purchasableUpdate.id = this.purchasable.id;
+      this.purchasableUpdate.purchaser_limit = (this.hasPurchaseLimit && this.purchasableUpdate.purchaser_limit) || null;
       this.$store.dispatch('updatePurchasable', {
         eventId: this.eventId,
         purchasable: this.purchasableUpdate
@@ -175,10 +207,10 @@ export default {
           this.error = 'Failed to update item. Please refresh and try again.';
         });
     },
-    close () {
+    close() {
       this.$emit('close');
     },
-    deletePurchasable () {
+    deletePurchasable() {
       this.$store.dispatch('deletePurchasable', {
         eventId: this.eventId,
         purchasableId: this.purchasable.id
@@ -191,17 +223,19 @@ export default {
           this.error = 'Failed to delete item. Please refresh and try again.';
         });
     },
-    toggleDelete () {
+    toggleDelete() {
       this.deleting = !this.deleting;
     }
   },
-  mounted () {
+  mounted() {
     this.purchasableUpdate.item = this.purchasable.item;
     this.purchasableUpdate.price = this.purchasable.price;
     this.purchasableUpdate.description = this.purchasable.description;
     this.purchasableUpdate.has_size = this.purchasable.has_size;
     this.purchasableUpdate.minimum_age = this.purchasable.minimum_age;
     this.purchasableUpdate.maximum_age = this.purchasable.maximum_age;
+    this.purchasableUpdate.purchaser_limit = this.purchasable.purchaser_limit;
+    this.hasPurchaseLimit = !!this.purchasable.purchaser_limit;
   },
   validations: {
     purchasableUpdate: {
@@ -214,6 +248,10 @@ export default {
       maximum_age: {
         number,
         greaterThan: greaterThan('minimum_age')
+      },
+      purchaser_limit: {
+        number,
+        greaterThan: greaterThan(0)
       }
     }
   }

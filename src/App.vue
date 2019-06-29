@@ -40,7 +40,7 @@ import Navbar from 'components/navigation/Navbar.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  data () {
+  data() {
     return {
       loading: false
     }
@@ -57,7 +57,7 @@ export default {
       'isAdmin'
     ])
   },
-  created () {
+  created() {
     this.loading = true;
     this.$store.dispatch('getProfile')
       .then(() => {

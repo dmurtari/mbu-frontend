@@ -9,6 +9,9 @@
     <p v-if="purchasable.description">
       <b>Description: </b>{{ purchasable.description }}
     </p>
+    <p v-if="purchasable.purchaser_limit">
+      <b>Purchase Limit: </b>{{ purchasable.purchaser_limit }}
+    </p>
     <p v-if="purchasable.has_size">
       <br>
       Scouts can pick a size for this item

@@ -117,6 +117,35 @@
             </span>
           </div>
         </template>
+        <div class="field column is-6">
+          <div class="control">
+            <label class="checkbox">
+              <input v-model="hasPurchaseLimit"
+                     type="checkbox"> Limit the number of items available for purchase
+            </label>
+          </div>
+        </div>
+        <div class="field column is-6"
+             v-if="hasPurchaseLimit">
+          <label class="label"
+                 for="purchase-limit">Number available for purchase</label>
+          <div class="control">
+            <input type="number"
+                   class="input"
+                   id="purchase-limit"
+                   :class="{ 'is-danger': $v.purchasable.purchaser_limit.$error }"
+                   @blur="$v.purchasable.purchaser_limit.$touch"
+                   v-model="purchasable.purchaser_limit">
+          </div>
+          <span class="help is-danger"
+                v-if="!$v.purchasable.purchaser_limit.number">
+            Purchase limit must be a number
+          </span>
+          <span class="help is-danger"
+                v-if="!$v.purchasable.purchaser_limit.greaterThan">
+            Purchase limit must be greater than 0
+          </span>
+        </div>
       </div>
       <div class="field is-grouped">
         <div class="control">
@@ -144,23 +173,25 @@ export default {
   props: {
     eventId: { required: true }
   },
-  data () {
+  data() {
     return {
       creating: false,
       error: '',
       hasAgeRestriction: false,
+      hasPurchaseLimit: false,
       purchasable: {
         item: '',
         description: '',
         price: '',
         has_size: false,
         maximum_age: '',
-        minimum_age: ''
+        minimum_age: '',
+        purchaser_limit: undefined
       }
     };
   },
   methods: {
-    createPurchasable () {
+    createPurchasable() {
       this.creating = true;
 
       let purchasable = _.clone(this.purchasable);
@@ -184,7 +215,7 @@ export default {
           this.creating = false;
         });
     },
-    close () {
+    close() {
       this.$emit('close');
     }
   },
@@ -199,6 +230,10 @@ export default {
       maximum_age: {
         number,
         greaterThan: greaterThan('minimum_age')
+      },
+      purchaser_limit: {
+        number,
+        greaterThan: greaterThan(0)
       }
     }
   }
