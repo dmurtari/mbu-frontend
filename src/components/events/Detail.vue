@@ -47,6 +47,12 @@
             This item is restricted to {{ ageText(purchasable.minimum_age, purchasable.maximum_age) }}
           </i>
         </span>
+        <span v-if="purchasable.purchaser_limit">
+          <br>
+          <i>
+            This item is restricted to {{ purchasable.purchaser_limit }} buyers
+          </i>
+        </span>
       </div>
     </div>
     <div v-else>
