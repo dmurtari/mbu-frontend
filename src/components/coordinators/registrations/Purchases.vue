@@ -37,7 +37,9 @@
       </div>
       <div class="field column is-3-mobile is-2-tablet">
         <label class="label"
-               for="purchasable-item-quantity">Quantity</label>
+               for="purchasable-item-quantity">
+          Quantity
+        </label>
         <div class="control">
           <input type="number"
                  class="input"
@@ -46,12 +48,24 @@
                  @blur="$v.itemToPurchase.quantity.$touch"
                  v-model="itemToPurchase.quantity">
         </div>
-        <span class="help is-danger"
-              v-if="$v.itemToPurchase.quantity.$error && itemToPurchase.purchasable">
-          Please enter a number greater than 0
+        <template v-if="$v.itemToPurchase.quantity.$error && itemToPurchase.purchasable">
+          <span class="help is-danger"
+                v-if="!$v.itemToPurchase.quantity.positive">
+            Please enter a number greater than 0
+          </span>
+          <span class="help is-danger"
+                v-if="!$v.itemToPurchase.quantity.maxValue">
+            You cannot purchase more than are available
+          </span>
+        </template>
+        <span v-if="itemToPurchase.purchasable.purchaser_limit"
+              :class="{ 'is-danger':!$v.itemToPurchase.quantity.maxValue && $v.itemToPurchase.quantity.$error }"
+              class="help">
+          ({{ itemToPurchase.purchasable.purchaser_limit - itemToPurchase.purchasable.purchaser_count }} available)
         </span>
       </div>
-      <div class="field column is-3-mobile is-2-tablet">
+      <div class="field column is-3-mobile is-2-tablet"
+           v-if="itemToPurchase.purchasable.has_size">
         <label class="label"
                for="purchasable-item-size">Size</label>
         <div class="control">
@@ -71,7 +85,7 @@
       </div>
       <div class="column auto">
         <label class="label">&nbsp;</label>
-        <div class="field is-grouped">
+        <div class="field is-grouped save-controls">
           <div class="control">
             <button class="button is-primary"
                     :class="{ 'is-loading': creating }"
@@ -141,7 +155,7 @@ export default {
       type: Array
     }
   },
-  data () {
+  data() {
     return {
       itemToPurchase: {
         purchasable: '',
@@ -161,27 +175,27 @@ export default {
     };
   },
   computed: {
-    orderedPurchasables () {
+    orderedPurchasables() {
       return _.orderBy(this.purchasables, 'item');
     },
-    availableItems () {
+    availableItems() {
       return _.filter(this.orderedPurchasables, (purchasable) => {
         return !_.find(this.existingPurchases, { 'id': purchasable.id });
       });
     },
-    shouldShowPurchases () {
+    shouldShowPurchases() {
       return this.existingPurchases.length > 0;
     }
   },
   methods: {
-    clearItem () {
+    clearItem() {
       this.itemToPurchase = {
         purchasable: '',
         quantity: '',
         size: ''
       };
     },
-    deleteItem (purchasableId) {
+    deleteItem(purchasableId) {
       this.deleting = true;
 
       this.$store.dispatch('deletePurchase', {
@@ -199,7 +213,7 @@ export default {
           this.deleting = false;
         });
     },
-    purchaseItem () {
+    purchaseItem() {
       let purchase = {
         purchasable: this.itemToPurchase.purchasable.id,
         quantity: this.itemToPurchase.quantity ? this.itemToPurchase.quantity : 0
@@ -232,7 +246,10 @@ export default {
       quantity: {
         required,
         number,
-        positive: (value) => { return value > 0 }
+        positive: (value) => { return value > 0 },
+        maxValue: function (value) {
+          return !this.itemToPurchase.purchasable.purchaser_limit || value <= this.itemToPurchase.purchasable.purchaser_limit
+        }
       }
     }
   },
@@ -248,7 +265,11 @@ export default {
 }
 
 .purchased-item {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   margin-left: 1rem;
+}
+
+.save-controls {
+  justify-content: flex-end;
 }
 </style>
