@@ -195,9 +195,9 @@ const actions = {
       axios
         .delete(
           URLS.EVENTS_URL +
-            details.eventId +
-            '/purchasables/' +
-            details.purchasableId
+          details.eventId +
+          '/purchasables/' +
+          details.purchasableId
         )
         .then(() => {
           console.info(
@@ -230,6 +230,27 @@ const actions = {
         })
         .catch(() => {
           console.error('Failed to get events');
+          reject();
+        });
+    });
+  },
+  getPurchasables({ commit }, details) {
+    console.log('Refresh purchasables', details);
+    return new Promise((resolve, reject) => {
+      axios
+        .get(URLS.EVENTS_URL + details.eventId + '/purchasables')
+        .then(response => {
+          console.info(
+            'Got new purchasables', response.data, 'for event', details.eventId
+          );
+          commit(types.SET_PURCHASABLES, {
+            eventId: details.eventId,
+            purchasables: response.data
+          });
+          resolve();
+        })
+        .catch(() => {
+          console.error('Failed to get purchasables');
           reject();
         });
     });
@@ -313,9 +334,9 @@ const actions = {
       axios
         .put(
           URLS.EVENTS_URL +
-            details.eventId +
-            '/purchasables/' +
-            details.purchasable.id,
+          details.eventId +
+          '/purchasables/' +
+          details.purchasable.id,
           details.purchasable
         )
         .then(response => {

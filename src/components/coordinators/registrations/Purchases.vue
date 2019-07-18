@@ -124,6 +124,7 @@
                       :item="item"
                       :registrationId="registrationId"
                       :scoutId="scoutId"
+                      :eventId="event.id"
                       class="purchased-item"></purchased-item>
     </div>
   </div>
@@ -195,24 +196,6 @@ export default {
         size: ''
       };
     },
-    deleteItem(purchasableId) {
-      this.deleting = true;
-
-      this.$store.dispatch('deletePurchase', {
-        registrationId: this.registrationId,
-        scoutId: this.scoutId,
-        purchasableId: purchasableId
-      })
-        .then(() => {
-          this.error = '';
-        })
-        .catch(() => {
-          this.error = 'Unable to delete. Please try again or contact an administration';
-        })
-        .then(() => {
-          this.deleting = false;
-        });
-    },
     purchaseItem() {
       let purchase = {
         purchasable: this.itemToPurchase.purchasable.id,
@@ -232,6 +215,7 @@ export default {
         .then(() => {
           this.error = '';
           this.clearItem();
+          this.$store.dispatch('getPurchasables', { eventId: this.event.id });
         })
         .catch(() => {
           this.error = 'Unable to purchase item. Please refresh and try again';
@@ -248,7 +232,7 @@ export default {
         number,
         positive: (value) => { return value > 0 },
         maxValue: function (value) {
-          return !this.itemToPurchase.purchasable.purchaser_limit || value <= this.itemToPurchase.purchasable.purchaser_limit
+          return !this.itemToPurchase.purchasable.purchaser_limit || value <= (this.itemToPurchase.purchasable.purchaser_limit - this.itemToPurchase.purchasable.purchaser_count)
         }
       }
     }

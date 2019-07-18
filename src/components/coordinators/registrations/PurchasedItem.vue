@@ -32,6 +32,9 @@ export default {
     },
     scoutId: {
       required: true
+    },
+    eventId: {
+      required: true
     }
   },
   data () {
@@ -51,6 +54,7 @@ export default {
       })
         .then(() => {
           this.error = '';
+          this.$store.dispatch('getPurchasables', { eventId: this.eventId });
         })
         .catch(() => {
           this.error = 'Unable to delete. Please try again or contact an administration';
