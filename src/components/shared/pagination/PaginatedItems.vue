@@ -88,6 +88,10 @@ export default {
     table: {
       type: Boolean,
       default: false
+    },
+    ignoreRoute: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -100,13 +104,17 @@ export default {
       let query = _.clone(this.$route.query);
       query.page = toPage;
 
+      if (this.ignoreRoute) {
+        return;
+      }
+
       this.$router.replace({
         query: query
       });
     }
   },
   mounted() {
-    if (this.$route.query.page) {
+    if (this.$route.query.page && !this.ignoreRoute) {
       this.$refs.paginator.goToPage(this.$route.query.page);
     }
   }

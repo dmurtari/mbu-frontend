@@ -44,7 +44,8 @@
                        :target="'buyers'"
                        :contents="orderedBuyers"
                        :showLinks="true"
-                       :table="true">
+                       :table="true"
+                       :ignoreRoute="true">
         <thead slot="heading">
           <tr>
             <th @click="sort('scout.firstname')"
