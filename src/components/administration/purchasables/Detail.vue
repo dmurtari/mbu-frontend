@@ -38,12 +38,73 @@
           </span>
         </h5>
       </a>
+      <closable-error v-if="error">{{ error }}</closable-error>
+      <centered-spinner v-if="loading"></centered-spinner>
+      <paginated-items v-if="!error && !loading && showingBuyers"
+                       :target="'buyers'"
+                       :contents="orderedBuyers"
+                       :showLinks="true"
+                       :table="true">
+        <thead slot="heading">
+          <tr>
+            <th @click="sort('scout.firstname')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'scout.firstname' }">
+              First Name
+              <span class="icon is-small"
+                    v-if="order === 'scout.firstname'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-alpha-asc"></span>
+                <span v-else
+                      class="fa fa-sort-alpha-desc"></span>
+              </span>
+            </th>
+            <th @click="sort('scout.lastname')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'scout.lastname' }">
+              Last Name
+              <span class="icon is-small"
+                    v-if="order === 'scout.lastname'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-alpha-asc"></span>
+                <span v-else
+                      class="fa fa-sort-alpha-desc"></span>
+              </span>
+            </th>
+            <th @click="sort('scout.troop')"
+                class="sortable"
+                :class="{ 'sorted-column': order === 'scout.troop' }">
+              Troop
+              <span class="icon is-small"
+                    v-if="order === 'scout.troop'">
+                <span v-if="sortAscending"
+                      class="fa fa-sort-numeric-asc"></span>
+                <span v-else
+                      class="fa fa-sort-numeric-desc"></span>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tr slot="row"
+            slot-scope="props">
+          <td>
+            {{ props.item.scout.firstname }}
+          </td>
+          <td>
+            {{ props.item.scout.lastname }}
+          </td>
+          <td>
+            {{ props.item.scout.troop }}
+          </td>
+        </tr>
+      </paginated-items>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import _ from 'lodash';
 
 import URLS from 'urls';
 
@@ -51,15 +112,23 @@ export default {
   data() {
     return {
       loading: false,
+      order: 'scout.troop',
       error: '',
       buyers: undefined,
-      showingBuyers: false
+      showingBuyers: false,
+      sortAscending: true
     };
   },
   props: {
     purchasable: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    orderedBuyers() {
+      let sortOrder = this.sortAscending ? 'asc' : 'desc';
+      return _.orderBy(this.buyers, this.order, sortOrder);
     }
   },
   methods: {
@@ -91,6 +160,14 @@ export default {
         .then(() => {
           this.loading = false;
         });
+    },
+    sort(order) {
+      if (order === this.order) {
+        this.sortAscending = !this.sortAscending;
+      } else {
+        this.order = order;
+        this.sortAscending = true;
+      }
     }
   }
 };
