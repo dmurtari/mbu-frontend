@@ -12,6 +12,9 @@
     <p v-if="purchasable.purchaser_limit">
       <b>Purchase Limit: </b>{{ purchasable.purchaser_limit }}
     </p>
+    <p>
+      <b>Quantity Purchased: </b>{{ purchasable.purchaser_count }}
+    </p>
     <p v-if="purchasable.has_size">
       <br>
       Scouts can pick a size for this item
@@ -34,5 +37,5 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
