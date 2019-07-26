@@ -84,6 +84,13 @@
                       class="fa fa-sort-numeric-desc"></span>
               </span>
             </th>
+            <th class="column-narrow">
+              Quantity
+            </th>
+            <th v-if="purchasable.has_size"
+                class="column-narrow">
+              Size
+            </th>
           </tr>
         </thead>
         <tr slot="row"
@@ -96,6 +103,12 @@
           </td>
           <td>
             {{ props.item.scout.troop }}
+          </td>
+          <td>
+            {{ props.item.purchases[0].details.quantity }}
+          </td>
+          <td v-if="purchasable.has_size">
+            {{ props.item.purchases[0].details.size | upperCase }}
           </td>
         </tr>
       </paginated-items>
@@ -181,5 +194,9 @@ export default {
 
 .toggle-icons {
   padding-left: 10px;
+}
+
+.column-narrow {
+  width: 100px;
 }
 </style>
