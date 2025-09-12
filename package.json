@@ -13,7 +13,7 @@
     "test:unit:watch": "vue-cli-service test:unit --watch \"src/**/*Spec.js\""
   },
   "dependencies": {
-    "axios": "0.18.1",
+    "axios": "1.12.0",
     "bulma": "0.7.4",
     "lodash": "4.17.13",
     "moment": "2.24.0",
